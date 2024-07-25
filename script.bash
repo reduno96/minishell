@@ -1,12 +1,24 @@
 #!/bin/bash
 # Simple script to greet the user
+42 -c
 
-echo "Enter your name:"
-read -r name
-echo "Hello, $name!"
+42 -brew
 
-# Using additional bash features
-echo "Enter two numbers:"
-read -r num1 num2
-sum=$((num1 + num2))
-echo "The sum is: $sum"
+42 -c
+
+brew install readline
+
+
+brew link readline --force
+
+brew --prefix readline
+
+
+export LDFLAGS="-L/goinfre/rel-mora/homebrew/opt/readline/lib"
+export CPPFLAGS="-I/goinfre/rel-mora/homebrew/opt/readline/include"
+
+
+
+source ~/.zshrc
+
+#gcc -Wall -Wextra -Werror main.c -lreadline -L/goinfre/rel-mora/homebrew/opt/readline/lib -I/goinfre/rel-mora/homebrew/opt/readline/include
