@@ -15,9 +15,13 @@ NAME = minishell
 LIBFT = ./includes/libft/libft.a
 FLDLIBFT= ./includes/libft
 
-#include readLine
-INRL = -lreadline -L/goinfre/rel-mora/homebrew/opt/readline/lib
-LNRL= -lreadline -L/goinfre/rel-mora/homebrew/opt/readline/include
+#include readLine in MacOS
+# INRL = -lreadline -L/goinfre/rel-mora/homebrew/opt/readline/lib
+# LNRL= -lreadline -L/goinfre/rel-mora/homebrew/opt/readline/include
+
+# include readLine in Linux
+INRL = -lreadline -L/usr/include/readline
+LNRL= -lreadline -L/usr/include/readline
 
 
 
@@ -27,7 +31,7 @@ all : ${LIBFT} ${NAME}
 	${CC} ${CFLAGS} -c  $< -o $@
 
 ${NAME} : minishell.h
-		${CC} ${FLAGS} ${LIBFT} ${INRL} ${LNRL} ${SRC} -o ${NAME}
+		${CC} ${FLAGS}   ${SRC} ${LIBFT} ${INRL} ${LNRL} -o ${NAME}
 
 ${LIBFT}:
 	make -C ${FLDLIBFT}
