@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:23:44 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/25 16:32:22 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:18:04 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ int ft_search(char *s, char *d)
 
 int ft_isspace(char c)
 {
-    return ((c == ' ' || c == '\t'));
+    return ((c == ' ' || c == '\t' || c == '\n'));
 }

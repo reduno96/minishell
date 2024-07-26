@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/26 08:24:03 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/26 19:55:13 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ typedef struct s_command
 // function we use
 int						ft_search(char *s, char *d);
 int						ft_isspace(char c);
-void					ft_lexer(char *input, t_command **x);
+void					ft_lexer(char *input, t_list *x);
 #endif
