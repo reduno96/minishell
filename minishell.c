@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/27 17:58:31 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/28 11:02:06 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	main(int ac, char **av, char **env)
 		if (!str_input)
 			exit(1);
 		ft_lexer(str_input, &x);
+		free(x);
+		x = NULL;
 		if (ft_search(str_input, "exit"))
 			exit(0);
 		// free(&x);

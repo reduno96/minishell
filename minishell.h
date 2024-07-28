@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/28 08:17:04 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/28 11:02:52 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_idx
 	int					i;
 	int					len;
 	int					start;
+	int					state;
 	int					in_s_quote;
 	int					in_d_quote;
 }						t_idx;
@@ -45,6 +46,7 @@ typedef enum e_state
 	IN_DQUOTE,
 	IN_SQUOTE,
 	GENERAL,
+	NUL,
 }						t_state;
 typedef struct s_command
 {
@@ -81,5 +83,6 @@ typedef struct s_command
 int						ft_search(char *s, char *d);
 int						ft_isspace(char c);
 void					print_str_input(void *str_input);
-void					ft_lexer(char *input, t_command **x);
+void print_t_command(t_command *cmd);
+void ft_lexer(char *input, t_command **x);
 #endif
