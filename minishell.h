@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/28 11:42:31 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:36:46 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,17 @@ typedef struct s_idx
 	int					in_d_quote;
 }						t_idx;
 
-typedef enum					e_token
+typedef enum e_token
 {
-	WORD ,
-	WHITE_SPACE ,
-	NEW_LINE ,
-	QOUTE ,
-	DOUBLE_QUOTE ,
-	ESCAPE ,
-	ENV,
-	PIPE_LINE,
-	REDIR_IN ,
-	REDIR_OUT ,
+	WORD = -1,
+	WHITE_SPACE = ' ',
+	NEW_LINE = '\n',
+	QOUTE = '\'',
+	DOUBLE_QUOTE = '\"',
+	ENV = '$',
+	PIPE_LINE = '|',
+	REDIR_IN = '<',
+	REDIR_OUT = '>',
 	HERE_DOC,
 	DREDIR_OUT,
 }						t_token;
@@ -83,6 +82,9 @@ typedef struct s_command
 int						ft_search(char *s, char *d);
 int						ft_isspace(char c);
 void					print_str_input(void *str_input);
-void print_t_command(t_command *cmd);
-void ft_lexer(char *input, t_command **x);
+void					print_t_command(t_command *cmd);
+t_token					ft_get_token(char str_input);
+int ft_check_input(char str_input);
+t_state ft_get_state(t_idx *var, char str_input);
+void					ft_lexer(char *input, t_command **x);
 #endif

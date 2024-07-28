@@ -1,5 +1,5 @@
 SRC= minishell.c \
-	utils.c \
+	lexer_utils.c \
 	lexer.c \
 
 OBJ = ${SRC:.c=.o}
