@@ -6,17 +6,17 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:50:49 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/01/10 18:01:04 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:09:48 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_command	*ft_lstmap(t_command *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new_lst;
-	t_list	*temp_lst;
-	t_list	*new_node;
+	t_command	*new_lst;
+	t_command	*temp_lst;
+	t_command	*new_node;
 	void	*new_content;
 
 	if (!lst || !f || !del)
@@ -25,15 +25,15 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	new_lst = NULL;
 	while (temp_lst != NULL)
 	{
-		new_content = f(temp_lst->content);
-		new_node = ft_lstnew(new_content);
+		new_content = f(temp_lst->str_input);
+		new_node = ft_lstnew(new_content, 100, WORD, GENERAL);
 		if (!new_node)
 		{
 			del(new_content);
 			ft_lstclear(&new_lst, del);
 			return (NULL);
 		}
-		ft_lstadd_back(&new_lst, new_node);
+		ft_add(&new_lst, new_node);
 		temp_lst = temp_lst->next;
 	}
 	return (new_lst);

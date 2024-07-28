@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/26 19:55:13 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/28 08:17:04 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,43 @@
 
 # define _GNU_SOURCE
 
+typedef struct s_idx
+{
+	int					i;
+	int					len;
+	int					start;
+	int					in_s_quote;
+	int					in_d_quote;
+}						t_idx;
+
+typedef enum					e_token
+{
+	WORD = -1,
+	WHITE_SPACE = ' ',
+	NEW_LINE = '\n',
+	QOUTE = '\'',
+	DOUBLE_QUOTE = '\"',
+	ESCAPE = '\\',
+	ENV = '$',
+	PIPE_LINE = '|',
+	REDIR_IN = '<',
+	REDIR_OUT = '>',
+	HERE_DOC,
+	DREDIR_OUT,
+}						t_token;
+
+typedef enum e_state
+{
+	IN_DQUOTE,
+	IN_SQUOTE,
+	GENERAL,
+}						t_state;
 typedef struct s_command
 {
 	char				*str_input;
 	int					len;
+	enum e_token		type;
+	enum e_state		state;
 	struct s_command	*next;
 }						t_command;
 
@@ -47,5 +80,6 @@ typedef struct s_command
 // function we use
 int						ft_search(char *s, char *d);
 int						ft_isspace(char c);
-void					ft_lexer(char *input, t_list *x);
+void					print_str_input(void *str_input);
+void					ft_lexer(char *input, t_command **x);
 #endif
