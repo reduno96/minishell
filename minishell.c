@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/28 11:02:06 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/28 11:51:18 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int ac, char **av, char **env)
 		str_input = readline("minishell: ");
 		if (!str_input)
 			exit(1);
+		add_history(str_input);
 		ft_lexer(str_input, &x);
 		free(x);
 		x = NULL;

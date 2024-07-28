@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/28 11:02:52 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/28 11:42:31 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ typedef struct s_idx
 
 typedef enum					e_token
 {
-	WORD = -1,
-	WHITE_SPACE = ' ',
-	NEW_LINE = '\n',
-	QOUTE = '\'',
-	DOUBLE_QUOTE = '\"',
-	ESCAPE = '\\',
-	ENV = '$',
-	PIPE_LINE = '|',
-	REDIR_IN = '<',
-	REDIR_OUT = '>',
+	WORD ,
+	WHITE_SPACE ,
+	NEW_LINE ,
+	QOUTE ,
+	DOUBLE_QUOTE ,
+	ESCAPE ,
+	ENV,
+	PIPE_LINE,
+	REDIR_IN ,
+	REDIR_OUT ,
 	HERE_DOC,
 	DREDIR_OUT,
 }						t_token;

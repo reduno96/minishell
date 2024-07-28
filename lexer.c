@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/28 11:25:42 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/28 12:35:21 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_state	ft_get_state(t_idx *var, char str_input)
 		return (GENERAL);
 	return (3);
 }
+
 void	ft_get_word(char *str_input, t_idx *var, t_command **x)
 {
 	while (str_input[var->i] && !ft_check_input(str_input[var->i]))
@@ -99,8 +100,37 @@ void	ft_get_word(char *str_input, t_idx *var, t_command **x)
 		var->i++;
 		var->len++;
 	}
-	ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len), var->len, WORD,
-			var->state));
+	ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len), var->len,
+			WORD, var->state));
+}
+
+void	ft_get_char(char *str_input, t_idx *var, t_command **x)
+{
+	var->len++;
+	if (str_input[var->i] == '$' && !ft_check_input(str_input[var->i + 1]))
+	{
+		printf("I'm Here\n");
+		while (str_input[var->i] && !ft_check_input(str_input[var->i + 1]))
+		{
+			var->state = ft_get_state(var, str_input[var->i]);
+			var->i++;
+			var->len++;
+		}
+		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
+				var->len, ENV, var->state));
+	}
+	else
+	{
+		if (str_input[var->i] == '>' && str_input[var->i + 1] == '>')
+		{
+			var->len++;
+			var->i++;
+		}
+		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
+				var->len, ft_get_token(str_input[var->i]), ft_get_state(var,
+					str_input[var->i])));
+	}
+	var->i++;
 }
 void	ft_lexer(char *str_input, t_command **x)
 {
@@ -116,13 +146,7 @@ void	ft_lexer(char *str_input, t_command **x)
 		if (str_input[var.i] && !ft_check_input(str_input[var.i]))
 			ft_get_word(str_input, &var, x);
 		else if (str_input[var.i] && ft_check_input(str_input[var.i]))
-		{
-			var.len++;
-			ft_add(x, ft_lstnew(ft_substr(str_input, var.start, var.len),
-					var.len, ft_get_token(str_input[var.i]), ft_get_state(&var,
-						str_input[var.i])));
-			var.i++;
-		}
+			ft_get_char(str_input, &var, x);
 	}
 	print_t_command(*x);
 }
