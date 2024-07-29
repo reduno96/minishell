@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:50:49 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/27 17:09:48 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:55:38 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_command	*ft_lstmap(t_command *lst, void *(*f)(void *), void (*del)(void *))
 	t_command	*new_lst;
 	t_command	*temp_lst;
 	t_command	*new_node;
-	void	*new_content;
+	void		*new_content;
 
 	if (!lst || !f || !del)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/28 18:36:46 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:25:59 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@
 
 typedef struct s_idx
 {
-	int					i;
-	int					len;
-	int					start;
-	int					state;
-	int					in_s_quote;
-	int					in_d_quote;
-}						t_idx;
+	int						i;
+	int						j;
+	int						len;
+	int						start;
+	int						state;
+	int						in_s_quote;
+	int						in_d_quote;
+}							t_idx;
 
 typedef enum e_token
 {
@@ -38,7 +39,7 @@ typedef enum e_token
 	REDIR_OUT = '>',
 	HERE_DOC,
 	DREDIR_OUT,
-}						t_token;
+}							t_token;
 
 typedef enum e_state
 {
@@ -46,18 +47,22 @@ typedef enum e_state
 	IN_SQUOTE,
 	GENERAL,
 	NUL,
-}						t_state;
+}							t_state;
 typedef struct s_command
 {
-	char				*str_input;
-	int					len;
-	enum e_token		type;
-	enum e_state		state;
-	struct s_command	*next;
-}						t_command;
+	char					*str_input;
+	int						len;
+	enum e_token			type;
+	enum e_state			state;
+	struct s_command		*next;
+}							t_command;
 
-// IT IS IMPORTANT TO REMOVE THE LIBRARIES WE USED
-# include <string.h>
+typedef struct s_environment
+{
+	char					*line;
+	struct s_environment	*next;
+}							t_environment;
+
 
 // call all the libriries we need in the project
 # include "./includes/libft/libft.h"
@@ -79,12 +84,24 @@ typedef struct s_command
 # include <unistd.h>
 
 // function we use
-int						ft_search(char *s, char *d);
-int						ft_isspace(char c);
-void					print_str_input(void *str_input);
-void					print_t_command(t_command *cmd);
-t_token					ft_get_token(char str_input);
-int ft_check_input(char str_input);
-t_state ft_get_state(t_idx *var, char str_input);
-void					ft_lexer(char *input, t_command **x);
+int							ft_search(char *s, char *d);
+int							ft_isspace(char c);
+void						print_str_input(void *str_input);
+void						print_t_command(t_command *cmd);
+t_token						ft_get_token(char str_input);
+int							ft_check_input(char str_input);
+t_state						ft_get_state(t_idx *var, char str_input);
+int							ft_handler_syn_error(t_command **x);
+void						ft_lexer(char *input, t_command **x);
+
+void						ft_fill_env(t_environment **my_env, char **env);
+int							ft_search_env(char *s, char *d);
+void						ft_check_env(t_command **x, t_environment *my_env);
+void						ft_add_node(t_environment **lst,
+								t_environment *new);
+t_environment				*ft_new_node(void *content);
+t_environment				*ft_last_node(t_environment *lst);
+void						check_syn(t_command **x);
+void	ft_free_env(t_command *x);
+
 #endif

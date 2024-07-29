@@ -1,6 +1,9 @@
 SRC= minishell.c \
 	lexer_utils.c \
 	lexer.c \
+	ft_handle_synx.c \
+	ft_synx_utils.c \
+	ft_free.c \
 
 OBJ = ${SRC:.c=.o}
 

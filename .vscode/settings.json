@@ -1,7 +1,11 @@
 {
   "files.associations": {
     "*.c": "c",
-    "history.h": "c"
+    "history.h": "c",
+    "minishell.h": "c",
+    "errno.h": "c",
+    "libft.h": "c",
+    "curses.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

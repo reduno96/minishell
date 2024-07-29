@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/28 19:05:53 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:46:39 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ t_state	ft_get_state(t_idx *var, char str_input)
 		return (var->in_d_quote = 1, GENERAL);
 	else if (var->in_d_quote == 1 && str_input == '\"' && var->in_s_quote == -1)
 		return (var->in_d_quote = -1, GENERAL);
-	else if (var->in_d_quote == 1 && ft_isprint(str_input) && var->in_s_quote ==
-		-1)
+	else if (var->in_d_quote == 1 && ft_isprint(str_input)
+		&& var->in_s_quote == -1)
 		return (IN_DQUOTE);
 	else if (var->in_d_quote == -1 && ft_isprint(str_input)
 		&& var->in_s_quote == -1 && str_input != '\'')
 		return (GENERAL);
-	else if (var->in_s_quote == -1 && str_input == '\'' && var->in_d_quote ==
-		-1)
+	else if (var->in_s_quote == -1 && str_input == '\''
+		&& var->in_d_quote == -1)
 		return (var->in_s_quote = 1, GENERAL);
 	else if (var->in_s_quote == 1 && str_input == '\'' && var->in_d_quote == -1)
 		return (var->in_s_quote = -1, GENERAL);
-	else if (var->in_s_quote == 1 && ft_isprint(str_input) && var->in_d_quote ==
-		-1)
+	else if (var->in_s_quote == 1 && ft_isprint(str_input)
+		&& var->in_d_quote == -1)
 		return (IN_SQUOTE);
 	else if (var->in_s_quote == -1 && ft_isprint(str_input)
 		&& var->in_d_quote == -1 && str_input != '\"')
@@ -61,6 +61,7 @@ void	ft_her_dir(t_command **x, t_idx *var, char *str_input)
 		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
 				var->len, DREDIR_OUT, ft_get_state(var, str_input[var->i])));
 }
+
 void	ft_get_char(char *str_input, t_idx *var, t_command **x)
 {
 	var->len++;
@@ -104,6 +105,5 @@ void	ft_lexer(char *str_input, t_command **x)
 		else if (str_input[var.i] && ft_check_input(str_input[var.i]))
 			ft_get_char(str_input, &var, x);
 	}
-	// ft_handler_syn_error(x);
-	print_t_command(*x);
+	check_syn(x);
 }

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/24 21:18:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 15:54:43 by rel-mora         ###   ########.fr       */
+/*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
+/*   Updated: 2024/07/29 16:20:31 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-t_command	*ft_lstnew(void *content, int len, t_token type, t_state state)
+
+void	ft_free_env(t_command *x)
 {
-	t_command	*new_node;
+	t_command	*tmp;
 
-	new_node = malloc(sizeof(t_command));
-	if (!new_node)
-		return (NULL);
-	new_node->str_input = content;
-	new_node->len = len;
-	new_node->type = type;
-	new_node->state = state;
-	new_node->next = NULL;
-	return (new_node);
+	while (x != NULL)
+	{
+		tmp = x;
+		x = x->next;
+		free(tmp->str_input);
+		free(tmp);
+	}
 }
+
