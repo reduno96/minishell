@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:05:55 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,23 @@ void	print_env(t_environment **my_env)
 	}
 }
 
-int	ft_search_env(char *s, char *d)
+void ft_commad(t_splitor **x,t_environment **my_env)
 {
-	int	i;
-	int	j;
-	int	len;
+	t_splitor *tmp_x;
 
-	i = 0;
-	j = 0;
-	len = ft_strlen(d);
-	while (s[i] && s[i])
+	tmp_x = *x;
+	while(tmp_x != NULL)
 	{
-		if (s[i] == d[j])
-			j++;
-		if (len == j && s[i + 1] == '=')
-			return (i);
-		i++;
+
+		tmp_x = tmp_x->next;
 	}
-	return (0);
+
 }
 
 int	main(int ac, char **av, char **env)
 {
 	char			*str_input;
-	t_command		*x;
+	t_splitor		*x;
 	t_environment	*my_env;
 
 	x = NULL;
@@ -65,7 +58,8 @@ int	main(int ac, char **av, char **env)
 			exit(1);
 		add_history(str_input);
 		ft_lexer(str_input, &x);
-		ft_check_env(&x, my_env);
+		ft_check_env(&x, &my_env);
+		ft_command(x, my_env);
 		ft_free_env(x);
 		x = NULL;
 		if (ft_search(str_input, "exit"))

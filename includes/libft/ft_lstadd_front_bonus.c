@@ -6,13 +6,13 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 12:41:58 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/27 11:04:17 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_command **lst, t_command *new)
+void	ft_lstadd_front(t_splitor **lst, t_splitor *new)
 {
 	if (new || lst)
 	{

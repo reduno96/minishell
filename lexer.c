@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 15:46:39 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_state	ft_get_state(t_idx *var, char str_input)
 	return (3);
 }
 
-void	ft_get_word(char *str_input, t_idx *var, t_command **x)
+void	ft_get_word(char *str_input, t_idx *var, t_splitor **x)
 {
 	while (str_input[var->i] && !ft_check_input(str_input[var->i]))
 	{
@@ -50,7 +50,7 @@ void	ft_get_word(char *str_input, t_idx *var, t_command **x)
 			WORD, var->state));
 }
 
-void	ft_her_dir(t_command **x, t_idx *var, char *str_input)
+void	ft_her_dir(t_splitor **x, t_idx *var, char *str_input)
 {
 	var->len++;
 	var->i++;
@@ -62,7 +62,7 @@ void	ft_her_dir(t_command **x, t_idx *var, char *str_input)
 				var->len, DREDIR_OUT, ft_get_state(var, str_input[var->i])));
 }
 
-void	ft_get_char(char *str_input, t_idx *var, t_command **x)
+void	ft_get_char(char *str_input, t_idx *var, t_splitor **x)
 {
 	var->len++;
 	if (str_input[var->i] == '$' && !ft_check_input(str_input[var->i + 1]))
@@ -89,7 +89,7 @@ void	ft_get_char(char *str_input, t_idx *var, t_command **x)
 	var->i++;
 }
 
-void	ft_lexer(char *str_input, t_command **x)
+void	ft_lexer(char *str_input, t_splitor **x)
 {
 	t_idx	var;
 

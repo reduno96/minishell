@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:28:45 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,29 @@ void	ft_fill_env(t_environment **my_env, char **env)
 	//  print_env(my_env);
 }
 
-void	ft_check_env(t_command **x, t_environment *my_env)
+int	ft_search_env(char *s, char *d)
 {
-	t_command		*tmp_cmd;
+	int	i;
+	int	j;
+	int	len;
+
+	i = 0;
+	j = 0;
+	len = ft_strlen(d);
+	while (s[i] && s[i])
+	{
+		if (s[i] == d[j])
+			j++;
+		if (len == j && s[i + 1] == '=')
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+void	ft_check_env(t_splitor **x, t_environment *my_env)
+{
+	t_splitor		*tmp_cmd;
 	t_environment	*tmp_env;
 	int				len;
 
@@ -53,10 +73,10 @@ void	ft_check_env(t_command **x, t_environment *my_env)
 	}
 }
 
-int	ft_handler_syn_error(t_command **x)
+int	ft_handler_syn_error(t_splitor **x)
 {
-	t_command	*end;
-	t_command	*start;
+	t_splitor	*end;
+	t_splitor	*start;
 
 	if (!(*x))
 		return (0);
@@ -71,7 +91,7 @@ int	ft_handler_syn_error(t_command **x)
 	return (0);
 }
 
-void	check_syn(t_command **x)
+void	check_syn(t_splitor **x)
 {
 	if (ft_handler_syn_error(x))
 		ft_putstr_fd("Syntax Error:\n", 2);

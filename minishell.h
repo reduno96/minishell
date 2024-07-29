@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:25:59 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:54:44 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,27 @@ typedef enum e_state
 	GENERAL,
 	NUL,
 }							t_state;
-typedef struct s_command
+typedef struct s_splitor
 {
 	char					*str_input;
 	int						len;
 	enum e_token			type;
 	enum e_state			state;
-	struct s_command		*next;
-}							t_command;
+	struct s_splitor		*next;
+}							t_splitor;
 
 typedef struct s_environment
 {
 	char					*line;
 	struct s_environment	*next;
 }							t_environment;
+
+typedef struct s_command
+{
+	char *content;
+	char *arg;
+	struct s_command *next;
+}	t_command;
 
 
 // call all the libriries we need in the project
@@ -87,21 +94,21 @@ typedef struct s_environment
 int							ft_search(char *s, char *d);
 int							ft_isspace(char c);
 void						print_str_input(void *str_input);
-void						print_t_command(t_command *cmd);
+void						print_t_command(t_splitor *cmd);
 t_token						ft_get_token(char str_input);
 int							ft_check_input(char str_input);
 t_state						ft_get_state(t_idx *var, char str_input);
-int							ft_handler_syn_error(t_command **x);
-void						ft_lexer(char *input, t_command **x);
+int							ft_handler_syn_error(t_splitor **x);
+void						ft_lexer(char *input, t_splitor **x);
 
 void						ft_fill_env(t_environment **my_env, char **env);
 int							ft_search_env(char *s, char *d);
-void						ft_check_env(t_command **x, t_environment *my_env);
+void						ft_check_env(t_splitor **x, t_environment *my_env);
 void						ft_add_node(t_environment **lst,
 								t_environment *new);
 t_environment				*ft_new_node(void *content);
 t_environment				*ft_last_node(t_environment *lst);
-void						check_syn(t_command **x);
-void	ft_free_env(t_command *x);
+void						check_syn(t_splitor **x);
+void	ft_free_env(t_splitor *x);
 
 #endif

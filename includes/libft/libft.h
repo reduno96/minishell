@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 22:48:56 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:26:24 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
-t_command	*ft_lstnew(void *content, int len, t_token type, t_state state);
-void		ft_lstadd_front(t_command **lst, t_command *new);
-int			ft_lstsize(t_command *lst);
-t_command	*ft_lstlast(t_command *lst);
-void		ft_add(t_command **lst, t_command *new);
-void		ft_lstdelone(t_command *lst, void (*del)(void *));
-void		ft_lstclear(t_command **lst, void (*del)(void *));
-void		ft_lstiter(t_command *lst, void (*f)(void *));
-t_command	*ft_lstmap(t_command *lst, void *(*f)(void *), void (*del)(void *));
+t_splitor	*ft_lstnew(void *content, int len, t_token type, t_state state);
+void		ft_lstadd_front(t_splitor **lst, t_splitor *new);
+int			ft_lstsize(t_splitor *lst);
+t_splitor	*ft_lstlast(t_splitor *lst);
+void		ft_add(t_splitor **lst, t_splitor *new);
+void		ft_lstdelone(t_splitor *lst, void (*del)(void *));
+void		ft_lstclear(t_splitor **lst, void (*del)(void *));
+void		ft_lstiter(t_splitor *lst, void (*f)(void *));
+t_splitor	*ft_lstmap(t_splitor *lst, void *(*f)(void *), void (*del)(void *));
 #endif

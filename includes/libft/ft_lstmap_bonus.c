@@ -6,17 +6,17 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 14:50:49 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 15:55:38 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_command	*ft_lstmap(t_command *lst, void *(*f)(void *), void (*del)(void *))
+t_splitor	*ft_lstmap(t_splitor *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_command	*new_lst;
-	t_command	*temp_lst;
-	t_command	*new_node;
+	t_splitor	*new_lst;
+	t_splitor	*temp_lst;
+	t_splitor	*new_node;
 	void		*new_content;
 
 	if (!lst || !f || !del)

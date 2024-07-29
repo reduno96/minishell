@@ -6,17 +6,17 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 21:18:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 15:54:43 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_command	*ft_lstnew(void *content, int len, t_token type, t_state state)
+t_splitor	*ft_lstnew(void *content, int len, t_token type, t_state state)
 {
-	t_command	*new_node;
+	t_splitor	*new_node;
 
-	new_node = malloc(sizeof(t_command));
+	new_node = malloc(sizeof(t_splitor));
 	if (!new_node)
 		return (NULL);
 	new_node->str_input = content;
