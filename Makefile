@@ -4,6 +4,7 @@ SRC= minishell.c \
 	ft_handle_synx.c \
 	ft_synx_utils.c \
 	ft_free.c \
+	parsser_utils.c \
 
 OBJ = ${SRC:.c=.o}
 
@@ -30,10 +31,10 @@ LNRL= -lreadline -L/goinfre/rel-mora/homebrew/opt/readline/include
 
 all : ${LIBFT} ${NAME}
 
-%.o: %.c minishell.h
+%.o: %.c minishell.h 
 	${CC} ${CFLAGS} -c  $< -o $@
 
-${NAME} : minishell.h
+${NAME} : minishell.h ${OBJ}
 		${CC} ${FLAGS}   ${SRC} ${LIBFT} ${INRL} ${LNRL} -o ${NAME}
 
 ${LIBFT}:

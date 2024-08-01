@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/31 10:58:34 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ t_state	ft_get_state(t_idx *var, char str_input)
 		return (var->in_d_quote = 1, GENERAL);
 	else if (var->in_d_quote == 1 && str_input == '\"' && var->in_s_quote == -1)
 		return (var->in_d_quote = -1, GENERAL);
-	else if (var->in_d_quote == 1 && ft_isprint(str_input)
-		&& var->in_s_quote == -1)
+	else if (var->in_d_quote == 1 && ft_isprint(str_input) && var->in_s_quote ==
+		-1)
 		return (IN_DQUOTE);
 	else if (var->in_d_quote == -1 && ft_isprint(str_input)
 		&& var->in_s_quote == -1 && str_input != '\'')
 		return (GENERAL);
-	else if (var->in_s_quote == -1 && str_input == '\''
-		&& var->in_d_quote == -1)
+	else if (var->in_s_quote == -1 && str_input == '\'' && var->in_d_quote ==
+		-1)
 		return (var->in_s_quote = 1, GENERAL);
 	else if (var->in_s_quote == 1 && str_input == '\'' && var->in_d_quote == -1)
 		return (var->in_s_quote = -1, GENERAL);
-	else if (var->in_s_quote == 1 && ft_isprint(str_input)
-		&& var->in_d_quote == -1)
+	else if (var->in_s_quote == 1 && ft_isprint(str_input) && var->in_d_quote ==
+		-1)
 		return (IN_SQUOTE);
 	else if (var->in_s_quote == -1 && ft_isprint(str_input)
 		&& var->in_d_quote == -1 && str_input != '\"')
@@ -106,4 +106,5 @@ void	ft_lexer(char *str_input, t_splitor **x)
 			ft_get_char(str_input, &var, x);
 	}
 	check_syn(x);
+	print_t_command(*x);
 }

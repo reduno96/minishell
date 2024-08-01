@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:54:44 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:20:44 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ typedef struct s_idx
 	int						in_s_quote;
 	int						in_d_quote;
 }							t_idx;
+
+typedef struct s_info
+{
+	char					*s;
+	char					*i;
+	char					*o;
+	char					*h;
+	char					*d;
+}							t_info;
 
 typedef enum e_token
 {
@@ -65,11 +74,14 @@ typedef struct s_environment
 
 typedef struct s_command
 {
-	char *content;
-	char *arg;
-	struct s_command *next;
-}	t_command;
-
+	char					*content;
+	char					*arg;
+	char					*r_in;
+	char					*r_out;
+	char					*h_doc;
+	char					*dr_out;
+	struct s_command		*next;
+}							t_command;
 
 // call all the libriries we need in the project
 # include "./includes/libft/libft.h"
@@ -109,6 +121,9 @@ void						ft_add_node(t_environment **lst,
 t_environment				*ft_new_node(void *content);
 t_environment				*ft_last_node(t_environment *lst);
 void						check_syn(t_splitor **x);
-void	ft_free_env(t_splitor *x);
+void						ft_free_env(t_splitor *x);
+void						ft_add_commad(t_command **lst, t_command *new);
 
+t_command					*ft_new_command(t_info *arg);
+t_command					*ft_last_commad(t_command *lst);
 #endif
