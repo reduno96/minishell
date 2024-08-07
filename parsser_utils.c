@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 07:25:23 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:14:52 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x)
 	}
 	else if ((*tmp_x) != NULL && (*tmp_x)->type != '|')
 		ft_not_pipe(&new_node, &i, tmp_x);
+	new_node->content = new_node->arg[0];
 	new_node->doc = NULL;
 	ft_check_doc(&new_node);
 	return (new_node);

@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 08:00:14 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:26:34 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ typedef struct s_idx
 	int						in_s;
 	int						in_d;
 }							t_idx;
-
-typedef struct s_info
-{
-	char					**s;
-	char					*i;
-	char					*o;
-	char					*h;
-	char					*d;
-}							t_info;
 
 typedef enum e_token
 {

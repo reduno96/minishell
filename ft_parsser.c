@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 07:54:15 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:25:30 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	ft_command(t_splitor **x, t_environment **my_env, t_command **cmd)
 		i = 0;
 		while (tmp_cmd->arg[i] != NULL)
 		{
-			printf("Argument: %s\n", tmp_cmd->arg[i]);
+			printf("Argument: %s \n", tmp_cmd->arg[i]);
+			printf("content %s \n", tmp_cmd->content);
 			printf("==dir_in< : %s\n", tmp_cmd->doc->dir_in);
 			printf("==dir_out> : %s\n ", tmp_cmd->doc->dir_out);
 			printf("==doc_here<< : %s\n", tmp_cmd->doc->doc_here);
