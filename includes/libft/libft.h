@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 22:48:56 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/30 21:55:31 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 08:01:14 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 
 # include "../../minishell.h"
+# include "../../structures.h"
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
