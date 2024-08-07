@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/06 18:29:09 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:04:22 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,40 @@ void	ft_check_env(t_splitor **x, t_environment *my_env)
 
 int	ft_handler_syn_error(t_splitor **x)
 {
-	t_splitor	*end;
 	t_splitor	*start;
 
 	if (!(*x))
 		return (0);
 	start = *x;
-	if (start->type == '|' || ((start->type == '<' || start->type == '>')
-			&& start->next == NULL) || ((start->in[0] == '\''
-				|| start->in[0] == '\"') && start->next == NULL))
-		return (1);
-	end = ft_lstlast(start);
-	if (end->state == D || end->state == S || end->type == '|')
-		return (1);
+	while (start != NULL)
+	{
+		if (start->type == '|' || ((start->type != ' ' && start->type != -1
+					&& start->type != '$')))
+		{
+			if (start != NULL)
+				start = start->next;
+			ft_skeep_space(&start);
+			if (start == NULL || (start->type != ' ' && start->type != -1
+					&& start->type != '$'))
+				return (1);
+		}
+		else
+		{
+			while ((start != NULL) && (start->type == ' ' || start->type == -1
+					|| start->type == '$'))
+				start = start->next;
+		}
+	}
 	return (0);
 }
 
 void	check_syn(t_splitor **x)
 {
+	// (void)x;
 	if (ft_handler_syn_error(x))
+	{
 		ft_putstr_fd("Syntax Error:\n", 2);
-	// if (ft_check_expand(x))
-	// 	printf("and I'm here");
+		// exit(1);
+	} // if (ft_check_expand(x))
+		// 	printf("and I'm here");
 }
