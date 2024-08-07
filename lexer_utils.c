@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:23:44 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 07:14:08 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 07:53:11 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_search(char *s, char *d)
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(d);
+	len = ft_strlen(s);
 	while (s[i] && s[i])
 	{
 		if (s[i] == d[j])

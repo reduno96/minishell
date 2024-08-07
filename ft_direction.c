@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 07:35:09 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 07:45:30 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	ft_check_doc(t_command **new_node)
 	ft_set_doc(new_node);
 	while (((*new_node)->arg) && (*new_node)->arg[i] != NULL)
 	{
-		if (ft_strchr((*new_node)->arg[i], '<'))
+		if (ft_search((*new_node)->arg[i], "<"))
 			(*new_node)->doc->dir_in = ft_strdup((*new_node)->arg[i]);
-		else if (ft_strchr((*new_node)->arg[i], '>'))
+		else if (ft_search((*new_node)->arg[i], ">"))
 			(*new_node)->doc->dir_out = ft_strdup((*new_node)->arg[i]);
 		else if (ft_search((*new_node)->arg[i], "<<"))
 			(*new_node)->doc->doc_here = ft_strdup((*new_node)->arg[i]);
