@@ -5,52 +5,90 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/30 20:07:29 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/31 14:22:55 by rel-mora         ###   ########.fr       */
+/*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
+/*   Updated: 2024/08/07 07:25:23 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_add_commad(t_command **lst, t_command *new)
+void	ft_skeep_space(t_splitor **tmp_x)
 {
-	t_command	*last;
+	while ((*tmp_x) != NULL && (*tmp_x)->type == ' ')
+		(*tmp_x) = (*tmp_x)->next;
+}
 
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
-	else
+int	ft_check_command(t_splitor *tmp_x)
+{
+	if (tmp_x != NULL && tmp_x->state == G && tmp_x->type != '\"'
+		&& tmp_x->type != '\'' && tmp_x->type != '|')
+		return (1);
+	else if (tmp_x != NULL && (tmp_x->state == D || tmp_x->state == S)
+		&& tmp_x->type != '|')
+		return (1);
+	else if (tmp_x != NULL && (tmp_x->state == D || tmp_x->state == S))
+		return (1);
+	return (0);
+}
+
+void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x)
+{
+	if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
+		&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
 	{
-		last = ft_last_commad(*lst);
-		last->next = new;
+		(*new_node)->arg[*i] = ft_strdup((*tmp_x)->in);
+		(*i)++;
+		(*new_node)->arg[*i] = NULL;
+		(*new_node)->next = NULL;
+		(*tmp_x) = (*tmp_x)->next;
+	}
+	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S)
+		&& (*tmp_x)->type != '|')
+	{
+		(*new_node)->arg[*i] = ft_strdup("");
+		while (tmp_x != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
+		{
+			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i],
+					(*tmp_x)->in);
+			(*tmp_x) = (*tmp_x)->next;
+		}
+		(*i)++;
+		(*new_node)->arg[*i] = NULL;
+		(*new_node)->next = NULL;
+	}
+	else if ((*tmp_x) != NULL)
+		(*tmp_x) = (*tmp_x)->next;
+}
+
+void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x)
+{
+	while ((*tmp_x) != NULL && (*tmp_x)->type != '|')
+	{
+		if ((*tmp_x) != NULL && (*tmp_x)->type != ' ')
+			ft_neuter_cmd(new_node, i, tmp_x);
+		ft_skeep_space(tmp_x);
 	}
 }
 
-t_command	*ft_new_command(t_info *arg)
+t_command	*ft_new_command(int count, t_splitor **tmp_x)
 {
 	t_command	*new_node;
+	int			i;
 
+	i = 0;
 	new_node = malloc(sizeof(t_command));
-	if (!new_node)
-		return (NULL);
-	new_node->content = arg->s;
-	new_node->r_in = arg->i;
-	new_node->r_out = arg->o;
-	new_node->h_doc = arg->h;
-	new_node->dr_out = arg->d;
-	new_node->next = NULL;
+	new_node->arg = malloc(sizeof(char *) * (count + 1));
+	if (((*tmp_x) != NULL && (*tmp_x)->type == '|'))
+	{
+		new_node->arg[i] = ft_strdup((*tmp_x)->in);
+		i++;
+		new_node->arg[i] = NULL;
+		new_node->next = NULL;
+		(*tmp_x) = (*tmp_x)->next;
+	}
+	else if ((*tmp_x) != NULL && (*tmp_x)->type != '|')
+		ft_not_pipe(&new_node, &i, tmp_x);
+	new_node->doc = NULL;
+	ft_check_doc(&new_node);
 	return (new_node);
-}
-
-t_command	*ft_last_commad(t_command *lst)
-{
-	t_command *last;
-
-	last = lst;
-	if (!lst)
-		return (NULL);
-	while (last->next != NULL)
-		last = last->next;
-	return (last);
 }

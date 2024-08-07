@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/31 14:20:44 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 07:31:20 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ typedef struct s_idx
 	int						len;
 	int						start;
 	int						state;
-	int						in_s_quote;
-	int						in_d_quote;
+	int						in_s;
+	int						in_d;
 }							t_idx;
 
 typedef struct s_info
 {
-	char					*s;
+	char					**s;
 	char					*i;
 	char					*o;
 	char					*h;
@@ -50,16 +50,24 @@ typedef enum e_token
 	DREDIR_OUT,
 }							t_token;
 
+typedef struct s_redirect
+{
+	char					*dir_in;
+	char					*dir_out;
+	char					*rdir;
+	char					*doc_here;
+}							t_redirect;
+
 typedef enum e_state
 {
-	IN_DQUOTE,
-	IN_SQUOTE,
-	GENERAL,
+	D,
+	S,
+	G,
 	NUL,
 }							t_state;
 typedef struct s_splitor
 {
-	char					*str_input;
+	char					*in;
 	int						len;
 	enum e_token			type;
 	enum e_state			state;
@@ -75,11 +83,8 @@ typedef struct s_environment
 typedef struct s_command
 {
 	char					*content;
-	char					*arg;
-	char					*r_in;
-	char					*r_out;
-	char					*h_doc;
-	char					*dr_out;
+	char					**arg;
+	t_redirect				*doc;
 	struct s_command		*next;
 }							t_command;
 
@@ -122,8 +127,18 @@ t_environment				*ft_new_node(void *content);
 t_environment				*ft_last_node(t_environment *lst);
 void						check_syn(t_splitor **x);
 void						ft_free_env(t_splitor *x);
-void						ft_add_commad(t_command **lst, t_command *new);
+void						ft_free_command(t_command *lst);
+void						ft_add_command(t_command **lst, t_command *new);
 
-t_command					*ft_new_command(t_info *arg);
-t_command					*ft_last_commad(t_command *lst);
+void						ft_skeep_space(t_splitor **tmp_x);
+
+int							ft_check_command(t_splitor *tmp_x);
+
+t_command					*ft_new_command(int count, t_splitor **tmp_x);
+t_command					*ft_last_command(t_command *lst);
+void						ft_command(t_splitor **x, t_environment **my_env,
+								t_command **cmd);
+void						print_env(t_environment **my_env);
+void						ft_check_doc(t_command **new_node);
+
 #endif

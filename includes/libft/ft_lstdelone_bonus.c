@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 11:51:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:30:36 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ void	ft_lstdelone(t_splitor *lst, void (*del)(void *))
 {
 	if (!lst || !del)
 		return ;
-	del(lst->str_input);
+	del(lst->in);
 	free(lst);
 }

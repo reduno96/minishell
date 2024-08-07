@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 11:50:53 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:30:36 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_lstiter(t_splitor *lst, void (*f)(void *))
 	node = lst;
 	while (node != NULL)
 	{
-		f(node->str_input);
+		f(node->in);
 		node = node->next;
 	}
 }

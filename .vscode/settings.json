@@ -5,7 +5,8 @@
     "minishell.h": "c",
     "errno.h": "c",
     "libft.h": "c",
-    "curses.h": "c"
+    "curses.h": "c",
+    "algorithm": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

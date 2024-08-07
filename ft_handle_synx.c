@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_synx.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:29:09 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_fill_env(t_environment **my_env, char **env)
 		return ;
 	while (env[var.i])
 		ft_add_node(my_env, ft_new_node(ft_strdup(env[var.i++])));
-	//  print_env(my_env);
+	print_env(my_env);
 }
 
 int	ft_search_env(char *s, char *d)
@@ -50,21 +50,21 @@ void	ft_check_env(t_splitor **x, t_environment *my_env)
 	t_environment	*tmp_env;
 	int				len;
 
-	len = 0;
 	tmp_cmd = *x;
 	tmp_env = my_env;
 	while (tmp_cmd != NULL)
 	{
-		if (tmp_cmd->type == '$')
+		if (tmp_cmd->type == '$' && tmp_cmd->state != S)
 		{
 			while (tmp_env != NULL)
 			{
-				len = ft_search_env(tmp_env->line, tmp_cmd->str_input + 1);
+				len = ft_search_env(tmp_env->line, tmp_cmd->in + 1);
 				if (len)
 				{
-					free(tmp_cmd->str_input);
-					tmp_cmd->str_input = ft_substr(tmp_env->line, len + 2,
+					free(tmp_cmd->in);
+					tmp_cmd->in = ft_substr(tmp_env->line, len + 2,
 							ft_strlen(tmp_env->line + len + 1));
+					break ;
 				}
 				tmp_env = tmp_env->next;
 			}
@@ -82,11 +82,11 @@ int	ft_handler_syn_error(t_splitor **x)
 		return (0);
 	start = *x;
 	if (start->type == '|' || ((start->type == '<' || start->type == '>')
-			&& start->next == NULL) || ((start->str_input[0] == '\''
-				|| start->str_input[0] == '\"') && start->next == NULL))
+			&& start->next == NULL) || ((start->in[0] == '\''
+				|| start->in[0] == '\"') && start->next == NULL))
 		return (1);
 	end = ft_lstlast(start);
-	if (end->state == IN_DQUOTE || end->state == IN_SQUOTE || end->type == '|')
+	if (end->state == D || end->state == S || end->type == '|')
 		return (1);
 	return (0);
 }

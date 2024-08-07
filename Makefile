@@ -4,7 +4,9 @@ SRC= minishell.c \
 	ft_handle_synx.c \
 	ft_synx_utils.c \
 	ft_free.c \
+	ft_parsser.c\
 	parsser_utils.c \
+	ft_direction.c \
 
 OBJ = ${SRC:.c=.o}
 
