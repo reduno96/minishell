@@ -1,16 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_synx_utils.c                                    :+:      :+:    :+:   */
+/*   ft_nodes_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/08 11:13:50 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:33:26 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_check_env(t_splitor **x, t_envarment *my_env)
+{
+	t_splitor	*tmp_cmd;
+	t_envarment	*tmp_env;
+
+	tmp_cmd = *x;
+	tmp_env = my_env;
+	while (tmp_cmd != NULL)
+	{
+		tmp_env = my_env;
+		if (tmp_cmd->type == '$' && tmp_cmd->state != S)
+		{
+			while (tmp_env != NULL)
+			{
+				if (ft_strcmp(tmp_env->var, tmp_cmd->in + 1) == 0)
+				{
+					free(tmp_cmd->in);
+					tmp_cmd->in = ft_strdup(tmp_env->data);
+					break ;
+				}
+				tmp_env = tmp_env->next;
+			}
+		}
+		tmp_cmd = tmp_cmd->next;
+	}
+}
 
 t_envarment	*new_node(void *var, void *data)
 {

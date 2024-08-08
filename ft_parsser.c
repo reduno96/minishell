@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 21:27:21 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:55:22 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd)
 	t_command	*tmp_cmd;
 	int			i;
 
+	i = 0;
 	(void)my_env;
 	tmp_x = *x;
 	while (tmp_x != NULL)
@@ -90,21 +91,19 @@ void	ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd)
 		ft_add_command(cmd, ft_new_command(count, &tmp_x));
 	}
 	tmp_cmd = *cmd;
+	i = 0;
 	while (tmp_cmd != NULL)
 	{
-		i = 0;
+		printf("cmd -- \n");
+		printf("content: %s \n", tmp_cmd->content);
+		if (tmp_cmd->arg[i] != NULL)
+			printf("argument: ");
 		while (tmp_cmd->arg[i] != NULL)
 		{
-			printf("Argument: %s \n", tmp_cmd->arg[i]);
-			printf("content %s \n", tmp_cmd->content);
-			printf("==dir_in< : %s\n", tmp_cmd->doc->dir_in);
-			printf("==dir_out> : %s\n ", tmp_cmd->doc->dir_out);
-			printf("==doc_here<< : %s\n", tmp_cmd->doc->doc_here);
-			printf("==rdir>> : %s \n", tmp_cmd->doc->rdir);
-			printf("==store>> : %s \n", tmp_cmd->doc->store);
-			printf("---------------------------------------------\n");
+			printf(" %s ", tmp_cmd->arg[i]);
 			i++;
 		}
+		printf("\n");
 		tmp_cmd = tmp_cmd->next;
 	}
 }

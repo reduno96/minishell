@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 21:37:38 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:19:54 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct s_splitor
 
 typedef struct s_envarment
 {
-	void				*var;
-	void				*data;
+	char				*var;
+	char				*data;
 	struct s_envarment	*next;
 }						t_envarment;
 

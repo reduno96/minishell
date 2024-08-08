@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/08 11:11:26 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:30:10 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	print_envarment(t_envarment *env)
 	}
 }
 
-
-
 // ------------------------------
 int	main(int ac, char **av, char **env)
 {
@@ -67,7 +65,6 @@ int	main(int ac, char **av, char **env)
 	my_env = ft_stock_envarment(env);
 	// print_envarment(my_env);
 	using_history();
-
 	(void)cmd;
 	while (1)
 	{
@@ -75,20 +72,18 @@ int	main(int ac, char **av, char **env)
 		str_input = readline("\033[36m➨ minishell $:\033[0m  ");
 		if (!str_input)
 			exit(1);
-		if(ft_strlen(str_input) > 0)	
+		if (ft_strlen(str_input) > 0)
 			add_history(str_input);
-
 		ft_lexer(str_input, &x);
 		ft_check_env(&x, my_env);
 		ft_command(&x, &my_env, &cmd);
-
 		ft_exute(my_env, cmd, x);
-
-		ft_free_env(x);
+		ft_free_lexer(&x);
 		ft_free_command(cmd);
 		x = NULL;
 		if (ft_search(str_input, "exit"))
 			exit(0);
 		free(str_input);
 	}
+	ft_free_env(&my_env);
 }

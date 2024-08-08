@@ -6,21 +6,33 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 07:21:47 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:59:08 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free_env(t_splitor *x)
+void	ft_free_lexer(t_splitor **x)
 {
 	t_splitor	*tmp;
 
-	while (x != NULL)
+	while (*x != NULL)
 	{
-		tmp = x;
-		x = x->next;
+		tmp = *x;
+		*x = (*x)->next;
 		free(tmp->in);
+		free(tmp);
+	}
+}
+
+void	ft_free_env(t_envarment **my_env)
+{
+	t_envarment	*tmp;
+
+	while (*my_env != NULL)
+	{
+		tmp = *my_env;
+		*my_env = (*my_env)->next;
 		free(tmp);
 	}
 }

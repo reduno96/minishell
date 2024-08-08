@@ -6,37 +6,11 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/08 11:15:42 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:32:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_check_env(t_splitor **x, t_envarment *my_env)
-{
-	t_splitor	*tmp_cmd;
-	t_envarment	*tmp_env;
-
-	tmp_cmd = *x;
-	tmp_env = my_env;
-	while (tmp_cmd != NULL)
-	{
-		if (tmp_cmd->type == '$' && tmp_cmd->state != S)
-		{
-			while (tmp_env != NULL)
-			{
-				if (ft_search(tmp_env->var, tmp_cmd->in + 1))
-				{
-					free(tmp_cmd->in);
-					tmp_cmd->in = ft_strdup(tmp_env->data);
-					break ;
-				}
-				tmp_env = tmp_env->next;
-			}
-		}
-		tmp_cmd = tmp_cmd->next;
-	}
-}
 
 int	ft_condtion(t_splitor *start)
 {

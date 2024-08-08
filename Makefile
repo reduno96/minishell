@@ -2,7 +2,7 @@ SRC= minishell.c \
 	lexer_utils.c \
 	lexer.c \
 	ft_handle_synx.c \
-	ft_synx_utils.c \
+	ft_nodes_env.c \
 	ft_free.c \
 	ft_parsser.c\
 	parsser_utils.c \
