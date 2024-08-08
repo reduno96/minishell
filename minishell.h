@@ -70,4 +70,31 @@ void		ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd);
 void		print_env(t_envarment **my_env);
 void		ft_check_doc(t_command **new_node, t_splitor *tmp);
 
+
+
+
+//////////////////////  Execution  ////////////////////////
+
+void  		ft_exute(t_envarment *var, t_command *list , t_splitor *x);
+int 		ft_strcmp(char *s1, char *s2);
+char 		**create_argv(t_splitor *elem) ;
+char 		*path_command(char *ptr);
+// t_envarment *ft_stock_envarment(char **env);
+// int 	test_exist(t_envarment *var , char **list);
+// void   affiche_free_env(t_envarment *var , t_command *save);
+
+
+// //    export
+// t_envarment  *new_node(void *var, void *data);
+// void    	 add_back_node(t_envarment **lst, t_envarment *new);
+
+// ///////            Commands         ///////
+void 		ft_cd(t_command *list);
+void 		ft_pwd(t_command *va_list);
+// void 		ft_export( t_envarment *var , t_command *str);
+// void 		ft_unset(t_envarment *var , t_command *list);
+// void 		ft_env( t_envarment *var ,t_command *str );
+
+
+
 #endif
