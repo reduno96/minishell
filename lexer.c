@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/06 18:05:54 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:28:22 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void	ft_lexer(char *str_input, t_splitor **x)
 		else if (str_input[var.i] && ft_check_input(str_input[var.i]))
 			ft_get_char(str_input, &var, x);
 	}
+	if (var.in_d == 1 || var.in_s == 1)
+		ft_putstr_fd("Syntax Error:\n", 2);
 	check_syn(x);
 	print_t_command(*x);
 }

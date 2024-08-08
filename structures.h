@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 09:26:34 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/07 21:37:38 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 typedef struct s_idx
 {
-	int						i;
-	int						j;
-	int						len;
-	int						start;
-	int						state;
-	int						in_s;
-	int						in_d;
-}							t_idx;
+	int					i;
+	int					j;
+	int					len;
+	int					start;
+	int					state;
+	int					in_s;
+	int					in_d;
+}						t_idx;
 
 typedef enum e_token
 {
@@ -37,15 +37,23 @@ typedef enum e_token
 	REDIR_OUT = '>',
 	HERE_DOC,
 	DREDIR_OUT,
-}							t_token;
+}						t_token;
+
+typedef struct s_path_file
+{
+	char				**path;
+	struct s_path_file	*next;
+}						t_path_file;
 
 typedef struct s_redirect
 {
-	char					*dir_in;
-	char					*dir_out;
-	char					*rdir;
-	char					*doc_here;
-}							t_redirect;
+	int					len;
+	char				*dir_in;
+	char				*dir_out;
+	char				*rdir;
+	char				*doc_here;
+	char				*store;
+}						t_redirect;
 
 typedef enum e_state
 {
@@ -53,28 +61,29 @@ typedef enum e_state
 	S,
 	G,
 	NUL,
-}							t_state;
+}						t_state;
 typedef struct s_splitor
 {
-	char					*in;
-	int						len;
-	enum e_token			type;
-	enum e_state			state;
-	struct s_splitor		*next;
-}							t_splitor;
+	char				*in;
+	int					len;
+	enum e_token		type;
+	enum e_state		state;
+	struct s_splitor	*next;
+}						t_splitor;
 
-typedef struct s_environment
+typedef struct s_envarment
 {
-	char					*line;
-	struct s_environment	*next;
-}							t_environment;
+	void				*var;
+	void				*data;
+	struct s_envarment	*next;
+}						t_envarment;
 
 typedef struct s_command
 {
-	char					*content;
-	char					**arg;
-	t_redirect				*doc;
-	struct s_command		*next;
-}							t_command;
+	char				*content;
+	char				**arg;
+	t_redirect			*doc;
+	struct s_command	*next;
+}						t_command;
 
 #endif

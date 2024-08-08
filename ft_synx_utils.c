@@ -3,50 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   ft_synx_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 09:47:32 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:13:50 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_add_node(t_environment **lst, t_environment *new)
+t_envarment	*new_node(void *var, void *data)
 {
-	t_environment	*last;
+	t_envarment	*elem;
 
+	elem = (t_envarment *)malloc(sizeof(t_envarment));
+	if (!elem)
+		return (NULL);
+	elem->var = var;
+	elem->data = data;
+	elem->next = NULL;
+	return (elem);
+}
+
+void	add_back_node(t_envarment **lst, t_envarment *new)
+{
+	t_envarment	*p;
+
+	p = *lst;
 	if (!lst || !new)
 		return ;
-	if (*lst == NULL)
-		*lst = new;
-	else
+	if (!(*lst))
 	{
-		last = ft_last_node(*lst);
-		last->next = new;
+		*lst = new;
+		return ;
 	}
+	while (p->next)
+	{
+		p = p->next;
+	}
+	p->next = new;
 }
 
-t_environment	*ft_new_node(void *content)
+t_envarment	*ft_stock_envarment(char **env)
 {
-	t_environment	*new_node;
+	t_envarment	*var;
+	char		**list;
+	int			i;
+	t_envarment	*elem;
 
-	new_node = malloc(sizeof(t_environment));
-	if (!new_node)
-		return (NULL);
-	new_node->line = content;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-t_environment	*ft_last_node(t_environment *lst)
-{
-	t_environment	*last;
-
-	last = lst;
-	if (!lst)
-		return (NULL);
-	while (last->next != NULL)
-		last = last->next;
-	return (last);
+	var = NULL;
+	i = 0;
+	while (env[i])
+	{
+		list = ft_split(env[i], '=');
+		elem = new_node(list[0], list[1]);
+		add_back_node(&var, elem);
+		free(list);
+		i++;
+	}
+	return (var);
 }

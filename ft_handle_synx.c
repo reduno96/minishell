@@ -6,49 +6,16 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 17:04:22 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:15:42 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_fill_env(t_environment **my_env, char **env)
+void	ft_check_env(t_splitor **x, t_envarment *my_env)
 {
-	t_idx	var;
-
-	var.i = 0;
-	if (!env || !(*env))
-		return ;
-	while (env[var.i])
-		ft_add_node(my_env, ft_new_node(ft_strdup(env[var.i++])));
-	print_env(my_env);
-}
-
-int	ft_search_env(char *s, char *d)
-{
-	int	i;
-	int	j;
-	int	len;
-
-	i = 0;
-	j = 0;
-	len = ft_strlen(d);
-	while (s[i] && s[i])
-	{
-		if (s[i] == d[j])
-			j++;
-		if (len == j && s[i + 1] == '=')
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-void	ft_check_env(t_splitor **x, t_environment *my_env)
-{
-	t_splitor		*tmp_cmd;
-	t_environment	*tmp_env;
-	int				len;
+	t_splitor	*tmp_cmd;
+	t_envarment	*tmp_env;
 
 	tmp_cmd = *x;
 	tmp_env = my_env;
@@ -58,12 +25,10 @@ void	ft_check_env(t_splitor **x, t_environment *my_env)
 		{
 			while (tmp_env != NULL)
 			{
-				len = ft_search_env(tmp_env->line, tmp_cmd->in + 1);
-				if (len)
+				if (ft_search(tmp_env->var, tmp_cmd->in + 1))
 				{
 					free(tmp_cmd->in);
-					tmp_cmd->in = ft_substr(tmp_env->line, len + 2,
-							ft_strlen(tmp_env->line + len + 1));
+					tmp_cmd->in = ft_strdup(tmp_env->data);
 					break ;
 				}
 				tmp_env = tmp_env->next;
@@ -73,38 +38,65 @@ void	ft_check_env(t_splitor **x, t_environment *my_env)
 	}
 }
 
+int	ft_condtion(t_splitor *start)
+{
+	if ((start->type != ' ' && start->type != -1 && start->type != '$'
+			&& start->type != '\'' && start->type != '\"'))
+		return (1);
+	return (0);
+}
+
+int	ft_check_between(t_splitor **start)
+{
+	while ((*start) != NULL)
+	{
+		if ((*start)->type == '|' || (ft_condtion(*start)
+				&& ((*start)->state == G)))
+		{
+			if ((*start) != NULL)
+				(*start) = (*start)->next;
+			ft_skeep_space(&(*start));
+			if ((*start) == NULL || (ft_condtion(*start)))
+				return (1);
+		}
+		else if (ft_condtion(*start) && (*start)->state != G)
+			while (((*start) != NULL) && (ft_condtion(*start)
+					&& (*start)->state != G))
+				(*start) = (*start)->next;
+		else if (!ft_condtion(*start) && (*start)->state != G)
+			while (((*start) != NULL) && !ft_condtion(*start)
+				&& (*start)->state != G)
+				(*start) = (*start)->next;
+		else if (((*start) != NULL) && (*start)->state == G)
+			(*start) = (*start)->next;
+	}
+	return (0);
+}
+
 int	ft_handler_syn_error(t_splitor **x)
 {
 	t_splitor	*start;
+	t_splitor	*end;
 
 	if (!(*x))
 		return (0);
 	start = *x;
-	while (start != NULL)
-	{
-		if (start->type == '|' || ((start->type != ' ' && start->type != -1
-					&& start->type != '$')))
-		{
-			if (start != NULL)
-				start = start->next;
-			ft_skeep_space(&start);
-			if (start == NULL || (start->type != ' ' && start->type != -1
-					&& start->type != '$'))
-				return (1);
-		}
-		else
-		{
-			while ((start != NULL) && (start->type == ' ' || start->type == -1
-					|| start->type == '$'))
-				start = start->next;
-		}
-	}
+	if (start->type == '|' || ((start->type != ' ' && start->type != -1
+				&& start->type != '$') && start->next == NULL)
+		|| ((start->type == '\'' || start->type == '\"')
+				&& start->next == NULL))
+		return (1);
+	if (ft_check_between(&start))
+		return (1);
+	start = *x;
+	end = ft_lstlast(start);
+	if (end->type == '|')
+		return (1);
 	return (0);
 }
 
 void	check_syn(t_splitor **x)
 {
-	// (void)x;
 	if (ft_handler_syn_error(x))
 	{
 		ft_putstr_fd("Syntax Error:\n", 2);
