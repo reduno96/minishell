@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/08 12:57:58 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:26:29 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void		print_t_command(t_splitor *cmd);
 t_token		ft_get_token(char str_input);
 int			ft_check_input(char str_input);
 t_state		ft_get_state(t_idx *var, char str_input);
+int			ft_condition(t_splitor *start);
 int			ft_handler_syn_error(t_splitor **x);
 void		ft_lexer(char *input, t_splitor **x);
 
@@ -53,7 +54,6 @@ void		add_back_node(t_envarment **lst, t_envarment *new);
 t_envarment	*ft_stock_envarment(char **env);
 int			ft_search_env(char *s, char *d);
 void		ft_check_env(t_splitor **x, t_envarment *my_env);
-void		ft_add_node(t_envarment **lst, t_envarment *new);
 
 void		check_syn(t_splitor **x);
 void		ft_free_env(t_envarment **x);

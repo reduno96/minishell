@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/08 14:55:22 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:25:06 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,13 @@ void	ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd)
 			printf(" %s ", tmp_cmd->arg[i]);
 			i++;
 		}
+		printf("\n");
+		printf("doc:\n");
+		printf("dir_in: %d\n", tmp_cmd->doc->dir_in);
+		printf("dir_in: %d\n", tmp_cmd->doc->dir_out);
+		printf("dir_in: %d\n", tmp_cmd->doc->rdir);
+		printf("dir_in: %d\n", tmp_cmd->doc->doc_here);
+		// printf("dir_in: %s\n", tmp_cmd->doc->dir_in);
 		printf("\n");
 		tmp_cmd = tmp_cmd->next;
 	}

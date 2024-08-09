@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/08 13:19:54 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:01:41 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ typedef struct s_path_file
 typedef struct s_redirect
 {
 	int					len;
-	char				*dir_in;
-	char				*dir_out;
-	char				*rdir;
-	char				*doc_here;
-	char				*store;
+	int					dir_in;
+	int					dir_out;
+	int					rdir;
+	int					doc_here;
+	char				**store;
 }						t_redirect;
 
 typedef enum e_state

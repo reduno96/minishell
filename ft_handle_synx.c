@@ -6,13 +6,13 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/08 14:32:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:51:06 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_condtion(t_splitor *start)
+int	ft_condition(t_splitor *start)
 {
 	if ((start->type != ' ' && start->type != -1 && start->type != '$'
 			&& start->type != '\'' && start->type != '\"'))
@@ -24,21 +24,21 @@ int	ft_check_between(t_splitor **start)
 {
 	while ((*start) != NULL)
 	{
-		if ((*start)->type == '|' || (ft_condtion(*start)
+		if ((*start)->type == '|' || (ft_condition(*start)
 				&& ((*start)->state == G)))
 		{
 			if ((*start) != NULL)
 				(*start) = (*start)->next;
 			ft_skeep_space(&(*start));
-			if ((*start) == NULL || (ft_condtion(*start)))
+			if ((*start) == NULL || (ft_condition(*start)))
 				return (1);
 		}
-		else if (ft_condtion(*start) && (*start)->state != G)
-			while (((*start) != NULL) && (ft_condtion(*start)
+		else if (ft_condition(*start) && (*start)->state != G)
+			while (((*start) != NULL) && (ft_condition(*start)
 					&& (*start)->state != G))
 				(*start) = (*start)->next;
-		else if (!ft_condtion(*start) && (*start)->state != G)
-			while (((*start) != NULL) && !ft_condtion(*start)
+		else if (!ft_condition(*start) && (*start)->state != G)
+			while (((*start) != NULL) && !ft_condition(*start)
 				&& (*start)->state != G)
 				(*start) = (*start)->next;
 		else if (((*start) != NULL) && (*start)->state == G)

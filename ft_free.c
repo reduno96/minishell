@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/08 12:59:08 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:21:17 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ void	ft_free_command(t_command *lst)
 		free(tmp->arg);
 		if (tmp->doc != NULL)
 		{
-			free(tmp->doc->dir_in);
-			free(tmp->doc->dir_out);
-			free(tmp->doc->doc_here);
-			free(tmp->doc->rdir);
 			free(tmp->doc);
 		}
 		free(tmp);
