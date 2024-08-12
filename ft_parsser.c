@@ -6,37 +6,23 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 19:47:47 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:02:24 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_add_command(t_command **lst, t_command *new)
+int	ft_check_command(t_splitor *tmp_x)
 {
-	t_command	*last;
-
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		last = ft_last_command(*lst);
-		last->next = new;
-	}
-}
-
-t_command	*ft_last_command(t_command *lst)
-{
-	t_command	*last;
-
-	last = lst;
-	if (!lst)
-		return (NULL);
-	while (last->next != NULL)
-		last = last->next;
-	return (last);
+	if (tmp_x != NULL && tmp_x->state == G && tmp_x->type != '\"'
+		&& tmp_x->type != '\'' && tmp_x->type != '|')
+		return (1);
+	else if (tmp_x != NULL && (tmp_x->state == D || tmp_x->state == S)
+		&& tmp_x->type != '|')
+		return (1);
+	else if (tmp_x != NULL && (tmp_x->state == D || tmp_x->state == S))
+		return (1);
+	return (0);
 }
 
 void	ft_count_d_s(t_splitor **tmp, int *count)
@@ -73,16 +59,14 @@ void	ft_count_parameters(t_splitor *tmp_x, int *count)
 	}
 }
 
-void	ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd)
+void	ft_command(t_splitor **x, t_command **cmd)
 {
 	int			count;
 	t_splitor	*tmp_x;
 	t_command	*tmp_cmd;
 	int			i;
 
-	// int			j;
 	i = 0;
-	(void)my_env;
 	tmp_x = *x;
 	while (tmp_x != NULL)
 	{
@@ -93,7 +77,6 @@ void	ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd)
 	}
 	tmp_cmd = *cmd;
 	i = 0;
-	// j = 0;
 	while (tmp_cmd != NULL)
 	{
 		printf("cmd -- \n");

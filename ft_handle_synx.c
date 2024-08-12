@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/09 11:51:06 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:55:39 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_handler_syn_error(t_splitor **x)
 	if (start->type == '|' || ((start->type != ' ' && start->type != -1
 				&& start->type != '$') && start->next == NULL)
 		|| ((start->type == '\'' || start->type == '\"')
-				&& start->next == NULL))
+			&& start->next == NULL))
 		return (1);
 	if (ft_check_between(&start))
 		return (1);
@@ -74,7 +74,5 @@ void	check_syn(t_splitor **x)
 	if (ft_handler_syn_error(x))
 	{
 		ft_putstr_fd("Syntax Error:\n", 2);
-		// exit(1);
-	} // if (ft_check_expand(x))
-		// 	printf("and I'm here");
+	}
 }

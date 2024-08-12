@@ -5,7 +5,8 @@ SRC= minishell.c \
 	ft_nodes_env.c \
 	ft_free.c \
 	ft_parsser.c\
-	parsser_utils.c \
+	ft_parsser_utils_2.c \
+	ft_parsser_utils.c \
 	ft_direction.c \
 	ft_direction_utils.c \
 	ft_execut_cmd/execute.c ft_execut_cmd/functions.c ft_execut_cmd/ft_cd.c   ft_execut_cmd/ft_pwd.c \
@@ -36,10 +37,10 @@ LNRL= -lreadline -L/goinfre/bouhammo/homebrew/opt/readline/include
 
 all : ${LIBFT} ${NAME}
 
-%.o: %.c minishell.h 
+%.o: %.c minishell.h structures.h
 	${CC} ${CFLAGS} -c  $< -o $@
 
-${NAME} : minishell.h ${OBJ}
+${NAME} : minishell.h structures.h ${OBJ}
 		${CC} ${FLAGS}   ${SRC} ${LIBFT} ${INRL} ${LNRL} -o ${NAME}
 
 ${LIBFT}:

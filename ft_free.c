@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/09 13:21:17 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:43:02 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ void	ft_free_lexer(t_splitor **x)
 		tmp = *x;
 		*x = (*x)->next;
 		free(tmp->in);
+		free(tmp);
+	}
+}
+
+void	ft_free_doc(t_redirect **doc)
+{
+	t_redirect	*tmp;
+
+	while (*doc != NULL)
+	{
+		tmp = *doc;
+		*doc = (*doc)->next;
+		free(tmp->store);
 		free(tmp);
 	}
 }
@@ -55,6 +68,7 @@ void	ft_free_command(t_command *lst)
 		free(tmp->arg);
 		if (tmp->doc != NULL)
 		{
+			ft_free_doc(&tmp->doc);
 			free(tmp->doc);
 		}
 		free(tmp);

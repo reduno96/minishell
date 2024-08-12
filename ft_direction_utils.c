@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:58:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 19:53:08 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:47:26 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_add_redir(t_redirect **lst, t_redirect *new)
 
 t_redirect	*ft_last_redir(t_redirect *lst)
 {
-	t_redirect *last;
+	t_redirect	*last;
 
 	last = lst;
 	if (!lst)

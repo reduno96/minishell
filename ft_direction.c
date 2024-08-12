@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 19:52:32 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:48:21 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	print_redirect_list(t_redirect *head)
 		current = current->next;
 	}
 }
+
 int	ft_check_redir(char *arg)
 {
 	if (ft_search(arg, "<"))
@@ -35,6 +36,7 @@ int	ft_check_redir(char *arg)
 		return (1);
 	return (0);
 }
+
 void	ft_check_doc(t_command **new_node)
 {
 	t_command	*tmp;

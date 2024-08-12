@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 19:47:09 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:00:20 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
 // function we use
 int			ft_search(char *s, char *d);
 int			ft_isspace(char c);
-void		print_str_input(void *str_input);
 void		print_t_command(t_splitor *cmd);
 t_token		ft_get_token(char str_input);
 int			ft_check_input(char str_input);
@@ -52,7 +51,6 @@ t_envarment	*new_node(void *var, void *data);
 void		add_back_node(t_envarment **lst, t_envarment *new);
 
 t_envarment	*ft_stock_envarment(char **env);
-int			ft_search_env(char *s, char *d);
 void		ft_check_env(t_splitor **x, t_envarment *my_env);
 
 void		check_syn(t_splitor **x);
@@ -65,10 +63,11 @@ void		ft_skeep_space(t_splitor **tmp_x);
 
 int			ft_check_command(t_splitor *tmp_x);
 
+void		ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x);
+
 t_command	*ft_new_command(int count, t_splitor **tmp_x);
 t_command	*ft_last_command(t_command *lst);
-void		ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd);
-void		print_env(t_envarment **my_env);
+void		ft_command(t_splitor **x, t_command **cmd);
 void		print_redirect_list(t_redirect *head);
 void		ft_check_doc(t_command **new_node);
 

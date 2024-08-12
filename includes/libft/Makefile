@@ -25,7 +25,7 @@ all: ${NAME}
 %.o : %.c libft.h
 	@${CC} ${CFLAGS} -c $<
 
-${NAME}: ${OBJS}
+${NAME}: ${OBJS} libft.h
 	@${LIBC} ${NAME} ${OBJS}
 	@echo "\033[32mLibft is ready\033[0m"
 
