@@ -6,47 +6,56 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/09 13:22:17 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:52:32 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_set_doc(t_command **new_node)
+void	print_redirect_list(t_redirect *head)
 {
-	(*new_node)->doc->dir_in = 0;
-	(*new_node)->doc->dir_out = 0;
-	(*new_node)->doc->rdir = 0;
-	(*new_node)->doc->doc_here = 0;
-	(*new_node)->doc->store = NULL;
-}
+	t_redirect	*current;
 
-void	ft_check_doc(t_command **new_node, t_splitor *tmp_x)
-{
-	t_splitor	*tmp;
-
-	// int			i;
-	tmp = tmp_x;
-	// i = 0;
-	(*new_node)->doc = malloc(sizeof(t_redirect));
-	ft_set_doc(new_node);
-	while (tmp != NULL)
+	current = head;
+	while (current != NULL)
 	{
-		if (tmp->type != '|' && ft_condition(tmp) && tmp->state == G)
-		{
-			if (tmp->type == '<')
-				(*new_node)->doc->dir_in = 1;
-			else if (tmp->type == '>')
-				(*new_node)->doc->dir_out = 1;
-			else if (tmp->type == HERE_DOC)
-				(*new_node)->doc->doc_here = 1;
-			else if (tmp->type == DREDIR_OUT)
-				(*new_node)->doc->rdir = 1;
-			(*new_node)->doc->len++;
-		}
-		tmp = tmp->next;
+		printf("Type: %d, Store: %s\n", current->type, current->store);
+		current = current->next;
 	}
-	(*new_node)->doc->store = malloc(sizeof(char *) * (*new_node)->doc->len);
-	tmp = tmp_x;
-	// i = 0;
+}
+int	ft_check_redir(char *arg)
+{
+	if (ft_search(arg, "<"))
+		return (1);
+	else if (ft_search(arg, ">"))
+		return (1);
+	else if (ft_search(arg, ">>"))
+		return (1);
+	else if (ft_search(arg, "<<"))
+		return (1);
+	return (0);
+}
+void	ft_check_doc(t_command **new_node)
+{
+	t_command	*tmp;
+	int			i;
+
+	tmp = *new_node;
+	i = 0;
+	(*new_node)->doc = NULL;
+	while (tmp->arg[i] != NULL)
+	{
+		if (ft_search(tmp->arg[i], "<"))
+			ft_add_redir(&(*new_node)->doc, ft_new_redir(tmp->arg[i + 1], '<'));
+		else if (ft_search(tmp->arg[i], ">"))
+			ft_add_redir(&(*new_node)->doc, ft_new_redir(tmp->arg[i + 1], '>'));
+		else if (ft_search(tmp->arg[i], "<<"))
+			ft_add_redir(&(*new_node)->doc, ft_new_redir(tmp->arg[i + 1],
+					HERE_DOC));
+		else if (ft_search(tmp->arg[i], ">>"))
+			ft_add_redir(&(*new_node)->doc, ft_new_redir(tmp->arg[i + 1],
+					DREDIR_OUT));
+		i++;
+	}
+	print_redirect_list((*new_node)->doc);
 }
