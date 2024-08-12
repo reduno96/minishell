@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 22:15:29 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:21:43 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,14 @@
 
 // function we use
 
+//////////////////////////////  Parsser  /////////////////////////////////
 // ---------
 void		print_t_command(t_splitor *cmd);
 void		print_redirect_list(t_redirect *head);
+// ---------
+void		ft_free_env(t_envarment **x);
+void		ft_free_lexer(t_splitor **x);
+void		ft_free_command(t_command *lst);
 // ---------
 int			ft_search(char *s, char *d);
 int			ft_isspace(char c);
@@ -49,37 +54,28 @@ t_state		ft_get_state(t_idx *var, char str_input);
 int			ft_condition(t_splitor *start);
 int			ft_handler_syn_error(t_splitor **x);
 void		ft_lexer(char *input, t_splitor **x);
-
+// ---------
 t_envarment	*new_node(void *var, void *data);
 void		add_back_node(t_envarment **lst, t_envarment *new);
 t_envarment	*ft_stock_envarment(char **env);
 void		ft_check_env(t_splitor **x, t_envarment *my_env);
-
-void		ft_free_env(t_envarment **x);
-void		ft_free_lexer(t_splitor **x);
-void		ft_free_command(t_command *lst);
-
-void		check_syn(t_splitor **x);
+// ---------
+void		ft_command(t_splitor **x, t_command **cmd);
 void		ft_add_command(t_command **lst, t_command *new);
-
-void		ft_skip_spaces(t_splitor **tmp_x);
-
-int			ft_check_command(t_splitor *tmp_x);
-
-void		ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x);
-
 t_command	*ft_new_command(int count, t_splitor **tmp_x);
 t_command	*ft_last_command(t_command *lst);
-void		ft_command(t_splitor **x, t_command **cmd);
-
+// ---------
+void		ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x);
+int			ft_check_command(t_splitor *tmp_x);
+void		ft_skip_spaces(t_splitor **tmp_x);
+void		check_syn(t_splitor **x);
 // ---------
 void		ft_check_doc(t_command **new_node);
 t_redirect	*ft_new_redir(void *content, t_token type);
 void		ft_add_redir(t_redirect **lst, t_redirect *new);
 t_redirect	*ft_last_redir(t_redirect *lst);
 
-//////////////////////  Execution  ////////////////////////
-
+//////////////////////////////  Execution  /////////////////////////////////
 void		ft_exute(t_envarment *var, t_command *list, t_splitor *x);
 int			ft_strcmp(char *s1, char *s2);
 char		**create_argv(t_splitor *elem);
