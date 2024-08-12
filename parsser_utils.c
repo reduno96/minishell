@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/07 22:35:30 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:44:13 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,8 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x)
 t_command	*ft_new_command(int count, t_splitor **tmp_x)
 {
 	t_command	*new_node;
-	t_splitor	*tmp;
 	int			i;
 
-	tmp = *tmp_x;
 	i = 0;
 	new_node = malloc(sizeof(t_command));
 	new_node->arg = malloc(sizeof(char *) * (count + 1));
@@ -117,6 +115,6 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x)
 		ft_not_pipe(&new_node, &i, tmp_x);
 	new_node->content = new_node->arg[0];
 	new_node->doc = NULL;
-	ft_check_doc(&new_node, tmp);
+	ft_check_doc(&new_node);
 	return (new_node);
 }
