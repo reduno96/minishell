@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/09 14:01:41 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:14:52 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_idx
 
 typedef enum e_token
 {
+	nothing = 0,
 	WORD = -1,
 	WHITE_SPACE = ' ',
 	NEW_LINE = '\n',
@@ -47,12 +48,9 @@ typedef struct s_path_file
 
 typedef struct s_redirect
 {
-	int					len;
-	int					dir_in;
-	int					dir_out;
-	int					rdir;
-	int					doc_here;
-	char				**store;
+	t_token				type;
+	char				*store;
+	struct s_redirect	*next;
 }						t_redirect;
 
 typedef enum e_state
