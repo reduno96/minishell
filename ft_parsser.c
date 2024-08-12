@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/09 13:25:06 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:47:47 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd)
 	t_command	*tmp_cmd;
 	int			i;
 
+	// int			j;
 	i = 0;
 	(void)my_env;
 	tmp_x = *x;
@@ -92,6 +93,7 @@ void	ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd)
 	}
 	tmp_cmd = *cmd;
 	i = 0;
+	// j = 0;
 	while (tmp_cmd != NULL)
 	{
 		printf("cmd -- \n");
@@ -105,11 +107,7 @@ void	ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd)
 		}
 		printf("\n");
 		printf("doc:\n");
-		printf("dir_in: %d\n", tmp_cmd->doc->dir_in);
-		printf("dir_in: %d\n", tmp_cmd->doc->dir_out);
-		printf("dir_in: %d\n", tmp_cmd->doc->rdir);
-		printf("dir_in: %d\n", tmp_cmd->doc->doc_here);
-		// printf("dir_in: %s\n", tmp_cmd->doc->dir_in);
+		print_redirect_list(tmp_cmd->doc);
 		printf("\n");
 		tmp_cmd = tmp_cmd->next;
 	}
