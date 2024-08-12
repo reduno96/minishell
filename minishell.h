@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/09 11:26:29 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:47:09 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,12 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x);
 t_command	*ft_last_command(t_command *lst);
 void		ft_command(t_splitor **x, t_envarment **my_env, t_command **cmd);
 void		print_env(t_envarment **my_env);
-void		ft_check_doc(t_command **new_node, t_splitor *tmp);
+void		print_redirect_list(t_redirect *head);
+void		ft_check_doc(t_command **new_node);
+
+t_redirect	*ft_new_redir(void *content, t_token type);
+void		ft_add_redir(t_redirect **lst, t_redirect *new);
+t_redirect	*ft_last_redir(t_redirect *lst);
 
 //////////////////////  Execution  ////////////////////////
 
