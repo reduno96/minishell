@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 22:02:24 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:10:46 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_count_parameters(t_splitor *tmp_x, int *count)
 	{
 		while (tmp != NULL && tmp->type != '|')
 		{
-			ft_skeep_space(&tmp);
+			ft_skip_spaces(&tmp);
 			if (tmp != NULL && tmp->state == G && tmp->type != '\"'
 				&& tmp->type != '\'' && tmp->type != '|')
 			{

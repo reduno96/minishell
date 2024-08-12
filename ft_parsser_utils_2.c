@@ -6,13 +6,13 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 21:57:10 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:10:44 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_skeep_space(t_splitor **tmp_x)
+void	ft_skip_spaces(t_splitor **tmp_x)
 {
 	while ((*tmp_x) != NULL && (*tmp_x)->type == ' ')
 		(*tmp_x) = (*tmp_x)->next;
@@ -71,6 +71,6 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x)
 	{
 		if ((*tmp_x) != NULL && (*tmp_x)->type != ' ')
 			ft_neuter_cmd(new_node, i, tmp_x);
-		ft_skeep_space(tmp_x);
+		ft_skip_spaces(tmp_x);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 21:55:39 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:10:41 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_check_between(t_splitor **start)
 		{
 			if ((*start) != NULL)
 				(*start) = (*start)->next;
-			ft_skeep_space(&(*start));
+			ft_skip_spaces(&(*start));
 			if ((*start) == NULL || (ft_condition(*start)))
 				return (1);
 		}
