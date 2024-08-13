@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 22:21:43 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:11:10 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void		print_redirect_list(t_redirect *head);
 void		ft_free_env(t_envarment **x);
 void		ft_free_lexer(t_splitor **x);
 void		ft_free_command(t_command *lst);
+void		ft_free_split(char **list);
 // ---------
 int			ft_search(char *s, char *d);
 int			ft_isspace(char c);
