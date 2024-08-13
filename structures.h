@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 14:14:52 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:21:37 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ typedef enum e_token
 	HERE_DOC,
 	DREDIR_OUT,
 }						t_token;
-
-typedef struct s_path_file
-{
-	char				**path;
-	struct s_path_file	*next;
-}						t_path_file;
 
 typedef struct s_redirect
 {
