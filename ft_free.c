@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 21:43:02 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:10:15 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ void	ft_free_lexer(t_splitor **x)
 	}
 }
 
+void	ft_free_split(char **list)
+{
+	int	j;
+
+	if (list == NULL)
+		return ;
+	j = 0;
+	while (list[j] != NULL)
+	{
+		free(list[j]);
+		j++;
+	}
+	free(list);
+}
+
 void	ft_free_doc(t_redirect **doc)
 {
 	t_redirect	*tmp;
@@ -33,7 +48,6 @@ void	ft_free_doc(t_redirect **doc)
 	{
 		tmp = *doc;
 		*doc = (*doc)->next;
-		free(tmp->store);
 		free(tmp);
 	}
 }

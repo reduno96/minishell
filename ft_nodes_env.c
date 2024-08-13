@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/08 14:33:26 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:11:24 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_envarment	*ft_stock_envarment(char **env)
 		list = ft_split(env[i], '=');
 		elem = new_node(list[0], list[1]);
 		add_back_node(&var, elem);
-		free(list);
+		ft_free_split(list);
 		i++;
 	}
 	return (var);
