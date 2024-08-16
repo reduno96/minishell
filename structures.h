@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/13 15:21:37 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/16 21:44:37 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_command
 	char				*content;
 	char				**arg;
 	t_redirect			*doc;
+	char				**store_her;
+	int					len;
 	struct s_command	*next;
 }						t_command;
 
