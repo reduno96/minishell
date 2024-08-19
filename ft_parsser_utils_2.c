@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 22:10:44 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/19 18:41:09 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x)
 		(*new_node)->next = NULL;
 		(*tmp_x) = (*tmp_x)->next;
 	}
-	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S)
-		&& (*tmp_x)->type != '|')
+	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
 		ft_double_and_sigle(tmp_x, i, new_node);
 	else if (((*tmp_x) != NULL && (*tmp_x)->state == G)
 		&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
@@ -67,10 +66,12 @@ void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x)
 
 void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x)
 {
-	while ((*tmp_x) != NULL && (*tmp_x)->type != '|')
+	while ((*tmp_x) != NULL && !((*tmp_x)->type == '|' && (*tmp_x)->state == G))
 	{
-		if ((*tmp_x) != NULL && (*tmp_x)->type != ' ')
+		if ((*tmp_x) != NULL && !((*tmp_x)->type == ' '
+				&& (*tmp_x)->state == G))
 			ft_neuter_cmd(new_node, i, tmp_x);
-		ft_skip_spaces(tmp_x);
+		if ((*tmp_x) != NULL && ((*tmp_x)->type == ' ' && (*tmp_x)->state == G))
+			ft_skip_spaces(tmp_x);
 	}
 }
