@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/13 15:11:10 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/19 01:02:12 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			ft_check_input(char str_input);
 t_state		ft_get_state(t_idx *var, char str_input);
 int			ft_condition(t_splitor *start);
 int			ft_handler_syn_error(t_splitor **x);
-void		ft_lexer(char *input, t_splitor **x);
+int			ft_lexer(char *input, t_splitor **x);
 // ---------
 t_envarment	*new_node(void *var, void *data);
 void		add_back_node(t_envarment **lst, t_envarment *new);
@@ -69,7 +69,6 @@ t_command	*ft_last_command(t_command *lst);
 void		ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x);
 int			ft_check_command(t_splitor *tmp_x);
 void		ft_skip_spaces(t_splitor **tmp_x);
-void		check_syn(t_splitor **x);
 // ---------
 void		ft_check_doc(t_command **new_node);
 t_redirect	*ft_new_redir(void *content, t_token type);
@@ -92,6 +91,7 @@ char		*path_command(char *ptr);
 // ///////            Commands         ///////
 void		ft_cd(t_command *list);
 void		ft_pwd(t_command *va_list);
+void		ft_exit(t_envarment *var, t_command *cmd);
 // void 		ft_export( t_envarment *var , t_command *str);
 // void 		ft_unset(t_envarment *var , t_command *list);
 // void 		ft_env( t_envarment *var ,t_command *str );
