@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/19 13:58:18 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/19 19:33:22 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	ft_count_parameters(t_splitor *tmp_x, int *count)
 	t_splitor	*tmp;
 
 	tmp = tmp_x;
-	if (tmp != NULL && tmp->type == '|')
+	if (tmp != NULL && tmp->type == '|' && tmp->state == G)
 		(*count)++;
-	else if (tmp != NULL && tmp->type != '|')
+	else if (tmp != NULL)
 	{
-		while (tmp != NULL && tmp->type != '|')
+		while (tmp != NULL && !(tmp->type == '|' && tmp->state == G))
 		{
 			ft_skip_spaces(&tmp);
 			if (tmp != NULL && tmp->state == G && tmp->type != '\"'
@@ -50,8 +50,7 @@ void	ft_count_parameters(t_splitor *tmp_x, int *count)
 				(*count)++;
 				tmp = tmp->next;
 			}
-			else if (tmp != NULL && (tmp->state == D || tmp->state == S)
-				&& tmp->type != '|')
+			else if (tmp != NULL && (tmp->state == D || tmp->state == S))
 				ft_count_d_s(&tmp, count);
 			else if (tmp != NULL && tmp->type != '|')
 				tmp = tmp->next;
@@ -81,6 +80,7 @@ void	ft_command(t_splitor **x, t_command **cmd)
 	l = 0;
 	while (tmp_cmd != NULL)
 	{
+		i = 0;
 		printf("\nCommand  <----------------------------------> \n");
 		printf("Content : %s \n", tmp_cmd->content);
 		if (tmp_cmd->arg[i] != NULL)
