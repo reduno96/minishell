@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/19 00:41:02 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/19 01:09:04 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ int	main(int ac, char **av, char **env)
 		if (ft_strlen(str_input) > 0)
 			add_history(str_input);
 		if (ft_lexer(str_input, &x))
+		{
 			ft_putstr_fd("Syntax Error:\n", 2);
+			ft_free_lexer(&x);
+		}
 		else
 		{
 			ft_check_env(&x, my_env);
