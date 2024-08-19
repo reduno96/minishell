@@ -6,7 +6,11 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/08/19 14:59:02 by bouhammo         ###   ########.fr       */
+=======
+/*   Updated: 2024/08/19 18:45:10 by rel-mora         ###   ########.fr       */
+>>>>>>> dce0080 (Refactor ft_parsser.h for improved code readability and maintainability)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +73,8 @@ t_command	*ft_last_command(t_command *lst);
 void		ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x);
 int			ft_check_command(t_splitor *tmp_x);
 void		ft_skip_spaces(t_splitor **tmp_x);
+void		ft_double_and_sigle(t_splitor **tmp_x, int *i,
+				t_command **new_node);
 // ---------
 void		ft_check_doc(t_command **new_node);
 t_redirect	*ft_new_redir(void *content, t_token type);
