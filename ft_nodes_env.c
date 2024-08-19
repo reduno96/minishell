@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_nodes_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/13 15:11:24 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:20:26 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ t_envarment	*ft_stock_envarment(char **env)
 		list = ft_split(env[i], '=');
 		elem = new_node(list[0], list[1]);
 		add_back_node(&var, elem);
-		ft_free_split(list);
 		i++;
 	}
+	free(list);
 	return (var);
 }

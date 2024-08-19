@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/18 23:46:16 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:58:18 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_command(t_splitor **x, t_command **cmd)
 			printf("store: %s\n", tmp_cmd->store_her[l]);
 			l++;
 		}
-		printf("///////////////////////////////////////////////////////////n\n");
+		l = 0;
 		tmp_cmd = tmp_cmd->next;
 	}
 }
