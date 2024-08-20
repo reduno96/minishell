@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 21:25:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/19 18:41:42 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:13:32 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_her_doc(t_command **new_node)
 			(*new_node)->len++;
 		tmp = tmp->next;
 	}
-	(*new_node)->store_her = malloc(sizeof(char *) * (*new_node)->len);
+	(*new_node)->store_her = malloc(sizeof(char *) * (*new_node)->len + 1);
 	tmp = (*new_node)->doc;
 	while (tmp != NULL)
 	{
@@ -74,11 +74,13 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x)
 	new_node = malloc(sizeof(t_command));
 	new_node->arg = malloc(sizeof(char *) * (count + 1));
 	new_node->len = 0;
+	new_node->is_pipe = 0;
 	if (((*tmp_x) != NULL && ((*tmp_x)->type == '|' && (*tmp_x)->state == G)))
 	{
 		new_node->arg[i] = ft_strdup((*tmp_x)->in);
 		i++;
 		new_node->arg[i] = NULL;
+		new_node->is_pipe = 1;
 		new_node->next = NULL;
 		(*tmp_x) = (*tmp_x)->next;
 	}
