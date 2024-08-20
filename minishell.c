@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/19 13:56:50 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/20 19:13:25 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	print_envarment(t_envarment *env)
 	}
 }
 
-
-
 int	main(int ac, char **av, char **env)
 {
 	char		*str_input;
@@ -53,7 +51,6 @@ int	main(int ac, char **av, char **env)
 	my_env = NULL;
 	my_env = ft_stock_envarment(env);
 	using_history();
-	
 	x = NULL;
 	while (1)
 	{
@@ -63,20 +60,18 @@ int	main(int ac, char **av, char **env)
 			exit(1);
 		if (ft_strlen(str_input) > 0)
 			add_history(str_input);
-			
 		if (ft_lexer(str_input, &x))
 		{
 			ft_putstr_fd("Syntax Error:\n", 2);
 			ft_free_lexer(&x);
 		}
 		else
-		{		
+		{
 			ft_check_env(&x, my_env);
 			ft_command(&x, &cmd);
 			ft_exute(my_env, cmd, env);
 			ft_free_lexer(&x);
 		}
-	
 		ft_free_command(cmd);
 		x = NULL;
 		if (ft_search(str_input, "exit"))
