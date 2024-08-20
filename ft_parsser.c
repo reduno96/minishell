@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/20 19:13:29 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/20 09:50:41 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,29 +77,29 @@ void	ft_command(t_splitor **x, t_command **cmd)
 	}
 	tmp_cmd = *cmd;
 	i = 0;
-	l = 0;
 	while (tmp_cmd != NULL)
 	{
-		i = 0;
-		printf("\nCommand  <----------------------------------> \n");
-		printf("Content : %s \n", tmp_cmd->content);
+		printf("\033[0;32m\n\t++++++++++++++   Command   ++++++++++++++++\n\033[0m");
+		printf("Content :	 %s \n", tmp_cmd->content);
 		if (tmp_cmd->arg[i] != NULL)
-			printf("Argument : ");
+			printf("Argument :	");			
 		while (tmp_cmd->arg[i] != NULL)
 		{
 			printf(" [%s] ", tmp_cmd->arg[i]);
 			i++;
 		}
+		i=0;
 		printf("\n");
-		printf("doc:\n");
+		printf("doc :		\n");
 		print_redirect_list(tmp_cmd->doc);
 		printf("\n");
 		l = 0;
 		while (tmp_cmd->store_her[l] != NULL)
 		{
-			printf("store: %s\n", tmp_cmd->store_her[l]);
+			printf("len  = %d     store:   %s\n",tmp_cmd->len , tmp_cmd->store_her[l]);
 			l++;
 		}
+		l = 0;
 		tmp_cmd = tmp_cmd->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 09:06:30 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/15 11:56:06 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/20 09:16:00 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	ft_echo(t_command *list ,char **env)
 {
-	int i = 1;
 	int j = 0;
 	bool flag = true;
-	if(list->arg[1])
+	int i = 0;
+	if(list->arg[1]!= NULL)
 	{
-		while (list->arg[1][i])
+		while (list->arg[1][i] && list->arg[1][i] != '\0')
 		{
-			if(list->arg[1][0] == '-' && list->arg[1][i] == 'n')
+			if(list->arg[1][0] == '-' && list->arg[1][++i] == 'n')
 				flag = true;
 			else
 			{
@@ -30,6 +30,11 @@ void	ft_echo(t_command *list ,char **env)
 			}
 			i++;
 		}	
+	}
+	else
+	{
+		write(1, "\n", 1);
+		return ;
 	}
 	if(flag == true)
 	{
