@@ -6,18 +6,20 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:01 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/19 14:03:10 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:57:09 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_pwd(t_command *list)
+int 	 ft_pwd(t_command *list)
 {
 	(void)list;
 	char *path ;
 			path = getcwd(NULL, 0);
 			if(path == NULL)
-				return ;
+				return 0;
 			printf("%s\n", path);	
+
+	return (1);
 }

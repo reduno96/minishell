@@ -6,15 +6,15 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/15 18:47:44 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:50:49 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_cd(t_command *list)
+int	ft_cd(t_command *list)
 {
-	char *path ;
+	char	*path;
 
 	if (list->arg[1] == NULL)
 	{
@@ -28,6 +28,5 @@ void ft_cd(t_command *list)
 		if (chdir(path) == -1)
 			perror("No such file or directory");
 	}
+	return (1);
 }
-
-

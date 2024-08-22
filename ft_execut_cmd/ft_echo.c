@@ -6,50 +6,56 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 09:06:30 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/20 09:16:00 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:04:03 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_echo(t_command *list ,char **env)
+int	ft_echo(t_command *list, char **env)
 {
-	int j = 0;
-	bool flag = true;
-	int i = 0;
-	if(list->arg[1]!= NULL)
+	int		j;
+	bool	flag;
+	int		i;
+	char	**new;
+
+
+	j = 0;
+	flag = true;
+	i = 0;
+	if (list->arg[1] != NULL)
 	{
 		while (list->arg[1][i] && list->arg[1][i] != '\0')
 		{
-			if(list->arg[1][0] == '-' && list->arg[1][++i] == 'n')
+			if (list->arg[1][0] == '-' && list->arg[1][++i] == 'n')
 				flag = true;
 			else
 			{
 				flag = false;
-				break;
+				break ;
 			}
 			i++;
-		}	
+		}
 	}
 	else
 	{
 		write(1, "\n", 1);
-		return ;
+		return (0);
 	}
-	if(flag == true)
+	if (flag == true)
 	{
 		ft_echo_flag(list);
-		if(test_redir_here_doc(list) == 1)
+		if (test_redir_here_doc(list) == 1)
 		{
-			char **new = ft_new_args(list->arg, list->doc);
-			execution_cmd(list, new ,env);
+			new = ft_new_args(list->arg, list->doc);
+			execution_cmd(list, new, env);
 		}
-		return ;
+		return (0);
 	}
-	i = 1;	
-	while(list->arg[i])
+	i = 1;
+	while (list->arg[i])
 	{
-		j =0;
+		j = 0;
 		while (list->arg[i][j])
 		{
 			write(1, &list->arg[i][j], 1);
@@ -59,21 +65,24 @@ void	ft_echo(t_command *list ,char **env)
 		i++;
 	}
 	write(1, "\n", 1);
-		if(test_redir_here_doc(list) == 1)
+	if (test_redir_here_doc(list) == 1)
 	{
-		char **new = ft_new_args(list->arg, list->doc);
-		execution_cmd(list, new ,env);
+		new = ft_new_args(list->arg, list->doc);
+		execution_cmd(list, new, env);
 	}
+	return (1);
 }
 
-void 	ft_echo_flag(t_command  *list)
+void	ft_echo_flag(t_command *list)
 {
-	int i = 2;
-	int j;
-	while(list->arg[i + 1] && list->arg != NULL)
+	int	i;
+	int	j;
+
+	i = 2;
+	while (list->arg[i + 1] && list->arg != NULL)
 	{
 		j = 0;
-		while(list->arg[i][j])
+		while (list->arg[i][j])
 		{
 			write(1, &list->arg[i][j], 1);
 			j++;
@@ -82,7 +91,7 @@ void 	ft_echo_flag(t_command  *list)
 		i++;
 	}
 	j = 0;
-	while(list->arg[i][j] && list->arg != NULL)
+	while (list->arg[i][j] && list->arg != NULL)
 	{
 		write(1, &list->arg[i][j], 1);
 		j++;

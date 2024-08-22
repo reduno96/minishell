@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 09:31:58 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:37:39 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void			hundle_dredir_out(char	 	*file);
 /////////////////////////  her doc  //////////////////////////
 int 			herdoc_exist(t_command *list);
 void			handle_here_doc(t_command *tmp , char **env);
-t_here_doc  	*new_node_her(int idx , char *file, int fd, bool expand);
+t_here_doc  	*new_node_her(int idx , int i,char *file, int fd, bool expand);
 void    		add_back_node_her(t_here_doc **her, t_here_doc *new_her);
 
 
@@ -141,14 +141,14 @@ void 			handle_pipe(t_command *list, char **env);
 
 // ///////            Commands         //////////////////////////////////
 // int			builtin_cmd(t_envarment *var ,t_command *list ,char  **env);
-void            ft_cd(t_command *list);
-void            ft_pwd(t_command *va_list);
-void            ft_export( t_envarment *var , t_command *str);
-void            ft_env( t_envarment *var);
-void            ft_unset(t_envarment *var , t_command *list);
-void            ft_echo(t_command *list, char **env);
+int            ft_cd(t_command *list);
+int            ft_pwd(t_command *va_list);
+int            ft_export( t_envarment *var , t_command *str);
+int            ft_env( t_envarment *var);
+int            ft_unset(t_envarment *var , t_command *list);
+int            ft_echo(t_command *list, char **env);
 void            ft_echo_flag(t_command *list);
-void			ft_exit(t_envarment *var ,t_command *list);
+int			ft_exit(t_envarment *var ,t_command *list);
 
 
 
