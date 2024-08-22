@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 12:20:34 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:12:44 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ void	handle_sig(int sig)
 void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment *my_env,
 		char **env)
 {
-	(void) env;
 	ft_check_env(&x, my_env);
 	ft_command(&x, &cmd);
-	// ft_exute(my_env, cmd, env);
+	ft_exute(my_env, cmd, env);
 	ft_free_lexer(&x);
 }
 void	ft_reader(t_splitor *x, t_command *cmd, t_envarment *my_env, char **env)
@@ -64,8 +63,6 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_envarment *my_env, char **env)
 	while (1)
 	{
 		str_input = readline("\033[36m➨ minishell $:\033[0m  ");
-		// if (ft_search(str_input, "exit") )
-		// 	exit (1);
 		if (!str_input)
 		{
 			printf("exit\n");

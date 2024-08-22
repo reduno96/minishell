@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_nodes_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/19 15:20:26 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:05:37 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ void	ft_check_env(t_splitor **x, t_envarment *my_env)
 				{
 					free(tmp_cmd->in);
 					tmp_cmd->in = ft_strdup(tmp_env->data);
-					break ;
+					tmp_cmd = tmp_cmd->next;
+					if (!tmp_cmd)
+					{
+
+					}
+						break ;
 				}
 				tmp_env = tmp_env->next;
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/20 09:50:41 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:14:46 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_command(t_splitor **x, t_command **cmd)
 		printf("\033[0;32m\n\t++++++++++++++   Command   ++++++++++++++++\n\033[0m");
 		printf("Content :	 %s \n", tmp_cmd->content);
 		if (tmp_cmd->arg[i] != NULL)
-			printf("Argument :	");			
+			printf("Argument :	");
 		while (tmp_cmd->arg[i] != NULL)
 		{
 			printf(" [%s] ", tmp_cmd->arg[i]);
