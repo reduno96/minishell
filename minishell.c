@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 15:39:23 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:56:49 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,26 @@ void	handle_sig(int sig)
 		rl_redisplay();
 	}
 }
+void	ft_ambiguous(t_splitor *x, t_command *cmd, t_envarment *my_env)
+{
+	t_splitor	*tmp_x;
 
+	tmp_x = x;
+	while (tmp_x != NULL)
+	{
+		if (tmp_x->type == '<' || tmp_x->type == '>'
+			|| tmp_x->type == DREDIR_OUT)
+		{
+			if (tmp_x->is_amb == 1)
+				return 1;
+		}
+	}
+}
 void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment *my_env,
 		char **env)
 {
 	ft_check_env(&x, my_env);
+	ft_ambiguous(x, cmd, my_env);
 	ft_command(&x, &cmd);
 	ft_exute(my_env, cmd, env);
 	ft_free_lexer(&x);
@@ -85,7 +100,7 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_envarment *my_env, char **env)
 		free(str_input);
 	}
 }
-void ft_d(int signal)
+void	ft_d(int signal)
 {
 	printf("fdf\n");
 	if (signal == SIGQUIT)

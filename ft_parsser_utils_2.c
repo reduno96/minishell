@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 14:18:32 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:51:02 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x)
 {
 	while ((*tmp_x) != NULL && !((*tmp_x)->type == '|' && (*tmp_x)->state == G))
 	{
+		if ((*tmp_x) != NULL && (*tmp_x)->is_amb)
+			printf("red");
 		if ((*tmp_x) != NULL && !((*tmp_x)->type == ' '
 				&& (*tmp_x)->state == G))
 			ft_neuter_cmd(new_node, i, tmp_x);
