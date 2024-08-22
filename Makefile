@@ -34,7 +34,7 @@ LNRL= -L/goinfre/rel-mora/homebrew/opt/readline/lib -lreadline
 all : ${LIBFT} ${NAME}
 
 %.o: %.c minishell.h structures.h
-	${CC} ${CFLAGS} -c  $< -o $@
+	${CC} ${CFLAGS} $(INRL) -c  $< -o $@
 
 ${NAME} : minishell.h structures.h ${OBJ}
 		${CC} ${FLAGS} ${LIBFT}  ${INRL} ${LNRL} ${SRC}  -o ${NAME}

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 13:12:44 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:33:20 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	handle_sig(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -97,8 +98,6 @@ int	main(int ac, char **av, char **env)
 	t_command	*cmd;
 
 	signal(SIGINT, handle_sig);
-	// signal(SIGQUIT, SIG_IGN);
-	// signal(SIGQUIT, ft_d);
 	(void)ac;
 	(void)av;
 	my_env = NULL;
