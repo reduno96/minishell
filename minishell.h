@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/20 18:20:09 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/22 09:31:58 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-#include <stdbool.h>  
+#include <stdbool.h>
 
 // function we use
 
@@ -91,7 +91,7 @@ char            *path_command(char *ptr);
 t_envarment 	*ft_stock_envarment(char **env);
 int             test_exist(t_envarment *var , char **list);
 
-void            free_args(char **args);// ft_export 
+void            free_args(char **args);// ft_export
 char            **split_line(char *ptr);// ft_export
 char            **split_var(char *ptr);// ft_env
 void            print_export(t_envarment *var, t_command *str);
