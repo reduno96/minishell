@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 16:56:49 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:18:16 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,31 @@ void	handle_sig(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
 }
-void	ft_ambiguous(t_splitor *x, t_command *cmd, t_envarment *my_env)
-{
-	t_splitor	*tmp_x;
+// void	ft_ambiguous(t_splitor *x, t_command *cmd, t_envarment *my_env)
+// {
+// 	t_splitor	*tmp_x;
 
-	tmp_x = x;
-	while (tmp_x != NULL)
-	{
-		if (tmp_x->type == '<' || tmp_x->type == '>'
-			|| tmp_x->type == DREDIR_OUT)
-		{
-			if (tmp_x->is_amb == 1)
-				return 1;
-		}
-	}
-}
+// 	tmp_x = x;
+// 	while (tmp_x != NULL)
+// 	{
+// 		if (tmp_x->type == '<' || tmp_x->type == '>'
+// 			|| tmp_x->type == DREDIR_OUT)
+// 		{
+// 			if (tmp_x->is_amb == 1)
+// 				return 1;
+// 		}
+// 	}
+// }
 void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment *my_env,
 		char **env)
 {
-	ft_check_env(&x, my_env);
-	ft_ambiguous(x, cmd, my_env);
+	// ft_check_env(&x, my_env);
+	// ft_ambiguous(x, cmd, my_env);
 	ft_command(&x, &cmd);
 	ft_exute(my_env, cmd, env);
 	ft_free_lexer(&x);

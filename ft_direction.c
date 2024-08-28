@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 21:48:21 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:01:25 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	print_redirect_list(t_redirect *head)
 {
+	printf("I'm here in printt redirect\n");
 	t_redirect	*current;
 
 	current = head;

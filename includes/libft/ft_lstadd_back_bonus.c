@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 11:58:26 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/07/29 16:50:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:56:50 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ void	ft_add(t_splitor **lst, t_splitor *new)
 	if (!lst || !new)
 		return ;
 	if (*lst == NULL)
+	{
 		*lst = new;
+	}
 	else
 	{
 		last = ft_lstlast(*lst);
 		last->next = new;
+		new->prev = last;
 	}
 }

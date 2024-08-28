@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 15:37:39 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/27 09:22:39 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int			ft_lexer(char *input, t_splitor **x);
 t_envarment	*new_node(void *var, void *data);
 void		add_back_node(t_envarment **lst, t_envarment *new);
 t_envarment	*ft_stock_envarment(char **env);
-void		ft_check_env(t_splitor **x, t_envarment *my_env);
+char *ft_expand(char *arg, t_envarment *my_env);
+void ft_check_env(t_splitor **x, t_envarment *my_env);
 // ---------
 void		ft_command(t_splitor **x, t_command **cmd);
 void		ft_add_command(t_command **lst, t_command *new);

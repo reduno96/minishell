@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 13:14:46 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/28 07:45:10 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_count_parameters(t_splitor *tmp_x, int *count)
 		(*count)++;
 	else if (tmp != NULL)
 	{
+		printf("__________1____\n");
 		while (tmp != NULL && !(tmp->type == '|' && tmp->state == G))
 		{
 			ft_skip_spaces(&tmp);
@@ -57,7 +58,45 @@ void	ft_count_parameters(t_splitor *tmp_x, int *count)
 		}
 	}
 }
+void	ft_fill_red(t_command **cmd, t_splitor **x)
+{
+	t_command	*tmp_cmd;
+	t_splitor	*tmp_x;
 
+	tmp_cmd = *cmd;
+	tmp_x = *x;
+	while (tmp_cmd != NULL)
+	{
+		while (tmp_cmd != NULL && tmp_x != NULL && tmp_x->state == G
+			&& tmp_x->type != '|')
+		{
+			if (tmp_x->type == '<' && tmp_x->state == G)
+			{
+				tmp_x = tmp_x->next;
+				ft_skip_spaces(&tmp_x);
+				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in, '<'));
+			}
+			else if (tmp_x->type == '>' && tmp_x->state == G)
+			{
+				tmp_x = tmp_x->next;
+				ft_skip_spaces(&tmp_x);
+				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in, '>'));
+			}
+			else if (tmp_x->type == DREDIR_OUT && tmp_x->state == G)
+			{
+				tmp_x = tmp_x->next;
+				ft_skip_spaces(&tmp_x);
+				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in,
+						DREDIR_OUT));
+			}
+			tmp_x = tmp_x->next;
+		}
+		if (tmp_x != NULL && tmp_x->type == '|')
+			tmp_x = tmp_x->next;
+		tmp_cmd = tmp_cmd->next;
+		tmp_cmd = tmp_cmd->next;
+	}
+}
 void	ft_command(t_splitor **x, t_command **cmd)
 {
 	int			count;
@@ -75,12 +114,16 @@ void	ft_command(t_splitor **x, t_command **cmd)
 		printf("Count: %d\n", count);
 		ft_add_command(cmd, ft_new_command(count, &tmp_x));
 	}
+	tmp_x = *x;
+	tmp_cmd = *cmd;
+	ft_fill_red(cmd, x);
 	tmp_cmd = *cmd;
 	i = 0;
 	while (tmp_cmd != NULL)
 	{
+		i = 0;
 		printf("\033[0;32m\n\t++++++++++++++   Command   ++++++++++++++++\n\033[0m");
-		printf("Content :	 %s \n", tmp_cmd->content);
+		printf("Content :		%s \n", tmp_cmd->content);
 		if (tmp_cmd->arg[i] != NULL)
 			printf("Argument :	");
 		while (tmp_cmd->arg[i] != NULL)
@@ -88,18 +131,50 @@ void	ft_command(t_splitor **x, t_command **cmd)
 			printf(" [%s] ", tmp_cmd->arg[i]);
 			i++;
 		}
-		i=0;
 		printf("\n");
-		printf("doc :		\n");
 		print_redirect_list(tmp_cmd->doc);
-		printf("\n");
-		l = 0;
-		while (tmp_cmd->store_her[l] != NULL)
-		{
-			printf("len  = %d     store:   %s\n",tmp_cmd->len , tmp_cmd->store_her[l]);
-			l++;
-		}
-		l = 0;
+		tmp_cmd = tmp_cmd->next;
+	}
+	// print_redirect_list(tmp_cmd->doc);
+	// tmp_cmd = tmp_cmd->next;
+	// printf("__________HI_IM _________%s_________\n", tmp_cmd->arg[0]);
+	// tmp_cmd = tmp_cmd->next;
+	// printf("__________HI_2_________%s_________\n", tmp_cmd->arg[0]);
+	// tmp_cmd = tmp_cmd->next;
+	// printf("HIII in \n");
+	// printf("__________HI_3 _________%s_________\n", tmp_cmd->content);
+	// while (1)
+	// ;
+	// print_redirect_list(tmp_cmd->doc);
+	i = 0;
+	(void)l;
+	tmp_cmd = *cmd;
+	while (tmp_cmd != NULL)
+	{
+		// printf("\033[0;32m\n\t++++++++++++++   Command   ++++++++++++++++\n\033[0m");
+		// printf("Content :		%s \n", tmp_cmd->content);
+		// if (tmp_cmd->arg[i] != NULL)
+		// 	printf("Argument :	");
+		// i = 0;
+		// while (tmp_cmd->arg[i] != NULL)
+		// {
+		// 	printf(" [%s] ", tmp_cmd->arg[i]);
+		// 	i++;
+		// }
+		// i = 0;
+		// printf("\n");
+		// printf("doc :		\n");
+		// print_redirect_list(tmp_cmd->doc);
+		// printf("\n");
+		// l = 0;
+		// while (tmp_cmd->store_her[l] != NULL)
+		// {
+		// 	printf("len  = %d     store:   %s\n", tmp_cmd->len,
+		// 		tmp_cmd->store_her[l]);
+		// 	l++;
+		// }
+		// l = 0;
+		// if (tmp_cmd != NULL)
 		tmp_cmd = tmp_cmd->next;
 	}
 }
