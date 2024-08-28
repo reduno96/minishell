@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 16:56:49 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:42:58 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,12 @@ void	handle_sig(int sig)
 		rl_redisplay();
 	}
 }
-void	ft_ambiguous(t_splitor *x, t_command *cmd, t_envarment *my_env)
+int	ft_ambiguous(t_splitor *x, t_command *cmd, t_envarment *my_env)
 {
 	t_splitor	*tmp_x;
 
+	(void)cmd;
+	(void)my_env;
 	tmp_x = x;
 	while (tmp_x != NULL)
 	{
@@ -59,16 +61,23 @@ void	ft_ambiguous(t_splitor *x, t_command *cmd, t_envarment *my_env)
 			|| tmp_x->type == DREDIR_OUT)
 		{
 			if (tmp_x->is_amb == 1)
-				return 1;
+				return (1);
 		}
+		tmp_x = tmp_x->next;
 	}
+	return (0);
 }
 void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment *my_env,
 		char **env)
 {
-	ft_check_env(&x, my_env);
-	ft_ambiguous(x, cmd, my_env);
-	ft_command(&x, &cmd);
+	(void) env;
+	// ft_check_env(&x, my_env);
+	// if (ft_ambiguous(x, cmd, my_env))
+	// {
+	// 	ft_putstr_fd("Syntax Error:\n", 2);
+	// 	return ;
+	// }
+	ft_command(&x, &cmd, my_env);
 	ft_exute(my_env, cmd, env);
 	ft_free_lexer(&x);
 }
@@ -113,6 +122,7 @@ int	main(int ac, char **av, char **env)
 	t_command	*cmd;
 
 	signal(SIGINT, handle_sig);
+	signal(SIGQUIT, handle_sig);
 	(void)ac;
 	(void)av;
 	my_env = NULL;
