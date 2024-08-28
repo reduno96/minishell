@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 21:25:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/20 19:23:33 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:47:01 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	ft_her_doc(t_command **new_node)
 	}
 	(*new_node)->store_her[i] = NULL;
 }
-t_command	*ft_new_command(int count, t_splitor **tmp_x)
+t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *my_env)
 {
 	t_command	*new_node;
 	int			i;
-
+	(void) my_env;
 	i = 0;
 	new_node = malloc(sizeof(t_command));
 	new_node->arg = malloc(sizeof(char *) * (count + 1));
@@ -88,7 +88,5 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x)
 		ft_not_pipe(&new_node, &i, tmp_x);
 	new_node->content = new_node->arg[0];
 	new_node->doc = NULL;
-	ft_check_doc(&new_node);
-	ft_her_doc(&new_node);
 	return (new_node);
 }
