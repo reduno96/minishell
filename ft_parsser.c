@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/28 09:22:15 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/28 09:33:57 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	ft_command(t_splitor **x, t_command **cmd)
 	t_splitor	*tmp_x;
 	t_command	*tmp_cmd;
 	int			i;
-	int			l;
+
 
 	i = 0;
 	tmp_x = *x;
@@ -172,6 +172,7 @@ void	ft_command(t_splitor **x, t_command **cmd)
 		print_redirect_list(tmp_cmd->doc);
 		tmp_cmd = tmp_cmd->next;
 	}
+
 	// print_redirect_list(tmp_cmd->doc);
 	// tmp_cmd = tmp_cmd->next;
 	// printf("__________HI_IM _________%s_________\n", tmp_cmd->arg[0]);
