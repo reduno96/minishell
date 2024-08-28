@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 15:36:35 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:04:23 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ typedef struct s_splitor
 	char				*in;
 	int					len;
 	enum e_token		type;
+		int					is_amb;
+	int is_exp;
 	enum e_state		state;
 	struct s_splitor	*next;
+	struct s_splitor *prev;
 }						t_splitor;
 
 typedef struct s_envarment
@@ -76,6 +79,8 @@ typedef struct s_command
 	char				**arg;
 	t_redirect			*doc;
 	char				**store_her;
+	int					is_amb;
+	int is_exp;
 	int					is_pipe;
 	int					len;
 	struct s_command	*next;
