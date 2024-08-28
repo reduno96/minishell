@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 14:14:45 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:11:47 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ void	ft_her_dir(t_splitor **x, t_idx *var, char *str_input)
 void	ft_get_char(char *str_input, t_idx *var, t_splitor **x)
 {
 	var->len++;
-	if (str_input[var->i] == '$' && !ft_check_input(str_input[var->i + 1]))
+	if (str_input[var->i] == '$' && ft_isalnum(str_input[var->i + 1])
+		&& !ft_check_input(str_input[var->i + 1]))
 	{
-		while (str_input[var->i] && !ft_check_input(str_input[var->i + 1]))
+		printf("1\n");
+		while (str_input[var->i] && !ft_check_input(str_input[var->i + 1])
+			&& ft_isalnum(str_input[var->i + 1]))
 		{
 			var->state = ft_get_state(var, str_input[var->i]);
 			var->i++;
@@ -72,6 +75,20 @@ void	ft_get_char(char *str_input, t_idx *var, t_splitor **x)
 		}
 		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
 				var->len, ENV, var->state));
+	}
+	else if (str_input[var->i] == '$' && !ft_isalnum(str_input[var->i + 1])
+		&& !ft_check_input(str_input[var->i + 1]))
+	{
+		while (str_input[var->i] && !ft_check_input(str_input[var->i + 1]
+				&& !ft_isalnum(str_input[var->i + 1])))
+		{
+			var->state = ft_get_state(var, str_input[var->i]);
+			var->i++;
+			var->len++;
+		}
+		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
+				var->len, ENV, var->state));
+		printf("2\n");
 	}
 	else
 	{
