@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/22 15:43:13 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:57:42 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,20 +213,21 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 
 	if (list == NULL)
 		return;
-		
+
 	printf("***************************************************************\n");
 	printf("**************    \033[0;31m   Result of the Command   \033[0m******************\n");
 	printf("***************************************************************\n\n");
+
 
 
 	if (herdoc_exist(list))
 	{
 		handle_here_doc(list, env);
 	}
-	
+
 	if (built_in(var, list, env))
 		return;
-		
+
 	if (test_redir_here_doc(list))
 	{
 		hundle_redirections(list);
@@ -237,7 +238,7 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 		handle_pipe(list, env);
 		return;
 	}
-	
+
 	char **new_args = ft_new_args(list->arg, list->doc);
 
 	if (new_args != NULL)
