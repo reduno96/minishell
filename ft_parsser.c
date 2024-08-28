@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/28 07:45:10 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/28 09:22:15 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,32 @@ void	ft_count_parameters(t_splitor *tmp_x, int *count)
 		}
 	}
 }
+void	ft_fill_her(t_command **new_node)
+{
+	t_redirect	*tmp;
+	int			i;
+
+	i = 0;
+	tmp = (*new_node)->doc;
+	while (tmp != NULL)
+	{
+		if (tmp->type == HERE_DOC)
+			(*new_node)->len++;
+		tmp = tmp->next;
+	}
+	(*new_node)->store_her = malloc(sizeof(char *) * (*new_node)->len + 1);
+	tmp = (*new_node)->doc;
+	while (tmp != NULL)
+	{
+		if (tmp->type == HERE_DOC)
+		{
+			(*new_node)->store_her[i] = ft_strdup(tmp->store);
+			i++;
+		}
+		tmp = tmp->next;
+	}
+	(*new_node)->store_her[i] = NULL;
+}
 void	ft_fill_red(t_command **cmd, t_splitor **x)
 {
 	t_command	*tmp_cmd;
@@ -89,12 +115,21 @@ void	ft_fill_red(t_command **cmd, t_splitor **x)
 				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in,
 						DREDIR_OUT));
 			}
+			else if (tmp_x->type == DREDIR_OUT && tmp_x->state == G)
+			{
+				tmp_x = tmp_x->next;
+				ft_skip_spaces(&tmp_x);
+				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in,
+						HERE_DOC));
+			}
 			tmp_x = tmp_x->next;
 		}
 		if (tmp_x != NULL && tmp_x->type == '|')
 			tmp_x = tmp_x->next;
-		tmp_cmd = tmp_cmd->next;
-		tmp_cmd = tmp_cmd->next;
+		if (tmp_cmd != NULL)
+			tmp_cmd = tmp_cmd->next;
+		if (tmp_cmd != NULL && tmp_cmd->is_pipe)
+			tmp_cmd = tmp_cmd->next;
 	}
 }
 void	ft_command(t_splitor **x, t_command **cmd)
@@ -117,6 +152,8 @@ void	ft_command(t_splitor **x, t_command **cmd)
 	tmp_x = *x;
 	tmp_cmd = *cmd;
 	ft_fill_red(cmd, x);
+	tmp_cmd = *cmd;
+	ft_fill_her(cmd);
 	tmp_cmd = *cmd;
 	i = 0;
 	while (tmp_cmd != NULL)
@@ -146,10 +183,10 @@ void	ft_command(t_splitor **x, t_command **cmd)
 	// while (1)
 	// ;
 	// print_redirect_list(tmp_cmd->doc);
-	i = 0;
-	(void)l;
-	tmp_cmd = *cmd;
-	while (tmp_cmd != NULL)
+	// i = 0;
+	// (void)l;
+	// tmp_cmd = *cmd;
+	// while (tmp_cmd != NULL)
 	{
 		// printf("\033[0;32m\n\t++++++++++++++   Command   ++++++++++++++++\n\033[0m");
 		// printf("Content :		%s \n", tmp_cmd->content);
@@ -175,7 +212,7 @@ void	ft_command(t_splitor **x, t_command **cmd)
 		// }
 		// l = 0;
 		// if (tmp_cmd != NULL)
-		tmp_cmd = tmp_cmd->next;
+		// tmp_cmd = tmp_cmd->next;
 	}
 }
 // while (tmp_cmd != NULL)
