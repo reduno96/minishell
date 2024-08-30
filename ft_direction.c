@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/29 23:57:40 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:55:49 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_redirect_list(t_redirect *head)
 	current = head;
 	while (current != NULL)
 	{
-		printf("Type: %d, Store: %s\n", current->type, current->store);
+		// printf("Type: %d, Store: %s\n", current->type, current->store);
 		current = current->next;
 	}
 }
@@ -51,7 +51,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x)
 	// if ((*x) == NULL || x == NULL || cmd == NULL)
 	// 	return ;
 	tmp_cmd = *cmd;
-	printf("jjjjjjjjjjjjjjjjjjjjjjjjjjj\n");
+	// printf("jjjjjjjjjjjjjjjjjjjjjjjjjjj\n");
 	tmp_x = *x;
 	// while (1)
 	// 	;
@@ -59,7 +59,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x)
 	while (tmp_cmd != NULL)
 	{
 		tmp_cmd->doc = NULL;
-		printf("in function fill redirection \n");
+		// printf("in function fill redirection \n");
 		while (tmp_cmd != NULL && tmp_x != NULL && tmp_x->state == G
 			&& tmp_x->type != '|')
 		{
@@ -90,7 +90,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x)
 				ft_skip_spaces_and_quotes(&tmp_x);
 				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in,
 						HERE_DOC));
-				printf("in else if condition  \n");
+				// printf("in else if condition  \n");
 			}
 			if (tmp_x != NULL)
 				tmp_x = tmp_x->next;
@@ -101,7 +101,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x)
 			tmp_cmd = tmp_cmd->next;
 		if (tmp_cmd != NULL && tmp_x != NULL)
 		{
-			printf("tmp++++++>%s\n", tmp_cmd->content);
+			// printf("tmp++++++>%s\n", tmp_cmd->content);
 			tmp_cmd = tmp_cmd->next;
 		}
 	}
@@ -114,9 +114,10 @@ void	ft_fill_her(t_command **new_node)
 	int			i;
 
 	tmp_cmd = *new_node;
-	i = 0;
 	while (tmp_cmd != NULL)
 	{
+	i = 0;
+		// printf(".........................................\n\n");
 		tmp_cmd->store_her = NULL;
 		tmp_cmd->len = 0;
 		tmp = tmp_cmd->doc;
@@ -126,6 +127,7 @@ void	ft_fill_her(t_command **new_node)
 				tmp_cmd->len++;
 			tmp = tmp->next;
 		}
+		// printf("tmp_cmd->len = %d\n", tmp_cmd->len);
 		tmp_cmd->store_her = malloc(sizeof(char *) * (tmp_cmd->len + 1));
 		tmp = tmp_cmd->doc;
 		while (tmp != NULL)
@@ -138,7 +140,8 @@ void	ft_fill_her(t_command **new_node)
 			tmp = tmp->next;
 		}
 		tmp_cmd->store_her[i] = NULL;
-		tmp_cmd = tmp_cmd->next;
+		if (tmp_cmd != NULL)
+			tmp_cmd = tmp_cmd->next;
 		if (tmp_cmd != NULL && tmp_cmd->is_pipe)
 			tmp_cmd = tmp_cmd->next;
 	}

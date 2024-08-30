@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/22 15:41:20 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:52:08 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,42 @@ int	herdoc_exist(t_command *list)
 	while (tmp)
 	{
 		if (tmp->store_her && tmp->store_her[0] != NULL)
+		{
+			printf("herdoc exist\n");
 			return (1);
+		}
 		tmp = tmp->next;
 	}
 	return (0);
 }
+
+
 t_here_doc	*return_herdoc(t_command *list)
 {
 	t_here_doc	*her;
 	int			idx;
 	int			i;
+	t_command	*tmp;
 
+	tmp = list;
 	her = NULL;
 	idx = 0;
-	while (list)
+	while (tmp)
 	{
-		i = 0;
-		while (list->store_her != NULL && list->store_her[i])
+		if (tmp->store_her != NULL)
 		{
-			add_back_node_her(&her, new_node_her(idx, i, list->store_her[i], -1,false));
-			i++;
+			i = 0;
+			while (tmp->store_her[i])
+			{
+				
+				add_back_node_her(&her, new_node_her(idx, i, tmp->store_her[i],
+						-1, false));
+				i++;
+			}
 		}
-		idx++;
-		list = list->next;
+		if (  tmp->content != NULL && tmp->content[0] != '|')
+			idx++;
+		tmp = tmp->next;
 	}
 	return (her);
 }
@@ -57,7 +70,7 @@ void	redirect_heredoc_input(char *file, int fd)
 	}
 	close(fd);
 }
-void	hundle_output_herdoc(t_here_doc *her)
+int	hundle_output_herdoc(t_here_doc *her)
 {
 	char	*tmp_line;
 	char	*path_file;
@@ -65,22 +78,15 @@ void	hundle_output_herdoc(t_here_doc *her)
 	tmp_line = ft_strjoin(her->store, ft_itoa(her->indx));
 	path_file = ft_strjoin("/tmp/herdoc", tmp_line);
 	free(tmp_line);
-	her->fd = open(path_file, O_RDONLY, 0600);
+	her->fd = open(path_file, O_RDONLY);
 	if (her->fd < 0)
 	{
 		perror("open");
 		free(path_file);
-		return ;
+		return (0);
 	}
-	if (dup2(her->fd, STDIN_FILENO) < 0)
-	{
-		perror("dup2");
-		close(her->fd);
-		free(path_file);
-		return ;
-	}
-	close(her->fd);
 	free(path_file);
+	return (her->fd);
 }
 
 void	delet_file_her(t_here_doc *delet_her)
@@ -136,31 +142,44 @@ void	write_in_file(t_here_doc *tmp, char *line)
 	ft_putstr_fd(line, tmp->fd);
 	write(tmp->fd, "\n", 1);
 	close(tmp->fd);
-	tmp = tmp->next;
+	// tmp = tmp->next;
 }
 
-void	handle_here_doc(t_command *tmp, char **env)
+int	count_herdoc(t_here_doc *her)
+{
+	int	i;
+
+	i = 0;
+	while (her)
+	{
+		i++;
+		her = her->next;
+	}
+	return (i);
+}
+int	handle_here_doc(t_command *tmp, char **env)
 {
 	int			i;
 	int			count;
 	t_here_doc	*her;
-	t_here_doc	*tmp_her;
 	char		*line;
-	t_here_doc	*delet_her;
+	int			fdk;
 
+	t_here_doc	*delet_her;
 	(void)env;
 	i = 0;
-	count = tmp->len;
 	her = return_herdoc(tmp);
-	printf("*/++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-	tmp_her = her;
-	while (tmp_her != NULL)
-	{
-		printf("her->file = %s et indx = %d et i = %d   et fd = %d \n",
-			tmp_her->store, tmp_her->indx, tmp_her->indx, tmp_her->fd);
-		tmp_her = tmp_her->next;
-	}
-	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+	count = count_herdoc(her);
+	// printf("*/++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+	// t_here_doc	*tmp_her;
+	// tmp_her = her;
+	// while (tmp_her != NULL)
+	// {
+	// 	printf("her->file = %s et indx = %d et i = %d   et fd = %d \n",
+	// 		tmp_her->store, tmp_her->indx_cmd, tmp_her->indx, tmp_her->fd);
+	// 	tmp_her = tmp_her->next;
+	// }
+	// printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
 	create_files(her);
 	while (1)
 	{
@@ -183,7 +202,8 @@ void	handle_here_doc(t_command *tmp, char **env)
 		}
 		free(line);
 	}
-	hundle_output_herdoc(her);
+	fdk = hundle_output_herdoc(her);
 	delet_her = return_herdoc(tmp);
 	delet_file_her(delet_her);
+	return (fdk);
 }

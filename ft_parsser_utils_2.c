@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser_utils_2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/30 08:10:38 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:56:45 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_double_and_sigle(t_splitor **tmp_x, int *i, t_command **new_node)
 
 void	ft_general_command(t_command **new_node, int *i, t_splitor **tmp_x)
 {
-	printf("HI I'M IN ELSE IN GENERAL FUNCTION \n");
+	// printf("HI I'M IN ELSE IN GENERAL FUNCTION \n");
 	(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], (*tmp_x)->in);
 	(*tmp_x) = (*tmp_x)->next;
 	ft_skip(tmp_x, i, new_node);
@@ -87,13 +87,13 @@ void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 	if ((*tmp_x)->type == '<' || (*tmp_x)->type == '>'
 		|| (*tmp_x)->type == DREDIR_OUT || (*tmp_x)->type == HERE_DOC)
 	{
-		printf("HI im in ficton skip not word\n\n");
+		// printf("HI im in ficton skip not word\n\n");
 		(*tmp_x) = (*tmp_x)->next;
 		ft_skip_spaces(tmp_x);
 		if ((*tmp_x) != NULL)
 			(*tmp_x) = (*tmp_x)->next;
 	}
-	printf("HI im in ficton skip not word\n\n");
+	// printf("HI im in ficton skip not word\n\n");
 }
 void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
@@ -108,5 +108,5 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 		if ((*tmp_x) != NULL && ((*tmp_x)->type == ' ' && (*tmp_x)->state == G))
 			ft_skip_spaces(tmp_x);
 	}
-	printf(" ft_not_pipe\n\n");
+	// printf(" ft_not_pipe\n\n");
 }

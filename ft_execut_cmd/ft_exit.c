@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 23:39:14 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/22 12:54:23 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:12:51 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_free_when_exit(t_envarment *var, char *str, int fd, t_command *cmd)
 	ft_free_command(cmd);
 	ft_free_env(&var);
 }
-int	ft_exit(t_envarment *var, t_command *cmd)
+void	ft_exit(t_envarment *var, t_command *cmd)
 {
 	int	len;
 
@@ -64,5 +64,4 @@ int	ft_exit(t_envarment *var, t_command *cmd)
 		ft_free_when_exit(var, "exit: numeric argument required\n", 2, cmd);
 		exit(2);
 	}
-	return (1);
 }

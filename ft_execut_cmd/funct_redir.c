@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:33:07 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/19 11:57:55 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:35:00 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,10 @@ int 	test_redir_here_doc(t_command *list)
 	tmp = list->doc;
 	while (tmp != NULL)
 	{
-		if (tmp->type == HERE_DOC || tmp->type == DREDIR_OUT || tmp->type == REDIR_OUT || tmp->type == REDIR_IN)
+		if (tmp->type == DREDIR_OUT || tmp->type == REDIR_OUT || tmp->type == REDIR_IN)
+		{
 			return (1);
+		}
 		tmp = tmp->next;
 	}
 	return (0);

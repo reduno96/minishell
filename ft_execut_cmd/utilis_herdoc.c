@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/22 12:55:22 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:16:40 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_here_doc	*new_node_her(int idx, int i, char *file, int fd, bool expand)
 	if (!elem)
 		return (NULL);
 	elem->indx_cmd = idx;
-	elem->indx = i, elem->store = file;
+	elem->indx = i;
+	elem->store = file;
 	elem->fd = fd;
 	elem->is_expanded = expand;
 	elem->next = NULL;

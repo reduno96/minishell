@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_nodes_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/29 16:45:41 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:56:16 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 		if (arg[i] == '$')
 		{
 			i++;
-			printf("_____1________\n");
+			// printf("_____1________\n");
 			tmp_env = my_env;
 			while (tmp_env != NULL)
 			{
-				printf("_____2________\n");
+				// printf("_____2________\n");
 				if (ft_search(tmp_env->var, arg + i))
 				{
-					printf("_____3________\n");
+					// printf("_____3________\n");
 					free(arg);
 					arg = ft_strdup(tmp_env->data);
 					break ;
@@ -69,7 +69,7 @@ char	*ft_end(char *s, int *i)
 		k++;
 		j++;
 	}
-	printf(">>>>%s\n", str);
+	// printf(">>>>%s\n", str);
 	str[j] = '\0';
 	return (str);
 }
