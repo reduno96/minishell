@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/28 16:31:48 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/30 07:49:08 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,21 @@ int	ft_ambiguous(t_splitor *x, t_command *cmd, t_envarment *my_env)
 void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment *my_env,
 		char **env)
 {
-	(void) env;
 	// ft_check_env(&x, my_env);
 	// if (ft_ambiguous(x, cmd, my_env))
 	// {
 	// 	ft_putstr_fd("Syntax Error:\n", 2);
 	// 	return ;
 	// }
-	ft_command(&x, &cmd, my_env);
-	ft_exute(my_env, cmd, env);
+	if (x != NULL && my_env != NULL)
+	// Ensure pointers are not NULL
+	{
+		ft_command(&x, &cmd, my_env);
+	}
+	(void)env;
+	(void)my_env;
+	(void)cmd;
+	// ft_exute(my_env, cmd, env);
 	ft_free_lexer(&x);
 }
 void	ft_reader(t_splitor *x, t_command *cmd, t_envarment *my_env, char **env)
@@ -91,7 +97,9 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_envarment *my_env, char **env)
 		if (!str_input)
 		{
 			printf("exit\n");
-			//
+			ft_free_command(cmd);
+			ft_free_lexer(&x);
+			ft_free_env(&my_env);
 			exit(0);
 		}
 		if (ft_strlen(str_input) > 0)
@@ -122,7 +130,7 @@ int	main(int ac, char **av, char **env)
 	t_command	*cmd;
 
 	signal(SIGINT, handle_sig);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGQUIT, SIG_IGN);
 	(void)ac;
 	(void)av;
 	my_env = NULL;
