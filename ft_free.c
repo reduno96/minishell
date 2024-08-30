@@ -6,7 +6,7 @@
 /*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/13 15:10:15 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/30 08:15:54 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_free_doc(t_redirect **doc)
 	{
 		tmp = *doc;
 		*doc = (*doc)->next;
+		free(tmp->store);
 		free(tmp);
 	}
 }
@@ -63,28 +64,36 @@ void	ft_free_env(t_envarment **my_env)
 		free(tmp);
 	}
 }
+void	free_command(t_command *cmd)
+{
+	if (cmd)
+	{
+		if (cmd->arg)
+		{
+			for (int i = 0; cmd->arg[i]; i++)
+				free(cmd->arg[i]);
+			free(cmd->arg);
+		}
+		if (cmd->store_her)
+		{
+			for (int i = 0; cmd->store_her[i]; i++)
+				free(cmd->store_her[i]);
+			free(cmd->store_her);
+		}
+		if (cmd->doc)
+			ft_free_doc(&cmd->doc);
+		free(cmd);
+	}
+}
 
 void	ft_free_command(t_command *lst)
 {
 	t_command	*tmp;
-	int			i;
 
 	while (lst != NULL)
 	{
 		tmp = lst;
 		lst = lst->next;
-		i = 0;
-		while (tmp->arg[i] != NULL)
-		{
-			free(tmp->arg[i]);
-			i++;
-		}
-		free(tmp->arg);
-		if (tmp->doc != NULL)
-		{
-			ft_free_doc(&tmp->doc);
-			free(tmp->doc);
-		}
-		free(tmp);
+		free_command(tmp);
 	}
 }
