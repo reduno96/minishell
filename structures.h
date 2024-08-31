@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/26 15:04:23 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:06:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_command
 	char				**arg;
 	t_redirect			*doc;
 	char				**store_her;
+
 	int					is_amb;
 	int is_exp;
 	int					is_pipe;

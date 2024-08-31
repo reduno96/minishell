@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/30 11:29:27 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/31 10:46:35 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_envarment	*new_node(void *var, void *data);
 void		add_back_node(t_envarment **lst, t_envarment *new);
 t_envarment	*ft_stock_envarment(char **env);
 char		*ft_expand(char *arg, t_envarment *my_env);
-void		ft_check_env(t_splitor **x, t_envarment *my_env, char **arg, int g);
+void		ft_check_env(t_splitor **x, t_envarment *my_env);
 // ---------
 void		ft_command(t_splitor **x, t_command **cmd, t_envarment *env);
 void		ft_add_command(t_command **lst, t_command *new);
@@ -81,10 +81,12 @@ void		ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 				t_envarment *my_env);
 int			ft_check_command(t_splitor *tmp_x);
 void		ft_skip_spaces(t_splitor **tmp_x);
+void	ft_skip_spaces_in_count(t_splitor **tmp_x);
+
 void		ft_double_and_sigle(t_splitor **tmp_x, int *i,
-				t_command **new_node);
+				t_command **new_node, t_envarment *my_env);
 // ---------
-void		ft_fill_red(t_command **cmd, t_splitor **x);
+void		ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env);
 void		ft_fill_her(t_command **new_node);
 void		ft_check_doc(t_command **new_node);
 t_redirect	*ft_new_redir(void *content, t_token type);
