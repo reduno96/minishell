@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/23 18:11:47 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/31 08:15:28 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,16 @@ void	ft_get_char(char *str_input, t_idx *var, t_splitor **x)
 		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
 				var->len, ENV, var->state));
 	}
+	else if (str_input[var->i] == '$' && str_input[var->i + 1] == '?')
+	{
+		var->state = ft_get_state(var, str_input[var->i]);
+		var->i++;
+		var->len++;
+		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
+				var->len, ENV, var->state));
+		printf("2\n");
+		printf("%s\n", str_input);
+	}
 	else if (str_input[var->i] == '$' && !ft_isalnum(str_input[var->i + 1])
 		&& !ft_check_input(str_input[var->i + 1]))
 	{
@@ -88,7 +98,7 @@ void	ft_get_char(char *str_input, t_idx *var, t_splitor **x)
 		}
 		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
 				var->len, ENV, var->state));
-		printf("2\n");
+		printf("3\n");
 	}
 	else
 	{
