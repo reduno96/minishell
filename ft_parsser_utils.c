@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 21:25:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/30 12:56:49 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:04:55 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *my_env)
 		return (NULL);
 	}
 	new_node->arg = malloc(sizeof(char *) * (count + 1));
-
 	new_node->content = NULL;
 	new_node->arg[0] = NULL;
 	new_node->len = 0;
@@ -63,14 +62,16 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *my_env)
 	if (((*tmp_x) != NULL && ((*tmp_x)->type == '|' && (*tmp_x)->state == G)))
 	{
 		new_node->arg[i] = ft_strdup((*tmp_x)->in);
-
 		i++;
 		new_node->arg[i] = NULL;
 		new_node->is_pipe = 1;
 		(*tmp_x) = (*tmp_x)->next;
 	}
 	else if ((*tmp_x) != NULL)
+	{
+		printf("HI IM IN ft_not_pipe\n");
 		ft_not_pipe(&new_node, &i, tmp_x, my_env);
+	}
 	new_node->content = new_node->arg[0];
 	new_node->next = NULL;
 	return (new_node);
