@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/30 12:55:49 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/31 10:49:32 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_redirect_list(t_redirect *head)
 	current = head;
 	while (current != NULL)
 	{
-		// printf("Type: %d, Store: %s\n", current->type, current->store);
+		printf("Type: %d, Store: %s\n", current->type, current->store);
 		current = current->next;
 	}
 }
@@ -43,7 +43,25 @@ void	ft_skip_spaces_and_quotes(t_splitor **tmp_x)
 			|| (*tmp_x)->type == '\"'))
 		(*tmp_x) = (*tmp_x)->next;
 }
-void	ft_fill_red(t_command **cmd, t_splitor **x)
+
+char	*ft_check_ambiguous(t_splitor *tmp_x, t_envarment *my_env)
+{
+	char	*s;
+
+	s = ft_expand(tmp_x->in, my_env);
+	if (s == NULL)
+	{
+		printf("minishell: %s: ambiguous redirect\n", tmp_x->in);
+		free(s);
+	}
+	else if (s != NULL && ft_strchr(s, ' '))
+	{
+		printf("minishell: %s: ambiguous redirect\n", tmp_x->in);
+		free(s);
+	}
+	return (s);
+}
+void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 {
 	t_command	*tmp_cmd;
 	t_splitor	*tmp_x;
@@ -67,20 +85,23 @@ void	ft_fill_red(t_command **cmd, t_splitor **x)
 			{
 				tmp_x = tmp_x->next;
 				ft_skip_spaces_and_quotes(&tmp_x);
-				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in, '<'));
+				ft_add_redir((&tmp_cmd->doc),
+					ft_new_redir(ft_check_ambiguous(tmp_x, my_env), '<'));
 			}
 			else if (tmp_x != NULL && tmp_x->type == '>' && tmp_x->state == G)
 			{
 				tmp_x = tmp_x->next;
 				ft_skip_spaces_and_quotes(&tmp_x);
-				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in, '>'));
+				ft_add_redir((&tmp_cmd->doc),
+					ft_new_redir(ft_check_ambiguous(tmp_x, my_env), '>'));
 			}
 			else if (tmp_x != NULL && tmp_x->type == DREDIR_OUT
 				&& tmp_x->state == G)
 			{
 				tmp_x = tmp_x->next;
 				ft_skip_spaces_and_quotes(&tmp_x);
-				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in,
+				ft_add_redir((&tmp_cmd->doc),
+					ft_new_redir(ft_check_ambiguous(tmp_x, my_env),
 						DREDIR_OUT));
 			}
 			else if (tmp_x != NULL && tmp_x->type == HERE_DOC
@@ -116,7 +137,7 @@ void	ft_fill_her(t_command **new_node)
 	tmp_cmd = *new_node;
 	while (tmp_cmd != NULL)
 	{
-	i = 0;
+		i = 0;
 		// printf(".........................................\n\n");
 		tmp_cmd->store_her = NULL;
 		tmp_cmd->len = 0;
