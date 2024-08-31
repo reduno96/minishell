@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/31 11:06:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:28:28 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ typedef struct s_command
 	char				**arg;
 	t_redirect			*doc;
 	char				**store_her;
-
+	char 				**ar_env;
 	int					is_amb;
-	int is_exp;
+	int 				is_exp;
 	int					is_pipe;
 	int					len;
 	struct s_command	*next;

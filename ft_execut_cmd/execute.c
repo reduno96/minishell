@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/30 12:50:27 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/31 09:16:12 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	hundle_redirections(t_command *list)
 	}
 }
 
-void	built_in(t_envarment *var, t_command *list, char **env)
+void 		built_in(t_envarment *var, t_command *list)
 {
 	if (list == NULL)
 		return ;
@@ -54,26 +54,25 @@ void	built_in(t_envarment *var, t_command *list, char **env)
 	if (ft_strcmp(list->content, "env") == 0)
 		(ft_env(var));
 	if (ft_strcmp(list->content, "echo") == 0)
-		(ft_echo(list, env));
-	else
-		return ;
+		(ft_echo(list));
+
+	list->ar_env =  array_env(var);
 }
 
-void	execution_cmd(t_command *list, char **new, char **env)
+void	execution_cmd(t_command *list, char **new)
 {
 	char	*ptr;
 
-	(void)list;
 	if (new[0][0] == '/')
 		ptr = new[0];
 	else
-		ptr = path_command(new[0]);
+		ptr = path_command(new[0] , list->ar_env);
 	if (!ptr)
 	{
 		ft_putstr_fd("command not found\n", 2);
 		exit(127);
 	}
-	if (execve(ptr, new, env) == -1)
+	if (execve(ptr, new, list->ar_env) == -1)
 		perror("execve");
 	if (access(ptr, X_OK) == -1)
 	{
@@ -106,17 +105,19 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 	int		fd;
 	int		status;
 	int		pid;
-
 	(void)var;
+	
 	if (list == NULL  )
 		return ;
-		
-	if (built_in_exist(list) == 1 && pipe_exist(list) == 0
+	list->ar_env =  array_env(var);
+	if (built_in_exist(list) == 1 && pipe_exist(list ) == 0
 		&& herdoc_exist(list) == 0 && test_redir_here_doc(list) == 0)
 	{
+	printf("------------------------------------ BUILT - IN ------------------------------\n");	
+
 		if (test_redir_here_doc(list) == 1)
 			hundle_redirections(list);
-		built_in(var, list, env);
+		built_in(var, list);
 		return ;
 	}
 	pid = fork();
@@ -129,17 +130,18 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 	{
 		if (herdoc_exist(list) == 1) // && pipe_exist(list) == 0)
 		{
-			fd = handle_here_doc(list, env);
-			if (fd != -1)
-			{
-				dup2(fd, STDIN_FILENO);
-				close(fd);
-			}
-			execution_cmd(list, list->arg, env);
+			printf("----------------------------------- [ << ]  ---------------------------------\n");
+
+			handle_here_doc(list, env);
+			hundle_redirections(list);
+
+			execution_cmd(list, list->arg );
+
 		}
-		if (pipe_exist(list) == 1)
+		if (pipe_exist(list  ) == 1)
 		{
-			fd = handle_pipe(list, env);
+			printf("----------------------------------- PIPE  ---------------------------------\n");
+			fd = handle_pipe(list , var);
 			if (fd != -1)
 			{
 				dup2(fd, STDOUT_FILENO);
@@ -148,13 +150,14 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 		}
 		else /// if (pipe_exist(list) == 0 && herdoc_exist(list) == 0)
 		{
+			printf("----------------------------------- SIMPLE CMD  ---------------------------------\n");
 			if (test_redir_here_doc(list))
 			{
 				hundle_redirections(list);
-				built_in(var, list, env);
+				built_in(var, list);
 			}
 			if (built_in_exist(list) == 0)
-				execution_cmd(list, list->arg, env);
+				execution_cmd(list, list->arg);
 		}
 		exit(EXIT_SUCCESS);
 	}

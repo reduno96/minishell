@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/31 10:49:32 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:26:40 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,30 @@ char	*ft_check_ambiguous(t_splitor *tmp_x, t_envarment *my_env)
 {
 	char	*s;
 
-	s = ft_expand(tmp_x->in, my_env);
-	if (s == NULL)
+	s = NULL;
+	if (tmp_x->type == '$')
 	{
-		printf("minishell: %s: ambiguous redirect\n", tmp_x->in);
-		free(s);
+		 s = ft_expand(tmp_x->in, my_env);
+		if (s == NULL)
+		{
+			printf("________1\n");
+			free(s);
+			return (s);
+		}
+		else if (s != NULL && ft_search(s, " "))
+		{
+			printf("________2\n");
+			free(s);
+			return (s);
+		}
+		else if (s != NULL && !ft_search(s, " "))
+		{
+			printf("________3\n");
+			return (s);
+		}
 	}
-	else if (s != NULL && ft_strchr(s, ' '))
-	{
-		printf("minishell: %s: ambiguous redirect\n", tmp_x->in);
-		free(s);
-	}
-	return (s);
+	printf("The end of the function \n");
+	return (tmp_x->in);
 }
 void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 {
@@ -92,8 +104,11 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 			{
 				tmp_x = tmp_x->next;
 				ft_skip_spaces_and_quotes(&tmp_x);
+				printf("before add redire%s_____\n", tmp_x->in);
 				ft_add_redir((&tmp_cmd->doc),
 					ft_new_redir(ft_check_ambiguous(tmp_x, my_env), '>'));
+				printf("after add redire%s_____\n", ft_check_ambiguous(tmp_x,
+						my_env));
 			}
 			else if (tmp_x != NULL && tmp_x->type == DREDIR_OUT
 				&& tmp_x->state == G)

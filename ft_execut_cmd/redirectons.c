@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:33:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/25 13:19:22 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:20:25 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 void	hundle_redir_out(char *file)
 {
+	if (file == NULL)
+	{
+		printf("ambiguous redirect\n");
+		exit(EXIT_FAILURE);
+	}
+	
 	int	fd;
 
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -32,6 +38,12 @@ void	hundle_redir_out(char *file)
 
 void	hundle_redir_in(char *file)
 {
+	if (file == NULL)
+	{
+		printf("ambiguous redirect\n");
+		// g_exit_status = 1;
+		exit(EXIT_FAILURE);
+	}
 	int	fd;
 
 	fd = open(file, O_RDONLY);
@@ -50,6 +62,12 @@ void	hundle_redir_in(char *file)
 
 void	hundle_dredir_out(char *file)
 {
+	if (file == NULL)
+	{
+		printf("ambiguous redirect\n");
+		exit(EXIT_FAILURE);
+	}
+		
 	int	fd;
 
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);

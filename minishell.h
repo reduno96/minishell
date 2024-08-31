@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/31 10:46:35 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:28:05 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_redirect	*ft_last_redir(t_redirect *lst);
 void            ft_exute(t_envarment *var, t_command *list , char **env);
 int             ft_strcmp(char *s1, char *s2);
 char            **create_argv(t_splitor *elem) ;
-char            *path_command(char *ptr);
+char            *path_command(char *ptr , char **env);
 t_envarment 	*ft_stock_envarment(char **env);
 int             test_exist(t_envarment *var , char **list);
 
@@ -110,11 +110,11 @@ char            **split_var(char *ptr);// ft_env
 void            print_export(t_envarment **var);
 // void            execution_cmd(t_command         *list ,char **new, char **env);
 // void            execution_cmd(t_command         *list ,char **env);
-void			execution_cmd(t_command *list,char **new ,char **env);// char **new, char **env)
+void			execution_cmd(t_command *list,char **new );// char **new, char **env)
 
 void            hundle_command(t_command *list ,char **env);
 void			hundle_redirections(t_command *list);
-int				handle_pipe( t_command *list, char **env);
+int				handle_pipe( t_command *list  , t_envarment *var);
 // void			handle_here_doc(t_command *tmp);
 
 ///////////////////////// Redirections  //////////////////////////
@@ -126,7 +126,7 @@ void			hundle_dredir_out(char	 	*file);
 
 /////////////////////////  her doc  //////////////////////////
 int 			herdoc_exist(t_command *list);
-int				handle_here_doc(t_command *tmp , char **env);
+void 					handle_here_doc(t_command *tmp , char **env);
 t_here_doc  	*new_node_her(int idx , int i,char *file, int fd, bool expand);
 void    		add_back_node_her(t_here_doc **her, t_here_doc *new_her);
 
@@ -139,7 +139,7 @@ int 			test_redir_here_doc(t_command *list);
 
 
 /////////////////////////  execut_cmd  //////////////////////////
-int             pipe_exist(t_command *list);
+int             pipe_exist(t_command *list );	
 int  			num_pipe(t_command *list);
 char 			*command_execut(t_command *list);
 int 			**return_pipe(int num_cmd);
@@ -155,16 +155,17 @@ void       	    child_process(int ** pipefd,int  i,t_command *tmp_cmd,char **env
 
 
 // ///////            Commands         //////////////////////////////////
-void			built_in(t_envarment *var ,t_command *list ,char  **env);
-int 	built_in_exist( t_command *list) ;
+void			built_in(t_envarment *var ,t_command *list );
+int 			built_in_exist( t_command *list) ;
 void            ft_cd(t_command *list);
 void            ft_pwd(t_command *va_list);
 void            ft_export( t_envarment *var , t_command *str);
 void            ft_env( t_envarment *var);
 void            ft_unset(t_envarment *var , t_command *list);
-void            ft_echo(t_command *list, char **env);
+void            ft_echo(t_command *list);
 // void            ft_echo_flag(t_command *list , int k );
 void			ft_exit(t_envarment *var ,t_command *list);
+char 			**array_env(t_envarment *var);
 
 
 

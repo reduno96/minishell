@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/18 10:58:53 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:49:32 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,21 @@ char **create_argv(t_splitor *elem)
 	return argv;
 }
 
+char	*ft_getenv( char *path ,char 	**env)
+{
+	int i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], path, ft_strlen(path)) == 0)
+		{
+			return ( ft_strchr(env[i], '=') + 1);
+		}
+		i++;
+	}
+	return (NULL);	
+}
 
-char 	*path_command(char *ptr)
+char 	*path_command(char *ptr , char **env)
 {
 	char *path;
 	char **list;
@@ -71,9 +84,12 @@ char 	*path_command(char *ptr)
 	char *tmp ;
 	char *tmp2;
 
-	path  = getenv("PATH");
+	path  = ft_getenv("PATH", env);
 	if(!path)
-		perror("Error: PATH not found\n");
+	{
+		printf("%s : No such file or directory\n" ,ptr);
+		// g_exit_status = 127;
+	}
 	
 	list = ft_split(path, ':');
 	while (list[i])

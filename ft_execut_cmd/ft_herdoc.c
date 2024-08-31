@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/30 12:52:08 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/30 22:35:02 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	herdoc_exist(t_command *list)
 	{
 		if (tmp->store_her && tmp->store_her[0] != NULL)
 		{
-			printf("herdoc exist\n");
 			return (1);
 		}
 		tmp = tmp->next;
@@ -47,7 +46,6 @@ t_here_doc	*return_herdoc(t_command *list)
 			i = 0;
 			while (tmp->store_her[i])
 			{
-				
 				add_back_node_her(&her, new_node_her(idx, i, tmp->store_her[i],
 						-1, false));
 				i++;
@@ -85,6 +83,12 @@ int	hundle_output_herdoc(t_here_doc *her)
 		free(path_file);
 		return (0);
 	}
+	if (her->fd != -1)
+	{
+		dup2(her->fd, STDIN_FILENO);
+		close(her->fd);
+	}
+	close(her->fd);
 	free(path_file);
 	return (her->fd);
 }
@@ -157,7 +161,7 @@ int	count_herdoc(t_here_doc *her)
 	}
 	return (i);
 }
-int	handle_here_doc(t_command *tmp, char **env)
+void 		handle_here_doc(t_command *tmp, char **env)
 {
 	int			i;
 	int			count;
@@ -202,8 +206,19 @@ int	handle_here_doc(t_command *tmp, char **env)
 		}
 		free(line);
 	}
-	fdk = hundle_output_herdoc(her);
+	hundle_output_herdoc(her);
+	if (pipe_exist(tmp) == 1)
+	{
+		fdk = handle_pipe(tmp , ft_stock_envarment(env));
+		if (fdk != -1)
+		{
+			dup2(fdk, STDOUT_FILENO);
+			close(fdk);
+		}
+	}
+	
+
 	delet_her = return_herdoc(tmp);
 	delet_file_her(delet_her);
-	return (fdk);
+	// return (fdk);
 }

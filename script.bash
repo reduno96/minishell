@@ -14,8 +14,8 @@ brew link readline --force
 brew --prefix readline
 
 
-export LDFLAGS="-L/goinfre/rel-mora/homebrew/opt/readline/lib"
-export CPPFLAGS="-I/goinfre/rel-mora/homebrew/opt/readline/include"
+export LDFLAGS="-L/goinfre/bouhammo/homebrew/opt/readline/lib"
+export CPPFLAGS="-I/goinfre/bouhammo/homebrew/opt/readline/include"
 
 # export LDFLAGS="-L/goinfre/bouhammo/homebrew/opt/readline/lib"
 # export CPPFLAGS="-I/goinfre/bouhammo/homebrew/opt/readline/include"

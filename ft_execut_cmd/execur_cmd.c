@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:31:58 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/30 12:42:38 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:52:05 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ t_command	*get_list_command(t_command *list)
 			tmp->content = list->content;
 			tmp->arg = list->arg;
 			tmp->doc = list->doc;
+			tmp->ar_env = list->ar_env;
+			tmp->len = list->len;
 			tmp->next = NULL;
 			if (prev)
 				prev->next = tmp;
@@ -133,11 +135,11 @@ void	close_free_wait(int *pids, int **pipefd, int num_cmd,
 	free(tmp_cmd);
 }
 
-int handle_pipe(t_command *list, char **env)
+int handle_pipe(t_command *list , t_envarment *var )
 {
-	t_envarment *var =  ft_stock_envarment(env);
     int num_cmd;
     int **pipefd;
+	char **arr_env;
     t_command *tmp_cmd;
     pid_t *pids;
     int i;
@@ -153,6 +155,8 @@ int handle_pipe(t_command *list, char **env)
     }
 
     tmp_cmd = get_list_command(list); 
+	arr_env = array_env(var);
+	
     i = 0;
     while (i < num_cmd && tmp_cmd)
     {
@@ -184,23 +188,18 @@ int handle_pipe(t_command *list, char **env)
                 close(pipefd[i][1]);
             }
 			if( built_in_exist(tmp_cmd) == 1 )
-				built_in(var, tmp_cmd, env);
+				built_in(var, tmp_cmd);
 			
             if (test_redir_here_doc(tmp_cmd))
-            {
                 hundle_redirections(tmp_cmd);
-            }
 
-			// if(built_in_exist(tmp_cmd) == 0)
-			// {
-				// char **new_args = ft_new_args(tmp_cmd->arg, tmp_cmd->doc);
-				char *ptr = path_command(tmp_cmd->content);
+				
+				char *ptr = path_command(tmp_cmd->content ,arr_env);
 				if (!ptr)
 					exit(EXIT_FAILURE);
 				
-				execve(ptr, tmp_cmd->arg, env);
+				execve(ptr, tmp_cmd->arg,arr_env );
 				perror("execve failed");
-			// }
 				exit(EXIT_FAILURE);
 		}
 
