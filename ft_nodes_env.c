@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_nodes_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/30 12:56:16 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/08/31 08:18:37 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,20 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 	s = NULL;
 	while (arg[i])
 	{
-		if (arg[i] == '$')
+		if (arg[i+1] == '?')
+			s = ft_strdup("this is echo $?");
+		else if (arg[i] == '$')
 		{
 			i++;
-			// printf("_____1________\n");
+			printf("_____1________\n");
 			tmp_env = my_env;
 			while (tmp_env != NULL)
 			{
-				// printf("_____2________\n");
+				printf("_____2________\n");
 				if (ft_search(tmp_env->var, arg + i))
 				{
-					// printf("_____3________\n");
-					free(arg);
-					arg = ft_strdup(tmp_env->data);
+					printf("_____3________\n");
+					s = ft_strdup(tmp_env->data);
 					break ;
 				}
 				else
@@ -46,6 +47,37 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 		i++;
 	}
 	return (s);
+}
+
+void	ft_check_env(t_splitor **x, t_envarment *my_env)
+{
+	t_splitor	*tmp_cmd;
+	t_envarment	*tmp_env;
+
+	tmp_cmd = *x;
+	tmp_env = my_env;
+	while (tmp_cmd != NULL)
+	{
+		tmp_env = my_env;
+		if (tmp_cmd->type == '$' && tmp_cmd->state != S)
+		{
+			while (tmp_env != NULL)
+			{
+				printf("HII I'm in EXPAND FUNCTION\n");
+				printf("tmp_cmd->in:|%s|\n", tmp_cmd->in);
+				printf("tmp_env->var:|%s|\n", tmp_env->var);
+				if (ft_strcmp(tmp_env->var, tmp_cmd->in + 1) == 0)
+				{
+					free(tmp_cmd->in);
+					tmp_cmd->in = ft_strdup(tmp_env->data);
+					printf("the final string: %s\n", tmp_cmd->in);
+					break ;
+				}
+				tmp_env = tmp_env->next;
+			}
+		}
+		tmp_cmd = tmp_cmd->next;
+	}
 }
 char	*ft_end(char *s, int *i)
 {
@@ -290,7 +322,7 @@ t_envarment	*ft_stock_envarment(char **env)
 		elem = new_node(list[0], list[1]);
 		add_back_node(&var, elem);
 		i++;
-		ft_free_split(list);
 	}
+		ft_free_split(list);
 	return (var);
 }
