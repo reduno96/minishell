@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 18:02:12 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:12:18 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_get_char(char *str_input, t_idx *var, t_splitor **x)
 	if (str_input[var->i] && str_input[var->i] == '$' && ft_isalnum(str_input[var->i + 1])
 		&& !ft_check_input(str_input[var->i + 1]))
 	{
-		printf("1\n");
+		// printf("1\n");
 		while (str_input[var->i] && !ft_check_input(str_input[var->i + 1])
 			&& ft_isalnum(str_input[var->i + 1]))
 		{
@@ -83,7 +83,7 @@ void	ft_get_char(char *str_input, t_idx *var, t_splitor **x)
 		var->len++;
 		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
 				var->len, ENV, var->state));
-		printf("2\n");
+		// printf("2\n");
 		printf("%s\n", str_input);
 	}
 	else if (str_input[var->i] && str_input[var->i] == '$' && !ft_isalnum(str_input[var->i + 1])
@@ -98,7 +98,7 @@ void	ft_get_char(char *str_input, t_idx *var, t_splitor **x)
 		}
 		ft_add(x, ft_lstnew(ft_substr(str_input, var->start, var->len),
 				var->len, ENV, var->state));
-		printf("3\n");
+		// printf("3\n");
 	}
 	else
 	{

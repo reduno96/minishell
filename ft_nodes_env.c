@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 17:58:36 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:52:31 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 	while (arg[i])
 	{
 		if (arg[i + 1] == '?')
-			s = ft_strdup("this is echo $?");
+		{
+			s = ft_strdup(ft_itoa(g_exit_status));
+			break ;
+		}
 		else if (!ft_isalnum(arg[2]))
 		{
-			printf("______________df\n");
+			// printf("______________df\n");
 			return (s = ft_strdup(arg), s);
 		}
 		else if (arg[1] == '\0')
 		{
-			printf("^^^^^^^^^^^^\n");
+			// printf("^^^^^^^^^^^^\n");
 			return (s = ft_strdup("$"), s);
 		}
 		else if (arg[i] == '$')
@@ -40,14 +43,14 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 			i++;
 			if (arg[i] == '\0')
 				break ;
-			printf("_____1________\n");
+			// printf("_____1________\n");
 			tmp_env = my_env;
 			while (tmp_env != NULL)
 			{
-				printf("_____2________\n");
+				// printf("_____2________\n");
 				if (ft_search(tmp_env->var, arg + i))
 				{
-					printf("_____3________\n");
+					// printf("_____3________\n");
 					s = ft_strdup(tmp_env->data);
 					break ;
 				}
@@ -75,14 +78,14 @@ void	ft_check_env(t_splitor **x, t_envarment *my_env)
 		{
 			while (tmp_env != NULL)
 			{
-				printf("HII I'm in EXPAND FUNCTION\n");
-				printf("tmp_cmd->in:|%s|\n", tmp_cmd->in);
-				printf("tmp_env->var:|%s|\n", tmp_env->var);
+				// printf("HII I'm in EXPAND FUNCTION\n");
+				// printf("tmp_cmd->in:|%s|\n", tmp_cmd->in);
+				// printf("tmp_env->var:|%s|\n", tmp_env->var);
 				if (ft_strcmp(tmp_env->var, tmp_cmd->in + 1) == 0)
 				{
 					free(tmp_cmd->in);
 					tmp_cmd->in = ft_strdup(tmp_env->data);
-					printf("the final string: %s\n", tmp_cmd->in);
+					// printf("the final string: %s\n", tmp_cmd->in);
 					break ;
 				}
 				tmp_env = tmp_env->next;

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 18:04:17 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:10:39 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	ft_free_env(t_envarment **my_env)
 		tmp->var = NULL;
 		free(tmp);
 		tmp = NULL;
-		printf("===============\n");
+		// printf("===============\n");
 	}
 	*my_env = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 18:07:15 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:15:53 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,20 @@ char	*ft_check_ambiguous(char *tmp_x)
 {
 	if (tmp_x == NULL)
 	{
-		printf("________1\n");
+		// printf("________1\n");
 		return (NULL);
 	}
 	else if (tmp_x != NULL && ft_search(tmp_x, " "))
 	{
-		printf("________2\n");
+		// printf("________2\n");
 		return (NULL);
 	}
 	else if (tmp_x != NULL && !ft_search(tmp_x, " "))
 	{
-		printf("________3\n");
+		// printf("________3\n");
 		return (tmp_x);
 	}
-	printf("The end of the function \n");
+	// printf("The end of the function \n");
 	return (tmp_x);
 }
 
@@ -77,7 +77,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
 		while ((*tmp_x) != NULL && (*tmp_x)->state == G
 			&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
 		{
-			printf("___1________Dire_____\n");
+			// printf("___1________Dire_____\n");
 			if (((*tmp_x) != NULL && (*tmp_x)->state == G)
 				&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
 				(*tmp_x) = (*tmp_x)->next;
@@ -109,7 +109,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
 	}
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == -1)
 	{
-		printf("____________HI_in skip direction ");
+		// printf("____________HI_in skip direction ");
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == '$')
 		{
 			s = ft_expand((*tmp_x)->in, my_env);
@@ -144,7 +144,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 		while (tmp_cmd != NULL && tmp_x != NULL && tmp_x->state == G
 			&& tmp_x->type != '|')
 		{
-			printf("jjjjjjjjjjjjjjjjjjjjjjjjjjj\n");
+			// printf("jjjjjjjjjjjjjjjjjjjjjjjjjjj\n");
 			 if (tmp_x != NULL && tmp_x->type == '>' && tmp_x->state == G)
 			{
 				tmp_x = tmp_x->next;
@@ -152,7 +152,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 				final = ft_skip_direction(&tmp_x, my_env);
 				ft_add_redir((&tmp_cmd->doc),
 					ft_new_redir(ft_check_ambiguous(final), '>'));
-				printf("after add redire%s_____\n", ft_check_ambiguous(final));
+				// printf("after add redire%s_____\n", ft_check_ambiguous(final));
 			}
 			else if (tmp_x != NULL && tmp_x->type == '<' && tmp_x->state == G)
 			{
@@ -161,7 +161,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 				final = ft_skip_direction(&tmp_x, my_env);
 				ft_add_redir((&tmp_cmd->doc),
 					ft_new_redir(ft_check_ambiguous(final), '<'));
-				printf("after add redire%s_____\n", ft_check_ambiguous(final));
+				// printf("after add redire%s_____\n", ft_check_ambiguous(final));
 			}
 			else if (tmp_x != NULL && tmp_x->type == DREDIR_OUT && tmp_x->state == G)
 			{
@@ -170,7 +170,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 				final = ft_skip_direction(&tmp_x, my_env);
 				ft_add_redir((&tmp_cmd->doc),
 					ft_new_redir(ft_check_ambiguous(final), DREDIR_OUT));
-				printf("after add redire%s_____\n", ft_check_ambiguous(final));
+				// printf("after add redire%s_____\n", ft_check_ambiguous(final));
 			}
 			// else if (tmp_x != NULL && tmp_x->type == HERE_DOC
 			// 	&& tmp_x->state == G)

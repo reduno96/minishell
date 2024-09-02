@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 17:57:44 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:08:25 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	ft_check_between(t_splitor **start)
 			if ((*start) != NULL)
 				(*start) = (*start)->next;
 			ft_skip_spaces(&(*start));
-			if ((*start) == NULL ||  ((*start)->type == '|' && (ft_condition(*start))))
+			if ((*start) == NULL ||  ((*start)->type == '|' && (ft_condition(*start)) && (*start)->state == G))
 			{
-				printf("Hi i'm in ft_check_between\n");
+				// printf("Hi i'm in ft_check_between\n");
 				return (1);
 			}
 		}
@@ -64,12 +64,12 @@ int	ft_handler_syn_error(t_splitor **x)
 		|| ((start->type == '\'' || start->type == '\"')
 				&& start->next == NULL))
 	{
-		printf("Hi i'm in first condion \n");
+		// printf("Hi i'm in first condion \n");
 		return (1);
 	}
 	if (ft_check_between(&start))
 	{
-		printf("Hi i'm in second condion \n");
+		// printf("Hi i'm in second condion \n");
 		return (1);
 	}
 	start = *x;

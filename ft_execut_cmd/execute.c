@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/02 18:01:23 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:57:28 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	execution_cmd(t_command *list, char **new)
 	if (!ptr)
 	{
 		ft_putstr_fd("command not found\n", 2);
+		g_exit_status = 127;
 		exit(127);
 	}
 	if (execve(ptr, new, list->ar_env) == -1)
@@ -77,6 +78,7 @@ void	execution_cmd(t_command *list, char **new)
 	if (access(ptr, X_OK) == -1)
 	{
 		printf("minishell: %s: No access to path \n", new[0]);
+		g_exit_status = 126;
 		exit(126);
 	}
 }
@@ -113,7 +115,7 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 	if (built_in_exist(list) == 1 && pipe_exist(list ) == 0
 		&& herdoc_exist(list) == 0 && test_redir_here_doc(list) == 0)
 	{
-	printf("------------------------------------ BUILT - IN ------------------------------\n");
+	// printf("------------------------------------ BUILT - IN ------------------------------\n");
 
 		if (test_redir_here_doc(list) == 1)
 			hundle_redirections(list);
@@ -130,7 +132,7 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 	{
 		if (herdoc_exist(list) == 1) // && pipe_exist(list) == 0)
 		{
-			printf("----------------------------------- [ << ]  ---------------------------------\n");
+			// printf("----------------------------------- [ << ]  ---------------------------------\n");
 
 			handle_here_doc(list, env);
 			hundle_redirections(list);
@@ -140,7 +142,7 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 		}
 		if (pipe_exist(list  ) == 1)
 		{
-			printf("----------------------------------- PIPE  ---------------------------------\n");
+			// printf("----------------------------------- PIPE  ---------------------------------\n");
 			fd = handle_pipe(list , var);
 			if (fd != -1)
 			{
@@ -150,7 +152,7 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 		}
 		else /// if (pipe_exist(list) == 0 && herdoc_exist(list) == 0)
 		{
-			printf("----------------------------------- SIMPLE CMD  ---------------------------------\n");
+			// printf("----------------------------------- SIMPLE CMD  ---------------------------------\n");
 			if (test_redir_here_doc(list))
 			{
 				hundle_redirections(list);
@@ -159,6 +161,7 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 			if (built_in_exist(list) == 0)
 				execution_cmd(list, list->arg);
 		}
+		g_exit_status = 0;
 		exit(EXIT_SUCCESS);
 	}
 	else

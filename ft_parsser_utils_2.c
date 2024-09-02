@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 18:03:41 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:21:53 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_skip_spaces_in_count(t_splitor **tmp_x)
 	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 	{
-		printf("HI IM IN SKIP SPACES\n\n");
+		// printf("HI IM IN SKIP SPACES\n\n");
 		(*tmp_x) = (*tmp_x)->next;
 	}
 	// printf("_____ABC____\n");
@@ -148,6 +148,8 @@ void	ft_double_and_sigle(t_splitor **tmp_x, int *i, t_command **new_node,
 {
 	char	*s;
 
+	// printf("HI IM IN DOUBLE AND SIGLE FUNCTION\n");
+
 	while ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
 	{
 		if ((*tmp_x) != NULL && ((*tmp_x)->state != S && (*tmp_x)->type == '$'))
@@ -230,7 +232,7 @@ void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 		if ((*tmp_x) != NULL)
 			(*tmp_x) = (*tmp_x)->next;
 	}
-	printf("The End skip not word\n");
+	// printf("The End skip not word\n");
 }
 void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
@@ -239,7 +241,7 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 	{
 		// printf("HI IM IN ft_not_pipe\n");
 		// printf("__**%s***_\n", (*tmp_x)->in);
-		if ((*tmp_x) != NULL && ((*tmp_x)->type != -1 && (*tmp_x)->type != '$'))
+		if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1 && (*tmp_x)->type != '$'))
 			ft_skip_not_word(tmp_x, my_env);
 		if ((*tmp_x) != NULL && !((*tmp_x)->type == ' '
 				&& (*tmp_x)->state == G))
