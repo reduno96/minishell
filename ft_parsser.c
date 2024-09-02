@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 09:51:40 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:00:40 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	ft_count_parameters(t_splitor *tmp_x, int *count)
 				ft_skip_spaces_in_count(&tmp);
 				if (tmp != NULL)
 					tmp = tmp->next;
+				printf("count of %d count\n", *count);
 			}
 			else if ((tmp) != NULL && (tmp)->state == G && ((tmp)->type != '\"'
 					&& (tmp)->type != '\'') && (tmp)->type != ' ')
@@ -123,9 +124,9 @@ void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 		{
 			printf("Content :		%s \n", tmp_cmd->content);
 		}
-		printf("Argument :	\n");
 		if (tmp_cmd->arg != NULL && tmp_cmd->arg[0] != NULL)
 		{
+			printf("Argument :	");
 			i = 0; // Initialize i before using it
 			while (tmp_cmd->arg[i] != NULL)
 			{
