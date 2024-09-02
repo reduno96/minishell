@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/31 12:26:40 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:31:48 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,44 +44,95 @@ void	ft_skip_spaces_and_quotes(t_splitor **tmp_x)
 		(*tmp_x) = (*tmp_x)->next;
 }
 
-char	*ft_check_ambiguous(t_splitor *tmp_x, t_envarment *my_env)
+char	*ft_check_ambiguous(char *tmp_x)
 {
-	char	*s;
-
-	s = NULL;
-	if (tmp_x->type == '$')
+	if (tmp_x == NULL)
 	{
-		 s = ft_expand(tmp_x->in, my_env);
-		if (s == NULL)
-		{
-			printf("________1\n");
-			free(s);
-			return (s);
-		}
-		else if (s != NULL && ft_search(s, " "))
-		{
-			printf("________2\n");
-			free(s);
-			return (s);
-		}
-		else if (s != NULL && !ft_search(s, " "))
-		{
-			printf("________3\n");
-			return (s);
-		}
+		printf("________1\n");
+		return (NULL);
+	}
+	else if (tmp_x != NULL && ft_search(tmp_x, " "))
+	{
+		printf("________2\n");
+		return (NULL);
+	}
+	else if (tmp_x != NULL && !ft_search(tmp_x, " "))
+	{
+		printf("________3\n");
+		return (tmp_x);
 	}
 	printf("The end of the function \n");
-	return (tmp_x->in);
+	return (tmp_x);
+}
+
+char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
+{
+	char	*s;
+	char	*final;
+
+	final = NULL;
+	if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
+			|| (*tmp_x)->type == '\''))
+	{
+		while ((*tmp_x) != NULL && (*tmp_x)->state == G
+			&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
+		{
+			printf("___1________Dire_____\n");
+			if (((*tmp_x) != NULL && (*tmp_x)->state == G)
+				&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
+				(*tmp_x) = (*tmp_x)->next;
+			while ((*tmp_x) != NULL && ((*tmp_x)->state == D
+					|| (*tmp_x)->state == S))
+			{
+				if ((*tmp_x) != NULL && (*tmp_x)->state != S
+					&& (*tmp_x)->type == '$')
+				{
+					s = ft_expand((*tmp_x)->in, my_env);
+					final = ft_strjoin(final, s);
+				}
+				else if ((*tmp_x) != NULL)
+					final = ft_strjoin(final, (*tmp_x)->in);
+				(*tmp_x) = (*tmp_x)->next;
+			}
+			if ((*tmp_x) != NULL && (*tmp_x)->state != S
+				&& (*tmp_x)->type == '$')
+			{
+				s = ft_expand((*tmp_x)->in, my_env);
+				final = ft_strjoin(final, s);
+			}
+			else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
+					|| (*tmp_x)->state == S))
+				final = ft_strjoin(final, (*tmp_x)->in);
+			if ((*tmp_x) != NULL)
+				(*tmp_x) = (*tmp_x)->next;
+		}
+	}
+	else if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == -1)
+	{
+		printf("____________HI_in skip direction ");
+		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == '$')
+		{
+			s = ft_expand((*tmp_x)->in, my_env);
+			if (ft_check_ambiguous(s) == NULL)
+				return (NULL);
+			else
+				return (s);
+		}
+		else if ((*tmp_x) != NULL && (*tmp_x)->state == G
+			&& (*tmp_x)->type != '$')
+			return ((*tmp_x)->in);
+	}
+	return (final);
 }
 void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 {
 	t_command	*tmp_cmd;
 	t_splitor	*tmp_x;
+	char		*final;
 
 	// if ((*x) == NULL || x == NULL || cmd == NULL)
 	// 	return ;
 	tmp_cmd = *cmd;
-	// printf("jjjjjjjjjjjjjjjjjjjjjjjjjjj\n");
 	tmp_x = *x;
 	// while (1)
 	// 	;
@@ -93,41 +144,43 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 		while (tmp_cmd != NULL && tmp_x != NULL && tmp_x->state == G
 			&& tmp_x->type != '|')
 		{
-			if (tmp_x != NULL && tmp_x->type == '<' && tmp_x->state == G)
+			printf("jjjjjjjjjjjjjjjjjjjjjjjjjjj\n");
+			 if (tmp_x != NULL && tmp_x->type == '>' && tmp_x->state == G)
 			{
 				tmp_x = tmp_x->next;
-				ft_skip_spaces_and_quotes(&tmp_x);
+				ft_skip_spaces(&tmp_x);
+				final = ft_skip_direction(&tmp_x, my_env);
 				ft_add_redir((&tmp_cmd->doc),
-					ft_new_redir(ft_check_ambiguous(tmp_x, my_env), '<'));
+					ft_new_redir(ft_check_ambiguous(final), '>'));
+				printf("after add redire%s_____\n", ft_check_ambiguous(final));
 			}
-			else if (tmp_x != NULL && tmp_x->type == '>' && tmp_x->state == G)
+			else if (tmp_x != NULL && tmp_x->type == '<' && tmp_x->state == G)
 			{
 				tmp_x = tmp_x->next;
-				ft_skip_spaces_and_quotes(&tmp_x);
-				printf("before add redire%s_____\n", tmp_x->in);
+				ft_skip_spaces(&tmp_x);
+				final = ft_skip_direction(&tmp_x, my_env);
 				ft_add_redir((&tmp_cmd->doc),
-					ft_new_redir(ft_check_ambiguous(tmp_x, my_env), '>'));
-				printf("after add redire%s_____\n", ft_check_ambiguous(tmp_x,
-						my_env));
+					ft_new_redir(ft_check_ambiguous(final), '<'));
+				printf("after add redire%s_____\n", ft_check_ambiguous(final));
 			}
-			else if (tmp_x != NULL && tmp_x->type == DREDIR_OUT
-				&& tmp_x->state == G)
+			else if (tmp_x != NULL && tmp_x->type == DREDIR_OUT && tmp_x->state == G)
 			{
 				tmp_x = tmp_x->next;
-				ft_skip_spaces_and_quotes(&tmp_x);
+				ft_skip_spaces(&tmp_x);
+				final = ft_skip_direction(&tmp_x, my_env);
 				ft_add_redir((&tmp_cmd->doc),
-					ft_new_redir(ft_check_ambiguous(tmp_x, my_env),
-						DREDIR_OUT));
+					ft_new_redir(ft_check_ambiguous(final), DREDIR_OUT));
+				printf("after add redire%s_____\n", ft_check_ambiguous(final));
 			}
-			else if (tmp_x != NULL && tmp_x->type == HERE_DOC
-				&& tmp_x->state == G)
-			{
-				tmp_x = tmp_x->next;
-				ft_skip_spaces_and_quotes(&tmp_x);
-				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in,
-						HERE_DOC));
-				// printf("in else if condition  \n");
-			}
+			// else if (tmp_x != NULL && tmp_x->type == HERE_DOC
+			// 	&& tmp_x->state == G)
+			// {
+			// 	tmp_x = tmp_x->next;
+			// 	ft_skip_spaces_and_quotes(&tmp_x);
+			// 	ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in,
+			// 			HERE_DOC));
+			// 	// printf("in else if condition  \n");
+			// }
 			if (tmp_x != NULL)
 				tmp_x = tmp_x->next;
 		}
