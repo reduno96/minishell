@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 11:31:48 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:07:15 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 			// 	ft_skip_spaces_and_quotes(&tmp_x);
 			// 	ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in,
 			// 			HERE_DOC));
-			// 	// printf("in else if condition  \n");
+				// printf("in else if condition  \n");
 			// }
 			if (tmp_x != NULL)
 				tmp_x = tmp_x->next;

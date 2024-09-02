@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 15:50:06 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:05:46 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment *my_env,
 	if (x != NULL && my_env != NULL)
 	{
 		// ft_check_env(&x, my_env);
-		// ft_command(&x, &cmd, my_env);
-		// ft_exute(my_env, cmd, env);
+		ft_command(&x, &cmd, my_env);
+		ft_exute(my_env, cmd, env);
 	}
 	(void)env;
 	(void)my_env;
@@ -113,13 +113,13 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_envarment *my_env, char **env)
 }
 void	ft_d(int signal)
 {
-	printf("fdf\n");
+	// printf("fdf\n");
 	if (signal == SIGQUIT)
 		printf("quit\n");
 }
 int	main(int ac, char **av, char **env)
 {
-	atexit(ff);
+	// atexit(ff);
 	t_splitor	*x;
 	t_envarment	*my_env;
 	t_command	*cmd;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 09:06:30 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/31 12:28:58 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:51:25 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@ void 	ft_echo(t_command *list)
 	bool 	flag_dolar;
 	char	**new;
 	int		i;
-	
+
 	k = 1;
 	flag = false;
-	flag_dolar = false;	
+	flag_dolar = false;
 
 	// if(list->arg[1][0] == '$' && list->arg[1][1] == '?')
 	// {
 	// 	printf("%d", g_status);
 	// 	flag_dolar = true;
 	// }
-	
+
 	while (list->arg[k])
 	{
-		
+
 		if (list->arg[k][0] == '-' && list->arg[k][1] != '\0')
 		{
 			i = 1;

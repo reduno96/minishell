@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 13:11:48 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:58:36 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 	{
 		if (arg[i + 1] == '?')
 			s = ft_strdup("this is echo $?");
+		else if (!ft_isalnum(arg[2]))
+		{
+			printf("______________df\n");
+			return (s = ft_strdup(arg), s);
+		}
 		else if (arg[1] == '\0')
 		{
 			printf("^^^^^^^^^^^^\n");
@@ -34,7 +39,7 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 		{
 			i++;
 			if (arg[i] == '\0')
-				break;
+				break ;
 			printf("_____1________\n");
 			tmp_env = my_env;
 			while (tmp_env != NULL)
@@ -328,8 +333,9 @@ t_envarment	*ft_stock_envarment(char **env)
 		list = ft_split(env[i], '=');
 		elem = new_node(list[0], list[1]);
 		add_back_node(&var, elem);
+		free(list);
+
 		i++;
 	}
-	ft_free_split(list);
 	return (var);
 }

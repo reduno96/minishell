@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/31 09:16:12 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:01:23 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,14 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 	int		status;
 	int		pid;
 	(void)var;
-	
+
 	if (list == NULL  )
 		return ;
 	list->ar_env =  array_env(var);
 	if (built_in_exist(list) == 1 && pipe_exist(list ) == 0
 		&& herdoc_exist(list) == 0 && test_redir_here_doc(list) == 0)
 	{
-	printf("------------------------------------ BUILT - IN ------------------------------\n");	
+	printf("------------------------------------ BUILT - IN ------------------------------\n");
 
 		if (test_redir_here_doc(list) == 1)
 			hundle_redirections(list);

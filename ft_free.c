@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 15:52:53 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:04:17 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_free_split(char **list)
 		j++;
 	}
 	free(list);
+	// list = NULL;
 }
 
 void	ft_free_doc(t_redirect **doc)
@@ -62,10 +63,14 @@ void	ft_free_env(t_envarment **my_env)
 		tmp = *my_env;
 		*my_env = (*my_env)->next;
 		free(tmp->data);
+		tmp->data = NULL;
 		free(tmp->var);
+		tmp->var = NULL;
 		free(tmp);
+		tmp = NULL;
 		printf("===============\n");
 	}
+	*my_env = NULL;
 }
 void	free_command(t_command *cmd)
 {
