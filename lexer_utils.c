@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:23:44 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/30 14:39:55 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/01 08:15:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,25 @@
 void	print_t_command(t_splitor *cmd)
 {
 	(void)cmd;
-	// if (cmd == NULL)
-	// {
-	// 	printf("Command is NULL\n");
-	// 	return ;
-	// }
-	// while (cmd != NULL)
-	// {
-	// 	// printf("str_input: %s | ", cmd->in);
-	// 	// printf("len: %d			| ", cmd->len);
-	// 	// printf("token: %d		| ", cmd->type);
-	// 	if (cmd->state == 2)
-	// 		printf("state: GENERAL 		|\n");
-	// 	if (cmd->state == 1)
-	// 		printf("state: IN_SINGLE	|\n");
-	// 	if (cmd->state == 0)
-	// 		printf("state: IN_DOUBLE	|\n");
-	// 	cmd = cmd->next;
-	// 	printf("--------------------\n");
-	// }
+	if (cmd == NULL)
+	{
+		printf("Command is NULL\n");
+		return ;
+	}
+	while (cmd != NULL)
+	{
+		printf("str_input: %s | ", cmd->in);
+		printf("len: %d			| ", cmd->len);
+		printf("token: %d		| ", cmd->type);
+		if (cmd->state == 2)
+			printf("state: GENERAL 		|\n");
+		if (cmd->state == 1)
+			printf("state: IN_SINGLE	|\n");
+		if (cmd->state == 0)
+			printf("state: IN_DOUBLE	|\n");
+		cmd = cmd->next;
+		printf("--------------------\n");
+	}
 }
 
 int	ft_search(char *s, char *d)
