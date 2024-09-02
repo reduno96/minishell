@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/31 10:46:46 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 09:51:40 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,9 @@ void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 		{
 			printf("Content :		%s \n", tmp_cmd->content);
 		}
+		printf("Argument :	\n");
 		if (tmp_cmd->arg != NULL && tmp_cmd->arg[0] != NULL)
 		{
-			printf("Argument :	");
 			i = 0; // Initialize i before using it
 			while (tmp_cmd->arg[i] != NULL)
 			{

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/31 08:07:56 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 09:53:05 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,41 +40,68 @@ void	ft_skip_quote(t_splitor **tmp_x, int *i, t_command **new_node)
 		(*new_node)->next = NULL;
 	}
 }
-
-void	ft_skip(t_splitor **tmp_x, int *i, t_command **new_node,
+/* while ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
+			|| (*tmp_x)->type == '\''))
+	{
+		printf("in while loop__%s_\n", (*tmp_x)->in);
+		while (((*tmp_x) != NULL && (*tmp_x)->state == G)
+			&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
+			(*tmp_x) = (*tmp_x)->next;
+		while ((*tmp_x) != NULL && (*tmp_x)->state != S
+			&& (*tmp_x)->type == '$')
+		{
+			printf("red\n");
+			s = ft_expand((*tmp_x)->in, my_env);
+			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
+			if ((*tmp_x) != NULL)
+				(*tmp_x) = (*tmp_x)->next;
+				while (((*tmp_x) != NULL && (*tmp_x)->state == G)
+			&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
+			(*tmp_x) = (*tmp_x)->next;
+		}
+		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == -1)
+			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i],
+					(*tmp_x)->in);
+		if ((*tmp_x) != NULL)
+			(*tmp_x) = (*tmp_x)->next;
+	} */
+void	ft_skip_general(t_splitor **tmp_x, int *i, t_command **new_node,
 		t_envarment *my_env)
 {
 	char	*s;
 
-	/* void	ft_skip(t_splitor **tmp_x, int *i, t_command **new_node)
-	{
-		while ((*tmp_x) != NULL && (*tmp_x)->state == G
-			&& ((*tmp_x)->type == '\"'
-				|| (*tmp_x)->type == '\''))
-		{
-			while (((*tmp_x) != NULL && (*tmp_x)->state == G)
-				&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
-				(*tmp_x) = (*tmp_x)->next;
-			if ((*tmp_x) != NULL)
-				(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i],
-						(*tmp_x)->in);
-			if ((*tmp_x) != NULL)
-				(*tmp_x) = (*tmp_x)->next;
-		}
-	}
-	*/
 	while ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 	{
-		while (((*tmp_x) != NULL && (*tmp_x)->state == G)
+		printf("___1_____________\n");
+		if (((*tmp_x) != NULL && (*tmp_x)->state == G)
 			&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
 			(*tmp_x) = (*tmp_x)->next;
+		// printf("in while skip general ****%s\n", (*tmp_x)->in);
+		while ((*tmp_x) != NULL && ((*tmp_x)->state == D
+				|| (*tmp_x)->state == S))
+		{
+			if ((*tmp_x) != NULL && (*tmp_x)->state != S
+				&& (*tmp_x)->type == '$')
+			{
+				s = ft_expand((*tmp_x)->in, my_env);
+				(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
+			}
+			else if ((*tmp_x) != NULL)
+			{
+				(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i],
+						(*tmp_x)->in);
+				printf("________Hi_i'm infher\n");
+			}
+			(*tmp_x) = (*tmp_x)->next;
+		}
 		if ((*tmp_x) != NULL && (*tmp_x)->state != S && (*tmp_x)->type == '$')
 		{
 			s = ft_expand((*tmp_x)->in, my_env);
 			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
 		}
-		else if ((*tmp_x) != NULL)
+		else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
+				|| (*tmp_x)->state == S))
 			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i],
 					(*tmp_x)->in);
 		if ((*tmp_x) != NULL)
@@ -86,20 +113,24 @@ void	ft_double_and_sigle(t_splitor **tmp_x, int *i, t_command **new_node,
 {
 	char	*s;
 
-	printf("HI I'M IN DOUBLE AND SIGLE FUNCTION \n");
-	printf("__%s_\n", (*tmp_x)->in);
 	while ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
 	{
-		if ((*tmp_x) != NULL && ((*tmp_x)->state == D && (*tmp_x)->type == '$'))
+		if ((*tmp_x) != NULL && ((*tmp_x)->state != S && (*tmp_x)->type == '$'))
 		{
 			s = ft_expand((*tmp_x)->in, my_env);
 			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
 		}
-		else
+		else if ((*tmp_x) != NULL)
 			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i],
 					(*tmp_x)->in);
 		(*tmp_x) = (*tmp_x)->next;
-		ft_skip(tmp_x, i, new_node, my_env);
+		if ((*tmp_x) != NULL && ((*tmp_x)->state != S && (*tmp_x)->type == '$'))
+		{
+			s = ft_expand((*tmp_x)->in, my_env);
+			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
+			(*tmp_x) = (*tmp_x)->next;
+		}
+		ft_skip_general(tmp_x, i, new_node, my_env);
 	}
 	(*i)++;
 	(*new_node)->arg[*i] = NULL;
@@ -111,20 +142,25 @@ void	ft_general_command(t_command **new_node, int *i, t_splitor **tmp_x,
 {
 	char	*s;
 
-	printf("HI I'M IN ELSE IN GENERAL FUNCTION \n");
-	printf("__%s_\n", (*tmp_x)->in);
-	if ((*tmp_x)->type == '$')
+	s = NULL;
+	while ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type != ' '
+			&& ((*tmp_x)->type == '$' || !ft_condition((*tmp_x)))))
 	{
-		s = ft_expand((*tmp_x)->in, my_env);
-		(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
+		if ((*tmp_x)->type == '$')
+		{
+			s = ft_expand((*tmp_x)->in, my_env);
+			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
+		}
+		else
+			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i],
+					(*tmp_x)->in);
+		(*tmp_x) = (*tmp_x)->next;
+		ft_skip_general(tmp_x, i, new_node, my_env);
 	}
-	else
-		(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], (*tmp_x)->in);
-	(*tmp_x) = (*tmp_x)->next;
-	ft_skip(tmp_x, i, new_node, my_env);
 	(*i)++;
 	(*new_node)->arg[*i] = NULL;
 	(*new_node)->next = NULL;
+	// printf("The End of the general_command function\n");
 }
 void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
@@ -152,10 +188,11 @@ void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 		printf("____%s____\n", (*tmp_x)->in);
 		printf("HI im in ficton skip not word\n\n");
 		(*tmp_x) = (*tmp_x)->next;
-		ft_skip_spaces(tmp_x);
+		ft_skip_spaces_in_count(tmp_x);
 		if ((*tmp_x) != NULL)
 			(*tmp_x) = (*tmp_x)->next;
 	}
+	printf("The End skip not word\n");
 }
 void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
