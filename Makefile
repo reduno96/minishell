@@ -15,7 +15,7 @@ SRC= minishell.c \
 
 OBJ = ${SRC:.c=.o}
 
-CFLAGS = -Wall -Wextra -Werror  -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror  #-fsanitize=address -g
 
 CC = cc
 
@@ -26,12 +26,12 @@ LIBFT = ./includes/libft/libft.a
 FLDLIBFT= ./includes/libft
 
 #include readLine in MacOS
-# INRL = -I/goinfre/bouhammo/homebrew/opt/readline/include
-# LNRL= -L/goinfre/bouhammo/homebrew/opt/readline/lib -lreadline
+INRL = -I/goinfre/rel-mora/homebrew/opt/readline/include
+LNRL= -L/goinfre/rel-mora/homebrew/opt/readline/lib -lreadline
 
 #include readLine in MacOS
-INRL = -I/goinfre/bouhammo/homebrew/opt/readline/include
-LNRL= -L/goinfre/bouhammo/homebrew/opt/readline/lib -lreadline
+# INRL = -I/goinfre/bouhammo/homebrew/opt/readline/include
+# LNRL= -L/goinfre/bouhammo/homebrew/opt/readline/lib -lreadline
 
 
 
@@ -41,7 +41,7 @@ all : ${LIBFT} ${NAME}
 	${CC} ${CFLAGS} $(INRL) -c  $< -o $@
 
 ${NAME} : minishell.h structures.h ${OBJ}
-		${CC} ${FLAGS} ${LIBFT}  ${INRL} ${LNRL} ${SRC}  -o ${NAME}
+		${CC} ${CFLAGS} ${LIBFT}  ${INRL} ${LNRL} ${SRC}  -o ${NAME}
 
 ${LIBFT}:
 	make -C ${FLDLIBFT}

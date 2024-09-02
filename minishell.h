@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/31 11:28:05 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/02 10:11:49 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ int			ft_check_command(t_splitor *tmp_x);
 void		ft_skip_spaces(t_splitor **tmp_x);
 void	ft_skip_spaces_in_count(t_splitor **tmp_x);
 
-void		ft_double_and_sigle(t_splitor **tmp_x, int *i,
-				t_command **new_node, t_envarment *my_env);
+void ft_skip_general(t_splitor **tmp_x, int *i, t_command **new_node, t_envarment *my_env);
+
+void ft_double_and_sigle(t_splitor **tmp_x, int *i,
+                         t_command **new_node, t_envarment *my_env);
 // ---------
 void		ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env);
 void		ft_fill_her(t_command **new_node);
@@ -139,7 +141,7 @@ int 			test_redir_here_doc(t_command *list);
 
 
 /////////////////////////  execut_cmd  //////////////////////////
-int             pipe_exist(t_command *list );	
+int             pipe_exist(t_command *list );
 int  			num_pipe(t_command *list);
 char 			*command_execut(t_command *list);
 int 			**return_pipe(int num_cmd);
