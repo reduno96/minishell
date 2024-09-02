@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/30 08:15:54 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:52:53 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ void	ft_free_env(t_envarment **my_env)
 	{
 		tmp = *my_env;
 		*my_env = (*my_env)->next;
+		free(tmp->data);
+		free(tmp->var);
 		free(tmp);
+		printf("===============\n");
 	}
 }
 void	free_command(t_command *cmd)
