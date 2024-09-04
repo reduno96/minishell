@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 18:52:31 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/04 13:51:31 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 		else if (!ft_isalnum(arg[2]))
 		{
 			// printf("______________df\n");
-			return (s = ft_strdup(arg), s);
+			return (s = ft_strdup(""), s);
 		}
 		else if (arg[1] == '\0')
 		{
