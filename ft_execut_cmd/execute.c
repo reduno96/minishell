@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/02 18:57:28 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:51:08 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 	int		pid;
 	(void)var;
 
+	// printf("___________execute________________-\n");
 	if (list == NULL  )
 		return ;
 	list->ar_env =  array_env(var);

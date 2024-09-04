@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/29 19:02:28 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/03 09:18:42 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,18 +199,26 @@ int	var_is_valid(char *ptr)
 
 	if (ptr[0] == '=')
 	{
-		printf("bash: export: `%s': not a valid identifier\n", ptr);
+					ft_putstr_fd(" not a valid identifier\n", 2);
+
+			g_exit_status = 1;
+
 		return (0);
 	}
 	if (ft_isdigit(ptr[0]))
 	{
-		printf("bash: export: `%s': not a valid identifier\n", ptr);
+					ft_putstr_fd(" not a valid identifier\n", 2);
+
+			g_exit_status = 1;
+
 		return (0);
 	}
 	list = ft_split(ptr, '=');
 	if (list[0][0] == '\0' && list[1][0] != '\0')
 	{
-		printf("bash: export: `%s': not a valid identifier\n", ptr);
+			ft_putstr_fd(" not a valid identifier\n", 2);
+			g_exit_status = 1;
+
 		return (0);
 	}
 	j = 0;
@@ -218,7 +226,8 @@ int	var_is_valid(char *ptr)
 	{
 		if (!ft_isalnum_exp(list[0][j]))
 		{
-			printf("bash: export: `%s': not a valid identifier\n", ptr);
+			ft_putstr_fd(" not a valid identifier\n", 2);
+			g_exit_status = 1;
 			return (0);
 		}
 		j++;

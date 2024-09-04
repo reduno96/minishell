@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/02 17:50:43 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/03 09:20:34 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ void	ft_cd(t_command *list)
 		path = list->arg[1];
 		if (path[0] == '~')
 			path = getenv("HOME");
-
 		if (ft_strcmp(path, "--") == 0)
 			path = getenv("HOME");
-
 		if (path[0] == '-' && path[1] == '\0')
 		{
 			path = getenv("OLDPWD");
 			printf("%s\n", path);
 		}
 		if (chdir(path) == -1)
-			printf("bash: cd: %s: No such file or directory\n", path);
+		{
+			ft_putstr_fd(" No such file or directory\n", 2);
+			g_exit_status = 1;
+		}
 	}
 }
