@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 19:22:47 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:51:20 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ void	ft_count_d_s(t_splitor **tmp, int *count)
 		while ((*tmp) != NULL && (*tmp)->state == G && ((*tmp)->type == '\"'
 				|| (*tmp)->type == '\''))
 		{
-			while (((*tmp) != NULL && (*tmp)->state == G)
-				&& ((*tmp)->type == '\"' || (*tmp)->type == '\''))
-				(*tmp) = (*tmp)->next;
 			if ((*tmp) != NULL)
 				(*tmp) = (*tmp)->next;
 		}
@@ -44,7 +41,6 @@ void	ft_count_d_s(t_splitor **tmp, int *count)
 			(*tmp) = (*tmp)->next;
 	}
 	(*count)++;
-	// printf("***Count_in_double_and single : %d\n", *count);
 }
 
 void	ft_count_general(t_splitor **tmp, int *count)
@@ -72,25 +68,52 @@ void	ft_count_parameters(t_splitor *tmp_x, int *count)
 		(*count)++;
 	else if (tmp != NULL)
 	{
-		ft_skip_spaces_in_count(&tmp);
+		if ((tmp != NULL && tmp->next != NULL) && ((tmp->type == '\''
+					&& tmp->next->type == '\'') || (tmp->type == '\"'
+					&& tmp->next->type == '\"')))
+		{
+			(*count)++;
+			tmp = tmp->next;
+		}
 		while (tmp != NULL && !(tmp->type == '|' && tmp->state == G))
 		{
 			if (tmp->type == '<' || tmp->type == '>' || tmp->type == DREDIR_OUT
 				|| tmp->type == HERE_DOC)
 			{
 				tmp = tmp->next;
-				ft_skip_spaces_in_count(&tmp);
+				ft_skip_spaces(&tmp);
+				if ((tmp != NULL && tmp->next != NULL) && ((tmp->type == '\''
+							&& tmp->next->type == '\'') || (tmp->type == '\"'
+							&& tmp->next->type == '\"')))
+				{
+					// (*count)++;
+					tmp = tmp->next;
+				}
+				else
+					ft_skip_spaces_in_count(&tmp);
 				if (tmp != NULL)
 					tmp = tmp->next;
-				// printf("count of %d count\n", *count);
+			}
+			if ((tmp != NULL && tmp->next != NULL) && ((tmp->type == '\''
+						&& tmp->next->type == '\'') || (tmp->type == '\"'
+						&& tmp->next->type == '\"')))
+			{
+				(*count)++;
+				tmp = tmp->next;
 			}
 			else if ((tmp) != NULL && (tmp)->state == G && ((tmp)->type != '\"'
 					&& (tmp)->type != '\'') && (tmp)->type != ' ')
+			{
 				ft_count_general(&tmp, count);
+			}
 			else if (tmp != NULL && (tmp->state == D || tmp->state == S))
+			{
 				ft_count_d_s(&tmp, count);
+			}
 			else if (tmp != NULL && tmp->type != '|')
+			{
 				tmp = tmp->next;
+			}
 		}
 	}
 }
@@ -137,12 +160,14 @@ void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 	// 	printf("\n");
 	// 	printf("doc :		\n");
 	// 	print_redirect_list(tmp_cmd->doc);
-	// 	printf("\n");
+	// 	// printf("\n");
 	// 	i = 0;
 	// 	printf("HerDoc :		\n");
 	// 	if (tmp_cmd->store_her != NULL && tmp_cmd->store_her[0] != NULL)
 	// 		while (tmp_cmd->store_her[i] != NULL)
 	// 		{
+	// 			if (tmp_cmd->store_her[i] == '\0')
+	// 				printf("____in herdoc print_________\n");
 	// 			printf("HerDoc ==>> %s \n\n", tmp_cmd->store_her[i]);
 	// 			i++;
 	// 		}
