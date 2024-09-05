@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 10:11:49 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:16:56 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void			execution_cmd(t_command *list,char **new );// char **new, char **env)
 
 void            hundle_command(t_command *list ,char **env);
 void			hundle_redirections(t_command *list);
-int				handle_pipe( t_command *list  , t_envarment *var);
+void 	        handle_pipe(t_command *list, t_envarment *var);
 // void			handle_here_doc(t_command *tmp);
 
 ///////////////////////// Redirections  //////////////////////////
@@ -128,8 +128,9 @@ void			hundle_dredir_out(char	 	*file);
 
 /////////////////////////  her doc  //////////////////////////
 int 			herdoc_exist(t_command *list);
-void 					handle_here_doc(t_command *tmp , char **env);
-t_here_doc  	*new_node_her(int idx , int i,char *file, int fd, bool expand);
+void 			handle_here_doc(t_command *tmp , char **env);
+// t_here_doc  	*new_node_her(int idx , int i,char *file, int fd, bool expand);
+t_here_doc	*new_node_her(char *file, int fd  , int x, int is_expand);
 void    		add_back_node_her(t_here_doc **her, t_here_doc *new_her);
 
 
@@ -152,7 +153,7 @@ void       	    child_process(int ** pipefd,int  i,t_command *tmp_cmd,char **env
 
 /////////////////////////  signal  //////////////////////////
 
-
+int  	hundle_file_herdoc(t_command *list);
 
 
 
@@ -168,7 +169,6 @@ void            ft_echo(t_command *list);
 // void            ft_echo_flag(t_command *list , int k );
 void			ft_exit(t_envarment *var ,t_command *list);
 char 			**array_env(t_envarment *var);
-
 
 
 #endif

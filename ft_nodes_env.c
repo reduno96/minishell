@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/04 13:51:31 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:55:01 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,21 +324,24 @@ void	add_back_node(t_envarment **lst, t_envarment *new)
 
 t_envarment	*ft_stock_envarment(char **env)
 {
-	t_envarment *var;
-	char **list;
-	int i;
-	t_envarment *elem;
+    t_envarment *var;
+    int i;
+    char *equals_pos;
+    char *key;
+    char *value;
 
-	var = NULL;
-	i = 0;
-	while (env[i])
-	{
-		list = ft_split(env[i], '=');
-		elem = new_node(list[0], list[1]);
-		add_back_node(&var, elem);
-		free(list);
-
-		i++;
-	}
-	return (var);
+    var = NULL;
+    i = 0;
+    while (env[i])
+    {
+        equals_pos = strchr(env[i], '=');
+        if (equals_pos)
+        {
+            key = ft_substr(env[i], 0, equals_pos - env[i]);
+            value = ft_substr(env[i], equals_pos - env[i] + 1, ft_strlen(equals_pos + 1));
+            add_back_node(&var, new_node(key, value));
+        }
+        i++;
+    }
+    return (var);
 }

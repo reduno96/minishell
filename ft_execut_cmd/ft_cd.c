@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/03 09:20:34 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/08/29 19:27:44 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ void	ft_cd(t_command *list)
 			printf("%s\n", path);
 		}
 		if (chdir(path) == -1)
-		{
-			ft_putstr_fd(" No such file or directory\n", 2);
-			g_exit_status = 1;
-		}
+			printf("bash: cd: %s: No such file or directory\n", path);
 	}
 }

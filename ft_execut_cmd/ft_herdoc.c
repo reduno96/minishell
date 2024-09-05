@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/30 22:35:02 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:15:28 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+
+
+
+
 
 int	herdoc_exist(t_command *list)
 {
@@ -28,125 +33,78 @@ int	herdoc_exist(t_command *list)
 	return (0);
 }
 
-
 t_here_doc	*return_herdoc(t_command *list)
 {
 	t_here_doc	*her;
 	int			idx;
 	int			i;
+	int 		j;
 	t_command	*tmp;
 
 	tmp = list;
 	her = NULL;
 	idx = 0;
+	j = 0;
 	while (tmp)
 	{
+			i = 0;
 		if (tmp->store_her != NULL)
 		{
-			i = 0;
 			while (tmp->store_her[i])
 			{
-				add_back_node_her(&her, new_node_her(idx, i, tmp->store_her[i],
-						-1, false));
+				add_back_node_her(&her, new_node_her( tmp->store_her[i], -1 ,j, 1));
 				i++;
+				j++;
 			}
 		}
-		if (  tmp->content != NULL && tmp->content[0] != '|')
-			idx++;
 		tmp = tmp->next;
 	}
 	return (her);
 }
 
-void	redirect_heredoc_input(char *file, int fd)
-{
-	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0600);
-	if (fd < 0)
-	{
-		perror("open");
-		return ;
-	}
-	close(fd);
-}
-int	hundle_output_herdoc(t_here_doc *her)
-{
-	char	*tmp_line;
-	char	*path_file;
 
-	tmp_line = ft_strjoin(her->store, ft_itoa(her->indx));
-	path_file = ft_strjoin("/tmp/herdoc", tmp_line);
-	free(tmp_line);
-	her->fd = open(path_file, O_RDONLY);
-	if (her->fd < 0)
-	{
-		perror("open");
-		free(path_file);
-		return (0);
-	}
-	if (her->fd != -1)
-	{
-		dup2(her->fd, STDIN_FILENO);
-		close(her->fd);
-	}
-	close(her->fd);
-	free(path_file);
-	return (her->fd);
-}
 
-void	delet_file_her(t_here_doc *delet_her)
-{
-	char	*path_file;
-	char	*tmp_line;
 
-	while (delet_her)
-	{
-		tmp_line = ft_strjoin(delet_her->store, ft_itoa(delet_her->indx));
-		path_file = ft_strjoin("/tmp/herdoc", tmp_line);
-		if (unlink(path_file) == -1)
-		{
-			perror("unlink");
-		}
-		free(tmp_line);
-		free(path_file);
-		delet_her = delet_her->next;
-	}
-}
-void	create_files(t_here_doc *her)
-{
-	t_here_doc	*tmp;
-	char		*path_file;
-	char		*tmp_line;
+// void	delet_file_her(t_here_doc *delet_her)
+// {
+// 	char	*path_file;
+// 	char	*tmp_line;
 
-	tmp = her;
-	while (tmp)
-	{
-		tmp_line = ft_strjoin(tmp->store, ft_itoa(tmp->indx));
-		path_file = ft_strjoin("/tmp/herdoc", tmp_line);
-		free(tmp_line);
-		redirect_heredoc_input(path_file, tmp->fd);
-		free(path_file);
-		tmp = tmp->next;
-	}
-}
+// 	while (delet_her)
+// 	{
+// 		tmp_line = ft_strjoin(delet_her->store, ft_itoa(delet_her->indx));
+// 		path_file = ft_strjoin("/tmp/herdoc", tmp_line);
+// 		if (unlink(path_file) == -1)
+// 		{
+// 			perror("unlink");
+// 		}
+// 		free(tmp_line);
+// 		free(path_file);
+// 		delet_her = delet_her->next;
+// 	}
+// }
+
+
 
 void	write_in_file(t_here_doc *tmp, char *line)
 {
 	char	*tmp_line;
-	char	*path_file;
+	char 	*path_file;
 
-	tmp_line = ft_strjoin(tmp->store, ft_itoa(tmp->indx));
+	tmp_line = ft_strjoin(tmp->store, ft_itoa(tmp->idx));
 	path_file = ft_strjoin("/tmp/herdoc", tmp_line);
 	free(tmp_line);
-	tmp->fd = open(path_file, O_CREAT | O_WRONLY | O_APPEND, 0600);
+
+	tmp->fd = open(tmp->heredoc_file, O_CREAT | O_WRONLY | O_APPEND, 0600);
 	if (tmp->fd < 0)
 	{
 		perror("open");
 		return ;
 	}
+
 	ft_putstr_fd(line, tmp->fd);
 	write(tmp->fd, "\n", 1);
 	close(tmp->fd);
-	// tmp = tmp->next;
 }
 
 int	count_herdoc(t_here_doc *her)
@@ -161,30 +119,29 @@ int	count_herdoc(t_here_doc *her)
 	}
 	return (i);
 }
-void 		handle_here_doc(t_command *tmp, char **env)
+
+// void	sigint_handler(int sig)
+// {
+// 	(void)sig;
+// 	exit(0);
+// }
+
+
+void	handle_here_doc(t_command *tmp, char **env)
 {
 	int			i;
 	int			count;
 	t_here_doc	*her;
 	char		*line;
-	int			fdk;
 
-	t_here_doc	*delet_her;
 	(void)env;
 	i = 0;
 	her = return_herdoc(tmp);
+
+	t_here_doc	 *ttmp  = NULL;
+	ttmp = her;
+
 	count = count_herdoc(her);
-	// printf("*/++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-	// t_here_doc	*tmp_her;
-	// tmp_her = her;
-	// while (tmp_her != NULL)
-	// {
-	// 	printf("her->file = %s et indx = %d et i = %d   et fd = %d \n",
-	// 		tmp_her->store, tmp_her->indx_cmd, tmp_her->indx, tmp_her->fd);
-	// 	tmp_her = tmp_her->next;
-	// }
-	// printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-	create_files(her);
 	while (1)
 	{
 		line = readline("> ");
@@ -201,24 +158,19 @@ void 		handle_here_doc(t_command *tmp, char **env)
 			her = her->next;
 		}
 		else
-		{
 			write_in_file(her, line);
-		}
 		free(line);
 	}
-	hundle_output_herdoc(her);
-	if (pipe_exist(tmp) == 1)
-	{
-		fdk = handle_pipe(tmp , ft_stock_envarment(env));
-		if (fdk != -1)
-		{
-			dup2(fdk, STDOUT_FILENO);
-			close(fdk);
-		}
-	}
-	
 
-	delet_her = return_herdoc(tmp);
-	delet_file_her(delet_her);
-	// return (fdk);
+
+// while (ttmp)
+// {
+// 	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++     \n");
+// 		printf("her->store = %s\n", ttmp->store);
+// 		printf("her->fd = %d\n", ttmp->fd);
+// 		printf("her->file = %s\n", ttmp->heredoc_file);
+// 		printf("her->indx = %d\n", ttmp->idx);
+// 	printf("++++++++++++++++++++++++++++++++++++++++++++++++++++++     \n");
+// 	ttmp = ttmp->next;
+// }
 }

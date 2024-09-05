@@ -6,10 +6,9 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:33:07 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/28 12:35:00 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/04 23:44:03 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../minishell.h"
 
@@ -18,7 +17,7 @@ char	*git_type_redir(t_redirect *redir)
 	if (redir == NULL)
 		return (NULL);
 	else
-	{	
+	{
 		if (redir->type == REDIR_OUT)
 			return (">");
 		else if (redir->type == REDIR_IN)
@@ -30,18 +29,20 @@ char	*git_type_redir(t_redirect *redir)
 		return (NULL);
 	}
 }
-char 	**get_len(char **args , t_redirect *redir)
-{
-	int i;
-	int count=0;
-	char **new;
 
+char	**get_len(char **args, t_redirect *redir)
+{
+	int		i;
+	int		count;
+	char	**new;
+
+	count = 0;
 	i = 0;
-	if(redir == NULL)
-		count= 1;
-	while(args[i] )
+	if (redir == NULL)
+		count = 1;
+	while (args[i])
 	{
-		if(ft_strcmp(args[i], git_type_redir(redir)) == 0 )
+		if (ft_strcmp(args[i], git_type_redir(redir)) == 0)
 		{
 			i++;
 			redir = redir->next;
@@ -56,17 +57,18 @@ char 	**get_len(char **args , t_redirect *redir)
 	return (new);
 }
 
-
-char	**ft_new_args(char **args , t_redirect *redir)
+char	**ft_new_args(char **args, t_redirect *redir)
 {
-	char **new;
-	int i=0;
-	int j=0;
+	char	**new;
+	int		i;
+	int		j;
 
-	new = get_len(args , redir );
-	while(args[i])
+	i = 0;
+	j = 0;
+	new = get_len(args, redir);
+	while (args[i])
 	{
-		if(ft_strcmp(args[i], git_type_redir(redir) ) == 0)
+		if (ft_strcmp(args[i], git_type_redir(redir)) == 0)
 		{
 			i++;
 			redir = redir->next;
@@ -79,17 +81,21 @@ char	**ft_new_args(char **args , t_redirect *redir)
 		i++;
 	}
 	new[j] = NULL;
-	return (new);	
+	return (new);
 }
-int 	test_redir_here_doc(t_command *list)
+
+int	test_redir_here_doc(t_command *list)
 {
+	// printf("test_redir_here_doc\n");
+	t_redirect	*tmp;
+
 	if (list == NULL)
 		return (0);
-	t_redirect *tmp;
 	tmp = list->doc;
 	while (tmp != NULL)
 	{
-		if (tmp->type == DREDIR_OUT || tmp->type == REDIR_OUT || tmp->type == REDIR_IN)
+		if (tmp->type == DREDIR_OUT || tmp->type == REDIR_OUT
+			|| tmp->type == REDIR_IN)
 		{
 			return (1);
 		}

@@ -1,0 +1,13 @@
+"                        "ls
+ls ''
+<'Makefile'<s"1" pwd>>a
+ p'w''d' >>a
+p'w''d' >> a
+echo $@USER
+echo $1USER
+echo $"USER"
+"" ls
+< "Makefile" "ls" "-la"
+<< "" cat
+ls > " "
+"Makefile"a""

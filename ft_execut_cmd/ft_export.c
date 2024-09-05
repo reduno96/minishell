@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/03 09:18:42 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:20:11 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,6 @@ int	ft_isalnum_exp(int c)
 	return ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a'
 			&& c <= 'z') || (c == '_') || c == '<' || c == '>');
 }
-// int	test_exist(t_envarment *var, char **list)
-// {
-// 	t_envarment	*ptr;
-
-// 	ptr = var;
-// 	while (ptr)
-// 	{
-// 		if (ft_strcmp(ptr->var, list[0]) == 0)
-// 		{
-// 			if (ft_strcmp(ptr->data, list[1]) == 0)
-// 				return (0);
-// 			else
-// 			{
-// 				if (list[1][0] == '\0')
-// 					return (0);
-// 				ptr->data = list[1];
-// 				return (0);
-// 			}
-// 		}
-// 		ptr = ptr->next;
-// 	}
-// 	return (1);
-// }
 
 int	test_exist(t_envarment *var, char **list)
 {
@@ -170,7 +147,7 @@ void	check_dolar_is(char *str, t_envarment *var, t_command *s)
 		{
 			if (!ft_isalnum_exp(str[i]))
 			{
-				printf("bash: export: `%s': not a valid identifier\n", str);
+				printf("export: `%s': not a valid identifier\n", str);
 				return ;
 			}
 			i++;
@@ -199,26 +176,18 @@ int	var_is_valid(char *ptr)
 
 	if (ptr[0] == '=')
 	{
-					ft_putstr_fd(" not a valid identifier\n", 2);
-
-			g_exit_status = 1;
-
+		printf("export: `%s': not a valid identifier\n", ptr);
 		return (0);
 	}
 	if (ft_isdigit(ptr[0]))
 	{
-					ft_putstr_fd(" not a valid identifier\n", 2);
-
-			g_exit_status = 1;
-
+		printf("export: `%s': not a valid identifier\n", ptr);
 		return (0);
 	}
 	list = ft_split(ptr, '=');
 	if (list[0][0] == '\0' && list[1][0] != '\0')
 	{
-			ft_putstr_fd(" not a valid identifier\n", 2);
-			g_exit_status = 1;
-
+		printf("export: `%s': not a valid identifier\n", ptr);
 		return (0);
 	}
 	j = 0;
@@ -226,8 +195,7 @@ int	var_is_valid(char *ptr)
 	{
 		if (!ft_isalnum_exp(list[0][j]))
 		{
-			ft_putstr_fd(" not a valid identifier\n", 2);
-			g_exit_status = 1;
+			printf("export: `%s': not a valid identifier\n", ptr);
 			return (0);
 		}
 		j++;
@@ -280,6 +248,7 @@ void	ft_export(t_envarment *var, t_command *str)
 			}
 		}
 	}
-	if (str->arg[1] == NULL || str->arg[1][0] == '\0'|| (exist_redir(str->arg[1]) == 1))
+	if (str->arg[1] == NULL || str->arg[1][0] == '\0'
+		|| (exist_redir(str->arg[1]) == 1))
 		print_export(&var);
 }

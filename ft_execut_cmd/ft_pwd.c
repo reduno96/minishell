@@ -12,18 +12,15 @@
 
 #include "../minishell.h"
 
-void  	 ft_pwd(t_command *list)
+void	ft_pwd(t_command *list)
 {
+	char	*path;
 
-	char *path ;
-	if(ft_strcmp(list->content, "oi") == 0)
+	if (ft_strcmp(list->content, "oi") == 0)
 	{
-			
 	}
 	path = getcwd(NULL, 0);
-	if(path == NULL)
+	if (path == NULL)
 		return ;
-		
-	printf("%s\n", path);	
-
+	printf("%s\n", path);
 }

@@ -6,20 +6,20 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/30 16:34:41 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/01 23:38:40 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		ft_env(t_envarment *var)
+void	ft_env(t_envarment *var)
 {
 	t_envarment	*ptr;
 
 	ptr = var;
 	while (ptr)
 	{
-		if (ptr->data == NULL  || ptr->data[0] == '\0' )
+		if (ptr->data == NULL || ptr->data[0] == '\0')
 		{
 			ptr = ptr->next;
 		}
@@ -33,6 +33,5 @@ void		ft_env(t_envarment *var)
 			printf("%s	=    [%s]\n", ptr->var, ptr->data);
 			ptr = ptr->next;
 		}
-			
 	}
 }

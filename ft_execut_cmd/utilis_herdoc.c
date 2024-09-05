@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/05 13:36:37 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:16:37 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_here_doc	*new_node_her(char *file, int fd  , int x, int is_expand)
 	elem->store = file;
 	elem->fd = fd;
 	elem->idx = x;
-	elem->expad= is_expand;
+	elem->expad = is_expand;
 	elem->heredoc_file =  ft_strdup(path_file);
 	elem->next = NULL;
 	return (elem);
