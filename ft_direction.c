@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/05 13:39:43 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/05 18:24:07 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,86 +59,17 @@ char	*ft_check_ambiguous(char *tmp_x)
 	// printf("The end of the function \n");
 	return (tmp_x);
 }
-/* char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
+
+char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
 {
-	char	*s;
-	char	*final;
-	char	*s;
-	char	*final;
 	char	*s;
 	char	*final;
 
 	final = NULL;
-	if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
-			|| (*tmp_x)->type == '\''))
-	{
-		while ((*tmp_x) != NULL && (*tmp_x)->state == G
-			&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
-		{
-			// printf("___1________Dire_____\n");
-			if (((*tmp_x) != NULL && (*tmp_x)->state == G)
-				&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
-				(*tmp_x) = (*tmp_x)->next;
-			while ((*tmp_x) != NULL && ((*tmp_x)->state == D
-					|| (*tmp_x)->state == S))
-			{
-				printf("spances\n");
-				if ((*tmp_x) != NULL && (*tmp_x)->state != S
-					&& (*tmp_x)->type == '$')
-				{
-					while ((*tmp_x) != NULL && (*tmp_x)->state != S
-						&& (*tmp_x)->type == '$')
-					{
-						s = ft_expand((*tmp_x)->in, my_env);
-						final = ft_strjoin(final, s);
-						(*tmp_x) = (*tmp_x)->next;
-					}
-				}
-				else ((*tmp_x) != NULL)
-					final = ft_strjoin(final, (*tmp_x)->in);
-				(*tmp_x) = (*tmp_x)->next;
-			}
-			if ((*tmp_x) != NULL && (*tmp_x)->state != S
-				&& (*tmp_x)->type == '$')
-			{
-				s = ft_expand((*tmp_x)->in, my_env);
-				final = ft_strjoin(final, s);
-			}
-			else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
-					|| (*tmp_x)->state == S))
-				final = ft_strjoin(final, (*tmp_x)->in);
-			if ((*tmp_x) != NULL)
-				(*tmp_x) = (*tmp_x)->next;
-		}
-	}
-	else if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == -1)
-	{
-		// printf("____________HI_in skip direction ");
-		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == '$')
-		{
-			s = ft_expand((*tmp_x)->in, my_env);
-			if (ft_check_ambiguous(s) == NULL)
-				return (NULL);
-			else
-				return (s);
-		}
-		else if ((*tmp_x) != NULL && (*tmp_x)->state == G
-			&& (*tmp_x)->type != '$')
-			return ((*tmp_x)->in);
-	}
-	return (final);
-} */
-char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
-{
-	char *s;
-	char *final;
-	final = NULL;
 	if (((*tmp_x) != NULL && (*tmp_x)->next != NULL) && (((*tmp_x)->type == '\"'
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
 				&& (*tmp_x)->next->type == '\'')))
-	{
 		final = ft_strdup("\0");
-	}
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 	{
@@ -162,6 +93,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
 					{
 						s = ft_expand((*tmp_x)->in, my_env);
 						final = ft_strjoin(final, s);
+						free(s);
 						(*tmp_x) = (*tmp_x)->next;
 					}
 				}
@@ -185,6 +117,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
 			{
 				s = ft_expand((*tmp_x)->in, my_env);
 				final = ft_strjoin(final, s);
+				free(s);
 			}
 			else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
 					|| (*tmp_x)->state == S))
@@ -199,17 +132,22 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == '$')
 		{
 			s = ft_expand((*tmp_x)->in, my_env);
+			final = ft_strjoin(final, (*tmp_x)->in);
 			if (ft_check_ambiguous(s) == NULL)
+			{
+				free(s);
 				return (NULL);
+			}
 			else
-				return (s);
+			{
+				free(s);
+				return (final);
+			}
 		}
 		else if ((*tmp_x) != NULL && (*tmp_x)->state == G
 			&& (*tmp_x)->type != '$')
 			return ((*tmp_x)->in);
 	}
-	// printf("End of ft_direction \n");
-	// printf("|%s|\n", final);
 	return (final);
 }
 void	ft_skip_one_quote(t_splitor **tmp_x)
@@ -223,13 +161,11 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 	t_splitor	*tmp_x;
 	char		*final;
 	int			i;
-	int j;
-	int is_expand;
+	int			j;
+	int			is_expand;
 
 	is_expand = 0;
-
 	j = 0;
-
 	i = 0;
 	// if ((*x) == NULL || x == NULL || cmd == NULL)
 	// 	return ;
@@ -279,8 +215,9 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 						HERE_DOC));
 				if (tmp_x->state == G)
 					is_expand = 1;
-				add_back_node_her((&tmp_cmd->her), new_node_her(tmp_x->in, -1, j, is_expand) )	;
-				j++;			// printf("in else if condition  \n");
+				add_back_node_her((&tmp_cmd->her), new_node_her(tmp_x->in, -1,
+						j, is_expand));
+				j++; // printf("in else if condition  \n");
 			}
 			if (tmp_x != NULL)
 				tmp_x = tmp_x->next;
