@@ -36,14 +36,14 @@ int	herdoc_exist(t_command *list)
 t_here_doc	*return_herdoc(t_command *list)
 {
 	t_here_doc	*her;
-	int			idx;
+	// int			idx;
 	int			i;
 	int 		j;
 	t_command	*tmp;
 
 	tmp = list;
 	her = NULL;
-	idx = 0;
+	// idx = 0;
 	j = 0;
 	while (tmp)
 	{
@@ -89,10 +89,10 @@ t_here_doc	*return_herdoc(t_command *list)
 void	write_in_file(t_here_doc *tmp, char *line)
 {
 	char	*tmp_line;
-	char 	*path_file;
+	// char 	*path_file;
 
 	tmp_line = ft_strjoin(tmp->store, ft_itoa(tmp->idx));
-	path_file = ft_strjoin("/tmp/herdoc", tmp_line);
+	// path_file = ft_strjoin("/tmp/herdoc", tmp_line);
 	free(tmp_line);
 
 	tmp->fd = open(tmp->heredoc_file, O_CREAT | O_WRONLY | O_APPEND, 0600);
@@ -138,8 +138,8 @@ void	handle_here_doc(t_command *tmp, char **env)
 	i = 0;
 	her = return_herdoc(tmp);
 
-	t_here_doc	 *ttmp  = NULL;
-	ttmp = her;
+	// t_here_doc	 *ttmp  = NULL;
+	// ttmp = her;
 
 	count = count_herdoc(her);
 	while (1)
