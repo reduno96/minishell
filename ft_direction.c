@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/04 12:59:46 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:39:43 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,12 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 	t_splitor	*tmp_x;
 	char		*final;
 	int			i;
+	int j;
+	int is_expand;
+
+	is_expand = 0;
+
+	j = 0;
 
 	i = 0;
 	// if ((*x) == NULL || x == NULL || cmd == NULL)
@@ -271,7 +277,10 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 				ft_skip_spaces_and_quotes(&tmp_x);
 				ft_add_redir((&tmp_cmd->doc), ft_new_redir(tmp_x->in,
 						HERE_DOC));
-				// printf("in else if condition  \n");
+				if (tmp_x->state == G)
+					is_expand = 1;
+				add_back_node_her((&tmp_cmd->her), new_node_her(tmp_x->in, -1, j, is_expand) )	;
+				j++;			// printf("in else if condition  \n");
 			}
 			if (tmp_x != NULL)
 				tmp_x = tmp_x->next;
