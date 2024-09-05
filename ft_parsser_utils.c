@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 21:25:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 18:11:27 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:03:28 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *my_env)
 	new_node->len = 0;
 	new_node->is_pipe = 0;
 	new_node->doc = NULL;
+	new_node->her = NULL;
 	new_node->store_her = NULL;
 	if (((*tmp_x) != NULL && ((*tmp_x)->type == '|' && (*tmp_x)->state == G)))
 	{

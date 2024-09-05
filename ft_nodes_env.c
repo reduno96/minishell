@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/04 17:55:01 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:51:20 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,9 +307,9 @@ void	add_back_node(t_envarment **lst, t_envarment *new)
 {
 	t_envarment	*p;
 
-	p = *lst;
 	if (!lst || !new)
 		return ;
+	p = *lst;
 	if (!(*lst))
 	{
 		*lst = new;
@@ -326,22 +326,24 @@ t_envarment	*ft_stock_envarment(char **env)
 {
     t_envarment *var;
     int i;
-    char *equals_pos;
-    char *key;
-    char *value;
+	int j;
 
     var = NULL;
     i = 0;
+	j = 0;
     while (env[i])
     {
-        equals_pos = strchr(env[i], '=');
-        if (equals_pos)
-        {
-            key = ft_substr(env[i], 0, equals_pos - env[i]);
-            value = ft_substr(env[i], equals_pos - env[i] + 1, ft_strlen(equals_pos + 1));
-            add_back_node(&var, new_node(key, value));
-        }
-        i++;
+		j = 0;
+		while(env[i][j])
+		{
+			if (env[i][j] == '=')
+			{
+				add_back_node(&var,new_node(ft_substr(env[i], 0, j), ft_substr(env[i], j+1, ft_strlen(env[i] + j))) );
+				break;
+			}
+			j++;
+		}
+		i++;
     }
     return (var);
 }

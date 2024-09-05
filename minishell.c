@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/05 15:34:20 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:53:12 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_sig(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -112,21 +112,15 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_envarment *my_env, char **env)
 		free(str_input);
 	}
 }
-// void	ft_d(int signal)
-// {
-// 	// printf("fdf\n");
-// 	// if (signal == SIGQUIT)
-// 	// 	printf("quit\n");
-// }
+
 int	main(int ac, char **av, char **env)
 {
-	// atexit(ff);
 	t_splitor	*x;
 	t_envarment	*my_env;
 	t_command	*cmd;
-	// atexit(ff);
+	atexit(ff);
 	signal(SIGINT, handle_sig);
-	// signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, handle_sig);
 	(void)ac;
 	(void)av;
 	my_env = NULL;
