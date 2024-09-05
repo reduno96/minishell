@@ -93,7 +93,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
 					{
 						s = ft_expand((*tmp_x)->in, my_env);
 						final = ft_strjoin(final, s);
-						free(s);
+						// free(s);
 						(*tmp_x) = (*tmp_x)->next;
 					}
 				}
@@ -117,7 +117,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
 			{
 				s = ft_expand((*tmp_x)->in, my_env);
 				final = ft_strjoin(final, s);
-				free(s);
+				// free(s);
 			}
 			else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
 					|| (*tmp_x)->state == S))
@@ -135,12 +135,12 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env)
 			final = ft_strjoin(final, (*tmp_x)->in);
 			if (ft_check_ambiguous(s) == NULL)
 			{
-				free(s);
+				// free(s);
 				return (NULL);
 			}
 			else
 			{
-				free(s);
+				// free(s);
 				return (final);
 			}
 		}
