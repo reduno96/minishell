@@ -63,6 +63,7 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *my_env)
 	if (((*tmp_x) != NULL && ((*tmp_x)->type == '|' && (*tmp_x)->state == G)))
 	{
 		new_node->arg[i] = ft_strdup((*tmp_x)->in);
+		// printf("%p\n", new_node->arg[i]);
 		i++;
 		new_node->arg[i] = NULL;
 		new_node->is_pipe = 1;

@@ -241,6 +241,8 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
 {
 	char *s;
+
+	s = NULL;
 	if ((*tmp_x) != NULL && (*tmp_x)->type == '$' && (*tmp_x)->state != S)
 	{
 		while ((*tmp_x) != NULL && (*tmp_x)->type == '$')
@@ -248,7 +250,6 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 			s = ft_expand((*tmp_x)->in, my_env);
 			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
 		(*tmp_x) = (*tmp_x)->next;
-
 		}
 		(*i)++;
 		(*new_node)->arg[*i] = NULL;
