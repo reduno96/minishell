@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/02 18:46:21 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:46:35 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_command
 	char				*content;
 	char				**arg;
 	t_redirect			*doc;
+	t_here_doc			*her;
 	char				**store_her;
 	char 				**ar_env;
 	int					is_amb;
@@ -91,12 +92,12 @@ typedef struct s_command
 
 typedef struct s_here_doc
 {
-	int					indx_cmd;
-	int					indx;
 	char				*store;
 	int					fd;
-	bool				is_expanded;
+	char 				*heredoc_file;
+	int 				idx;
+	int 				expad;
 	struct s_here_doc	*next;
-}						t_here_doc;
+}					t_here_doc;
 
 #endif
