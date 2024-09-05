@@ -37,12 +37,12 @@ void	ft_echo(t_command *list)
 {
 	int		k;
 	bool	flag;
-	bool	flag_dolar;
+	// bool	flag_dolar;
 	int		i;
 
 	k = 1;
 	flag = false;
-	flag_dolar = false;
+	// flag_dolar = false;
 	while (list->arg[k])
 	{
 		if (list->arg[k][0] == '-' && list->arg[k][1] != '\0')
