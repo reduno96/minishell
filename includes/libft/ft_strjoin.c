@@ -36,6 +36,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		str_final[i++] = s2[j++];
 	str_final[i] = '\0';
-	// free(s1);
+	free(s1);
 	return (str_final);
 }
