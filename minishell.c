@@ -74,6 +74,7 @@ void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment *my_env,
 	{
 		ft_command(&x, &cmd, my_env);
 		// ft_exute(my_env, cmd, env);
+		ft_free_command(cmd);
 	}
 	(void)env;
 	(void)my_env;
