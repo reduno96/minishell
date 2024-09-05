@@ -66,36 +66,55 @@ void	ft_free_env(t_envarment **my_env)
         free(tmp);
     }
 }
-void	free_command(t_command *cmd)
+void free_command(t_command *cmd)
+{
+    if (cmd)
+    {
+        if (cmd->arg)
+        {
+            for (int i = 0; cmd->arg[i]; i++)
+            {
+                free(cmd->arg[i]);
+            }
+            free(cmd->arg);
+        }
+        free(cmd);
+    }
+}
+// void	free_command(t_command *cmd)
+// {
+// 	if (cmd)
+// 	{
+// 		if (cmd->arg)
+// 		{
+// 			for (int i = 0; cmd->arg[i]; i++)
+// 				free(cmd->arg[i]);
+// 			free(cmd->arg);
+// 		}
+// 		if (cmd->store_her)
+// 		{
+// 			for (int i = 0; cmd->store_her[i]; i++)
+// 				free(cmd->store_her[i]);
+// 			free(cmd->store_her);
+// 		}
+// 		if (cmd->doc)
+// 			ft_free_doc(&cmd->doc);
+// 		free(cmd);
+// 	}
+// }
+
+void	ft_free_command(t_command *cmd)
 {
 	if (cmd)
-	{
-		if (cmd->arg)
-		{
-			for (int i = 0; cmd->arg[i]; i++)
-				free(cmd->arg[i]);
-			free(cmd->arg);
-		}
-		if (cmd->store_her)
-		{
-			for (int i = 0; cmd->store_her[i]; i++)
-				free(cmd->store_her[i]);
-			free(cmd->store_her);
-		}
-		if (cmd->doc)
-			ft_free_doc(&cmd->doc);
-		free(cmd);
-	}
-}
-
-void	ft_free_command(t_command *lst)
-{
-	t_command	*tmp;
-
-	while (lst != NULL)
-	{
-		tmp = lst;
-		lst = lst->next;
-		free_command(tmp);
-	}
+    {
+        if (cmd->arg)
+        {
+            for (int i = 0; cmd->arg[i]; i++)
+            {
+                free(cmd->arg[i]);
+            }
+            free(cmd->arg);
+        }
+        free(cmd);
+    }
 }
