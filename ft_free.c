@@ -20,8 +20,14 @@ void	ft_free_lexer(t_splitor **x)
 	{
 		tmp = *x;
 		*x = (*x)->next;
-		free(tmp->in);
+		if (tmp->in != NULL)
+		{
+			free(tmp->in);
+			tmp->in = NULL;
+		}
+
 		free(tmp);
+		tmp = NULL;
 	}
 }
 
@@ -38,7 +44,7 @@ void	ft_free_split(char **list)
 		j++;
 	}
 	free(list);
-	// list = NULL;
+	list = NULL;
 }
 
 void	ft_free_doc(t_redirect **doc)
@@ -49,8 +55,13 @@ void	ft_free_doc(t_redirect **doc)
 	{
 		tmp = *doc;
 		*doc = (*doc)->next;
-		free(tmp->store);
+		if (tmp->store != NULL)
+		{
+			// free(tmp->store);
+			// tmp->store = NULL;
+		}
 		free(tmp);
+		tmp = NULL;
 	}
 }
 

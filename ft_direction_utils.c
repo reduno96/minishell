@@ -16,6 +16,8 @@ t_redirect	*ft_new_redir(void *content, t_token type)
 {
 	t_redirect	*new_node;
 
+	new_node = NULL;
+
 	new_node = malloc(sizeof(t_redirect));
 	if (!new_node)
 		return (NULL);

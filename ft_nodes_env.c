@@ -64,36 +64,36 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 	return (s);
 }
 
-void	ft_check_env(t_splitor **x, t_envarment *my_env)
-{
-	t_splitor	*tmp_cmd;
-	t_envarment	*tmp_env;
+// void	ft_check_env(t_splitor **x, t_envarment *my_env)
+// {
+// 	t_splitor	*tmp_cmd;
+// 	t_envarment	*tmp_env;
 
-	tmp_cmd = *x;
-	tmp_env = my_env;
-	while (tmp_cmd != NULL)
-	{
-		tmp_env = my_env;
-		if (tmp_cmd->type == '$' && tmp_cmd->state != S)
-		{
-			while (tmp_env != NULL)
-			{
-				// printf("HII I'm in EXPAND FUNCTION\n");
-				// printf("tmp_cmd->in:|%s|\n", tmp_cmd->in);
-				// printf("tmp_env->var:|%s|\n", tmp_env->var);
-				if (ft_strcmp(tmp_env->var, tmp_cmd->in + 1) == 0)
-				{
-					free(tmp_cmd->in);
-					tmp_cmd->in = ft_strdup(tmp_env->data);
-					// printf("the final string: %s\n", tmp_cmd->in);
-					break ;
-				}
-				tmp_env = tmp_env->next;
-			}
-		}
-		tmp_cmd = tmp_cmd->next;
-	}
-}
+// 	tmp_cmd = *x;
+// 	tmp_env = my_env;
+// 	// while (tmp_cmd != NULL)
+// 	// {
+// 	// 	tmp_env = my_env;
+// 	// 	if (tmp_cmd->type == '$' && tmp_cmd->state != S)
+// 	// 	{
+// 	// 		while (tmp_env != NULL)
+// 	// 		{
+// 	// 			// printf("HII I'm in EXPAND FUNCTION\n");
+// 	// 			// printf("tmp_cmd->in:|%s|\n", tmp_cmd->in);
+// 	// 			// printf("tmp_env->var:|%s|\n", tmp_env->var);
+// 	// 			if (ft_strcmp(tmp_env->var, tmp_cmd->in + 1) == 0)
+// 	// 			{
+// 	// 				free(tmp_cmd->in);
+// 	// 				tmp_cmd->in = ft_strdup(tmp_env->data);
+// 	// 				// printf("the final string: %s\n", tmp_cmd->in);
+// 	// 				break ;
+// 	// 			}
+// 	// 			tmp_env = tmp_env->next;
+// 	// 		}
+// 	// 	}
+// 	// 	tmp_cmd = tmp_cmd->next;
+// 	// }
+// }
 char	*ft_end(char *s, int *i)
 {
 	char	*str;

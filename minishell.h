@@ -70,7 +70,6 @@ t_envarment	*new_node(void *var, void *data);
 void		add_back_node(t_envarment **lst, t_envarment *new);
 t_envarment	*ft_stock_envarment(char **env);
 char		*ft_expand(char *arg, t_envarment *my_env);
-void		ft_check_env(t_splitor **x, t_envarment *my_env);
 // ---------
 void		ft_command(t_splitor **x, t_command **cmd, t_envarment *env);
 void		ft_add_command(t_command **lst, t_command *new);
