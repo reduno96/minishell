@@ -115,6 +115,14 @@ void	ft_free_command(t_command *cmd)
             }
             free(cmd->arg);
         }
-        free(cmd);
+		if (cmd->store_her)
+		{
+			for (int i = 0; cmd->store_her[i]; i++)
+				free(cmd->store_her[i]);
+			free(cmd->store_her);
+		}
+		if (cmd->doc)
+			ft_free_doc(&cmd->doc);
+		free(cmd);
     }
 }

@@ -136,8 +136,8 @@ void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 		// printf("Count: %d\n", count);
 		ft_add_command(cmd, ft_new_command(count, &tmp_x, my_env));
 	}
-	// ft_fill_red(cmd, x, my_env);
-	// ft_fill_her(cmd);
+	ft_fill_red(cmd, x, my_env);
+	ft_fill_her(cmd);
 	// i = 0;
 	// tmp_cmd = *cmd;
 	// while (tmp_cmd != NULL)
