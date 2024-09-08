@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/08 13:24:03 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:41:12 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,23 +173,61 @@ void	ft_general_command(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
 {
 	char	*s;
+	char	*join;
 
+	join = NULL;
 	s = NULL;
 	while ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type != ' '
-			&& !ft_condition_2(*tmp_x)))
+			&& ((*tmp_x)->type == '$' || !ft_condition((*tmp_x)))))
 	{
 		if ((*tmp_x)->type == '$')
 		{
 			s = ft_expand((*tmp_x)->in, my_env);
-			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
+			join = ft_strjoin(join, s);
 		}
 		else
 		{
-			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i],
-					(*tmp_x)->in);
+			join = ft_strjoin_1(join, (*tmp_x)->in);
 		}
 		(*tmp_x) = (*tmp_x)->next;
-		ft_skip_general(tmp_x, i, new_node, my_env);
+		printf("%s\n", join);
+		while ((*tmp_x) != NULL && (*tmp_x)->state == G
+			&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
+		{
+			printf("1\n");
+			if (((*tmp_x) != NULL && (*tmp_x)->state == G)
+				&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
+				(*tmp_x) = (*tmp_x)->next;
+			while ((*tmp_x) != NULL && ((*tmp_x)->state == D
+					|| (*tmp_x)->state == S))
+			{
+				if ((*tmp_x) != NULL && (*tmp_x)->state != S
+					&& (*tmp_x)->type == '$')
+				{
+					s = ft_expand((*tmp_x)->in, my_env);
+					join = ft_strjoin(join, s);
+				}
+				else if ((*tmp_x) != NULL)
+				{
+					join = ft_strjoin(join, (*tmp_x)->in);
+				}
+				(*tmp_x) = (*tmp_x)->next;
+			}
+			if ((*tmp_x) != NULL && (*tmp_x)->state != S
+				&& (*tmp_x)->type == '$')
+			{
+				s = ft_expand((*tmp_x)->in, my_env);
+				join = ft_strjoin(join, s);
+			}
+			else if ((*tmp_x) != NULL && ((*tmp_x)->state == G
+					&& (*tmp_x)->type == -1))
+				join = ft_strjoin(join, (*tmp_x)->in);
+			else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
+					|| (*tmp_x)->state == S))
+				join = ft_strjoin(join, (*tmp_x)->in);
+			if ((*tmp_x) != NULL && (*tmp_x)->type != ' ')
+				(*tmp_x) = (*tmp_x)->next;
+		}
 	}
 	(*i)++;
 	(*new_node)->arg[*i] = NULL;
