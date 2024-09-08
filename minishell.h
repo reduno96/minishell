@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/06 16:55:13 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:31:40 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ void            ft_echo(t_command *list);
 // void            ft_echo_flag(t_command *list , int k );
 void			ft_exit(t_envarment *var ,t_command *list);
 char 			**array_env(t_envarment *var);
+char		*ft_strjoin_1(char *s1, char *s2);
 
 
 #endif
