@@ -1,10 +1,12 @@
 SRC= minishell.c \
 	lexer_utils.c \
 	lexer.c \
+	lexer_utils_2.c \
 	ft_handle_synx.c \
 	ft_nodes_env.c \
 	ft_free.c \
 	ft_parsser.c\
+	ft_count_parameter.c \
 	ft_parsser_utils_2.c \
 	ft_parsser_utils.c \
 	ft_direction.c \
@@ -26,9 +28,8 @@ LIBFT = ./includes/libft/libft.a
 FLDLIBFT= ./includes/libft
 
 #include readLine in MacOS
-INRL = #-I/goinfre/rel-mora/homebrew/opt/readline/include
-LNRL= -lreadline #-L/goinfre/rel-mora/homebrew/opt/readline/lib
-
+INRL = -I/goinfre/rel-mora/homebrew/opt/readline/include
+LNRL= -L/goinfre/rel-mora/homebrew/opt/readline/lib -lreadline
 #include readLine in MacOS
 # INRL = -I/goinfre/bouhammo/homebrew/opt/readline/include
 # LNRL= -L/goinfre/bouhammo/homebrew/opt/readline/lib -lreadline
