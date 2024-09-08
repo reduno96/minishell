@@ -6,52 +6,44 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:33:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/05 10:24:17 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:14:07 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-
-int hundle_file_herdoc(t_command *list)
+int	hundle_file_herdoc(t_command *list)
 {
-    int fd;
-    char *file;
-    char *file_name;
-    t_command *tmp;
-    static  int j;
+	int			fd;
+	char		*file;
+	char		*file_name;
+	t_command	*tmp;
 
-    tmp = list;
-    j = 0;
-
-    while (tmp->store_her[j])
+	tmp = list;
+	if (tmp->her == NULL)
+		return (0);
+	while (tmp->her->next)
+		tmp->her = tmp->her->next;
+	file = ft_strjoin_1(tmp->her->store, ft_itoa(tmp->her->idx));
+	file_name = ft_strjoin_1("/tmp/herdoc", file);
+	free(file);
+	fd = open(file_name, O_RDONLY, 0644);
+	if (fd < 0)
 	{
-		// printf("jjjjjjjjjjjjjjjj     = %d\n", j);	
-        j++;
+		perror("open");
+		g_exit_status = 0;
+		exit(EXIT_FAILURE);
 	}
-    file_name = ft_strjoin("/tmp/herdoc", tmp->store_her[j-1]);
-    file = ft_strjoin(file_name, ft_itoa(j-1));
-    fd = open(file, O_RDONLY, 0644);  
-    
-
-    if (fd < 0)
-    {
-        perror("open");
-        exit(EXIT_FAILURE);
-    }
-    if (dup2(fd, STDIN_FILENO) < 0)  
-    {
-        perror("dup2");
-        exit(EXIT_FAILURE);
-    }
-    close(fd);
-    free(file_name);
-
-    return fd;
+	if (dup2(fd, STDIN_FILENO) < 0)
+	{
+		perror("dup2");
+		g_exit_status = 0;
+		exit(EXIT_FAILURE);
+	}
+	close(fd);
+	free(file_name);
+	return (fd);
 }
-
-	
 
 void	hundle_redir_out(char *file)
 {
@@ -59,14 +51,15 @@ void	hundle_redir_out(char *file)
 
 	if (file == NULL)
 	{
-		printf("*ambiguous redirect\n");
-		g_exit_status = 1;
+		printf("ambiguous redirect\n");
+		g_exit_status = 0;
 		exit(EXIT_FAILURE);
 	}
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		perror("open");
+		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	if (dup2(fd, STDOUT_FILENO) < 0)
@@ -91,11 +84,13 @@ void	hundle_redir_in(char *file)
 	if (fd < 0)
 	{
 		perror("open");
+		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	if (dup2(fd, STDIN_FILENO) < 0)
 	{
 		perror("dup2");
+		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	close(fd);
@@ -115,11 +110,13 @@ void	hundle_dredir_out(char *file)
 	if (fd < 0)
 	{
 		perror("open");
+		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	if (dup2(fd, STDOUT_FILENO) < 0)
 	{
 		perror("dup2");
+		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	close(fd);

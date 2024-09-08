@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:55:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/01 23:23:06 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/07 15:00:42 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ char	**array_env(t_envarment *var)
 	{
 		env_v[i] = (char *)malloc(sizeof(char) * (ft_strlen(var->var)
 					+ ft_strlen(var->data) + 2));
-		tmp = ft_strjoin(var->var, "=");
-		env_v[i] = ft_strjoin(tmp, var->data);
+		tmp = ft_strjoin_1(var->var, "=");
+		env_v[i] = ft_strjoin_1(tmp, var->data);
 		i++;
 		var = var->next;
 	}

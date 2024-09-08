@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/05 10:20:11 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:17:11 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,11 @@ void	print_export(t_envarment **var)
 	while (ptr != NULL)
 	{
 		if (ptr->data[0] == '\0')
-			printf("[Declare -x]  %s\n", (char *)ptr->var);
+			printf("Declare -x %s\n", (char *)ptr->var);
 		else if (ptr->data[0] == '=' && ptr->data[1] == '\0')
-			printf("[Declare -x]  %s=\"\"\n", (char *)ptr->var);
+			printf("Declare -x %s=\"\"\n", (char *)ptr->var);
 		else
-			printf("[Declare -x]  %s=\"%s\"\n", (char *)ptr->var,
+			printf("Declare -x %s=\"%s\"\n", (char *)ptr->var,
 				(char *)ptr->data);
 		ptr = ptr->next;
 	}

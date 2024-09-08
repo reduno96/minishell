@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/01 23:44:56 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/08 12:24:42 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_strcmp(char *s1, char *s2)
 	if (!s1 || !s2)
 		return (-1);
 	i = 0;
-	while ((s1[i] == s2[i]) && s1[i] && s2[i])
+	while ( (s1[i] && s2[i]) && (s1[i] == s2[i]) )
 	{
 		i++;
 	}
@@ -81,20 +81,50 @@ char	*ft_getenv(char *path, char **env)
 	return (NULL);
 }
 
+
+char	*ft_strjoin_1(char *s1, char *s2)
+{
+	char	*str_final;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!s1)
+	{
+		s1 = ft_calloc(1, sizeof(char));
+		s1[0] = '\0';
+	}
+	if (!s2 || !s1)
+		return (NULL);
+	str_final = ft_calloc((ft_strlen(s1) + ft_strlen(s2)) + 1, sizeof(char));
+	if (str_final == NULL)
+		return (NULL);
+	while (s1[j])
+		str_final[i++] = s1[j++];
+	j = 0;
+	while (s2[j])
+		str_final[i++] = s2[j++];
+	str_final[i] = '\0';
+	// free(s1);
+	// s1 = NULL;
+	return (str_final);
+}
 char	*path_command(char *ptr, char **env)
 {
 	char	*path;
 	char	**list;
 	int		i;
-	int		a;
 	char	*tmp;
 	char	*tmp2;
 
+	if( ptr == NULL)
+		return NULL;
 	i = 0;
 	path = ft_getenv("PATH", env);
 	if (!path)
 	{
-		printf("%s :+ No such file or directory\n", ptr);
+		ft_putstr_fd("No such file or directory\n", 2);
 		g_exit_status = 127;
 		exit(EXIT_FAILURE);
 	}
@@ -105,18 +135,14 @@ char	*path_command(char *ptr, char **env)
 			tmp2 = ptr;
 		else
 		{
-			tmp = ft_strjoin(list[i], "/");
-			tmp2 = ft_strjoin(tmp, ptr);
+			tmp = ft_strjoin_1(list[i], "/");
+			tmp2 = ft_strjoin_1(tmp, ptr);
 		}
-		a = access(tmp2, F_OK);
-		if (a == 0)
+		if (access(tmp2, X_OK) != -1)
 		{
-			// free(ptr);
 			return (tmp2);
 		}
 		i++;
 	}
-	// free(ptr);
-	ptr = NULL;
 	return (ptr);
 }

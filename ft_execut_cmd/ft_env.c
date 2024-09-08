@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/01 23:38:40 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:21:22 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	ft_env(t_envarment *var)
 		}
 		else if (ptr->data[0] == '=' && ptr->data[1] == '\0')
 		{
-			printf("%s	=\n", ptr->var);
+			printf("%s=\n", ptr->var);
 			ptr = ptr->next;
 		}
 		else
 		{
-			printf("%s	=    [%s]\n", ptr->var, ptr->data);
+			printf("%s=%s\n", ptr->var, ptr->data);
 			ptr = ptr->next;
 		}
 	}

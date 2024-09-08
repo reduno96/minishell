@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 09:06:30 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/01 23:38:32 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:42:58 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,32 @@
 
 static void	complet_function(t_command *list, int k, bool flag)
 {
-	char	**new;
-
 	if (test_redir_here_doc(list) == 1)
 	{
 		hundle_redirections(list);
-		new = ft_new_args(list->arg, list->doc);
-		execution_cmd(list, new);
+		execution_cmd(list, list->arg);
 	}
 	while (list->arg[k])
 	{
-		printf("%s", list->arg[k]);
+		ft_putstr_fd(list->arg[k] , 1);
 		if (list->arg[k + 1] != NULL)
-			printf(" ");
+			ft_putstr_fd(" ", 1);
 		k++;
 	}
 	if (!flag || k == 1)
-		printf("\n");
+		ft_putstr_fd("\n" ,1);
 }
 
 void	ft_echo(t_command *list)
 {
 	int		k;
 	bool	flag;
-	// bool	flag_dolar;
+	bool	flag_dolar;
 	int		i;
 
 	k = 1;
 	flag = false;
-	// flag_dolar = false;
+	flag_dolar = false;
 	while (list->arg[k])
 	{
 		if (list->arg[k][0] == '-' && list->arg[k][1] != '\0')

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/05 12:14:01 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/08 12:54:28 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,8 @@ void	built_in(t_envarment *var, t_command *list)
 void	execution_cmd(t_command *list, char **new)
 {
 	char	*ptr;
-
-	if(list == NULL || new == NULL || new[0] == NULL || list->arg == NULL)
-		return ;	
+	if (list == NULL || new == NULL || new[0] == NULL || list->arg == NULL)
+		return ;
 	if (new[0][0] == '/')
 		ptr = new[0];
 	else
@@ -71,14 +70,22 @@ void	execution_cmd(t_command *list, char **new)
 	if (!ptr)
 	{
 		ft_putstr_fd("command not found\n", 2);
+		g_exit_status = 127;
 		exit(127);
 	}
-	if (execve(ptr, new, list->ar_env) == -1)
-		perror("execve");
 	if (access(ptr, X_OK) == -1)
 	{
-		printf("minishell: %s: No access to path \n", new[0]);
+		ft_putstr_fd("command not found \n", 2);
+		g_exit_status = 126;
 		exit(126);
+	}
+	if (execve(ptr, new, list->ar_env) == -1)
+	{
+		printf("  ++++++++++++++++ ....... %s \n", ptr);
+		
+		perror("execve ");
+		g_exit_status = 127;
+		exit(127);
 	}
 }
 
@@ -101,13 +108,92 @@ int	built_in_exist(t_command *list)
 	return (0);
 }
 
-void	ft_exute(t_envarment *var, t_command *list, char **env)
-{
-	// int	fd;
-	int	status;
-	int	pid;
-	int heredoc_fd;
 
+
+// void	ft_exute(t_envarment *var, t_command *cmd, char **env)
+// {
+// 	t_command	*list;
+// 	// int			status;
+// 	// int			pid;
+// 	int			heredoc_fd;
+
+// 	list = cmd;
+// 	heredoc_fd = -1;
+// 	(void)var;
+// 	if (list == NULL)
+// 		return ;
+// 	list->ar_env = array_env(var);
+// 	if (built_in_exist(list) == 1 && pipe_exist(list) == 0
+// 		&& herdoc_exist(list) == 0 && test_redir_here_doc(list) == 0)
+// 	{
+// 		if (test_redir_here_doc(list) == 1)
+// 			hundle_redirections(list);
+// 		built_in(var, list);
+// 		return ;
+// 	}
+// 	// pid = fork();
+// 	// if (pid < 0)
+// 	// {
+// 	// 	perror("fork");
+// 	// 	return ;
+// 	// }
+// 	// else if (pid == 0)
+// 	// {
+// 		if (herdoc_exist(list) == 1)
+// 		{
+// 			handle_here_doc(list, env);
+// 			if (pipe_exist(list) == 1)
+// 			{
+// 				handle_pipe(list, var);
+// 			}
+// 			else
+// 			{
+// 				heredoc_fd = hundle_file_herdoc(list);
+// 				if (heredoc_fd != -1)
+// 				{
+// 					dup2(heredoc_fd, STDIN_FILENO);
+// 					close(heredoc_fd);
+// 				}
+// 				hundle_redirections(list);
+// 				execution_cmd(list, list->arg);
+// 			}
+// 		}
+// 		else if (pipe_exist(list) == 1 && herdoc_exist(list) == 0)
+// 		{
+// 			handle_pipe(list, var);
+// 		}
+// 		else
+// 		{
+// 			if (test_redir_here_doc(list))
+// 			{
+// 				hundle_redirections(list);
+// 				built_in(var, list);
+// 			}
+// 			printf("OK\n");
+// 			if (built_in_exist(list) == 0)
+// 				execution_cmd(list, list->arg);
+// 		}
+// 		// g_exit_status = 126;
+// 		// exit(EXIT_SUCCESS);
+// 	}
+// // 	else
+// // 	{
+// // 		if (wait(&status) == -1)
+// // 			perror("wait");
+// // 	}
+// // }
+
+
+
+
+void	ft_exute(t_envarment *var, t_command *cmd, char **env)
+{
+	t_command	*list;
+	int			status;
+	int			pid;
+	int			heredoc_fd;
+
+	list = cmd;
 	heredoc_fd = -1;
 	(void)var;
 	if (list == NULL)
@@ -132,22 +218,18 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 		if (herdoc_exist(list) == 1)
 		{
 			handle_here_doc(list, env);
-
 			if (pipe_exist(list) == 1)
 			{
-				handle_pipe(list, var );
+				handle_pipe(list, var);
 			}
 			else
 			{
-				
 				heredoc_fd = hundle_file_herdoc(list);
-				if(heredoc_fd != -1)
+				if (heredoc_fd != -1)
 				{
 					dup2(heredoc_fd, STDIN_FILENO);
 					close(heredoc_fd);
 				}
-
-				
 				hundle_redirections(list);
 				execution_cmd(list, list->arg);
 			}
@@ -163,9 +245,11 @@ void	ft_exute(t_envarment *var, t_command *list, char **env)
 				hundle_redirections(list);
 				built_in(var, list);
 			}
+			printf("OK\n");
 			if (built_in_exist(list) == 0)
 				execution_cmd(list, list->arg);
 		}
+		g_exit_status = 126;
 		exit(EXIT_SUCCESS);
 	}
 	else
