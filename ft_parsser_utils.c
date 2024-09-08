@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 21:25:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/05 17:03:28 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:59:58 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,8 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *my_env)
 	t_command	*new_node;
 	int			i;
 
-	(void)my_env;
 	i = 0;
 	new_node = malloc(sizeof(t_command));
-	if (!new_node)
-	{
-		// printf("Error: malloc failed\n");
-		return (NULL);
-	}
 	new_node->arg = malloc(sizeof(char *) * (count + 1));
 	new_node->content = NULL;
 	new_node->arg[0] = NULL;
@@ -59,21 +53,16 @@ t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *my_env)
 	new_node->is_pipe = 0;
 	new_node->doc = NULL;
 	new_node->her = NULL;
-	new_node->store_her = NULL;
 	if (((*tmp_x) != NULL && ((*tmp_x)->type == '|' && (*tmp_x)->state == G)))
 	{
 		new_node->arg[i] = ft_strdup((*tmp_x)->in);
-		// printf("%p\n", new_node->arg[i]);
 		i++;
 		new_node->arg[i] = NULL;
 		new_node->is_pipe = 1;
 		(*tmp_x) = (*tmp_x)->next;
 	}
 	else if ((*tmp_x) != NULL)
-	{
-		// printf("HI IM IN ft_not_pipe\n");
 		ft_not_pipe(&new_node, &i, tmp_x, my_env);
-	}
 	new_node->content = new_node->arg[0];
 	new_node->next = NULL;
 	return (new_node);

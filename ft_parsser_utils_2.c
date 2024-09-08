@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/04 12:48:52 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/08 07:33:43 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_skip_spaces_in_count__2(t_splitor **tmp_x)
 		(*tmp_x) = (*tmp_x)->next;
 	ft_skip_spaces(tmp_x);
 	while ((*tmp_x) != NULL && (*tmp_x)->state != G)
-
 		(*tmp_x) = (*tmp_x)->next;
 	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
@@ -63,6 +62,7 @@ void	ft_skip_general(t_splitor **tmp_x, int *i, t_command **new_node,
 	while ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 	{
+		printf("1\n");
 		if (((*tmp_x) != NULL && (*tmp_x)->state == G)
 			&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
 			(*tmp_x) = (*tmp_x)->next;
@@ -174,6 +174,14 @@ void	ft_double_and_sigle(t_splitor **tmp_x, int *i, t_command **new_node,
 	(*new_node)->next = NULL;
 }
 
+int	ft_condition_2(t_splitor *tmp_x)
+{
+	if ((tmp_x->type == ' ' || tmp_x->type == HERE_DOC || tmp_x->type == '<'
+			|| tmp_x->type == '>' || tmp_x->type == DREDIR_OUT
+			|| tmp_x->type == '\'' || tmp_x->type == '\"'))
+		return (1);
+	return (0);
+}
 void	ft_general_command(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
 {
@@ -181,7 +189,7 @@ void	ft_general_command(t_command **new_node, int *i, t_splitor **tmp_x,
 
 	s = NULL;
 	while ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type != ' '
-			&& ((*tmp_x)->type == '$' || !ft_condition((*tmp_x)))))
+			&& !ft_condition_2(*tmp_x)))
 	{
 		if ((*tmp_x)->type == '$')
 		{
@@ -203,9 +211,15 @@ void	ft_general_command(t_command **new_node, int *i, t_splitor **tmp_x,
 void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
 {
+	printf("0\n");
 	if (((*tmp_x) != NULL && (*tmp_x)->next != NULL) && (((*tmp_x)->type == '\"'
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
-				&& (*tmp_x)->next->type == '\'')))
+				&& (*tmp_x)->next->type == '\''))
+		&& ((*tmp_x)->next->next != NULL && (*tmp_x)->next->next->type == -1))
+		(*tmp_x) = (*tmp_x)->next;
+	else if (((*tmp_x) != NULL && (*tmp_x)->next != NULL)
+		&& (((*tmp_x)->type == '\"' && (*tmp_x)->next->type == '\"')
+			|| ((*tmp_x)->type == '\'' && (*tmp_x)->next->type == '\'')))
 	{
 		(*new_node)->arg[*i] = ft_strdup("");
 		(*tmp_x) = (*tmp_x)->next;
@@ -240,7 +254,7 @@ void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
 {
-	char *s;
+	char	*s;
 
 	s = NULL;
 	if ((*tmp_x) != NULL && (*tmp_x)->type == '$' && (*tmp_x)->state != S)
@@ -249,7 +263,7 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 		{
 			s = ft_expand((*tmp_x)->in, my_env);
 			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
-		(*tmp_x) = (*tmp_x)->next;
+			(*tmp_x) = (*tmp_x)->next;
 		}
 		(*i)++;
 		(*new_node)->arg[*i] = NULL;
