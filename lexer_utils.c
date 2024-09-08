@@ -6,35 +6,35 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:23:44 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/04 12:50:16 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:47:38 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_t_command(t_splitor *cmd)
+/* void	print_t_command(t_splitor *cmd)
 {
 	(void)cmd;
-	// if (cmd == NULL)
-	// {
-	// 	printf("Command is NULL\n");
-	// 	return ;
-	// }
-	// while (cmd != NULL)
-	// {
-	// 	printf("str_input: %s | ", cmd->in);
-	// 	printf("len: %d			| ", cmd->len);
-	// 	printf("token: %d		| ", cmd->type);
-	// 	if (cmd->state == 2)
-	// 		printf("state: GENERAL 		|\n");
-	// 	if (cmd->state == 1)
-	// 		printf("state: IN_SINGLE	|\n");
-	// 	if (cmd->state == 0)
-	// 		printf("state: IN_DOUBLE	|\n");
-	// 	cmd = cmd->next;
-	// 	printf("--------------------\n");
-	// }
-}
+	if (cmd == NULL)
+	{
+		printf("Command is NULL\n");
+		return ;
+	}
+	while (cmd != NULL)
+	{
+		printf("str_input: %s | ", cmd->in);
+		printf("len: %d			| ", cmd->len);
+		printf("token: %d		| ", cmd->type);
+		if (cmd->state == 2)
+			printf("state: GENERAL 		|\n");
+		if (cmd->state == 1)
+			printf("state: IN_SINGLE	|\n");
+		if (cmd->state == 0)
+			printf("state: IN_DOUBLE	|\n");
+		cmd = cmd->next;
+		printf("--------------------\n");
+	}
+} */
 
 int	ft_search(char *s, char *d)
 {
