@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/08 07:33:43 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:24:03 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,6 @@ void	ft_skip_spaces_in_count(t_splitor **tmp_x)
 	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 		(*tmp_x) = (*tmp_x)->next;
-	while ((*tmp_x) != NULL && (*tmp_x)->state != G)
-		(*tmp_x) = (*tmp_x)->next;
-	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
-			|| (*tmp_x)->type == '\''))
-		(*tmp_x) = (*tmp_x)->next;
-}
-
-void	ft_skip_spaces_in_count__2(t_splitor **tmp_x)
-{
-	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
-			|| (*tmp_x)->type == '\''))
-		(*tmp_x) = (*tmp_x)->next;
-	ft_skip_spaces(tmp_x);
 	while ((*tmp_x) != NULL && (*tmp_x)->state != G)
 		(*tmp_x) = (*tmp_x)->next;
 	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
@@ -238,17 +225,55 @@ void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x,
 	else if ((*tmp_x) != NULL)
 		(*tmp_x) = (*tmp_x)->next;
 }
+
+/*
+void	ft_skip_spaces_in_count__2(t_splitor **tmp_x)
+{
+	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
+			|| (*tmp_x)->type == '\''))
+		(*tmp_x) = (*tmp_x)->next;
+	ft_skip_spaces(tmp_x);
+	while ((*tmp_x) != NULL && (*tmp_x)->state != G)
+		(*tmp_x) = (*tmp_x)->next;
+	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
+			|| (*tmp_x)->type == '\''))
+		(*tmp_x) = (*tmp_x)->next;
+} */
+void	ft_skip_spaces_in_count__2(t_splitor **tmp_x)
+{
+	printf("______________1________________\n");
+	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
+			|| (*tmp_x)->type == '\''))
+		(*tmp_x) = (*tmp_x)->next;
+	ft_skip_spaces(tmp_x);
+	while ((*tmp_x) != NULL && ((*tmp_x)->type == -1 || (*tmp_x)->type == '$'
+			|| ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\'') || (((*tmp_x)->type == 32 && (*tmp_x)->state != G))))
+		(*tmp_x) = (*tmp_x)->next;
+	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
+			|| (*tmp_x)->type == '\''))
+		(*tmp_x) = (*tmp_x)->next;
+	// printf("----%s----\n", (*tmp_x)->in);
+	// if ((*tmp_x) != NULL && (*tmp_x)->type == -1 && (*tmp_x)->type == '$')
+	// 	ft_skip_spaces_in_count__2(tmp_x);
+}
+
 void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 {
 	(void)my_env;
-	if ((*tmp_x)->type == '<' || (*tmp_x)->type == '>'
-		|| (*tmp_x)->type == DREDIR_OUT || (*tmp_x)->type == HERE_DOC)
+	while ((*tmp_x) != NULL && ((*tmp_x)->type == '<' || (*tmp_x)->type == '>'
+			|| (*tmp_x)->type == DREDIR_OUT || (*tmp_x)->type == HERE_DOC))
 	{
+		printf("**%s\n", (*tmp_x)->in);
 		(*tmp_x) = (*tmp_x)->next;
+		if ((*tmp_x) != NULL)
+			printf("__%s__\n", (*tmp_x)->in);
 		ft_skip_spaces(tmp_x);
 		ft_skip_spaces_in_count__2(tmp_x);
-		if ((*tmp_x) != NULL)
-			(*tmp_x) = (*tmp_x)->next;
+		// if ((*tmp_x) != NULL)
+		// {
+		// 	printf("##%s\n", (*tmp_x)->in);
+		// 	(*tmp_x) = (*tmp_x)->next;
+		// }
 	}
 }
 void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
@@ -273,7 +298,10 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 	{
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1
 				&& (*tmp_x)->type != '$'))
+		{
+			printf("|%s|\n", (*tmp_x)->in);
 			ft_skip_not_word(tmp_x, my_env);
+		}
 		if ((*tmp_x) != NULL && !((*tmp_x)->type == ' '
 				&& (*tmp_x)->state == G))
 			ft_neuter_cmd(new_node, i, tmp_x, my_env);

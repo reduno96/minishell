@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/07 07:36:31 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:26:00 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,19 @@
 void	print_redirect_list(t_redirect *head)
 {
 	(void)head;
-	/* t_redirect	*current;
+	t_redirect	*current;
 	current = head;
 	while (current != NULL)
 	{
+		printf("type : %d | %s\n", current->type, current->store);
 		current = current->next;
-	} */
+	}
 }
 
 void	ft_skip_spaces_and_quotes(t_splitor **tmp_x)
 {
 	while ((*tmp_x) != NULL && ((*tmp_x)->type == ' ' || (*tmp_x)->type == '\"'
-			|| (*tmp_x)->type == '\"'))
+			|| (*tmp_x)->type == '\''))
 		(*tmp_x) = (*tmp_x)->next;
 }
 
