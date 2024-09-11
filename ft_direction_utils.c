@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <reduno96@gmail.com>              +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:58:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/08/12 21:47:26 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:25:39 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_redirect	*ft_new_redir(void *content, t_token type)
+t_redirect	*ft_new_redir(void *content, t_token type, int is_amb)
 {
 	t_redirect	*new_node;
 
@@ -23,6 +23,7 @@ t_redirect	*ft_new_redir(void *content, t_token type)
 		return (NULL);
 	new_node->store = content;
 	new_node->type = type;
+	new_node->is_amb = is_amb;
 	new_node->next = NULL;
 	return (new_node);
 }
