@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/06 12:15:50 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:52:28 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 	while (arg[i])
 	{
 		if (arg[i + 1] == '?')
+		{
 			return (s = ft_strdup(ft_itoa(g_exit_status)), s);
-		else if (!ft_isalnum(arg[2]))
-			return (s = ft_strdup(""), s);
+		}
 		else if (arg[1] == '\0')
 			return (s = ft_strdup("$"), s);
 		else if (arg[i] == '$')
@@ -50,6 +50,8 @@ char	*ft_expand(char *arg, t_envarment *my_env)
 			i++;
 			if (arg[i] == '\0')
 				break ;
+			if(!ft_isalnum(arg[i]))
+				ft_strdup("");
 			ft_go_to_env(&s, arg, &i, my_env);
 		}
 		i++;

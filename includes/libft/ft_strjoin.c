@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:48:18 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/08 10:47:57 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:22:07 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	{
 		s1 = ft_calloc(1, sizeof(char));
 		s1[0] = '\0';
+	}
+	if (!s2)
+	{
+		s2 = ft_calloc(1, sizeof(char));
+		s2[0] = '\0';
 	}
 	if (!s2 || !s1)
 		return (NULL);
