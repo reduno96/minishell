@@ -6,13 +6,13 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:23:44 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/06 16:47:38 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/11 07:22:58 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* void	print_t_command(t_splitor *cmd)
+void	print_t_command(t_splitor *cmd)
 {
 	(void)cmd;
 	if (cmd == NULL)
@@ -34,7 +34,7 @@
 		cmd = cmd->next;
 		printf("--------------------\n");
 	}
-} */
+}
 
 int	ft_search(char *s, char *d)
 {
