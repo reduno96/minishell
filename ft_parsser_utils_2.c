@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 13:25:04 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:59:39 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_ckeck_repeate_quote(char *join, t_command **new_node, int *i,
 		&& ((*tmp_x)->next->next != NULL && (*tmp_x)->next->next->type == -1))
 	{
 		(*tmp_x) = (*tmp_x)->next;
-		return 1;
+		return (1);
 	}
 	else if (((*tmp_x) != NULL && (*tmp_x)->next != NULL)
 		&& (((*tmp_x)->type == '\"' && (*tmp_x)->next->type == '\"')
@@ -44,10 +44,10 @@ int	ft_ckeck_repeate_quote(char *join, t_command **new_node, int *i,
 		(*new_node)->next = NULL;
 		return (1);
 	}
-	return 0;
+	return (0);
 }
 
-int 	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
+int	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
 {
 	char	*join;
@@ -56,13 +56,16 @@ int 	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 		&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
 	{
-
 		join = ft_word(tmp_x, my_env);
-		(*new_node)->arg[*i] = join;
-		(*i)++;
-		(*new_node)->arg[*i] = NULL;
-		(*new_node)->next = NULL;
-		return 1;
+		if (join != NULL)
+		{
+			printf("--000---\n");
+			(*new_node)->arg[*i] = join;
+			(*i)++;
+			(*new_node)->arg[*i] = NULL;
+			(*new_node)->next = NULL;
+		}
+		return (1);
 	}
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
 	{
@@ -71,11 +74,10 @@ int 	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
 		(*i)++;
 		(*new_node)->arg[*i] = NULL;
 		(*new_node)->next = NULL;
-		return 1;
+		return (1);
 	}
-	return 0;
+	return (0);
 }
-
 
 void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x,
 		t_envarment *my_env)
@@ -100,20 +102,25 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 	char	*s;
 
 	s = NULL;
-	if ((*tmp_x) != NULL && (*tmp_x)->type == '$' && (*tmp_x)->state != S)
-	{
-		while ((*tmp_x) != NULL && (*tmp_x)->type == '$')
-		{
-			s = ft_expand((*tmp_x)->in, my_env);
-			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
-			(*tmp_x) = (*tmp_x)->next;
-		}
-		(*i)++;
-		(*new_node)->arg[*i] = NULL;
-		(*new_node)->next = NULL;
-	}
 	while ((*tmp_x) != NULL && !((*tmp_x)->type == '|' && (*tmp_x)->state == G))
 	{
+		// 	if ((*tmp_x) != NULL && (*tmp_x)->type == '$'
+				// && (*tmp_x)->state != S)
+		// {
+		// 	// while ((*tmp_x) != NULL && (*tmp_x)->type == '$')
+		// 	// {
+		// 		s = ft_expand((*tmp_x)->in, my_env);
+		// 		if (s == NULL)
+		// 			(*tmp_x) = (*tmp_x)->next;
+		// 		else
+		// 		{
+		// 			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
+		// 			(*tmp_x) = (*tmp_x)->next;
+		// 		}
+		// (*i)++;
+		// (*new_node)->arg[*i] = NULL;
+		// (*new_node)->next = NULL;
+		// }
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1
 				&& (*tmp_x)->type != '$'))
 			ft_skip_not_word(tmp_x);
