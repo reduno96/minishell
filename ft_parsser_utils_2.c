@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 13:18:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 13:18:57 by rel-mora         ###   ########.fr       */
+/*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
+/*   Updated: 2024/09/11 13:25:04 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_condition_2(t_splitor *tmp_x)
 	return (0);
 }
 
-void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x,
-		t_envarment *my_env)
+int	ft_ckeck_repeate_quote(char *join, t_command **new_node, int *i,
+		t_splitor **tmp_x)
 {
 	if (((*tmp_x) != NULL && (*tmp_x)->next != NULL) && (((*tmp_x)->type == '\"'
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
