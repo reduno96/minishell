@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 12:07:02 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:02:41 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,40 +35,29 @@ void	hundle_redirections(t_command *list)
 	}
 }
 
-void	built_in(t_envarment *var, t_command *list)
+void	built_in(t_envarment **var, t_command *list)
 {
 	
 	if (list == NULL)
 		return ;
-	int i ;
-	
-	i =0;
-	while (list->arg[i] != NULL)
-	{
-		if(list->arg[i][0] == '\0')
-			i++;
-		else
-			break;
-	}
-		printf("----------------->>>>>>>>>>>>   %d \n", i);
-		if (ft_strcmp(list->arg[i], "exit") == 0)
+		if (ft_strcmp(list->content, "exit") == 0)
 			(ft_exit(var, list));
-		if (ft_strcmp(list->arg[i], "cd") == 0)
-			(ft_cd(list , i ));
-		if (ft_strcmp(list->arg[i], "pwd") == 0)
+		if (ft_strcmp(list->content, "cd") == 0)
+			(ft_cd(list ));
+		if (ft_strcmp(list->content, "pwd") == 0)
 			(ft_pwd(list));
-		if (ft_strcmp(list->arg[i], "export") == 0)
+		if (ft_strcmp(list->content , "export") == 0)
 		{
 			printf("[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]       \n");	
-			(ft_export(var, list , i));
+			(ft_export(var, list ));
 		}
-		if (ft_strcmp(list->arg[i], "unset") == 0)
-			(ft_unset(&var, list , i));
-		if (ft_strcmp(list->arg[i], "env") == 0)
+		if (ft_strcmp(list->content , "unset") == 0)
+			(ft_unset(var, list));
+		if (ft_strcmp(list->content , "env") == 0)
 			(ft_env(var));
-		if (ft_strcmp(list->arg[i], "echo") == 0)
+		if (ft_strcmp(list->content , "echo") == 0)
 		{
-			(ft_echo(list , i));
+			(ft_echo(list ));
 		}
 }
 
@@ -81,23 +70,29 @@ printf("***********************************  %d \n", getpid());
 	if (new[0][0] == '/')
 		ptr = new[0];
 	else
+	{
 		ptr = path_command(new[0], list->ar_env);
+		printf("OK\n");
+		g_exit_status = 1;
+	}
 	if (!ptr)
 	{
-		ft_putstr_fd("command not found\n", 2);
 		g_exit_status = 127;
+		printf("get+status           %d\n", g_exit_status);
+		ft_putstr_fd("1 command not found\n", 2);
 		exit(127);
 	}
 	if (access(ptr, X_OK) == -1)
 	{
-		ft_putstr_fd("command not found \n", 2);
-		free(ptr);
 		g_exit_status = 126;
+		printf("get+status           %d\n", g_exit_status);
+		ft_putstr_fd(" 2 command not found \n", 2);
+		free(ptr);
 		exit(126);
 	}
 	if (execve(ptr, new, list->ar_env) == -1)
 	{
-		// perror("execve ");
+		perror("execve ");
 		free(ptr);
 		g_exit_status = 127;
 		exit(127);
@@ -108,34 +103,27 @@ printf("***********************************  %d \n", getpid());
 
 int	built_in_exist(t_command *list)
 {
-	int i ;
-	i=0;
-	while (list->arg[i] != NULL)
-	{
-		if(list->arg[i][0] == '\0')
-			i++;
-		else
-			break;
-	}
-	if (ft_strcmp(list->arg[i], "exit") == 0)
+	if(list == NULL)
+		return 0;
+	if (ft_strcmp(list->content, "exit") == 0)
 		return (1);
-	if (ft_strcmp(list->arg[i], "cd") == 0)
+	if (ft_strcmp(list->content, "cd") == 0)
 		return (1);
-	if (ft_strcmp(list->arg[i], "pwd") == 0)
+	if (ft_strcmp(list->content , "pwd") == 0)
 		return (1);
-	if (ft_strcmp(list->arg[i], "export") == 0)
+	if (ft_strcmp(list->content, "export") == 0)
 		return (1);
-	if (ft_strcmp(list->arg[i], "unset") == 0)
+	if (ft_strcmp(list->content, "unset") == 0)
 		return (1);
-	if (ft_strcmp(list->arg[i], "env") == 0)
+	if (ft_strcmp(list->content, "env") == 0)
 		return (1);
-	if (ft_strcmp(list->arg[i], "echo") == 0)
+	if (ft_strcmp(list->content, "echo") == 0)
 		return (1);
 	return (0);
 }
 
 
-void		run_command(t_command *list ,t_envarment *var ,char **env) 
+void		run_command(t_command *list ,t_envarment **var ,char **env) 
 {
 	int			heredoc_fd;
 	(void)env;
@@ -166,13 +154,14 @@ void		run_command(t_command *list ,t_envarment *var ,char **env)
 		}
 		if (built_in_exist(list) == 0)
 			execution_cmd(list, list->arg);
+
 	}
-	g_exit_status = 126;
+	// g_exit_status = 126;
 	exit(EXIT_SUCCESS);
 }
 
 	
-void 		ft_free_leaks(t_command  *list , t_envarment *var)
+void 		ft_free_leaks(t_command  *list , t_envarment **var)
 {
 	int 	i;
 	(void)var;
@@ -185,7 +174,7 @@ void 		ft_free_leaks(t_command  *list , t_envarment *var)
 	free(list->ar_env);
 	
 }
-void	ft_exute(t_envarment *var, t_command *cmd, char **env)
+void	ft_exute(t_envarment **var, t_command *cmd, char **env)
 {
 	t_command	*list;
 	int			status;
@@ -201,7 +190,6 @@ void	ft_exute(t_envarment *var, t_command *cmd, char **env)
 	}
 	if (built_in_exist(list) == 1 && pipe_exist(list) == 0 && herdoc_exist(list) == 0 && test_redir_here_doc(list) == 0)
 	{
-		printf("999999999999 999                            9999\n");
 		if (test_redir_here_doc(list) == 1)
 			hundle_redirections(list);
 		built_in(var, list);
@@ -214,9 +202,13 @@ void	ft_exute(t_envarment *var, t_command *cmd, char **env)
 		return ;
 	}
 	else if (pid == 0)
+	{
 		run_command(list ,var , env) ;
+	}
 	else
 	{
+		printf("[][][][][][][][[[][][][[][]]]]\n");
+		printf("=======================   1 | %d \n", g_exit_status);
 		if (waitpid(pid, &status, 0) == -1)
 		{
 			perror("waitpid");
@@ -224,5 +216,6 @@ void	ft_exute(t_envarment *var, t_command *cmd, char **env)
 			exit(status);
 		}
 	}
+	printf("=======================   0 |  %d \n", g_exit_status);
 	ft_free_leaks(list , var);
 }

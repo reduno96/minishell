@@ -6,28 +6,44 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 13:22:32 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:11:20 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_envarment		*delet_first_node(t_envarment *env)
+t_envarment* 		delet_first_node(t_envarment **my_env)
 {
-	t_envarment	*tmp;
+	t_envarment	*start;
+	t_envarment *end;
 
-	if (env == NULL )
-		return (NULL);
+	// if (env == NULL )
+	// 	return (NULL);
 		
-	tmp = (env);
-	printf("+++++++++++++++++++++++++++++ %p\n",tmp);
-	env = env->next;
-	printf("+++++++++++++++++++++++++++++ %p\n",env);
-	free(tmp->data);
-	free(tmp->var);
-	free(tmp);
+	// tmp = (env);
+
+	// t
+	// printf("+++++++++++++++++++++++++++++ %p\n",tmp);
+	// env = env->next;
+	// printf("+++++++++++++++++++++++++++++ %p\n",env);
+	// free(tmp->var);
+	// free(tmp->data);
+	// free(tmp);
 	
-	return (env);
+	start = *my_env;
+	end = start->next;
+
+	free(start->data);
+	start->data = NULL;
+	
+	free(start->var);
+	start->var = NULL;
+
+	free(start);
+	*my_env = end;
+
+	
+	return (*my_env);
 }
 
 
@@ -44,7 +60,6 @@ int		check_is_valid(char 	*str )
 	int i;
 	if(str  == NULL)
 		return 0 ;
-		
 
 	i = 0;
 	while (str[i])
@@ -61,8 +76,9 @@ int		check_is_valid(char 	*str )
 }
 
 
-// void	ft_unset(t_envarment *var, t_command *list)
+// void	ft_unset(t_envarment *var, t_command *list , int indx)
 // {
+//     (void)indx;
 // 	int			i;
 // 	t_envarment	*env;
 // 	t_envarment	*env_1;
@@ -71,22 +87,23 @@ int		check_is_valid(char 	*str )
 // 	i = 1;
 // 	while (list->arg[i])
 // 	{
-// 		if (ft_strcmp(var->var, list->arg[1]) == 0)
-// 		{
-// 			env = delet_first_node(var);
-// 			env_1 = env;
-// 		}
-// 		else
-// 			env_1 = var;
-			
 // 		if(check_is_valid(list->arg[i]) == 1)
 // 			return ;
+		
+// 		if (ft_strcmp(var->var, list->arg[i]) == 0)
+// 		{
+// 			env_1 = delet_first_node(var);
+// 			print_export(&env_1);
+// 			break;
+// 		}
+// 		else
+// 			env_1 = var;	
 // 		while (env_1)
 // 		{
 // 			if (ft_strcmp(env_1->var, list->arg[i]) == 0)
 // 			{
 // 				env->next = env_1->next;
-// 				// free(env_1);
+// 				free(env_1);
 // 			}
 // 			env = env_1;
 // 			env_1 = env_1->next;
@@ -97,45 +114,54 @@ int		check_is_valid(char 	*str )
 // 	}
 // }
 
-
-
-// t_envarment *delet_first_node(t_envarment *env)
+// t_envarment 	*delet_first_node(t_envarment *my_env)
 // {
-//     t_envarment *tmp;
+//     t_envarment *tmp_env;
+// 	t_envarment	*start;
+// 	t_envarment *end;
 
-//     if (env == NULL)
+//     if (my_env == NULL)
 //         return NULL;
 
-//     tmp = env; 
-//     env = env->next; 
+//     tmp_env = my_env; 
 
+	
+	
+//     my_env = my_env->next; 
 
-//     free(tmp->data);
-//     free(tmp->var);
-//     free(tmp);
-//     return env;  
+//     // free(tmp->var);
+// 	// tmp->var = NULL;
+//     // free(tmp->data);
+// 	// tmp->data = NULL;
+//     // free(tmp);
+// 	// tmp = NULL;
+
+//     return var;  
 // }
 
-void ft_unset(t_envarment **var, t_command *list , int indx)  
+void ft_unset(t_envarment **var, t_command *list )  
 {
-    (void )indx;
     int i;
     t_envarment *env;
     t_envarment *env_1;
     t_envarment *prev;
 
+	env = *var;
+
+	
     i = 1;
     while (list->arg[i])
     {
         if (check_is_valid(list->arg[i]) == 1)
             return;
 
-        while (*var && ft_strcmp((*var)->var, list->arg[i]) == 0)
-        {
-            *var = delet_first_node(*var);
-        }
-
-        env = *var;
+		if (ft_strcmp(env->var, list->arg[i]) == 0)
+		{
+			env = delet_first_node(var);
+			print_export(&env);
+		}
+		else
+    		env = *var;
         prev = NULL;
         while (env)
         {
@@ -145,10 +171,9 @@ void ft_unset(t_envarment **var, t_command *list , int indx)
                     prev->next = env->next;
                 env_1 = env;
                 env = env->next;
-                free(env_1->data);
                 free(env_1->var);
+                free(env_1->data);
                 free(env_1);
-                continue;
             }
             prev = env;
             env = env->next;
@@ -156,3 +181,6 @@ void ft_unset(t_envarment **var, t_command *list , int indx)
         i++;
     }
 }
+
+
+

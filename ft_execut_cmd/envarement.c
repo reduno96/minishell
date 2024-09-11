@@ -6,13 +6,13 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:55:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/10 16:49:11 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:07:40 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	len_var(t_envarment *var)
+int	len_var(t_envarment **var)
 {
 	t_envarment	*tmp;
 	int			size;
@@ -20,7 +20,7 @@ int	len_var(t_envarment *var)
 	if(var == NULL)
 		return 0;
 	
-	tmp = var;
+	tmp = *var;
 	size = 0;
 	while (tmp != NULL)
 	{
@@ -30,27 +30,31 @@ int	len_var(t_envarment *var)
 	return (size);
 }
 
-char	**array_env(t_envarment *var)
+char	**array_env(t_envarment **var)
 {
 	char	**env_v;
 	int		len;
 	int		i;
 	char	*tmp;
+	t_envarment *tmp_cmd;
+
+	tmp_cmd = *var;
 
 	len = len_var(var);
+
 	env_v = (char **)malloc(sizeof(char *) * (len + 1));
 	if (env_v == NULL)
 		return (NULL);
 	i = 0;
 	while (i < len)
 	{
-		env_v[i] = (char *)malloc(sizeof(char) * (ft_strlen(var->var)
-					+ ft_strlen(var->data) + 2));
-		tmp = ft_strjoin_1(var->var, "=");
-		env_v[i] = ft_strjoin_1(tmp, var->data);
+		env_v[i] = (char *)malloc(sizeof(char) * (ft_strlen(tmp_cmd->var)
+					+ ft_strlen(tmp_cmd->data) + 2));
+		tmp = ft_strjoin_1(tmp_cmd->var, "=");
+		env_v[i] = ft_strjoin_1(tmp, tmp_cmd->data);
 		free(tmp);
 		i++;
-		var = var->next;
+		tmp_cmd = tmp_cmd->next;
 	}
 	env_v[i] = NULL;
 	return (env_v);

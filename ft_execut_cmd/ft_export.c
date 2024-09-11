@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 12:48:51 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:04:01 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	ft_isalnum_exp(int c)
 			&& c <= 'z') || (c == '_') || c == '<' || c == '>');
 }
 
-int	test_exist(t_envarment *var, char **list)
+int	test_exist(t_envarment **var, char **list)
 {
 	t_envarment	*ptr;
 
-	ptr = var;
+	ptr = *var;
 	while (ptr)
 	{
 		if (ft_strcmp(ptr->var, list[0]) == 0)
@@ -116,13 +116,15 @@ char	**split_line(char *ptr)
 void	print_export(t_envarment **var)
 {
 	t_envarment	*ptr;
+	if (*var == NULL || var == NULL)
+		return 	;
 
 	ptr = *var;
-	while (ptr != NULL)
+	while (ptr != NULL )
 	{
-		if (ptr->data[0] == '\0')
+		if ( ptr->data != NULL &&  ptr->data[0] == '\0')
 			printf("Declare -x %s\n", (char *)ptr->var);
-		else if (ptr->data[0] == '=' && ptr->data[1] == '\0')
+		else if (ptr->data != NULL &&  ptr->data[0] == '=' && ptr->data[1] == '\0')
 			printf("Declare -x %s=\"\"\n", (char *)ptr->var);
 		else
 			printf("Declare -x %s=\"%s\"\n", (char *)ptr->var,
@@ -160,6 +162,8 @@ void	check_dolar_is(char *str, t_envarment *var, t_command *s)
 
 int	exist_redir(char *ptr)
 {
+	if (!ptr)
+		return 0;
 	if (ft_strcmp(ptr, ">") == 0)
 		return (1);
 	if (ft_strcmp(ptr, ">>") == 0)
@@ -168,7 +172,7 @@ int	exist_redir(char *ptr)
 		return (1);
 	return (0);
 }
-void		affiche_export(char 	**str , t_envarment *var)
+void		affiche_export(char 	**str , t_envarment **var)
 {
 	int i ;
 	int count;
@@ -176,8 +180,6 @@ void		affiche_export(char 	**str , t_envarment *var)
 
 	count=0;
 	i = 0;
-	printf("DON'T GIVE UP \n\n");
-
 	while (str[i] != NULL )
 	{
 		if(str[i][0] != '\0')
@@ -190,7 +192,7 @@ void		affiche_export(char 	**str , t_envarment *var)
 	if( count == 1)
 	{
 		if(ft_strcmp(ptr , "export") == 0)
-			print_export(&var);
+			print_export(var);
 	}
 	
 	
@@ -216,23 +218,17 @@ int 	check_is_valid_1(char *str)
 	return 0;
 }
 
-void	ft_export(t_envarment *var, t_command *str , int indx)
+void	ft_export(t_envarment **var, t_command *str )
 {
 	char		**list;
 	int			i;
 	t_envarment	*elem;
 
-	i = indx +1;
+	i = 1;
 	while (str->arg[i] != NULL)
 	{
 		if(str->arg[i][0] == '\0')
 				i++;
-		else if (exist_redir(str->arg[i]) == 1)
-		{
-			if (str->arg[i + 2] == NULL)
-				break ;                  
-			i = i + 2;
-		}
 		else
 		{
        	if (check_is_valid_1(str->arg[i]) == 1)
@@ -244,7 +240,7 @@ void	ft_export(t_envarment *var, t_command *str , int indx)
 			else if (test_exist(var, list) == 1)
 			{
 				elem = new_node(list[0], list[1]);
-				add_back_node(&var, elem);
+				add_back_node(var, elem);
 				i++;
 			}
 		}

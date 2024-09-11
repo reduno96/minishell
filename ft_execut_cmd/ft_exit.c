@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 23:39:14 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/07 16:11:42 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:05:25 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int	is_number(char *arg)
 	return (1);
 }
 
-void	ft_free_when_exit(t_envarment *var, char *str, int fd, t_command *cmd)
+void	ft_free_when_exit(t_envarment **var, char *str, int fd, t_command *cmd)
 {
 	ft_putstr_fd(str, fd);
 	ft_free_command(cmd);
-	ft_free_env(&var);
+	ft_free_env(var);
 }
 
-void	ft_exit(t_envarment *var, t_command *cmd)
+void	ft_exit(t_envarment **var, t_command *cmd)
 {
 	int	len;
 

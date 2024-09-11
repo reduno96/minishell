@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 13:31:04 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:03:34 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ t_redirect	*ft_last_redir(t_redirect *lst);
 
 //////////////////////  Execution  ////////////////////////
 
-void		ft_exute(t_envarment *var, t_command *list, char **env);
+void		ft_exute(t_envarment **var, t_command *list, char **env);
 int			ft_strcmp(char *s1, char *s2);
 char		**create_argv(t_splitor *elem);
 char		*path_command(char *ptr, char **env);
 t_envarment	*ft_stock_envarment(char **env);
-int			test_exist(t_envarment *var, char **list);
+int			test_exist(t_envarment **var, char **list);
 
 void	free_args(char **args);  // ft_export
 char	**split_line(char *ptr); // ft_export
@@ -133,7 +133,7 @@ void	execution_cmd(t_command *list, char **new); // char **new, char **env)
 
 void		hundle_command(t_command *list, char **env);
 void		hundle_redirections(t_command *list);
-void		handle_pipe(t_command *list, t_envarment *var);
+void		handle_pipe(t_command *list, t_envarment **var);
 // void			handle_here_doc(t_command *tmp);
 
 ///////////////////////// Redirections  //////////////////////////
@@ -170,19 +170,19 @@ void	child_process(int **pipefd, int i, t_command *tmp_cmd, char **env,
 int			hundle_file_herdoc(t_command *list);
 
  // ///////            Commands         //////////////////////////////////
-void			built_in(t_envarment *var ,t_command *list );
+void			built_in(t_envarment **var ,t_command *list );
 int 			built_in_exist( t_command *list) ;
-void            ft_cd(t_command *list , int indx);
-void            ft_pwd(t_command *va_list);
-void            ft_export( t_envarment *var , t_command *str , int indx);
-void            ft_env( t_envarment *var);
-void            ft_unset(t_envarment **var , t_command *list , int indx);
-void            ft_echo(t_command *list , int indx);
+void            ft_cd(t_command *list );
+void            ft_pwd(t_command *list);
+void            ft_export( t_envarment **var , t_command *str );
+void            ft_env( t_envarment **var);
+void            ft_unset(t_envarment **var , t_command *list);
+void            ft_echo(t_command *list );
 // void            ft_echo_flag(t_command *list , int k );
-void			ft_exit(t_envarment *var ,t_command *list);
-char 			**array_env(t_envarment *var);
+void			ft_exit(t_envarment **var ,t_command *list);
+char 			**array_env(t_envarment **var);
 char			*ft_strjoin_1(char *s1, char *s2);
-int				len_var(t_envarment *var);
+int				len_var(t_envarment **var);
 int	count_herdoc(t_command *tmp);
 
 

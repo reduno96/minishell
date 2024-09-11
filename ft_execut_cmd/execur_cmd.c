@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:31:58 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 09:15:41 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:01:13 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	close_free_wait(int *pids, int **pipefd, int num_cmd,
 	free(pipefd);
 }
 
-void	handle_pipe(t_command *list, t_envarment *var)
+void	handle_pipe(t_command *list, t_envarment **var)
 {
 	int			num_cmd;
 	int			**pipefd;
