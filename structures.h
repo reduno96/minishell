@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/05 15:09:57 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:34:29 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define STRUCTURES_H
 # include <stdbool.h>
 
-int g_exit_status;
+int						g_exit_status;
 typedef struct s_idx
 {
 	int					i;
@@ -25,6 +25,7 @@ typedef struct s_idx
 	int					in_s;
 	int					in_d;
 }						t_idx;
+
 
 typedef enum e_token
 {
@@ -45,6 +46,7 @@ typedef enum e_token
 typedef struct s_redirect
 {
 	t_token				type;
+	int					is_amb;
 	char				*store;
 	struct s_redirect	*next;
 }						t_redirect;
@@ -61,11 +63,11 @@ typedef struct s_splitor
 	char				*in;
 	int					len;
 	enum e_token		type;
-		int					is_amb;
-	int is_exp;
+	int					is_amb;
+	int					is_exp;
 	enum e_state		state;
 	struct s_splitor	*next;
-	struct s_splitor *prev;
+	struct s_splitor	*prev;
 }						t_splitor;
 
 typedef struct s_envarment
@@ -75,17 +77,15 @@ typedef struct s_envarment
 	struct s_envarment	*next;
 }						t_envarment;
 
-
-
 typedef struct s_here_doc
 {
 	char				*store;
 	int					fd;
-	char 				*heredoc_file;
-	int 				idx;
-	int 				expad;
+	char				*heredoc_file;
+	int					idx;
+	int					expad;
 	struct s_here_doc	*next;
-}					t_here_doc;
+}						t_here_doc;
 
 typedef struct s_command
 {
@@ -94,12 +94,24 @@ typedef struct s_command
 	t_redirect			*doc;
 	t_here_doc			*her;
 	char				**store_her;
-	char 				**ar_env;
+	char				**ar_env;
 	int					is_amb;
-	int 				is_exp;
+	int					is_exp;
 	int					is_pipe;
 	int					len;
 	struct s_command	*next;
 }						t_command;
+
+
+
+typedef struct s_pre
+{
+	char				*final;
+	int					i;
+	int					j;
+	int					is_expand;
+		t_command	*tmp_cmd;
+	t_splitor	*tmp_x;
+}						t_pre;
 
 #endif
