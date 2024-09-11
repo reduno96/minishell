@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 09:06:30 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/07 16:42:58 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:56:52 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ static void	complet_function(t_command *list, int k, bool flag)
 		ft_putstr_fd("\n" ,1);
 }
 
-void	ft_echo(t_command *list)
+void	ft_echo(t_command *list , int indx)
 {
 	int		k;
 	bool	flag;
 	bool	flag_dolar;
 	int		i;
 
-	k = 1;
+	k = indx +1;
 	flag = false;
 	flag_dolar = false;
 	while (list->arg[k])

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:01 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/08/27 21:31:45 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:40:28 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	ft_pwd(t_command *list)
 {
+	(void)list;
 	char	*path;
 
-	if (ft_strcmp(list->content, "oi") == 0)
-	{
-	}
 	path = getcwd(NULL, 0);
 	if (path == NULL)
 		return ;

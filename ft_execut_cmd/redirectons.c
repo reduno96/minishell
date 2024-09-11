@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:33:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/07 16:14:07 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/10 20:20:52 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@ int	hundle_file_herdoc(t_command *list)
 	char		*file;
 	char		*file_name;
 	t_command	*tmp;
+	char	 *itoa;
 
 	tmp = list;
 	if (tmp->her == NULL)
 		return (0);
 	while (tmp->her->next)
 		tmp->her = tmp->her->next;
-	file = ft_strjoin_1(tmp->her->store, ft_itoa(tmp->her->idx));
+	itoa = ft_itoa(tmp->her->idx);
+	file = ft_strjoin_1(tmp->her->store, itoa);
+	free(itoa);
 	file_name = ft_strjoin_1("/tmp/herdoc", file);
 	free(file);
 	fd = open(file_name, O_RDONLY, 0644);
@@ -40,6 +43,7 @@ int	hundle_file_herdoc(t_command *list)
 		g_exit_status = 0;
 		exit(EXIT_FAILURE);
 	}
+
 	close(fd);
 	free(file_name);
 	return (fd);

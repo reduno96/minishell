@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/08 12:24:42 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:21:18 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,50 +26,53 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-char	**create_argv(t_splitor *elem)
-{
-	int			count;
-	char		**argv;
-	t_splitor	*tmp;
-	int			i;
-	int			j;
+// char	**create_argv(t_splitor *elem)
+// {
+// 	int			count;
+// 	char		**argv;
+// 	t_splitor	*tmp;
+// 	int			i;
+// 	int			j;
 
-	count = 0;
-	tmp = elem;
-	while (tmp)
-	{
-		count++;
-		tmp = tmp->next;
-	}
-	argv = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!argv)
-		return (NULL);
-	tmp = elem;
-	i = 0;
-	while (tmp)
-	{
-		argv[i] = ft_strdup(tmp->in);
-		if (!argv[i])
-		{
-			j = 0;
-			while (j < i)
-			{
-				free(argv[j]);
-				j++;
-			}
-		}
-		i++;
-		tmp = tmp->next;
-	}
-	argv[count] = NULL;
-	return (argv);
-}
+// 	count = 0;
+// 	tmp = elem;
+// 	while (tmp)
+// 	{
+// 		count++;
+// 		tmp = tmp->next;
+// 	}
+// 	argv = (char **)malloc(sizeof(char *) * (count + 1));
+// 	if (!argv)
+// 		return (NULL);
+// 	tmp = elem;
+// 	i = 0;
+// 	while (tmp)
+// 	{
+// 		argv[i] = ft_strdup(tmp->in);
+// 		if (!argv[i])
+// 		{
+// 			j = 0;
+// 			while (j < i)
+// 			{
+// 				free(argv[j]);
+// 				j++;
+// 			}
+// 		}
+// 		i++;
+// 		tmp = tmp->next;
+// 	}
+// 	argv[count] = NULL;
+// 	return (argv);
+// }
 
 char	*ft_getenv(char *path, char **env)
 {
 	int	i;
 
 	i = 0;
+	if(path == NULL)
+		return NULL;
+	
 	while (env[i] != NULL)
 	{
 		if (ft_strncmp(env[i], path, ft_strlen(path)) == 0)
@@ -110,6 +113,24 @@ char	*ft_strjoin_1(char *s1, char *s2)
 	// s1 = NULL;
 	return (str_final);
 }
+
+
+void	free_ft_split(char 	**list)
+{
+	int 		i;
+	
+	if (list == NULL)
+		return ;
+	i = 0;	
+	while (list[i] != NULL)
+	{
+			free(list[i]);
+		i++;
+	}
+	free(list);
+	list =NULL;
+}
+
 char	*path_command(char *ptr, char **env)
 {
 	char	*path;
@@ -118,7 +139,7 @@ char	*path_command(char *ptr, char **env)
 	char	*tmp;
 	char	*tmp2;
 
-	if( ptr == NULL)
+	if( ptr == NULL || env == NULL)
 		return NULL;
 	i = 0;
 	path = ft_getenv("PATH", env);
@@ -132,17 +153,22 @@ char	*path_command(char *ptr, char **env)
 	while (list[i])
 	{
 		if (ptr[0] == '/')
-			tmp2 = ptr;
+			tmp2 = ft_strdup(ptr);
 		else
 		{
 			tmp = ft_strjoin_1(list[i], "/");
 			tmp2 = ft_strjoin_1(tmp, ptr);
+			free(tmp);
 		}
-		if (access(tmp2, X_OK) != -1)
+		if (access(tmp2, F_OK) != -1 )
 		{
+			free_ft_split(list);
 			return (tmp2);
 		}
+		free(tmp2);
 		i++;
 	}
+	if(list != NULL)
+		free_ft_split(list);
 	return (ptr);
 }

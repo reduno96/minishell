@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 12:26:04 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:31:04 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,18 +169,26 @@ void	child_process(int **pipefd, int i, t_command *tmp_cmd, char **env,
 
 int			hundle_file_herdoc(t_command *list);
 
-// ///////            Commands         //////////////////////////////////
-void		built_in(t_envarment *var, t_command *list);
-int			built_in_exist(t_command *list);
-void		ft_cd(t_command *list);
-void		ft_pwd(t_command *va_list);
-void		ft_export(t_envarment *var, t_command *str);
-void		ft_env(t_envarment *var);
-void		ft_unset(t_envarment *var, t_command *list);
-void		ft_echo(t_command *list);
+ // ///////            Commands         //////////////////////////////////
+void			built_in(t_envarment *var ,t_command *list );
+int 			built_in_exist( t_command *list) ;
+void            ft_cd(t_command *list , int indx);
+void            ft_pwd(t_command *va_list);
+void            ft_export( t_envarment *var , t_command *str , int indx);
+void            ft_env( t_envarment *var);
+void            ft_unset(t_envarment **var , t_command *list , int indx);
+void            ft_echo(t_command *list , int indx);
 // void            ft_echo_flag(t_command *list , int k );
-void		ft_exit(t_envarment *var, t_command *list);
-char		**array_env(t_envarment *var);
-char		*ft_strjoin_1(char *s1, char *s2);
+void			ft_exit(t_envarment *var ,t_command *list);
+char 			**array_env(t_envarment *var);
+char			*ft_strjoin_1(char *s1, char *s2);
+int				len_var(t_envarment *var);
+int	count_herdoc(t_command *tmp);
+
+
+//////////////////////     free      /////////////////////////////////
+void	free_ft_split(char 	**list);
+int		check_is_valid(char 	*str );
+void	ft_error(char 	*str , char *ptr);
 
 #endif

@@ -4,5 +4,6 @@
 		"fillll": "c",
 		"unistd.h": "c",
 		"history.h": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "disabled"
 }

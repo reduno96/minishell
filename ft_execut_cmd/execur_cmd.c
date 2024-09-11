@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:31:58 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/08 12:10:21 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 09:15:41 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ int	pipe_exist(t_command *list)
 {
 	t_command	*tmp;
 
+	if(list == NULL)
+		return 0;
+
 	tmp = list;
 	while (tmp)
 	{
-		if (tmp->content != NULL && tmp->content[0] == '|')
+		if (tmp->is_pipe == 1)
 			return (1);
 		tmp = tmp->next;
 	}
@@ -72,6 +75,7 @@ int	**return_pipe(int num_cmd)
 void	close_free_wait(int *pids, int **pipefd, int num_cmd,
 		t_command *tmp_cmd)
 {
+	(void)tmp_cmd;
 	int	i;
 	int	j;
 	int	status;
@@ -86,7 +90,7 @@ void	close_free_wait(int *pids, int **pipefd, int num_cmd,
 			perror("waitpid");
 			g_exit_status = status;
 			exit(status);
-		}
+		}	
 		j++;
 	}
 	i = 0;
@@ -97,7 +101,6 @@ void	close_free_wait(int *pids, int **pipefd, int num_cmd,
 		i++;
 	}
 	free(pipefd);
-	free(tmp_cmd);
 }
 
 void	handle_pipe(t_command *list, t_envarment *var)
@@ -157,7 +160,7 @@ void	handle_pipe(t_command *list, t_envarment *var)
 				dup2(pipefd[i][1], STDOUT_FILENO);
 				close(pipefd[i][1]);
 			}
-			if (built_in_exist(tmp_cmd))
+			if (built_in_exist(tmp_cmd) && tmp_cmd->arg[1] == NULL)
 			{
 				built_in(var, tmp_cmd);
 				g_exit_status = 0;
@@ -176,6 +179,7 @@ void	handle_pipe(t_command *list, t_envarment *var)
 			ptr = path_command(tmp_cmd->content, arr_env);
 			if( access(ptr , X_OK) == -1)
 			{
+				ft_putstr_fd("command not found \n", 2);
 				g_exit_status = 1;
 				exit(EXIT_FAILURE);
 			}
@@ -192,3 +196,6 @@ void	handle_pipe(t_command *list, t_envarment *var)
 	}
 	close_free_wait(pids, pipefd, num_cmd, tmp_cmd);
 }
+////////////////////////////////////////////
+
+
