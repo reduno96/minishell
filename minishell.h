@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/08 14:31:40 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:26:04 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,22 @@
 
 //////////////////////////////  Parsser  /////////////////////////////////
 // ---------
+
+
+// ---function to skip---
+void		ft_skip_spaces(t_splitor **tmp_x);
+void		ft_skip_spaces_in_count(t_splitor **tmp_x);
+void		ft_skip_quote(t_splitor **tmp_x, int *i, t_command **new_node);
+void ft_skip_not_word(t_splitor **tmp_x);
+void ft_skip_spaces_in_count__2(t_splitor **tmp_x);
+// ---function to join---
+char		*ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env);
+void		ft_join_double(char *s, char **join, t_splitor **tmp_x,
+				t_envarment *my_env);
+char		*ft_word(t_splitor **tmp_x, t_envarment *my_env);
+void	ft_join_words(char **join, t_splitor **tmp_x, t_envarment *my_env);
+void	ft_join_word_2(char *s, char **join, t_splitor **tmp_x,
+		t_envarment *my_env);
 // Assuming these are defined somewhere
 void		ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env);
 void		ft_free_lexer(t_splitor **x);
@@ -47,8 +63,8 @@ void		ft_free_command(t_command *cmd);
 // void		ft_putstr_fd(const char *s, int fd);
 // int			ft_strlen(const char *s);
 int			ft_lexer(char *str_input, t_splitor **x);
-void	ft_get_word(char *s, t_idx *var, t_splitor **x);
-void	ft_get_char(char *s, t_idx *var, t_splitor **x);
+void		ft_get_word(char *s, t_idx *var, t_splitor **x);
+void		ft_get_char(char *s, t_idx *var, t_splitor **x);
 t_envarment	*ft_stock_envarment(char **env);
 void		print_t_command(t_splitor *cmd);
 void		print_redirect_list(t_redirect *head);
@@ -72,7 +88,7 @@ void		add_back_node(t_envarment **lst, t_envarment *new);
 t_envarment	*ft_stock_envarment(char **env);
 char		*ft_expand(char *arg, t_envarment *my_env);
 // ---------
-void	ft_count_parameters(t_splitor *tmp_x, int *count);
+void		ft_count_parameters(t_splitor *tmp_x, int *count);
 void		ft_command(t_splitor **x, t_command **cmd, t_envarment *env);
 void		ft_add_command(t_command **lst, t_command *new);
 t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *env);
@@ -80,96 +96,91 @@ t_command	*ft_last_command(t_command *lst);
 // ---------
 void		ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 				t_envarment *my_env);
+char		*ft_word(t_splitor **tmp_x, t_envarment *my_env);
+
 void		ft_skip_spaces(t_splitor **tmp_x);
-void	ft_skip_spaces_in_count(t_splitor **tmp_x);
+void		ft_skip_spaces_in_count(t_splitor **tmp_x);
 
-void ft_skip_general(t_splitor **tmp_x, int *i, t_command **new_node, t_envarment *my_env);
+void		ft_skip_general(t_splitor **tmp_x, int *i, t_command **new_node,
+				t_envarment *my_env);
 
-void ft_double_and_sigle(t_splitor **tmp_x, int *i,
-                         t_command **new_node, t_envarment *my_env);
+char		*ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env);
 // ---------
 void		ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env);
 void		ft_fill_her(t_command **new_node);
 void		ft_check_doc(t_command **new_node);
-t_redirect	*ft_new_redir(void *content, t_token type);
+t_redirect	*ft_new_redir(void *content, t_token type, int is_amb);
 void		ft_add_redir(t_redirect **lst, t_redirect *new);
 t_redirect	*ft_last_redir(t_redirect *lst);
 
-
-
 //////////////////////  Execution  ////////////////////////
 
-void            ft_exute(t_envarment *var, t_command *list , char **env);
-int             ft_strcmp(char *s1, char *s2);
-char            **create_argv(t_splitor *elem) ;
-char            *path_command(char *ptr , char **env);
-t_envarment 	*ft_stock_envarment(char **env);
-int             test_exist(t_envarment *var , char **list);
+void		ft_exute(t_envarment *var, t_command *list, char **env);
+int			ft_strcmp(char *s1, char *s2);
+char		**create_argv(t_splitor *elem);
+char		*path_command(char *ptr, char **env);
+t_envarment	*ft_stock_envarment(char **env);
+int			test_exist(t_envarment *var, char **list);
 
-void            free_args(char **args);// ft_export
-char            **split_line(char *ptr);// ft_export
-char            **split_var(char *ptr);// ft_env
-void            print_export(t_envarment **var);
-// void            execution_cmd(t_command         *list ,char **new, char **env);
+void	free_args(char **args);  // ft_export
+char	**split_line(char *ptr); // ft_export
+char	**split_var(char *ptr);  // ft_env
+void		print_export(t_envarment **var);
+// void            execution_cmd(t_command         *list ,char **new,
+// char **env);
 // void            execution_cmd(t_command         *list ,char **env);
-void			execution_cmd(t_command *list,char **new );// char **new, char **env)
+void	execution_cmd(t_command *list, char **new); // char **new, char **env)
 
-void            hundle_command(t_command *list ,char **env);
-void			hundle_redirections(t_command *list);
-void 	        handle_pipe(t_command *list, t_envarment *var);
+void		hundle_command(t_command *list, char **env);
+void		hundle_redirections(t_command *list);
+void		handle_pipe(t_command *list, t_envarment *var);
 // void			handle_here_doc(t_command *tmp);
 
 ///////////////////////// Redirections  //////////////////////////
-void			hundle_redir_out(char 		*file);
-void			hundle_redir_in(char 		*file);
-void			hundle_dredir_out(char	 	*file);
-
-
+void		hundle_redir_out(char *file);
+void		hundle_redir_in(char *file);
+void		hundle_dredir_out(char *file);
 
 /////////////////////////  her doc  //////////////////////////
-int 			herdoc_exist(t_command *list);
-void 			handle_here_doc(t_command *tmp , char **env);
+int			herdoc_exist(t_command *list);
+void		handle_here_doc(t_command *tmp, char **env);
 // t_here_doc  	*new_node_her(int idx , int i,char *file, int fd, bool expand);
-t_here_doc	*new_node_her(char *file, int fd  , int x, int is_expand);
-void    		add_back_node_her(t_here_doc **her, t_here_doc *new_her);
-
+t_here_doc	*new_node_her(char *file, int fd, int x, int is_expand);
+void		add_back_node_her(t_here_doc **her, t_here_doc *new_her);
 
 /////////////////////////  function redirections  //////////////////////////
-char 			**get_len(char **args , t_redirect *redir);
-char			*git_type_redir(t_redirect *redir);
-char 			**ft_new_args(char **args , t_redirect *redir);
-int 			test_redir_here_doc(t_command *list);
-
+char		**get_len(char **args, t_redirect *redir);
+char		*git_type_redir(t_redirect *redir);
+char		**ft_new_args(char **args, t_redirect *redir);
+int			test_redir_here_doc(t_command *list);
 
 /////////////////////////  execut_cmd  //////////////////////////
-int             pipe_exist(t_command *list );
-int  			num_pipe(t_command *list);
-char 			*command_execut(t_command *list);
-int 			**return_pipe(int num_cmd);
-t_command 		*get_list_command(t_command *list);
-void    		close_free_wait( int *pids, int **pipefd, int num_cmd , t_command *tmp_cmd);
-void       	    child_process(int ** pipefd,int  i,t_command *tmp_cmd,char **env , int num_cmd );//, int *red);
-
+int			pipe_exist(t_command *list);
+int			num_pipe(t_command *list);
+char		*command_execut(t_command *list);
+int			**return_pipe(int num_cmd);
+t_command	*get_list_command(t_command *list);
+void		close_free_wait(int *pids, int **pipefd, int num_cmd,
+				t_command *tmp_cmd);
+void	child_process(int **pipefd, int i, t_command *tmp_cmd, char **env,
+					int num_cmd); //, int *red);
 
 /////////////////////////  signal  //////////////////////////
 
-int  	hundle_file_herdoc(t_command *list);
-
-
+int			hundle_file_herdoc(t_command *list);
 
 // ///////            Commands         //////////////////////////////////
-void			built_in(t_envarment *var ,t_command *list );
-int 			built_in_exist( t_command *list) ;
-void            ft_cd(t_command *list);
-void            ft_pwd(t_command *va_list);
-void            ft_export( t_envarment *var , t_command *str);
-void            ft_env( t_envarment *var);
-void            ft_unset(t_envarment *var , t_command *list);
-void            ft_echo(t_command *list);
+void		built_in(t_envarment *var, t_command *list);
+int			built_in_exist(t_command *list);
+void		ft_cd(t_command *list);
+void		ft_pwd(t_command *va_list);
+void		ft_export(t_envarment *var, t_command *str);
+void		ft_env(t_envarment *var);
+void		ft_unset(t_envarment *var, t_command *list);
+void		ft_echo(t_command *list);
 // void            ft_echo_flag(t_command *list , int k );
-void			ft_exit(t_envarment *var ,t_command *list);
-char 			**array_env(t_envarment *var);
+void		ft_exit(t_envarment *var, t_command *list);
+char		**array_env(t_envarment *var);
 char		*ft_strjoin_1(char *s1, char *s2);
-
 
 #endif
