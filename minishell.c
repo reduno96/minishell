@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/06 15:37:10 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:29:54 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	handle_sig(int sig)
 	}
 }
 
-void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment *my_env,
+void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment **my_env,
 		char **env)
 {
 	if (x != NULL && my_env != NULL)
 	{
-		ft_command(&x, &cmd, my_env);
+		ft_command(&x, &cmd, *my_env);
 		ft_exute(my_env, cmd, env);
 		ft_free_command(cmd);
 	}
@@ -54,17 +54,17 @@ void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment *my_env,
 	ft_free_lexer(&x);
 }
 
-void	ft_free_when_exit_1(t_splitor *x, t_command *cmd, t_envarment *my_env)
+void	ft_free_when_exit_1(t_splitor *x, t_command *cmd, t_envarment **my_env)
 {
 	printf("exit\n");
 	ft_free_command(cmd);
 	ft_free_lexer(&x);
-	ft_free_env(&my_env);
+	ft_free_env(my_env);
 	g_exit_status = 0;
 	exit(0);
 }
 
-void	ft_reader(t_splitor *x, t_command *cmd, t_envarment *my_env, char **env)
+void	ft_reader(t_splitor *x, t_command *cmd, t_envarment **my_env, char **env)
 {
 	char	*str_input;
 
@@ -106,7 +106,7 @@ int	main(int ac, char **av, char **env)
 	using_history();
 	x = NULL;
 	cmd = NULL;
-	ft_reader(x, cmd, my_env, env);
+	ft_reader(x, cmd, &my_env, env);
 	ft_free_env(&my_env);
 	return (0);
 }

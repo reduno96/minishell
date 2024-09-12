@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 20:03:34 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 07:24:34 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void            ft_echo(t_command *list );
 void			ft_exit(t_envarment **var ,t_command *list);
 char 			**array_env(t_envarment **var);
 char			*ft_strjoin_1(char *s1, char *s2);
-int				len_var(t_envarment **var);
+int				len_var(t_envarment *var);
 int	count_herdoc(t_command *tmp);
 
 
