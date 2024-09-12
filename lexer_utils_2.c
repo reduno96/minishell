@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:43:45 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/06 16:46:39 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:19:30 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 			var->len++;
 		}
 	}
+	else if (s[var->i] && s[var->i] == '$' && s[var->i + 1] == '?')
+		ft_else(s, var);
 	else if (s[var->i] && s[var->i] == '$' && !ft_isalnum(s[var->i + 1])
 		&& !ft_check_input(s[var->i + 1]))
 	{
@@ -66,8 +68,6 @@ void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 			var->len++;
 		}
 	}
-	else if (s[var->i] && s[var->i] == '$' && s[var->i + 1] == '?')
-		ft_else(s, var);
 	ft_add(x, ft_lstnew(ft_substr(s, var->start, var->len), var->len, ENV,
 			var->state));
 }

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:23:44 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 07:22:58 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:19:56 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_t_command(t_splitor *cmd)
 {
 	(void)cmd;
-	if (cmd == NULL)
+	/* if (cmd == NULL)
 	{
 		printf("Command is NULL\n");
 		return ;
@@ -33,7 +33,7 @@ void	print_t_command(t_splitor *cmd)
 			printf("state: IN_DOUBLE	|\n");
 		cmd = cmd->next;
 		printf("--------------------\n");
-	}
+	} */
 }
 
 int	ft_search(char *s, char *d)
