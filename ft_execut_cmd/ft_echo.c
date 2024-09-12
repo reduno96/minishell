@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 09:06:30 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 18:35:18 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:47:18 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ void	ft_echo(t_command *list )
 		k++;
 	}
 	complet_function(list, k, flag);
+	g_exit_status = 0;
 }

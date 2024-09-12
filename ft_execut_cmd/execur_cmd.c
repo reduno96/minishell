@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:31:58 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 20:01:13 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:23:25 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,9 +177,10 @@ void	handle_pipe(t_command *list, t_envarment **var)
 				close(heredoc_fd);
 			}
 			ptr = path_command(tmp_cmd->content, arr_env);
-			if( access(ptr , X_OK) == -1)
+			printf("---------------------------->>>>>>>>>>>>>>>>>>.    %s\n\n", ptr);
+			if(access(ptr , X_OK) == -1)
 			{
-				ft_putstr_fd("command not found \n", 2);
+				ft_putstr_fd("++++ command not found \n", 2);
 				g_exit_status = 1;
 				exit(EXIT_FAILURE);
 			}

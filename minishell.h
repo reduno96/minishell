@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/12 07:24:34 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:41:04 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ int			hundle_file_herdoc(t_command *list);
  // ///////            Commands         //////////////////////////////////
 void			built_in(t_envarment **var ,t_command *list );
 int 			built_in_exist( t_command *list) ;
-void            ft_cd(t_command *list );
+void            ft_cd(t_command *list , char **env);
 void            ft_pwd(t_command *list);
 void            ft_export( t_envarment **var , t_command *str );
 void            ft_env( t_envarment **var);
@@ -190,5 +190,6 @@ int	count_herdoc(t_command *tmp);
 void	free_ft_split(char 	**list);
 int		check_is_valid(char 	*str );
 void	ft_error(char 	*str , char *ptr);
+char	*ft_getenv(char *path, char **env);
 
 #endif

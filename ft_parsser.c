@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/12 11:19:41 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:08:42 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 	}
 	ft_fill_red(cmd, x, my_env);
 	ft_fill_her(cmd);
-/*
+
 	int			i;
 	t_command	*tmp_cmd;
 	i = 0;
@@ -56,15 +56,15 @@ void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 		print_redirect_list(tmp_cmd->doc);
 		// printf("\n");
 		i = 0;
-		printf("HerDoc :		\n");
-		if (tmp_cmd->store_her != NULL && tmp_cmd->store_her[0] != NULL)
-			while (tmp_cmd->store_her[i] != NULL)
-			{
-				if (tmp_cmd->store_her[i] == '\0')
-					printf("____in herdoc print_________\n");
-				printf("HerDoc ==>> %s \n\n", tmp_cmd->store_her[i]);
-				i++;
-			}
+		// printf("HerDoc :		\n");
+		// if (tmp_cmd->store_her != NULL && tmp_cmd->store_her[0] != NULL)
+		// 	while (tmp_cmd->store_her[i] != NULL)
+		// 	{
+		// 		if (tmp_cmd->store_her[i] == '\0')
+		// 			printf("____in herdoc print_________\n");
+		// 		printf("HerDoc ==>> %s \n\n", tmp_cmd->store_her[i]);
+		// 		i++;
+		// 	}
 		tmp_cmd = tmp_cmd->next;
-	} */
+	} 
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/12 07:59:57 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:48:08 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,20 @@ void	ft_env(t_envarment **var)
 	t_envarment	*ptr;
 
 	ptr = *var;
-	while (ptr)
+	while (ptr != NULL)
 	{
-		if ( ptr != NULL && (ptr->data != NULL || ptr->data[0] == '\0'))
+		if (ptr->data == NULL || ptr->data[0] == '\0')
 		{
 			ptr = ptr->next;
 		}
 		else if (ptr->data[0] == '=' && ptr->data[1] == '\0')
 		{
+			printf("%s=\n", ptr->var);
 			ptr = ptr->next;
 		}
 		else
 		{
+			printf("%s=%s\n", ptr->var, ptr->data);
 			ptr = ptr->next;
 		}
 	}

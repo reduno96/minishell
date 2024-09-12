@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/12 07:59:40 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:45:22 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	built_in(t_envarment **var, t_command *list)
 		if (ft_strcmp(list->content, "exit") == 0)
 			(ft_exit(var, list));
 		if (ft_strcmp(list->content, "cd") == 0)
-			(ft_cd(list ));
+			(ft_cd(list ,list->ar_env));
 		if (ft_strcmp(list->content, "pwd") == 0)
 			(ft_pwd(list));
 		if (ft_strcmp(list->content , "export") == 0)
@@ -61,6 +61,25 @@ void	built_in(t_envarment **var, t_command *list)
 		}
 }
 
+void	ft_access(char 	*ptr ,char  *str)
+{
+	if (access(ptr, F_OK) == -1)
+	{
+		ft_putstr_fd("command not found\n", 2);
+		if(ptr != str)
+			free(ptr);
+		exit(127);
+	}
+	if (access(ptr, X_OK) == -1)
+	{
+		ft_putstr_fd("Permission denied \n", 2);
+		if(ptr != str)
+			free(ptr);
+		exit(126);
+	}
+}
+
+
 void	execution_cmd(t_command *list, char **new)
 {
 	char	*ptr;
@@ -70,31 +89,21 @@ void	execution_cmd(t_command *list, char **new)
 	if (new[0][0] == '/')
 		ptr = new[0];
 	else
-	{
 		ptr = path_command(new[0], list->ar_env);
-		g_exit_status = 1;
-	}
 	if (!ptr)
 	{
-		g_exit_status = 127;
-		ft_putstr_fd("1 command not found\n", 2);
+		ft_putstr_fd("ommand not found\n", 2);
 		exit(127);
 	}
-	if (access(ptr, X_OK) == -1)
-	{
-		g_exit_status = 126;
-		ft_putstr_fd(" 2 command not found \n", 2);
-		free(ptr);
-		exit(126);
-	}
+	ft_access(ptr, new[0]);
+	
 	if (execve(ptr, new, list->ar_env) == -1)
 	{
-		perror("execve ");
+		perror("execve");
 		free(ptr);
-		g_exit_status = 127;
 		exit(127);
 	}
-
+	
 }
 
 
@@ -207,8 +216,14 @@ void	ft_exute(t_envarment **var, t_command *cmd, char **env)
 		if (waitpid(pid, &status, 0) == -1)
 		{
 			perror("waitpid");
-			g_exit_status = status;
-			exit(status);
+			g_exit_status = 1;
+		}
+		else
+		{
+			if(WIFEXITED(status))
+				g_exit_status = WEXITSTATUS(status);
+			else if(WIFSIGNALED(status))
+				g_exit_status = 128 + WTERMSIG(status);
 		}
 	}
 	ft_free_leaks(list , var);

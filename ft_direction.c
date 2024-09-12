@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/12 07:58:00 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:37:41 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void	ft_check_redirection(t_pre *id, t_envarment *my_env)
 			id->is_expand = 1;
 		add_back_node_her(&(id->tmp_cmd->her), new_node_her(final, -1, id->j,
 				id->is_expand));
+				id->j++;
 	}
 	if (id->tmp_x != NULL)
 		id->tmp_x = id->tmp_x->next;
