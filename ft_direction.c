@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 13:05:29 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/12 07:58:00 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_redirect_list(t_redirect *head)
 	current = head;
 	while (current != NULL)
 	{
-		printf("type : %d | %s\n", current->type, current->store);
+		// printf("type : %d | %s\n", current->type, current->store);
 		current = current->next;
 	}
 }
@@ -134,7 +134,6 @@ void	ft_check_redirection(t_pre *id, t_envarment *my_env)
 		id->tmp_x = id->tmp_x->next;
 		ft_skip_spaces(&id->tmp_x);
 		final = ft_skip_direction(&id->tmp_x, my_env, 0, 1);
-		printf("%s\n", final);
 		ft_add_redir(&(id->tmp_cmd->doc), ft_new_redir(final, HERE_DOC, 0));
 		if (id->tmp_x != NULL && id->tmp_x->state == G && ( (id->tmp_x->next != NULL && id->tmp_x->type == 32) || id->tmp_x->next == NULL))
 			id->is_expand = 1;
