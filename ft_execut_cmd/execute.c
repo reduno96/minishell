@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 20:02:41 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 07:59:40 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	hundle_redirections(t_command *list)
 
 void	built_in(t_envarment **var, t_command *list)
 {
-	
+
 	if (list == NULL)
 		return ;
 		if (ft_strcmp(list->content, "exit") == 0)
@@ -48,7 +48,7 @@ void	built_in(t_envarment **var, t_command *list)
 			(ft_pwd(list));
 		if (ft_strcmp(list->content , "export") == 0)
 		{
-			printf("[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]       \n");	
+			// printf("[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]       \n");
 			(ft_export(var, list ));
 		}
 		if (ft_strcmp(list->content , "unset") == 0)
@@ -64,7 +64,7 @@ void	built_in(t_envarment **var, t_command *list)
 void	execution_cmd(t_command *list, char **new)
 {
 	char	*ptr;
-printf("***********************************  %d \n", getpid());
+// printf("***********************************  %d \n", getpid());
 	if (list == NULL || new == NULL || new[0] == NULL || list->arg == NULL)
 		return ;
 	if (new[0][0] == '/')
@@ -72,20 +72,17 @@ printf("***********************************  %d \n", getpid());
 	else
 	{
 		ptr = path_command(new[0], list->ar_env);
-		printf("OK\n");
 		g_exit_status = 1;
 	}
 	if (!ptr)
 	{
 		g_exit_status = 127;
-		printf("get+status           %d\n", g_exit_status);
 		ft_putstr_fd("1 command not found\n", 2);
 		exit(127);
 	}
 	if (access(ptr, X_OK) == -1)
 	{
 		g_exit_status = 126;
-		printf("get+status           %d\n", g_exit_status);
 		ft_putstr_fd(" 2 command not found \n", 2);
 		free(ptr);
 		exit(126);
@@ -97,7 +94,7 @@ printf("***********************************  %d \n", getpid());
 		g_exit_status = 127;
 		exit(127);
 	}
-	
+
 }
 
 
@@ -123,7 +120,7 @@ int	built_in_exist(t_command *list)
 }
 
 
-void		run_command(t_command *list ,t_envarment **var ,char **env) 
+void		run_command(t_command *list ,t_envarment **var ,char **env)
 {
 	int			heredoc_fd;
 	(void)env;
@@ -160,7 +157,7 @@ void		run_command(t_command *list ,t_envarment **var ,char **env)
 	exit(EXIT_SUCCESS);
 }
 
-	
+
 void 		ft_free_leaks(t_command  *list , t_envarment **var)
 {
 	int 	i;
@@ -172,7 +169,7 @@ void 		ft_free_leaks(t_command  *list , t_envarment **var)
 		i++;
 	}
 	free(list->ar_env);
-	
+
 }
 void	ft_exute(t_envarment **var, t_command *cmd, char **env)
 {
@@ -207,8 +204,6 @@ void	ft_exute(t_envarment **var, t_command *cmd, char **env)
 	}
 	else
 	{
-		printf("[][][][][][][][[[][][][[][]]]]\n");
-		printf("=======================   1 | %d \n", g_exit_status);
 		if (waitpid(pid, &status, 0) == -1)
 		{
 			perror("waitpid");
@@ -216,6 +211,5 @@ void	ft_exute(t_envarment **var, t_command *cmd, char **env)
 			exit(status);
 		}
 	}
-	printf("=======================   0 |  %d \n", g_exit_status);
 	ft_free_leaks(list , var);
 }

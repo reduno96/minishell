@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 20:11:20 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:38:21 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_envarment* 		delet_first_node(t_envarment **my_env)
 
 	// if (env == NULL )
 	// 	return (NULL);
-		
+
 	// tmp = (env);
 
 	// t
@@ -29,29 +29,31 @@ t_envarment* 		delet_first_node(t_envarment **my_env)
 	// free(tmp->var);
 	// free(tmp->data);
 	// free(tmp);
-	
+
 	start = *my_env;
-	end = start->next;
+	end = (*my_env)->next;
 
 	free(start->data);
 	start->data = NULL;
-	
+
 	free(start->var);
 	start->var = NULL;
 
 	free(start);
 	*my_env = end;
 
-	
-	return (*my_env);
+
+	return (end);
 }
 
 
 void	ft_error(char 	*str , char *ptr)
 {
+	(void) ptr;
+	(void) str;
 	ft_putstr_fd(ptr ,2);
 	ft_putstr_fd(str ,2);
-	ft_putstr_fd("': not a valid identifier:\n",2);
+	ft_putstr_fd("': not a valid identifier\n",2);
 	g_exit_status = 1;
 }
 
@@ -89,7 +91,7 @@ int		check_is_valid(char 	*str )
 // 	{
 // 		if(check_is_valid(list->arg[i]) == 1)
 // 			return ;
-		
+
 // 		if (ft_strcmp(var->var, list->arg[i]) == 0)
 // 		{
 // 			env_1 = delet_first_node(var);
@@ -97,7 +99,7 @@ int		check_is_valid(char 	*str )
 // 			break;
 // 		}
 // 		else
-// 			env_1 = var;	
+// 			env_1 = var;
 // 		while (env_1)
 // 		{
 // 			if (ft_strcmp(env_1->var, list->arg[i]) == 0)
@@ -123,11 +125,11 @@ int		check_is_valid(char 	*str )
 //     if (my_env == NULL)
 //         return NULL;
 
-//     tmp_env = my_env; 
+//     tmp_env = my_env;
 
-	
-	
-//     my_env = my_env->next; 
+
+
+//     my_env = my_env->next;
 
 //     // free(tmp->var);
 // 	// tmp->var = NULL;
@@ -136,10 +138,10 @@ int		check_is_valid(char 	*str )
 //     // free(tmp);
 // 	// tmp = NULL;
 
-//     return var;  
+//     return var;
 // }
 
-void ft_unset(t_envarment **var, t_command *list )  
+void ft_unset(t_envarment **var, t_command *list )
 {
     int i;
     t_envarment *env;
@@ -148,7 +150,7 @@ void ft_unset(t_envarment **var, t_command *list )
 
 	env = *var;
 
-	
+
     i = 1;
     while (list->arg[i])
     {

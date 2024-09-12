@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   envarement.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:55:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 20:07:40 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 07:45:35 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	len_var(t_envarment **var)
+int	len_var(t_envarment *var)
 {
 	t_envarment	*tmp;
 	int			size;
-	
+
 	if(var == NULL)
 		return 0;
-	
-	tmp = *var;
+
+	tmp = var;
 	size = 0;
 	while (tmp != NULL)
 	{
@@ -40,7 +40,7 @@ char	**array_env(t_envarment **var)
 
 	tmp_cmd = *var;
 
-	len = len_var(var);
+	len = len_var(*var);
 
 	env_v = (char **)malloc(sizeof(char *) * (len + 1));
 	if (env_v == NULL)

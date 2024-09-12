@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 20:04:01 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:36:45 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,16 @@ char	**split_line(char *ptr)
 void	print_export(t_envarment **var)
 {
 	t_envarment	*ptr;
-	if (*var == NULL || var == NULL)
-		return 	;
 
+	if (*var == NULL || var == NULL)
+		return ;
 	ptr = *var;
-	while (ptr != NULL )
+	while (ptr != NULL)
 	{
-		if ( ptr->data != NULL &&  ptr->data[0] == '\0')
+		if (ptr->data != NULL && ptr->data[0] == '\0')
 			printf("Declare -x %s\n", (char *)ptr->var);
-		else if (ptr->data != NULL &&  ptr->data[0] == '=' && ptr->data[1] == '\0')
+		else if (ptr->data != NULL && ptr->data[0] == '='
+			&& ptr->data[1] == '\0')
 			printf("Declare -x %s=\"\"\n", (char *)ptr->var);
 		else
 			printf("Declare -x %s=\"%s\"\n", (char *)ptr->var,
@@ -149,7 +150,7 @@ void	check_dolar_is(char *str, t_envarment *var, t_command *s)
 		{
 			if (!ft_isalnum_exp(str[i]))
 			{
-				printf("export: `%s': not a valid identifier\n", str);
+				ft_putstr_fd("not a valid identifier\n", 2);
 				return ;
 			}
 			i++;
@@ -163,7 +164,7 @@ void	check_dolar_is(char *str, t_envarment *var, t_command *s)
 int	exist_redir(char *ptr)
 {
 	if (!ptr)
-		return 0;
+		return (0);
 	if (ft_strcmp(ptr, ">") == 0)
 		return (1);
 	if (ft_strcmp(ptr, ">>") == 0)
@@ -172,53 +173,71 @@ int	exist_redir(char *ptr)
 		return (1);
 	return (0);
 }
-void		affiche_export(char 	**str , t_envarment **var)
+void	affiche_export(char **str, t_envarment **var)
 {
-	int i ;
-	int count;
-	char *ptr;
+	int		i;
+	int		count;
+	char	*ptr;
 
-	count=0;
+	count = 0;
 	i = 0;
-	while (str[i] != NULL )
+	while (str[i] != NULL)
 	{
-		if(str[i][0] != '\0')
+		if (str[i][0] != '\0')
 		{
 			ptr = str[i];
 			count++;
 		}
 		i++;
 	}
-	if( count == 1)
+	if (count == 1)
 	{
-		if(ft_strcmp(ptr , "export") == 0)
+		if (ft_strcmp(ptr, "export") == 0)
 			print_export(var);
 	}
-	
-	
 }
-
-int 	check_is_valid_1(char *str)
+int	ft_is_num(char *str)
 {
-	int i =0;
-	if(str[i] == '=')
+	int	i;
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]))
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
+int	check_is_valid_1(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '=')
 	{
 		ft_error(str, "export :`");
-		return 1;
+		return (1);
 	}
-	while (str[i]  && str[i] != '=')
+	if (ft_isdigit(str[0]))
 	{
-		if (str[i] < '0' || (str[i] >= ':' && str[i] <= '@') || (str[i] >= '[' && str[i] <= '^') || str[i] >= '{' || str[i] == '`')
+		ft_error(str, "export :`");
+		return (1);
+	}
+	while (str[i] && str[i] != '=')
+	{
+		if (str[i] < '0' || (str[i] >= ':' && str[i] <= '@') || (str[i] >= '['
+				&& str[i] <= '^') || str[i] >= '{' || str[i] == '`')
 		{
 			ft_error(str, "export :`");
-			return 1;
+			return (1);
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
-void	ft_export(t_envarment **var, t_command *str )
+void	ft_export(t_envarment **var, t_command *str)
 {
 	char		**list;
 	int			i;
@@ -227,13 +246,12 @@ void	ft_export(t_envarment **var, t_command *str )
 	i = 1;
 	while (str->arg[i] != NULL)
 	{
-		if(str->arg[i][0] == '\0')
-				i++;
+		if (str->arg[i][0] == '\0')
+			i++;
 		else
 		{
-       	if (check_is_valid_1(str->arg[i]) == 1)
-            return;
-			
+			if (check_is_valid_1(str->arg[i]) == 1)
+				return ;
 			list = split_line(str->arg[i]);
 			if (test_exist(var, list) == 0)
 				i++;
@@ -245,5 +263,5 @@ void	ft_export(t_envarment **var, t_command *str )
 			}
 		}
 	}
-	affiche_export(str->arg , var );
+	affiche_export(str->arg, var);
 }

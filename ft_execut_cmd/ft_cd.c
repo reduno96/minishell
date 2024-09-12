@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/11 18:36:24 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:41:14 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ void	ft_cd(t_command *list)
 		if (path[0] == '-' && path[1] == '\0')
 		{
 			path = getenv("OLDPWD");
-			printf("%s\n", path);
 		}
 		if (chdir(path) == -1)
 		{
 			g_exit_status = 1 ;
-			ft_putstr_fd("1 No such file or directory\n", 1);
+			ft_putstr_fd(" No such file or directory\n", 2);
 		}
 	}
 }

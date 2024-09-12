@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/10 20:18:09 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 08:02:58 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_expand_in_her(char *line, t_envarment *my_env)
 			i--;
 		}
 		i++;
-		
+
 	}
 	return (final);
 }
@@ -158,15 +158,15 @@ int   ft_cmp_delimeter(t_command *tmp_cmd, int *i, char **env)
 	{
 
 		old_sigint_handler = signal(SIGINT, SIG_IGN);
-		pid = fork();  
+		pid = fork();
 		if (pid == -1)
 		{
 			perror("fork");
 			signal(SIGINT,old_sigint_handler);
-			return 0;  
+			return 0;
 		}
 		if (pid == 0)
-		{  
+		{
 			signal(SIGINT , sig_herdoc);
 			signal(SIGQUIT , SIG_IGN);
 			while (1)
@@ -177,18 +177,18 @@ int   ft_cmp_delimeter(t_command *tmp_cmd, int *i, char **env)
 
 				if (ft_strcmp(line, tmp_her->store) == 0)
 					exit(EXIT_SUCCESS);
-				else 
-					write_in_file(tmp_her, line, env);  
+				else
+					write_in_file(tmp_her, line, env);
 			}
 		}
 		else
-		{  
-			waitpid(pid, &status, 0);  
+		{
+			waitpid(pid, &status, 0);
 			if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 				g_exit_status = status;
 			if (status == 256)
-				return status;	
-			tmp_her = tmp_her->next;  
+				return status;
+			tmp_her = tmp_her->next;
 		}
     }
 	return status;
@@ -204,7 +204,7 @@ void 	create_files(t_command *cmd)
 
 	if(cmd == NULL)
 		return ;
-		
+
 	tmp = cmd;
 	while (tmp != NULL)
 	{
@@ -235,7 +235,7 @@ void 	handle_here_doc(t_command *cmd, char **env)
 	int			i;
 	int status;
 	tmp_cmd = cmd;
-	
+
 	if (cmd == NULL || tmp_cmd == NULL)
 		return ;
 	count = count_herdoc(tmp_cmd);

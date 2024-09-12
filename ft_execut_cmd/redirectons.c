@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirectons.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:33:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/10 20:20:52 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/12 08:07:15 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	hundle_redir_out(char *file)
 
 	if (file == NULL)
 	{
-		printf("ambiguous redirect\n");
-		g_exit_status = 0;
+		ft_putstr_fd("ambiguous redirect\n", 2);
+		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -80,7 +80,7 @@ void	hundle_redir_in(char *file)
 
 	if (file == NULL)
 	{
-		printf("ambiguous redirect\n");
+		ft_putstr_fd("ambiguous redirect\n", 2);
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
@@ -106,7 +106,7 @@ void	hundle_dredir_out(char *file)
 
 	if (file == NULL)
 	{
-		printf("ambiguous redirect\n");
+		ft_putstr_fd("ambiguous redirect\n", 2);
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
