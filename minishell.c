@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/12 14:29:54 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/14 17:36:22 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment **my_env,
 	if (x != NULL && my_env != NULL)
 	{
 		ft_command(&x, &cmd, *my_env);
-		ft_exute(my_env, cmd, env);
+		ft_exute(my_env, cmd);
 		ft_free_command(cmd);
 	}
 	(void)env;

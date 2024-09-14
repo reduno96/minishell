@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/12 15:21:26 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/14 13:05:56 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,60 +19,21 @@ int	ft_strcmp(char *s1, char *s2)
 	if (!s1 || !s2)
 		return (-1);
 	i = 0;
-	while ( (s1[i] && s2[i]) && (s1[i] == s2[i]) )
+	while ((s1[i] && s2[i]) && (s1[i] == s2[i]))
 	{
 		i++;
 	}
 	return (s1[i] - s2[i]);
 }
 
-// char	**create_argv(t_splitor *elem)
-// {
-// 	int			count;
-// 	char		**argv;
-// 	t_splitor	*tmp;
-// 	int			i;
-// 	int			j;
-
-// 	count = 0;
-// 	tmp = elem;
-// 	while (tmp)
-// 	{
-// 		count++;
-// 		tmp = tmp->next;
-// 	}
-// 	argv = (char **)malloc(sizeof(char *) * (count + 1));
-// 	if (!argv)
-// 		return (NULL);
-// 	tmp = elem;
-// 	i = 0;
-// 	while (tmp)
-// 	{
-// 		argv[i] = ft_strdup(tmp->in);
-// 		if (!argv[i])
-// 		{
-// 			j = 0;
-// 			while (j < i)
-// 			{
-// 				free(argv[j]);
-// 				j++;
-// 			}
-// 		}
-// 		i++;
-// 		tmp = tmp->next;
-// 	}
-// 	argv[count] = NULL;
-// 	return (argv);
-// }
-
 char	*ft_getenv(char *path, char **env)
 {
 	int	i;
 
 	i = 0;
-	if(path == NULL)
-		return NULL;
-	
+	if (path == NULL || *env == NULL || env == NULL)
+		return (NULL);
+
 	while (env[i] != NULL)
 	{
 		if (ft_strncmp(env[i], path, ft_strlen(path)) == 0)
@@ -83,7 +44,6 @@ char	*ft_getenv(char *path, char **env)
 	}
 	return (NULL);
 }
-
 
 char	*ft_strjoin_1(char *s1, char *s2)
 {
@@ -114,21 +74,20 @@ char	*ft_strjoin_1(char *s1, char *s2)
 	return (str_final);
 }
 
-
-void	free_ft_split(char 	**list)
+void	free_ft_split(char **list)
 {
-	int 		i;
-	
+	int	i;
+
 	if (list == NULL)
 		return ;
-	i = 0;	
+	i = 0;
 	while (list[i] != NULL)
 	{
-			free(list[i]);
+		free(list[i]);
 		i++;
 	}
 	free(list);
-	list =NULL;
+	list = NULL;
 }
 
 char	*path_command(char *ptr, char **env)
@@ -138,20 +97,21 @@ char	*path_command(char *ptr, char **env)
 	int		i;
 	char	*tmp;
 	char	*tmp2;
+	// while(*env==NULL)
+	// 	;
+	// env=a
 
-	if( ptr == NULL || env == NULL)
-		return NULL;
+	if (ptr == NULL || *env == NULL || env ==NULL)
+		return (NULL);
 	i = 0;
 	path = ft_getenv("PATH", env);
-	if(path == NULL)
+	if (path == NULL)
 		path = getcwd(NULL, 0);
-
 	if (!path)
 	{
-	
-			ft_putstr_fd("No such file or directory\n", 2);
-			g_exit_status = 127;
-			exit(EXIT_FAILURE);
+		ft_putstr_fd("No such file or directory\n", 2);
+		g_exit_status = 127;
+		exit(EXIT_FAILURE);
 	}
 	list = ft_split(path, ':');
 	while (list[i])
@@ -164,7 +124,7 @@ char	*path_command(char *ptr, char **env)
 			tmp2 = ft_strjoin_1(tmp, ptr);
 			free(tmp);
 		}
-		if (access(tmp2, F_OK) != -1 )
+		if (access(tmp2, F_OK) != -1)
 		{
 			free_ft_split(list);
 			return (tmp2);
@@ -172,7 +132,10 @@ char	*path_command(char *ptr, char **env)
 		free(tmp2);
 		i++;
 	}
-	if(list != NULL)
+	// printf("---------------->>>>>>>>>>>>> %s \n\n", ptr);
+	if (list != NULL)
 		free_ft_split(list);
+
+	
 	return (ptr);
 }

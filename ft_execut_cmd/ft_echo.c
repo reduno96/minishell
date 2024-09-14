@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 09:06:30 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/12 14:47:18 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:59:31 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 static void	complet_function(t_command *list, int k, bool flag)
 {
-	if (test_redir_here_doc(list) == 1)
-	{
-		hundle_redirections(list);
-		execution_cmd(list, list->arg);
-	}
 	while (list->arg[k])
 	{
 		ft_putstr_fd(list->arg[k] , 1);

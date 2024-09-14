@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/12 08:02:58 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:32:46 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ char	*ft_expand_in_her(char *line, t_envarment *my_env)
 
 
 
-void	write_in_file(t_here_doc *tmp, char *line, char **env)
+void	write_in_file(t_here_doc *tmp, char *line, t_envarment **var)
 {
 	char		*tmp_line;
 	char		*path_file;
-	t_envarment	*my_env;
 	char *final;
-
+	t_envarment *my_env;
+	
+	my_env  = *var;
 	final = NULL;
-	my_env = ft_stock_envarment(env);
 	tmp_line = ft_strjoin_1(tmp->store, ft_itoa(tmp->idx));
 	path_file = ft_strjoin_1("/tmp/herdoc", tmp_line);
 	free(tmp_line);
@@ -144,7 +144,7 @@ void	sig_herdoc(int sig)
 }
 
 
-int   ft_cmp_delimeter(t_command *tmp_cmd, int *i, char **env)
+int   ft_cmp_delimeter(t_command *tmp_cmd, int *i, t_envarment **var)
 {
     t_here_doc *tmp_her;
     char *line;
@@ -178,7 +178,7 @@ int   ft_cmp_delimeter(t_command *tmp_cmd, int *i, char **env)
 				if (ft_strcmp(line, tmp_her->store) == 0)
 					exit(EXIT_SUCCESS);
 				else
-					write_in_file(tmp_her, line, env);
+					write_in_file(tmp_her, line, var);
 			}
 		}
 		else
@@ -228,7 +228,7 @@ void 	exit_herdoc(int sig)
 	printf("\n");
 	exit(1);
 }
-void 	handle_here_doc(t_command *cmd, char **env)
+void 	handle_here_doc(t_envarment **var ,t_command *cmd )
 {
 	t_command	*tmp_cmd;
 	int			count;
@@ -243,7 +243,7 @@ void 	handle_here_doc(t_command *cmd, char **env)
 	i = 0;
 	while (tmp_cmd != NULL)
 	{
-		status = ft_cmp_delimeter(tmp_cmd, &i, env);
+		status = ft_cmp_delimeter(tmp_cmd, &i, var);
 		if (status == 256 )
 			break;
 		tmp_cmd = tmp_cmd->next;

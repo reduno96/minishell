@@ -19,7 +19,7 @@ SRC= minishell.c \
 
 OBJ = ${SRC:.c=.o}
 
-CFLAGS = -Wall -Wextra -Werror  -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 CC = cc
 
@@ -34,7 +34,7 @@ FLDLIBFT= ./includes/libft
 #LNRL= -L/goinfre/rel-mora/homebrew/opt/readline/lib -lreadline
 #include readLine in MacOS
  INRL = -I/goinfre/bouhammo/homebrew/opt/readline/include
- LNRL= -L/goinfre/bouhammo/homebrew/opt/readline/lib -lreadline
+ LNRL=  -L/goinfre/bouhammo/homebrew/opt/readline/lib -lreadline 
 
 
 
