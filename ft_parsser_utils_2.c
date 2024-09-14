@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/12 07:58:16 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:17:57 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 		&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
 	{
+		printf("in genereal\n");
 		join = ft_word(tmp_x, my_env);
 		if (join != NULL)
 		{
@@ -91,7 +92,7 @@ void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x,
 	if (((*tmp_x) != NULL && (*tmp_x)->state == G) && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 		ft_skip_quote(tmp_x, i, new_node);
-	else if ((*tmp_x) != NULL)
+	else if ((*tmp_x) != NULL && (*tmp_x)->type != '|')
 		(*tmp_x) = (*tmp_x)->next;
 }
 
@@ -104,7 +105,7 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 	while ((*tmp_x) != NULL && !((*tmp_x)->type == '|' && (*tmp_x)->state == G))
 	{
 		// 	if ((*tmp_x) != NULL && (*tmp_x)->type == '$'
-				// && (*tmp_x)->state != S)
+		// && (*tmp_x)->state != S)
 		// {
 		// 	// while ((*tmp_x) != NULL && (*tmp_x)->type == '$')
 		// 	// {
@@ -122,7 +123,7 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 		// }
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1
 				&& (*tmp_x)->type != '$'))
-			ft_skip_not_word(tmp_x);
+			ft_skip_not_word(tmp_x, my_env);
 		if ((*tmp_x) != NULL && !((*tmp_x)->type == 32 && (*tmp_x)->state == G))
 			ft_neuter_cmd(new_node, i, tmp_x, my_env);
 		if ((*tmp_x) != NULL && ((*tmp_x)->type == ' ' && (*tmp_x)->state == G))

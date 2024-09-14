@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:29:09 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 09:44:38 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/13 07:44:32 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,21 @@ void	ft_skip_quote(t_splitor **tmp_x, int *i, t_command **new_node)
 	}
 }
 
-void	ft_skip_not_word(t_splitor **tmp_x)
+void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 {
 	while ((*tmp_x) != NULL && ((*tmp_x)->type == '<' || (*tmp_x)->type == '>'
 			|| (*tmp_x)->type == DREDIR_OUT || (*tmp_x)->type == HERE_DOC))
 	{
 		(*tmp_x) = (*tmp_x)->next;
 		ft_skip_spaces(tmp_x);
-		ft_skip_spaces_in_count__2(tmp_x);
+		if ((*tmp_x)->state == G && (*tmp_x)->type == '\"'
+			&& (*tmp_x)->type == '\'')
+			(*tmp_x) = (*tmp_x)->next;
+		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
+			&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
+			ft_word(tmp_x, my_env);
+		else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
+				|| (*tmp_x)->state == S))
+			ft_double_and_sigle(tmp_x, my_env);
 	}
 }

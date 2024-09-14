@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:43:45 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/12 11:19:30 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:13:36 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,21 @@ void	ft_else(char *s, t_idx *var)
 
 void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 {
-	if (s[var->i] && s[var->i] == '$' && ft_isalnum(s[var->i + 1])
+
+	if ((s[var->i] && s[var->i + 1] && s[var->i+2] && s[var->i] == '$')
+		&& ((s[var->i+1] == '\"' && s[var->i
+			+ 2] == '\"') || (s[var->i] == '\'' || s[var->i + 2] == '\'')))
+	{
+		var->state = G;
+		var->i++;
+		var->i++;
+		var->i++;
+		var->len++;
+		var->len++;
+		var->len++;
+
+	}
+	else if (s[var->i] && s[var->i] == '$' && ft_isalnum(s[var->i + 1])
 		&& !ft_check_input(s[var->i + 1]))
 	{
 		while (s[var->i] && !ft_check_input(s[var->i + 1])

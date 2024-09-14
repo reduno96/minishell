@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/12 14:41:04 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/13 07:23:15 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 void		ft_skip_spaces(t_splitor **tmp_x);
 void		ft_skip_spaces_in_count(t_splitor **tmp_x);
 void		ft_skip_quote(t_splitor **tmp_x, int *i, t_command **new_node);
-void ft_skip_not_word(t_splitor **tmp_x);
+void ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env);
 void ft_skip_spaces_in_count__2(t_splitor **tmp_x);
 // ---function to join---
 char		*ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env);
