@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/14 13:05:56 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/15 12:35:56 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,13 @@ char	*path_command(char *ptr, char **env)
 	int		i;
 	char	*tmp;
 	char	*tmp2;
-	// while(*env==NULL)
-	// 	;
-	// env=a
+	
 
 	if (ptr == NULL || *env == NULL || env ==NULL)
 		return (NULL);
 	i = 0;
+	if(ptr[0] == '.'  )
+		return ptr;
 	path = ft_getenv("PATH", env);
 	if (path == NULL)
 		path = getcwd(NULL, 0);

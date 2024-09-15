@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/14 17:37:39 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:11:39 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 		&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
 	{
-		printf("in genereal\n");
+		// printf("in genereal\n");
 		join = ft_word(tmp_x, my_env);
 		if (join != NULL)
 		{

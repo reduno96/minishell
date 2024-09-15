@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/14 17:28:00 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/15 13:25:03 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,141 +59,98 @@ void	built_in(t_envarment **var, t_command *list)
 	}
 }
 
+int	is_directory(char *path)
+{
+	struct stat	path_stat;
 
-
-// void	ft_access(char *ptr, char **str)
-// {
-// 	// printf("**************************             %s\n", *str);
-// 	if ( ptr == NULL || str == NULL || *str == NULL )
-// 		return ;
-// 	if (access(ptr, F_OK) == -1)
-// 	{
-// 		ft_putstr_fd("1command not found\n", 2);
-// 		if (ptr != str[0])
-// 			free(ptr);
-// 		g_exit_status = 127;
-// 		exit(127);
-// 	}
-// 	if (is_directory(ptr))
-// 	{
-// 		ft_putstr_fd(ptr, 2);
-// 		ft_putstr_fd(": is a directory\n", 2);
-// 		g_exit_status = 126;
-// 		exit(126);
-// 	}
-// 	if (ft_strncmp(ptr, "./", 2) == 0)
-// 	{
-// 		if (access(ptr, X_OK) == -1)
-// 		{
-// 			ft_putstr_fd("command not found\n", 2);
-// 			if (ptr != str[0])
-// 				free(ptr);
-// 			g_exit_status = 127;
-// 			exit(127);
-// 		}
-// 	}
-// }
-
-int is_directory(const char *path) {
-    struct stat path_stat;
-    if (stat(path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode)) {
-        return 1;
-    }
-    return 0;
+	if (stat(path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
+	{
+		return (1);
+	}
+	return (0);
 }
 
-void ft_access(char *ptr, char **str, t_command *list) {
-    (void)list;
+void	ft_access_2(char *ptr, char **str)
+{
+	if (access(ptr, F_OK) == -1 || access(ptr, X_OK) == -1)
+	{
+		ft_putstr_fd(ptr, 2);
+		ft_putstr_fd(": command not found\n", 2);
+		if (ptr != str[0])
+			free(ptr);
+		g_exit_status = 127;
+		exit(127);
+	}
+	else if (is_directory(ptr))
+	{
+		ft_putstr_fd(ptr, 2);
+		ft_putstr_fd(": command not found\n", 2);
+		if (ptr != str[0])
+			free(ptr);
+		g_exit_status = 127;
+		exit(127);
+	}
+}
 
-    if (ptr == NULL || str == NULL || *str == NULL)
-        return;
-
-    struct stat path_stat;
-
-	if (access(ptr, F_OK) == -1 && ft_strncmp(ptr,"./",2) == 0)
+void	ft_access_1(char *ptr, char **str)
+{
+	if (ptr[ft_strlen(ptr) - 1] == '/')
 	{
-        ft_putstr_fd(ptr, 2);
-        ft_putstr_fd(": command not found\n", 2);
-        if (ptr != str[0])
-            free(ptr);
-        g_exit_status = 127;
-        exit(127);
-    }
-    else if (access(ptr, X_OK) == -1  )//&& stat(ptr, &path_stat) != -1 && S_ISDIR(path_stat.st_mode) !=1)
-	{
-        ft_putstr_fd(ptr, 2);
-        ft_putstr_fd(": Permission denied\n", 2);
-        if (ptr != str[0])
-            free(ptr);
-        g_exit_status = 126;
-        exit(126);
-    }
-    else  if (stat(ptr, &path_stat) == -1)
-	{
-        ft_putstr_fd(ptr, 2);
-        ft_putstr_fd(": No such file or directory\n", 2);
-        if (ptr != str[0])
-            free(ptr);
-        g_exit_status = 127;
-        exit(127);
-    }
-    else if (S_ISDIR(path_stat.st_mode) ==1)
-	{
-        if (ft_strchr(ptr, '/')) { 
-            ft_putstr_fd(ptr, 2);
-            ft_putstr_fd(": is a directory\n", 2);
-            g_exit_status = 126;
-        }
+		if (is_directory(ptr))
+		{
+			ft_putstr_fd(ptr, 2);
+			ft_putstr_fd(": is a directory\n", 2);
+			g_exit_status = 126;
+			exit(126);
+		}
 		else
 		{
-            ft_putstr_fd(ptr, 2);
-            ft_putstr_fd(": command not found\n", 2); 
-            g_exit_status = 127;
-        }
-        if (ptr != str[0])
-            free(ptr);
-        exit(g_exit_status);
-    }
+			ft_putstr_fd(ptr, 2);
+			ft_putstr_fd(": Not a directory\n", 2);
+			g_exit_status = 126;
+			exit(126);
+		}
+	}
 	else
-		return ;
+	{
+		ft_access_2(ptr, str);
+	}
 }
 
-
-
-
-// void	ft_access(char *ptr, char **str)
-// {
-// 	// printf("**************************             %s\n", *str);
-// 	if ( ptr == NULL || str == NULL || *str == NULL )
-// 		return ;
-// 	printf("---------------->>>>>>> %s\n", ptr);
-// 	if (access(ptr, F_OK) == -1)
-// 	{
-// 		ft_putstr_fd("1command not found\n", 2);
-// 		if (ptr != str[0])
-// 			free(ptr);
-// 		g_exit_status = 127;
-// 		exit(127);
-// 	}
-// 	if (is_directory(ptr))
-// 	{
-// 		ft_putstr_fd(ptr, 2);
-// 		ft_putstr_fd(": is a directory\n", 2);
-// 		g_exit_status = 126;
-// 		exit(126);
-// 	}
-// 	if (ft_strncmp(ptr, "./", 2) == 0)
-// 	{
-// 		if (access(ptr, X_OK) == -1)
-// 		{
-// 			ft_putstr_fd("command not found\n", 2);
-// 			if (ptr != str[0])
-// 				free(ptr);
-// 			g_exit_status = 127;
-// 			exit(127);
-// 		}
-// 	}
-// }
+void	ft_access(char *ptr, char **str)
+{
+	if (ptr == NULL || str == NULL || *str == NULL)
+		return ;
+	if (ft_strncmp(ptr, "./", 2) == 0 || ptr[0] == '/')
+	{
+		if (access(ptr, F_OK) == -1)
+		{
+			ft_putstr_fd(ptr, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			if (ptr != str[0])
+				free(ptr);
+			g_exit_status = 127;
+			exit(127);
+		}
+		if (access(ptr, X_OK) == -1)
+		{
+			ft_putstr_fd(ptr, 2);
+			ft_putstr_fd(": Permission denied\n", 2);
+			if (ptr != str[0])
+				free(ptr);
+			g_exit_status = 126;
+			exit(126);
+		}
+		if (is_directory(ptr))
+		{
+			ft_putstr_fd(ptr, 2);
+			ft_putstr_fd(": is a directory\n", 2);
+			g_exit_status = 126;
+			exit(126);
+		}
+	}
+	ft_access_1(ptr, str);
+}
 
 void	execution_cmd(t_command *list, char **new)
 {
@@ -205,18 +162,16 @@ void	execution_cmd(t_command *list, char **new)
 		ptr = new[0];
 	else
 		ptr = path_command(new[0], list->ar_env);
+	// printf("%s\n", ptr);
 	if (!ptr)
 	{
 		ft_putstr_fd("command not found\n", 2);
 		g_exit_status = 127;
 		exit(127);
 	}
-	ft_access(ptr, new, list);
-
-
+	ft_access(ptr, new);
 	if (execve(ptr, new, list->ar_env) == -1)
 	{
-		perror("execve");
 		free(ptr);
 		g_exit_status = 127;
 		exit(127);
@@ -244,6 +199,19 @@ int	built_in_exist(t_command *list)
 	return (0);
 }
 
+void	run_simple_cmd(t_command *list, t_envarment **var)
+{
+	if (test_redir_here_doc(list) == 1)
+	{
+		hundle_redirections(list);
+		built_in(var, list);
+	}
+	if (built_in_exist(list) == 0)
+	{
+		execution_cmd(list, list->arg);
+	}
+}
+
 void	run_command(t_command *list, t_envarment **var)
 {
 	int	heredoc_fd;
@@ -259,6 +227,7 @@ void	run_command(t_command *list, t_envarment **var)
 		}
 		hundle_redirections(list);
 		execution_cmd(list, list->arg);
+		exit(0);
 	}
 	else if (pipe_exist(list) == 1)
 	{
@@ -267,13 +236,8 @@ void	run_command(t_command *list, t_envarment **var)
 	}
 	else
 	{
-		if (test_redir_here_doc(list) == 1)
-		{
-			hundle_redirections(list);
-			built_in(var, list);
-		}
-		if (built_in_exist(list) == 0)
-			execution_cmd(list, list->arg);
+		run_simple_cmd(list, var);
+		exit(0);
 	}
 }
 
@@ -290,17 +254,19 @@ void	ft_free_leaks(t_command *list, t_envarment **var)
 	}
 	free(list->ar_env);
 }
-int 	run_herdoc_built(t_envarment **var, t_command *cmd)
+
+int	run_herdoc_built(t_envarment **var, t_command *cmd)
 {
 	t_command	*list;
 
 	list = cmd;
 	if (list == NULL)
-		return -1;
-
+		return (-1);
 	if (herdoc_exist(list) == 1)
 	{
 		handle_here_doc(var, list);
+		if (built_in_exist(list) == 1 && pipe_exist(list) == 0)
+			built_in(var, list);
 	}
 	if (built_in_exist(list) == 1 && pipe_exist(list) == 0
 		&& herdoc_exist(list) == 0 && test_redir_here_doc(list) == 0)
@@ -308,22 +274,39 @@ int 	run_herdoc_built(t_envarment **var, t_command *cmd)
 		if (test_redir_here_doc(list) == 1)
 			hundle_redirections(list);
 		built_in(var, list);
-		return 1;
+		return (1);
 	}
-	return 0;
+	return (0);
+}
+
+void	parent_proc(int pid)
+{
+	int	status;
+
+	if (waitpid(pid, &status, 0) == -1)
+	{
+		perror("waitpid");
+		g_exit_status = 1;
+	}
+	else
+	{
+		if (WIFEXITED(status))
+			g_exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			g_exit_status = 128 + WTERMSIG(status);
+	}
 }
 
 void	ft_exute(t_envarment **var, t_command *cmd)
 {
 	t_command	*list;
-	int			status;
 	int			pid;
 
 	list = cmd;
 	list->ar_env = NULL;
 	list->ar_env = array_env(var);
 	if (run_herdoc_built(var, cmd) == 1)
-		return;
+		return ;
 	pid = fork();
 	if (pid < 0)
 	{
@@ -334,18 +317,7 @@ void	ft_exute(t_envarment **var, t_command *cmd)
 		run_command(list, var);
 	else
 	{
-		if (waitpid(pid, &status, 0) == -1)
-		{
-			perror("waitpid");
-			g_exit_status = 1;
-		}
-		else
-		{
-			if (WIFEXITED(status))
-				g_exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				g_exit_status = 128 + WTERMSIG(status);
-		}
+		parent_proc(pid);
 	}
 	ft_free_leaks(list, var);
 }

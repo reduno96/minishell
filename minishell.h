@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/14 17:37:30 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/15 13:38:08 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,7 @@ int				num_pipe(t_command *list);
 char			*command_execut(t_command *list);
 int				**return_pipe(int num_cmd);
 t_command		*get_list_command(t_command *list);
-void			close_free_wait(int *pids, int **pipefd, int num_cmd,
-				t_command *tmp_cmd);
+void			close_free_wait(int *pids, int **pipefd, int num_cmd);
 void			child_process(int **pipefd, int i, t_command *tmp_cmd, char **env,
 					int num_cmd); //, int *red);
 
@@ -191,6 +190,6 @@ void		free_ft_split(char 	**list);
 int			check_is_valid(char 	*str );
 void		ft_error(char 	*str , char *ptr);
 char		*ft_getenv(char *path, char **env);
-void		ft_access(char 	*ptr ,char  **str , t_command *list);
+void		ft_access(char 	*ptr ,char  **str );
 
 #endif

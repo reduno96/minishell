@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:55:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/13 17:14:05 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/15 10:00:11 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	**array_env(t_envarment **var)
 	tmp_cmd = *var;
 
 	len = len_var(*var);
-
 	env_v = (char **)malloc(sizeof(char *) * (len + 1));
 	if (env_v == NULL)
 		return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 12:34:29 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/15 11:56:12 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <stdbool.h>
 
 int						g_exit_status;
+
+
 typedef struct s_idx
 {
 	int					i;
@@ -114,4 +116,14 @@ typedef struct s_pre
 	t_splitor	*tmp_x;
 }						t_pre;
 
+typedef struct pipe
+{
+	int			num_cmd;
+	int			**pipefd;
+	t_command	*tmp_cmd;
+	int		*pids;
+	int			heredoc_fd;
+	int			i;
+	char		*ptr;
+}		t_pipe;
 #endif

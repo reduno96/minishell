@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:31:58 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/14 15:36:40 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/15 13:43:18 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ int	pipe_exist(t_command *list)
 {
 	t_command	*tmp;
 
-	if(list == NULL)
-		return 0;
-
+	if (list == NULL)
+		return (0);
 	tmp = list;
 	while (tmp)
 	{
@@ -72,11 +71,25 @@ int	**return_pipe(int num_cmd)
 	return (pipe);
 }
 
-void 	close_free_wait(int *pids, int **pipefd, int num_cmd,
-		t_command *tmp_cmd)
+void 	free_pid_pipe(int *pids, int **pipefd, int num_cmd)
 {
-	(void)tmp_cmd;
-	int	i;
+	int 	i;
+	
+	i = 0;
+	if( pipefd != NULL)
+	{
+		while (i < num_cmd - 1)
+		{
+			free(pipefd[i]);
+			i++;
+		}
+		free(pipefd);
+	}
+	if(pids != NULL)
+	free(pids);
+}
+void	close_free_wait(int *pids, int **pipefd, int num_cmd)
+{
 	int	j;
 	int	status;
 
@@ -90,113 +103,104 @@ void 	close_free_wait(int *pids, int **pipefd, int num_cmd,
 			perror("waitpid");
 			g_exit_status = status;
 			exit(status);
-		}	
-		else 
+		}
+		else
 		{
-			if(WIFEXITED(status))
+			if (WIFEXITED(status))
 				g_exit_status = WEXITSTATUS(status);
-			else if(WIFSIGNALED(status))
+			else if (WIFSIGNALED(status))
 				g_exit_status = 128 + WTERMSIG(status);
 		}
 		j++;
 	}
-	i = 0;
-	free(pids);
-	while (i < num_cmd - 1)
-	{
-		free(pipefd[i]);
-		i++;
-	}
-	free(pipefd);
+	free_pid_pipe(pids , pipefd , num_cmd);
 }
-
-void 	handle_pipe(t_command *list, t_envarment **var)
+void	ft_write_in_pipe(t_pipe *hd_p, int i)
 {
-	int			num_cmd;
-	int			**pipefd;
-	t_command	*tmp_cmd;
-	pid_t		*pids;
-	int			heredoc_fd;
-	int			i;
-	char		*ptr;
+	if (i > 0)
+	{
+		close(hd_p->pipefd[i - 1][1]);
+		dup2(hd_p->pipefd[i - 1][0], STDIN_FILENO);
+		close(hd_p->pipefd[i - 1][0]);
+	}
+	if (i < hd_p->num_cmd - 1)
+	{
+		close(hd_p->pipefd[i][0]);
+		dup2(hd_p->pipefd[i][1], STDOUT_FILENO);
+		close(hd_p->pipefd[i][1]);
+	}
+}
+void	ft_func_2(t_pipe *hd_p, int i, t_envarment **var)
+{
+	if (hd_p->pids[i] == 0)
+	{
+		ft_write_in_pipe(hd_p, i);
+		if (test_redir_here_doc(hd_p->tmp_cmd))
+			hundle_redirections(hd_p->tmp_cmd);
+		if (built_in_exist(hd_p->tmp_cmd) == 1)
+		{
+			built_in(var, hd_p->tmp_cmd);
+			exit(EXIT_SUCCESS);
+		}
+		if (hd_p->tmp_cmd->her != NULL)
+		{
+			hd_p->heredoc_fd = hundle_file_herdoc(hd_p->tmp_cmd);
+			dup2(hd_p->heredoc_fd, STDIN_FILENO);
+			close(hd_p->heredoc_fd);
+		}
+		hd_p->ptr = path_command(hd_p->tmp_cmd->content, array_env(var));
+		ft_access(hd_p->ptr, array_env(var));
+		if (execve(hd_p->ptr, hd_p->tmp_cmd->arg, array_env(var)) == -1)
+			exit(1);
+	}
+}
+void	ft_func(t_pipe *hd_p, int i, t_envarment **var)
+{
+	if (hd_p->tmp_cmd->is_pipe == 1)
+		hd_p->tmp_cmd = hd_p->tmp_cmd->next;
+	if (pipe(hd_p->pipefd[i]) == -1)
+	{
+		perror("pipe");
+		g_exit_status = 1;
+		exit(EXIT_FAILURE);
+	}
+	hd_p->pids[i] = fork();
+	if (hd_p->pids[i] == -1)
+	{
+		perror("fork");
+		g_exit_status = 1;
+		exit(EXIT_FAILURE);
+	}
+	ft_func_2(hd_p, i, var);
+	if (i > 0)
+	{
+		close(hd_p->pipefd[i - 1][0]);
+		close(hd_p->pipefd[i - 1][1]);
+	}
+	hd_p->tmp_cmd = hd_p->tmp_cmd->next;
+}
+void	handle_pipe(t_command *list, t_envarment **var)
+{
+	t_pipe	hd_p;
+	int		i;
 
-	num_cmd = num_pipe(list) + 1;
-	pipefd = return_pipe(num_cmd);
-	tmp_cmd = list;
-	pids = (pid_t *)malloc(sizeof(pid_t) * num_cmd);
-	heredoc_fd = -1;
+	// hd_p = NULL;
+	hd_p.num_cmd = num_pipe(list) + 1;
+	hd_p.pipefd = return_pipe(hd_p.num_cmd);
+	hd_p.tmp_cmd = list;
+	hd_p.pids = (pid_t *)malloc(sizeof(pid_t) * hd_p.num_cmd);
+	hd_p.heredoc_fd = -1;
 	i = 0;
-	if (!pids)
+	if (!hd_p.pids)
 	{
 		perror("malloc");
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
-	while (i < num_cmd)
+	while (i < hd_p.num_cmd)
 	{
-		if (tmp_cmd->is_pipe == 1)
-		{
-			tmp_cmd = tmp_cmd->next;
-		}
-		if (pipe(pipefd[i]) == -1)
-		{
-			perror("pipe");
-			g_exit_status = 1;
-			exit(EXIT_FAILURE);
-		}
-		pids[i] = fork();
-		if (pids[i] == -1)
-		{
-			perror("fork");
-			g_exit_status = 1;
-			exit(EXIT_FAILURE);
-		}
-		if (pids[i] == 0)
-		{
-			if (i > 0)
-			{
-				close(pipefd[i - 1][1]);
-				dup2(pipefd[i - 1][0], STDIN_FILENO);
-				close(pipefd[i - 1][0]);
-			}
-			if (i < num_cmd - 1)
-			{
-				close(pipefd[i][0]);
-				dup2(pipefd[i][1], STDOUT_FILENO);
-				close(pipefd[i][1]);
-			}
-			if (test_redir_here_doc(tmp_cmd))
-				hundle_redirections(tmp_cmd);
-			if (built_in_exist(tmp_cmd) == 1 )// && tmp_cmd->arg[1] == NULL)
-			{
-				built_in(var, tmp_cmd);
-				exit(EXIT_SUCCESS);
-			}
-			if (tmp_cmd->her != NULL)
-			{
-				heredoc_fd = hundle_file_herdoc(tmp_cmd);
-				dup2(heredoc_fd, STDIN_FILENO);
-				close(heredoc_fd);
-				// exit(EXIT_SUCCESS);
-				
-			}
-			ptr = path_command(tmp_cmd->content,array_env(var));
-			ft_access(ptr,array_env(var) , tmp_cmd);
-			if (execve(ptr, tmp_cmd->arg, array_env(var)) == -1)
-				perror("execve");
-			exit(1);
-			
-		}
-		if (i > 0)
-		{
-			close(pipefd[i - 1][0]);
-			close(pipefd[i - 1][1]);
-		}
-		tmp_cmd = tmp_cmd->next;
+		ft_func(&hd_p, i, var);
 		i++;
 	}
-	close_free_wait(pids, pipefd, num_cmd, tmp_cmd);
+	close_free_wait(hd_p.pids, hd_p.pipefd, hd_p.num_cmd);
 }
-////////////////////////////////////////////
-
-
