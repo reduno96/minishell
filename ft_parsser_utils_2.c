@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser_utils_2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/14 20:11:39 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:07:00 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 		&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
 	{
-		// printf("in genereal\n");
 		join = ft_word(tmp_x, my_env);
 		if (join != NULL)
 		{
@@ -104,23 +103,23 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 	s = NULL;
 	while ((*tmp_x) != NULL && !((*tmp_x)->type == '|' && (*tmp_x)->state == G))
 	{
-		// 	if ((*tmp_x) != NULL && (*tmp_x)->type == '$'
-		// && (*tmp_x)->state != S)
-		// {
-		// 	// while ((*tmp_x) != NULL && (*tmp_x)->type == '$')
-		// 	// {
-		// 		s = ft_expand((*tmp_x)->in, my_env);
-		// 		if (s == NULL)
-		// 			(*tmp_x) = (*tmp_x)->next;
-		// 		else
-		// 		{
-		// 			(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
-		// 			(*tmp_x) = (*tmp_x)->next;
-		// 		}
-		// (*i)++;
-		// (*new_node)->arg[*i] = NULL;
-		// (*new_node)->next = NULL;
-		// }
+			/* if ((*tmp_x) != NULL && (*tmp_x)->type == '$'
+		&& (*tmp_x)->state != S)
+		{
+			// while ((*tmp_x) != NULL && (*tmp_x)->type == '$')
+			// {
+				s = ft_expand((*tmp_x)->in, &my_env);
+				if (s == NULL)
+					(*tmp_x) = (*tmp_x)->next;
+				else
+				{
+					(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
+					(*tmp_x) = (*tmp_x)->next;
+				}
+		(*i)++;
+		(*new_node)->arg[*i] = NULL;
+		(*new_node)->next = NULL;
+		} */
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1
 				&& (*tmp_x)->type != '$'))
 			ft_skip_not_word(tmp_x, my_env);

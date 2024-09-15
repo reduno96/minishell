@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 23:39:14 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/12 12:49:09 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:15:31 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	is_number(char *arg)
 void	ft_free_when_exit(t_envarment **var, char *str, int fd, t_command *cmd)
 {
 	ft_putstr_fd(str, fd);
-	ft_free_command(cmd);
+	ft_free_command(&cmd);
 	ft_free_env(var);
 }
 
@@ -72,7 +72,7 @@ void	ft_exit(t_envarment **var, t_command *cmd)
 			|| cmd->arg[1][0] != '+'))
 	{
 		g_exit_status = ft_atoi(cmd->arg[1]);
-		ft_putstr_fd("exit\n", 1);
+		// ft_putstr_fd("exit\n", 1);
 		// ft_free_when_exit(var, "exit\n", 1, cmd);
 		exit(ft_atoi(cmd->arg[1]));
 	}

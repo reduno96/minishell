@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:29:09 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/13 07:44:32 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/15 10:46:41 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 	{
 		(*tmp_x) = (*tmp_x)->next;
 		ft_skip_spaces(tmp_x);
-		if ((*tmp_x)->state == G && (*tmp_x)->type == '\"'
-			&& (*tmp_x)->type == '\'')
+		if ((*tmp_x)->state == G && ((*tmp_x)->type == '\"'
+			|| (*tmp_x)->type == '\''))
 			(*tmp_x) = (*tmp_x)->next;
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 			&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')

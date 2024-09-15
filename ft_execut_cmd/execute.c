@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/15 13:25:03 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:11:26 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,6 @@ void	execution_cmd(t_command *list, char **new)
 		ptr = new[0];
 	else
 		ptr = path_command(new[0], list->ar_env);
-	// printf("%s\n", ptr);
 	if (!ptr)
 	{
 		ft_putstr_fd("command not found\n", 2);

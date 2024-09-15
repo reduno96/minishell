@@ -6,19 +6,19 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 16:58:56 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/15 10:06:46 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_go_to_env(char **s, char *arg, int *i, t_envarment *my_env)
+void	ft_go_to_env(char **s, char *arg, int *i, t_envarment **my_env)
 {
 	t_envarment	*tmp_env;
 
 	*s = NULL;
 
-	tmp_env = my_env;
+	tmp_env = *my_env;
 	while (tmp_env != NULL)
 	{
 		if (ft_search(tmp_env->var, arg + (*i)))
@@ -32,7 +32,7 @@ void	ft_go_to_env(char **s, char *arg, int *i, t_envarment *my_env)
 	}
 }
 
-char	*ft_expand(char *arg, t_envarment *my_env)
+char	*ft_expand(char *arg, t_envarment **my_env)
 {
 	int		i;
 	char	*s;

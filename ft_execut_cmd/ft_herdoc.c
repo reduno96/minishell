@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/14 11:32:46 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:05:35 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_expand_in_her(char *line, t_envarment *my_env)
 			i--;
 			j--;
 			len++;
-			s = ft_expand(ft_substr(line, j, len), my_env);
+			s = ft_expand(ft_substr(line, j, len), &my_env);
 			final = ft_strjoin(final, s);
 			free(s);
 		}
@@ -82,7 +82,7 @@ void	write_in_file(t_here_doc *tmp, char *line, t_envarment **var)
 	char		*path_file;
 	char *final;
 	t_envarment *my_env;
-	
+
 	my_env  = *var;
 	final = NULL;
 	tmp_line = ft_strjoin_1(tmp->store, ft_itoa(tmp->idx));

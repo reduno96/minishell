@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/04 16:56:10 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:13:55 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,26 +114,30 @@ void free_command(t_command *cmd)
 // 	}
 // }
 
-void	ft_free_command(t_command *cmd)
+void	ft_free_command(t_command **cmd)
 {
-	if (cmd)
+	t_command *tmp_cmd;
+
+	tmp_cmd = *cmd;
+
+	if (tmp_cmd)
     {
-        if (cmd->arg)
+        if (tmp_cmd->arg)
         {
-            for (int i = 0; cmd->arg[i]; i++)
+            for (int i = 0; tmp_cmd->arg[i]; i++)
             {
-                free(cmd->arg[i]);
+                free(tmp_cmd->arg[i]);
             }
-            free(cmd->arg);
+            free(tmp_cmd->arg);
         }
-		if (cmd->store_her)
+		if (tmp_cmd->store_her)
 		{
-			for (int i = 0; cmd->store_her[i]; i++)
-				free(cmd->store_her[i]);
-			free(cmd->store_her);
+			for (int i = 0; tmp_cmd->store_her[i]; i++)
+				free(tmp_cmd->store_her[i]);
+			free(tmp_cmd->store_her);
 		}
-		if (cmd->doc)
-			ft_free_doc(&cmd->doc);
-		free(cmd);
+		if (tmp_cmd->doc)
+			ft_free_doc(&tmp_cmd->doc);
+		free(tmp_cmd);
     }
 }

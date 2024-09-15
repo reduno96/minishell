@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/15 13:38:08 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:04:51 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	ft_join_word_2(char *s, char **join, t_splitor **tmp_x,
 // Assuming these are defined somewhere
 void		ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env);
 void		ft_free_lexer(t_splitor **x);
-void		ft_free_command(t_command *cmd);
 // void		ft_putstr_fd(const char *s, int fd);
 // int			ft_strlen(const char *s);
 int			ft_lexer(char *str_input, t_splitor **x);
@@ -71,7 +70,7 @@ void		print_redirect_list(t_redirect *head);
 // ---------
 void		ft_free_env(t_envarment **x);
 void		ft_free_lexer(t_splitor **x);
-void		ft_free_command(t_command *lst);
+void		ft_free_command(t_command **lst);
 void		ft_free_split(char **list);
 // ---------
 int			ft_search(char *s, char *d);
@@ -86,7 +85,7 @@ int			ft_handler_syn_error(t_splitor **x);
 t_envarment	*new_node(void *var, void *data);
 void		add_back_node(t_envarment **lst, t_envarment *new);
 t_envarment	*ft_stock_envarment(char **env);
-char		*ft_expand(char *arg, t_envarment *my_env);
+char		*ft_expand(char *arg, t_envarment **my_env);
 // ---------
 void		ft_count_parameters(t_splitor *tmp_x, int *count);
 void		ft_command(t_splitor **x, t_command **cmd, t_envarment *env);

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/13 14:51:11 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:06:56 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_join_word_2(char *s, char **join, t_splitor **tmp_x,
 {
 	if ((*tmp_x) != NULL && (*tmp_x)->state != S && (*tmp_x)->type == '$')
 	{
-		s = ft_expand((*tmp_x)->in, my_env);
+		s = ft_expand((*tmp_x)->in, &my_env);
 		*join = ft_strjoin(*join, s);
 	}
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type == -1))
@@ -45,8 +45,7 @@ void	ft_join_words(char **join, t_splitor **tmp_x, t_envarment *my_env)
 			if ((*tmp_x) != NULL && (*tmp_x)->state != S
 				&& (*tmp_x)->type == '$')
 			{
-				printf("in join words");
-				s = ft_expand((*tmp_x)->in, my_env);
+				s = ft_expand((*tmp_x)->in, &my_env);
 				*join = ft_strjoin(*join, s);
 			}
 			else if ((*tmp_x) != NULL)
@@ -69,7 +68,7 @@ char	*ft_word(t_splitor **tmp_x, t_envarment *my_env)
 	{
 		if ((*tmp_x)->type == '$')
 		{
-			s = ft_expand((*tmp_x)->in, my_env);
+			s = ft_expand((*tmp_x)->in, &my_env);
 			if ((*tmp_x)->next != NULL && ((*tmp_x)->next->type == '\"'
 					|| (*tmp_x)->next->type == '\''))
 				s = NULL;
@@ -78,14 +77,14 @@ char	*ft_word(t_splitor **tmp_x, t_envarment *my_env)
 				if (join == NULL)
 					join = NULL;
 				else
-					join = ft_strjoin_1(join,ft_strdup(""));
+					join = ft_strjoin(join,ft_strdup(""));
 
 			}
 			else
 				join = ft_strjoin(join, s);
 		}
 		else
-			join = ft_strjoin_1(join, (*tmp_x)->in);
+			join = ft_strjoin(join, (*tmp_x)->in);
 		(*tmp_x) = (*tmp_x)->next;
 		ft_join_words(&join, tmp_x, my_env);
 	}
@@ -97,7 +96,7 @@ void	ft_join_double(char *s, char **join, t_splitor **tmp_x,
 {
 	if ((*tmp_x) != NULL && ((*tmp_x)->state != S && (*tmp_x)->type == '$'))
 	{
-		s = ft_expand((*tmp_x)->in, my_env);
+		s = ft_expand((*tmp_x)->in, &my_env);
 		*join = ft_strjoin(*join, s);
 		(*tmp_x) = (*tmp_x)->next;
 	}
@@ -122,7 +121,7 @@ char	*ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env)
 	{
 		if ((*tmp_x) != NULL && ((*tmp_x)->state != S && (*tmp_x)->type == '$'))
 		{
-			s = ft_expand((*tmp_x)->in, my_env);
+			s = ft_expand((*tmp_x)->in, &my_env);
 			join = ft_strjoin(join, s);
 		}
 		else if ((*tmp_x) != NULL && ((*tmp_x)->state == D

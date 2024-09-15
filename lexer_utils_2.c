@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:43:45 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/13 11:13:36 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:11:40 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 void	ft_get_word(char *s, t_idx *var, t_splitor **x)
 {
+	int	i;
+
+	i = 0;
 	while (s[var->i] && !ft_check_input(s[var->i]))
 	{
 		var->state = ft_get_state(var, s[var->i]);
 		var->i++;
 		var->len++;
+		i++;
 	}
 	ft_add(x, ft_lstnew(ft_substr(s, var->start, var->len), var->len, WORD,
 			var->state));
@@ -45,10 +49,9 @@ void	ft_else(char *s, t_idx *var)
 
 void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 {
-
-	if ((s[var->i] && s[var->i + 1] && s[var->i+2] && s[var->i] == '$')
-		&& ((s[var->i+1] == '\"' && s[var->i
-			+ 2] == '\"') || (s[var->i] == '\'' || s[var->i + 2] == '\'')))
+	if ((s[var->i] && s[var->i + 1] && s[var->i + 2] && s[var->i] == '$')
+		&& ((s[var->i + 1] == '\"' && s[var->i + 2] == '\"')
+			|| (s[var->i] == '\'' || s[var->i + 2] == '\'')))
 	{
 		var->state = G;
 		var->i++;
@@ -57,7 +60,6 @@ void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 		var->len++;
 		var->len++;
 		var->len++;
-
 	}
 	else if (s[var->i] && s[var->i] == '$' && ft_isalnum(s[var->i + 1])
 		&& !ft_check_input(s[var->i + 1]))
@@ -82,6 +84,8 @@ void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 			var->len++;
 		}
 	}
+	else
+			var->state = ft_get_state(var, s[var->i]);
 	ft_add(x, ft_lstnew(ft_substr(s, var->start, var->len), var->len, ENV,
 			var->state));
 }

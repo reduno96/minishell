@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:23:44 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/12 11:19:56 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:12:40 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_t_command(t_splitor *cmd)
 {
 	(void)cmd;
-	/* if (cmd == NULL)
+/* 	if (cmd == NULL)
 	{
 		printf("Command is NULL\n");
 		return ;

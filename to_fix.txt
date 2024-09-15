@@ -44,11 +44,3 @@ if (!s2)
 		s2 = ft_calloc(1, sizeof(char));
 		s2[0] = '\0';
 	}
-		i = 0;
-	free(pids);
-	while (i < num_cmd - 1)
-	{
-		free(pipefd[i]);
-		i++;
-	}
-	free(pipefd);
