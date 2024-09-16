@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/15 14:07:00 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/16 20:41:33 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ int	ft_ckeck_repeate_quote(char *join, t_command **new_node, int *i,
 	if (((*tmp_x) != NULL && (*tmp_x)->next != NULL) && (((*tmp_x)->type == '\"'
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
 				&& (*tmp_x)->next->type == '\''))
-		&& ((*tmp_x)->next->next != NULL && (*tmp_x)->next->next->type == -1))
+		&& ((*tmp_x)->next->next != NULL && ((*tmp_x)->next->next->type == -1 || (*tmp_x)->next->next->type == '$')))
 	{
 		(*tmp_x) = (*tmp_x)->next;
-		return (1);
+		(*tmp_x) = (*tmp_x)->next;
+		return (0);
 	}
 	else if (((*tmp_x) != NULL && (*tmp_x)->next != NULL)
 		&& (((*tmp_x)->type == '\"' && (*tmp_x)->next->type == '\"')
@@ -57,6 +58,7 @@ int	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
 		&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
 	{
 		join = ft_word(tmp_x, my_env);
+
 		if (join != NULL)
 		{
 			(*new_node)->arg[*i] = join;

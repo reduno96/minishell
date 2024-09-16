@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/15 14:06:56 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/16 20:43:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ char	*ft_word(t_splitor **tmp_x, t_envarment *my_env)
 		if ((*tmp_x)->type == '$')
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			if ((*tmp_x)->next != NULL && ((*tmp_x)->next->type == '\"'
-					|| (*tmp_x)->next->type == '\''))
-				s = NULL;
 			if (s == NULL)
 			{
 				if (join == NULL)
