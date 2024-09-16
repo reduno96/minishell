@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/15 12:35:56 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/16 19:16:43 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*path_command(char *ptr, char **env)
 	char	*tmp2;
 	
 
-	if (ptr == NULL || *env == NULL || env ==NULL)
+	if (ptr == NULL || *env == NULL || env ==NULL || ptr[0] == '\0')
 		return (NULL);
 	i = 0;
 	if(ptr[0] == '.'  )

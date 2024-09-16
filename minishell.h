@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/15 14:04:51 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/16 12:42:38 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,44 +114,57 @@ t_redirect	*ft_last_redir(t_redirect *lst);
 
 //////////////////////  Execution  ////////////////////////
 
-void		ft_exute(t_envarment **var, t_command *list);
-int			ft_strcmp(char *s1, char *s2);
-char		**create_argv(t_splitor *elem);
-char		*path_command(char *ptr, char **env);
-t_envarment	*ft_stock_envarment(char **env);
-int			test_exist(t_envarment **var, char **list);
+void			ft_exute(t_envarment **var, t_command *list);
+void			ft_free_leaks(t_command *list, t_envarment **var);
+void			parent_proc(int pid);
+void			hundle_redirections(t_command *list);
+void			run_command(t_command *list, t_envarment **var);
+int				is_directory(char *path);
+void			ft_access_2(char *ptr, char **str);
+void			ft_access_1(char *ptr, char **str);
+void			ft_access(char 	*ptr ,char  **str );
+int 			built_in_exist( t_command *list) ;
+void			built_in(t_envarment **var ,t_command *list );
+void			execution_cmd(t_command *list, char **new); 
+int				run_herdoc_built(t_envarment **var, t_command *cmd);
 
-void	free_args(char **args);  // ft_export
-char	**split_line(char *ptr); // ft_export
-char	**split_var(char *ptr);  // ft_env
-void		print_export(t_envarment **var);
-// void            execution_cmd(t_command         *list ,char **new,
-// char **env);
-// void            execution_cmd(t_command         *list ,char **env);
-void	execution_cmd(t_command *list, char **new); // char **new, char **env)
 
-void		hundle_command(t_command *list, char **env);
-void		hundle_redirections(t_command *list);
+
+
+int				ft_strcmp(char *s1, char *s2);
+char			**create_argv(t_splitor *elem);
+char			*path_command(char *ptr, char **env);
+t_envarment		*ft_stock_envarment(char **env);
+int				test_exist(t_envarment **var, char **list);
+void			run_simple_cmd(t_command *list, t_envarment **var);
+void			free_args(char **args);  
+char			**split_line(char *ptr); 
+char			**split_var(char *ptr);  
+void			print_export(t_envarment **var);
+
+
+void			hundle_command(t_command *list, char **env);
 void			handle_pipe(t_command *list, t_envarment **var);
-// void			handle_here_doc(t_command *tmp);
+
 
 ///////////////////////// Redirections  //////////////////////////
-void		hundle_redir_out(char *file);
-void		hundle_redir_in(char *file);
-void		hundle_dredir_out(char *file);
+void			hundle_redir_out(char *file);
+void			hundle_redir_in(char *file);
+void			hundle_dredir_out(char *file);
 
 /////////////////////////  her doc  //////////////////////////
-int			herdoc_exist(t_command *list);
-void		handle_here_doc(t_envarment **var,  t_command *tmp);
-// t_here_doc  	*new_node_her(int idx , int i,char *file, int fd, bool expand);
-t_here_doc	*new_node_her(char *file, int fd, int x, int is_expand);
-void		add_back_node_her(t_here_doc **her, t_here_doc *new_her);
+int				herdoc_exist(t_command *list);
+void			handle_here_doc(t_envarment **var,  t_command *tmp);
+t_here_doc		*new_node_her(char *file, int fd, int x, int is_expand);
+void			add_back_node_her(t_here_doc **her, t_here_doc *new_her);
+
 
 /////////////////////////  function redirections  //////////////////////////
-char		**get_len(char **args, t_redirect *redir);
-char		*git_type_redir(t_redirect *redir);
-char		**ft_new_args(char **args, t_redirect *redir);
-int			test_redir_here_doc(t_command *list);
+char			**get_len(char **args, t_redirect *redir);
+char			*git_type_redir(t_redirect *redir);
+char			**ft_new_args(char **args, t_redirect *redir);
+int				test_redir_here_doc(t_command *list);
+
 
 /////////////////////////  execut_cmd  //////////////////////////
 int				pipe_exist(t_command *list);
@@ -165,23 +178,20 @@ void			child_process(int **pipefd, int i, t_command *tmp_cmd, char **env,
 
 /////////////////////////  signal  //////////////////////////
 
-int			hundle_file_herdoc(t_command *list);
+int				hundle_file_herdoc(t_command *list);
 
  // ///////            Commands         //////////////////////////////////
-void			built_in(t_envarment **var ,t_command *list );
-int 			built_in_exist( t_command *list) ;
-void            ft_cd(t_command *list , char **env);
+void            ft_cd( t_envarment **var,t_command *list , char **env);
 void            ft_pwd(t_command *list);
 void            ft_export( t_envarment **var , t_command *str );
 void            ft_env( t_envarment **var);
 void            ft_unset(t_envarment **var , t_command *list);
 void            ft_echo(t_command *list );
-// void            ft_echo_flag(t_command *list , int k );
 void			ft_exit(t_envarment **var ,t_command *list);
 char 			**array_env(t_envarment **var);
 char			*ft_strjoin_1(char *s1, char *s2);
 int				len_var(t_envarment *var);
-int	count_herdoc(t_command *tmp);
+int				count_herdoc(t_command *tmp);
 
 
 //////////////////////     free      /////////////////////////////////
@@ -189,6 +199,6 @@ void		free_ft_split(char 	**list);
 int			check_is_valid(char 	*str );
 void		ft_error(char 	*str , char *ptr);
 char		*ft_getenv(char *path, char **env);
-void		ft_access(char 	*ptr ,char  **str );
+void 	free_pid_pipe(int *pids, int **pipefd, int num_cmd);
 
 #endif

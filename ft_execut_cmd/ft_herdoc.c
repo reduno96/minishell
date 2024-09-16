@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/15 14:05:35 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:39:35 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,50 +28,103 @@ int	herdoc_exist(t_command *list)
 		return 0;
 }
 
-char	*ft_expand_in_her(char *line, t_envarment *my_env)
+
+char *ft_handle_var(char *line, int *i, t_envarment *my_env, char *final)
 {
-	int i = 0;
-	int len = 0;
-	int j = 0;
-	char *s;
-	char *final;
+    int len = 0;
+    int j;
+    char *s;
 
-	final = NULL;
-	while (line[i])
-	{
-		len = 0;
-		if (line[i] == '$')
-		{
-			i++;
-			j = i;
-			while (line[i] && ft_isalnum(line[i]))
-			{
-				i++;
-				len++;
-			}
-			i--;
-			j--;
-			len++;
-			s = ft_expand(ft_substr(line, j, len), &my_env);
-			final = ft_strjoin(final, s);
-			free(s);
-		}
-		else
-		{
-			j = i;
-			while (line[i] && line[i] != '$')
-			{
-				i++;
-				len++;
-			}
-			final = ft_strjoin_1(final, ft_substr(line, j, len));
-			i--;
-		}
-		i++;
-
-	}
-	return (final);
+    (*i)++;
+    j = *i;
+    while (line[*i] && ft_isalnum(line[*i]))
+    {
+        (*i)++;
+        len++;
+    }
+	(*i)--;
+	j--;
+	len++;
+    s = ft_expand(ft_substr(line, j, len), &my_env);
+    final = ft_strjoin(final, s);
+    free(s);
+    return final;
 }
+
+
+char *ft_expand_in_her(char *line, t_envarment *my_env)
+{
+    int i = 0;
+    int j;
+    int len;
+    char *final = NULL;
+
+    while (line[i])
+    {
+        len = 0;
+        if (line[i] == '$')
+            final = ft_handle_var(line, &i, my_env, final);
+        else
+        {
+            j = i;
+            while (line[i] && line[i] != '$')
+            {
+                i++;
+                len++;
+            }
+            final = ft_strjoin_1(final, ft_substr(line, j, len));
+			i--;
+        }
+		i++;
+    }
+    return final;
+}
+
+
+// char	*ft_expand_in_her(char *line, t_envarment *my_env)
+// {
+// 	int i = 0;
+// 	int len = 0;
+// 	int j = 0;
+// 	char *s;
+// 	char *final;
+
+// 	final = NULL;
+// 	while (line[i])
+// 	{
+// 		len = 0;
+// 		if (line[i] == '$')
+// 		{
+// 			i++;
+// 			j = i;
+// 			while (line[i] && ft_isalnum(line[i]))
+// 			{
+// 				i++;
+// 				len++;
+// 			}
+// 			i--;
+// 			j--;
+// 			len++;
+// 			s = ft_expand(ft_substr(line, j, len), &my_env);
+// 			final = ft_strjoin(final, s);
+// 			free(s);
+// 		}
+// 		else
+// 		{
+// 			j = i;
+// 			while (line[i] && line[i] != '$')
+// 			{
+// 				i++;
+// 				len++;
+// 			}
+// 			final = ft_strjoin_1(final, ft_substr(line, j, len));
+// 			i--;
+// 		}
+// 		i++;
+
+// 	}
+// 	return (final);
+// }
 
 
 
@@ -80,7 +133,7 @@ void	write_in_file(t_here_doc *tmp, char *line, t_envarment **var)
 {
 	char		*tmp_line;
 	char		*path_file;
-	char *final;
+	char 		*final;
 	t_envarment *my_env;
 
 	my_env  = *var;
