@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/16 13:39:35 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:50:03 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,13 +197,12 @@ void	sig_herdoc(int sig)
 }
 
 
-int   ft_cmp_delimeter(t_command *tmp_cmd, int *i, t_envarment **var)
+int   ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var)
 {
     t_here_doc *tmp_her;
     char *line;
     int pid;
     int status = -1;
-	(void)i;
 	void (*old_sigint_handler)(int);
 
     tmp_her = tmp_cmd->her;
@@ -281,25 +280,49 @@ void 	exit_herdoc(int sig)
 	printf("\n");
 	exit(1);
 }
+
+void 	delet_files(t_command *cmd)
+{
+	t_command *tmp;
+	t_here_doc *her;
+	char *ptr;
+	char *file;
+	
+	tmp = cmd;
+	while (tmp != NULL)
+	{
+		her = tmp->her;
+		while (her != NULL)
+		{
+			
+			ptr = ft_strjoin_1(her->store ,ft_itoa(her->idx) );
+			file = ft_strjoin_1( "/tmp/herdoc" ,ptr);
+			if(unlink(file) != 0)
+			{
+				g_exit_status = 1;
+				perror("");
+			}
+			her = her->next;
+		}
+		tmp = tmp->next;
+	}
+}
 void 	handle_here_doc(t_envarment **var ,t_command *cmd )
 {
 	t_command	*tmp_cmd;
-	int			count;
-	int			i;
-	int status;
+	int			status;
+	
 	tmp_cmd = cmd;
-
 	if (cmd == NULL || tmp_cmd == NULL)
 		return ;
-	count = count_herdoc(tmp_cmd);
+
 	create_files(tmp_cmd);
-	i = 0;
 	while (tmp_cmd != NULL)
 	{
-		status = ft_cmp_delimeter(tmp_cmd, &i, var);
+		status = ft_cmp_delimeter(tmp_cmd,  var);
 		if (status == 256 )
 			break;
 		tmp_cmd = tmp_cmd->next;
 	}
-
 }
+

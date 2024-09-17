@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:33:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/12 17:49:51 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:57:07 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,25 @@ int	hundle_file_herdoc(t_command *list)
 		return (0);
 	while (tmp->her->next)
 		tmp->her = tmp->her->next;
+		
 	itoa = ft_itoa(tmp->her->idx);
-	file = ft_strjoin_1(tmp->her->store, itoa);
+	file = ft_join(tmp->her->store, itoa);
 	free(itoa);
-	file_name = ft_strjoin_1("/tmp/herdoc", file);
+	file_name = ft_join("/tmp/herdoc", file);
 	free(file);
 	fd = open(file_name, O_RDONLY, 0644);
 	if (fd < 0)
 	{
 		perror("open");
-		g_exit_status = 0;
 		exit(EXIT_FAILURE);
 	}
 	if (dup2(fd, STDIN_FILENO) < 0)
 	{
 		perror("dup2");
-		g_exit_status = 0;
 		exit(EXIT_FAILURE);
 	}
-
-	close(fd);
 	free(file_name);
+	close(fd);
 	return (fd);
 }
 
@@ -69,6 +67,7 @@ void	hundle_redir_out(char *file)
 	if (dup2(fd, STDOUT_FILENO) < 0)
 	{
 		perror("dup2");
+		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	close(fd);

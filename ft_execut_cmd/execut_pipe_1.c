@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:38:50 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/16 12:38:52 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/17 11:41:42 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	**return_pipe(int num_cmd)
 		if (!pipe[i])
 		{
 			perror("malloc");
+			while (i>=0)
+				free(pipe[i--]);
 			g_exit_status = 1;
 			exit(EXIT_FAILURE);
 		}

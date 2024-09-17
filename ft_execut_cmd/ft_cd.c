@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/16 20:32:50 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:34:37 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,11 @@ static void complete_cd(t_envarment **var ,char *path, char **env)
     }
     else
     {
-
         if (chdir(path) == -1)
         {
             g_exit_status = 1;
             perror("cd");
         }
- 
     }
 
 }
