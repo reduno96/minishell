@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/15 10:23:15 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:16:20 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_redirect_list(t_redirect *head)
 	current = head;
 	while (current != NULL)
 	{
-		// printf("type : %d | %s\n", current->type, current->store);
+		printf("type : %d | %s\n", current->type, current->store);
 		current = current->next;
 	}
 }
@@ -54,19 +54,19 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 		final = ft_strdup("\0");
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
-		final = ft_double_and_sigle(tmp_x, my_env);
+		final = ft_double_and_sigle(tmp_x, my_env, her);
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G)
 	{
-		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == '$')
+		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == '$' && her == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			if (ft_check_ambiguous(s) == NULL && her == 0)
+			if (ft_check_ambiguous(s) == NULL && her == 1)
 				return (*is_amb = 1, NULL);
 			final = ft_strjoin(final, s);
 			return (final);
 		}
 		else if ((*tmp_x) != NULL && (*tmp_x)->state == G)
-			final = ft_word(tmp_x, my_env);
+			final = ft_word(tmp_x, my_env, her);
 	}
 	return (final);
 }
@@ -137,10 +137,10 @@ void	ft_check_redirection(t_pre *id, t_envarment *my_env)
 			&& ((id->tmp_x->next != NULL && id->tmp_x->type == 32)
 				|| id->tmp_x->next == NULL))
 			id->is_expand = 1;
-		final = ft_skip_direction(&id->tmp_x, my_env, 0, 1);
+		final = ft_skip_direction(&id->tmp_x, my_env, 0, 0);
 		ft_add_redir(&(id->tmp_cmd->doc), ft_new_redir(final, HERE_DOC, 0));
 		add_back_node_her(&(id->tmp_cmd->her), new_node_her(final, -1, id->j,
-				id->is_expand));
+				0));
 		id->j++;
 	}
 	if (id->tmp_x != NULL)

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:29:09 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/15 10:46:41 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:09:12 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 			(*tmp_x) = (*tmp_x)->next;
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 			&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
-			ft_word(tmp_x, my_env);
+			ft_word(tmp_x, my_env, 0);
 		else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
 				|| (*tmp_x)->state == S))
-			ft_double_and_sigle(tmp_x, my_env);
+			ft_double_and_sigle(tmp_x, my_env, 0);
 	}
 }
