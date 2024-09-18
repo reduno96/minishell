@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/17 15:50:03 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:13:12 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,18 @@ void	write_in_file(t_here_doc *tmp, char *line, t_envarment **var)
 	char		*path_file;
 	char 		*final;
 	t_envarment *my_env;
+	char 		*itoa;
 
 	my_env  = *var;
 	final = NULL;
-	tmp_line = ft_strjoin_1(tmp->store, ft_itoa(tmp->idx));
+
+	itoa = ft_itoa(tmp->idx);
+	tmp_line = ft_strjoin_1(tmp->store, itoa);
 	path_file = ft_strjoin_1("/tmp/herdoc", tmp_line);
 	free(tmp_line);
+	free(itoa);
+
+	
 	tmp->fd = open(path_file, O_CREAT | O_WRONLY | O_APPEND, 0600);
 	if (tmp->fd < 0)
 	{
@@ -155,6 +161,7 @@ void	write_in_file(t_here_doc *tmp, char *line, t_envarment **var)
 	else
 		ft_putstr_fd(line, tmp->fd);
 	free(line);
+	free(path_file);
 	write(tmp->fd, "\n", 1);
 	close(tmp->fd);
 }
@@ -191,25 +198,37 @@ int	count_herdoc(t_command *tmp)
 void	sig_herdoc(int sig)
 {
 	(void)sig;
-	// printf("\n");
+	printf("\n");
 	// sleep(1);
 	exit(1);
 }
 
-
-int   ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var)
+void hundle_chil_pro(t_here_doc *tmp_her ,t_envarment **var )
 {
-    t_here_doc *tmp_her;
-    char *line;
+	char *line;
+
+	signal(SIGINT , sig_herdoc);
+	signal(SIGQUIT , SIG_IGN);
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL )
+			exit(EXIT_SUCCESS);
+
+		if (ft_strcmp(line, tmp_her->store) == 0)
+			exit(EXIT_SUCCESS);
+		else
+			write_in_file(tmp_her, line, var);
+	}
+}
+
+int handle_fork( t_here_doc *tmp_her , t_envarment **var)
+{
     int pid;
     int status = -1;
 	void (*old_sigint_handler)(int);
-
-    tmp_her = tmp_cmd->her;
-    while (tmp_cmd != NULL && tmp_her != NULL)
-	{
-
-		old_sigint_handler = signal(SIGINT, SIG_IGN);
+	
+	old_sigint_handler = signal(SIGINT, SIG_IGN);
 		pid = fork();
 		if (pid == -1)
 		{
@@ -219,32 +238,86 @@ int   ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var)
 		}
 		if (pid == 0)
 		{
-			signal(SIGINT , sig_herdoc);
-			signal(SIGQUIT , SIG_IGN);
-			while (1)
-			{
-				line = readline("> ");
-				if (line == NULL )
-					exit(EXIT_SUCCESS);
-
-				if (ft_strcmp(line, tmp_her->store) == 0)
-					exit(EXIT_SUCCESS);
-				else
-					write_in_file(tmp_her, line, var);
-			}
+			hundle_chil_pro(tmp_her,var);
 		}
 		else
 		{
 			waitpid(pid, &status, 0);
 			if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 				g_exit_status = status;
-			if (status == 256)
-				return status;
-			tmp_her = tmp_her->next;
+			
 		}
+	return status;
+}
+
+int    ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var)
+{
+    t_here_doc *tmp_her;
+  
+    int status = -1;
+
+    tmp_her = tmp_cmd->her;
+    while (tmp_cmd != NULL && tmp_her != NULL)
+	{
+		status = handle_fork(tmp_her , var);
+		if (status == 256)
+				return status;
+		tmp_her = tmp_her->next;
     }
 	return status;
 }
+
+
+
+
+// int    ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var)
+// {
+//     t_here_doc *tmp_her;
+//     char *line;
+//     int pid;
+//     int status = -1;
+// 	void (*old_sigint_handler)(int);
+
+//     tmp_her = tmp_cmd->her;
+//     while (tmp_cmd != NULL && tmp_her != NULL)
+// 	{
+
+// 		old_sigint_handler = signal(SIGINT, SIG_IGN);
+// 		pid = fork();
+// 		if (pid == -1)
+// 		{
+// 			perror("fork");
+// 			signal(SIGINT,old_sigint_handler);
+// 			return 0;
+// 		}
+// 		if (pid == 0)
+// 		{
+// 			signal(SIGINT , sig_herdoc);
+// 			signal(SIGQUIT , SIG_IGN);
+// 			while (1)
+// 			{
+// 				line = readline("> ");
+// 				if (line == NULL )
+// 					exit(EXIT_SUCCESS);
+
+// 				if (ft_strcmp(line, tmp_her->store) == 0)
+// 					exit(EXIT_SUCCESS);
+// 				else
+// 					write_in_file(tmp_her, line, var);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			waitpid(pid, &status, 0);
+// 			if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+// 				g_exit_status = status;
+// 			if (status == 256)
+// 				return status;
+// 			tmp_her = tmp_her->next;
+// 		}
+//     }
+// 	return status;
+// }
 
 
 void 	create_files(t_command *cmd)
@@ -253,22 +326,24 @@ void 	create_files(t_command *cmd)
 	t_here_doc	*tmp_her;
 	char		*tmp_line;
 	char		*path_file;
+	char  		*itoa;
 
 	if(cmd == NULL)
 		return ;
-
 	tmp = cmd;
 	while (tmp != NULL)
 	{
 		tmp_her = tmp->her;
 		while (tmp != NULL && tmp_her != NULL)
 		{
-			tmp_line = ft_strjoin_1(tmp_her->store , ft_itoa(tmp_her->idx));
+			itoa = ft_itoa(tmp_her->idx);
+			tmp_line = ft_strjoin_1(tmp_her->store ,itoa );
+			free(itoa);
 			path_file = ft_strjoin_1("/tmp/herdoc", tmp_line);
-			// free(tmp_her);
+			free(tmp_line);
 			tmp_her->fd = open(path_file, O_CREAT | O_WRONLY | O_APPEND, 0600);
+			free(path_file);
 			close(tmp_her->fd);
-			// free(path_file);
 			tmp_her = tmp_her->next;
 		}
 		tmp = tmp->next;
@@ -294,14 +369,17 @@ void 	delet_files(t_command *cmd)
 		her = tmp->her;
 		while (her != NULL)
 		{
-			
-			ptr = ft_strjoin_1(her->store ,ft_itoa(her->idx) );
-			file = ft_strjoin_1( "/tmp/herdoc" ,ptr);
+
+			ptr = ft_strjoin(her->store ,ft_itoa(her->idx));
+			free(ft_itoa(her->idx));
+			file = ft_join( "/tmp/herdoc" ,ptr);
+			free(ptr);
 			if(unlink(file) != 0)
 			{
 				g_exit_status = 1;
 				perror("");
 			}
+			free(file);
 			her = her->next;
 		}
 		tmp = tmp->next;

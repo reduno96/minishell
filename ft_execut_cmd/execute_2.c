@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:22:56 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/17 15:19:10 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:04:16 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,11 @@ int	run_herdoc_built(t_envarment **var, t_command *cmd)
 	{
 		handle_here_doc(var, list);
 		if (built_in_exist(list) == 1 && pipe_exist(list) == 0)
+		{
 			built_in(var, list);
-		return 1;
+			return 1;
+		}
+		return 0;
 	}
 	if (built_in_exist(list) == 1 && pipe_exist(list) == 0
 		&& herdoc_exist(list) == 0 && test_redir_here_doc(list) == 0)

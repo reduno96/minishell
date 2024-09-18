@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/17 13:11:55 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:00:20 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ int				run_herdoc_built(t_envarment **var, t_command *cmd);
 
 
 
-
 int				ft_strcmp(char *s1, char *s2);
 char			**create_argv(t_splitor *elem);
 char			*path_command(char *ptr, char **env);
@@ -140,7 +139,6 @@ void			run_simple_cmd(t_command *list, t_envarment **var);
 void			free_args(char **args);
 char			**split_line(char *ptr);
 char			**split_var(char *ptr);
-void			print_export(t_envarment **var);
 
 
 void			hundle_command(t_command *list, char **env);
@@ -157,7 +155,7 @@ int				herdoc_exist(t_command *list);
 void			handle_here_doc(t_envarment **var,  t_command *tmp);
 t_here_doc		*new_node_her(char *file, int fd, int x, int is_expand);
 void			add_back_node_her(t_here_doc **her, t_here_doc *new_her);
-
+void			delet_files(t_command *cmd);
 
 /////////////////////////  function redirections  //////////////////////////
 char			**get_len(char **args, t_redirect *redir);
@@ -183,11 +181,28 @@ int				hundle_file_herdoc(t_command *list);
  // ///////            Commands         //////////////////////////////////
 void            ft_cd( t_envarment **var,t_command *list , char **env);
 void            ft_pwd(t_command *list);
-void            ft_export( t_envarment **var , t_command *str );
 void            ft_env( t_envarment **var);
 void            ft_unset(t_envarment **var , t_command *list);
 void            ft_echo(t_command *list );
 void			ft_exit(t_envarment **var ,t_command *list);
+
+void			ft_export(t_envarment **var, t_command *str);
+int				ft_str_eqal(char *ptr, char c);
+char			**split_line(char *ptr);
+int				check_is_valid_1(char *str);
+void			export_1(t_envarment **var, t_command *str, int *i);
+int				ft_isalnum_exp(int c);
+void			print_export(t_envarment **var);
+void			check_dolar_is(char *str, t_envarment *var, t_command *s);
+int				exist_redir(char *ptr);
+void			affiche_export(char **str, t_envarment **var);
+int				ft_is_num(char *str);
+void			free_args(char **args);
+char			*first_word(char *ptr);
+
+
+
+
 char 			**array_env(t_envarment **var);
 char			*ft_strjoin_1(char *s1, char *s2);
 int				len_var(t_envarment *var);
@@ -199,6 +214,7 @@ void		free_ft_split(char 	**list);
 int			check_is_valid(char 	*str );
 void		ft_error(char 	*str , char *ptr);
 char		*ft_getenv(char *path, char **env);
-void 	free_pid_pipe(int *pids, int **pipefd, int num_cmd);
+void 		free_pid_pipe(int *pids, int **pipefd, int num_cmd);
+char		*ft_join(char  *s1, char  *s2);
 
 #endif
