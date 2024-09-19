@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/17 13:11:55 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:52:58 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void		ft_skip_quote(t_splitor **tmp_x, int *i, t_command **new_node);
 void ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env);
 void ft_skip_spaces_in_count__2(t_splitor **tmp_x);
 // ---function to join---
-char		*ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env, int j);
-void		ft_join_double( char **join, t_splitor **tmp_x,
+char		**ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env, int j, char ***arr_join);
+void		ft_join_double( char ***join, t_splitor **tmp_x,
 				t_envarment *my_env, int j);
-char		*ft_word(t_splitor **tmp_x, t_envarment *my_env, int j);
-void	ft_join_words(char **join, t_splitor **tmp_x, t_envarment *my_env, int j);
-void	ft_join_word_2(char **join, t_splitor **tmp_x,
+char		**ft_word(t_splitor **tmp_x, t_envarment *my_env, int j, char ***arr_arg);
+void	ft_join_words(char ***join, t_splitor **tmp_x, t_envarment *my_env, int j);
+void	ft_join_word_2(char ***join, t_splitor **tmp_x,
 		t_envarment *my_env, int j);
 // Assuming these are defined somewhere
 void		ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env);
@@ -92,10 +92,10 @@ void		ft_command(t_splitor **x, t_command **cmd, t_envarment *env);
 void		ft_add_command(t_command **lst, t_command *new);
 t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *env);
 t_command	*ft_last_command(t_command *lst);
+char **ft_join_arg(char **arg, char **join);
 // ---------
 void		ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 				t_envarment *my_env);
-char		*ft_word(t_splitor **tmp_x, t_envarment *my_env, int j);
 
 void		ft_skip_spaces(t_splitor **tmp_x);
 void		ft_skip_spaces_in_count(t_splitor **tmp_x);
@@ -103,7 +103,6 @@ void		ft_skip_spaces_in_count(t_splitor **tmp_x);
 void		ft_skip_general(t_splitor **tmp_x, int *i, t_command **new_node,
 				t_envarment *my_env);
 
-char		*ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env, int j);
 // ---------
 void		ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env);
 void		ft_fill_her(t_command **new_node);
@@ -111,6 +110,10 @@ void		ft_check_doc(t_command **new_node);
 t_redirect	*ft_new_redir(void *content, t_token type, int is_amb);
 void		ft_add_redir(t_redirect **lst, t_redirect *new);
 t_redirect	*ft_last_redir(t_redirect *lst);
+
+void	ft_join_arr(char ***arr_join, char *in);
+int	ft_len_arg(char **arg);
+char	**ft_split_expand(char ***join, char *s,  int bo);
 
 //////////////////////  Execution  ////////////////////////
 

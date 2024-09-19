@@ -6,13 +6,13 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/17 15:35:56 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:48:40 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_join_word_2(char **join, t_splitor **tmp_x, t_envarment *my_env,
+void	ft_join_word_2(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		int j)
 {
 	char	*s;
@@ -21,18 +21,26 @@ void	ft_join_word_2(char **join, t_splitor **tmp_x, t_envarment *my_env,
 	if ((*tmp_x) != NULL && (*tmp_x)->state != S && (*tmp_x)->type == '$'
 		&& j == 1)
 	{
-		s = ft_expand((*tmp_x)->in, &my_env);
-		*join = ft_strjoin(*join, s);
+		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
+		{
+			s = ft_expand((*tmp_x)->in, &my_env);
+			ft_split_expand(arr_join, s, 1);
+		}
+		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
+		{
+			s = ft_expand((*tmp_x)->in, &my_env);
+			ft_join_arr(arr_join, s);
+		}
 	}
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type == -1))
-		*join = ft_strjoin(*join, (*tmp_x)->in);
+		ft_join_arr(arr_join, (*tmp_x)->in);
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
-		*join = ft_strjoin(*join, (*tmp_x)->in);
+		ft_join_arr(arr_join, (*tmp_x)->in);
 	if ((*tmp_x) != NULL && (*tmp_x)->type != ' ')
 		(*tmp_x) = (*tmp_x)->next;
 }
 
-void	ft_join_words(char **join, t_splitor **tmp_x, t_envarment *my_env,
+void	ft_join_words(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		int j)
 {
 	char	*s;
@@ -50,18 +58,67 @@ void	ft_join_words(char **join, t_splitor **tmp_x, t_envarment *my_env,
 			if ((*tmp_x) != NULL && (*tmp_x)->state != S
 				&& (*tmp_x)->type == '$' && j == 1)
 			{
-				s = ft_expand((*tmp_x)->in, &my_env);
-				*join = ft_strjoin(*join, s);
+				if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
+				{
+					s = ft_expand((*tmp_x)->in, &my_env);
+					ft_split_expand(arr_join, s, 1);
+				}
+				else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D
+					&& j == 1)
+				{
+					s = ft_expand((*tmp_x)->in, &my_env);
+					ft_join_arr(arr_join, s);
+				}
 			}
 			else if ((*tmp_x) != NULL)
-				*join = ft_strjoin(*join, (*tmp_x)->in);
+			{
+				ft_join_arr(arr_join, (*tmp_x)->in);
+			}
 			(*tmp_x) = (*tmp_x)->next;
 		}
-		ft_join_word_2(join, tmp_x, my_env, j);
+		ft_join_word_2(arr_join, tmp_x, my_env, j);
 	}
 }
 
-char	*ft_word(t_splitor **tmp_x, t_envarment *my_env, int j)
+char	**ft_split_expand(char ***arr_join, char *s, int bo)
+{
+	char	**expand_split;
+	int		i;
+
+	i = 0;
+	// (void)join;
+	(void)bo;
+	if (s == NULL)
+		return (0);
+	expand_split = ft_split(s, ' ');
+	if (ft_len_arg(expand_split) == 1)
+		ft_join_arr(arr_join, expand_split[0]);
+	else
+		*arr_join = ft_join_arg(*arr_join, expand_split);
+	// printf("_______________in split expand\n");
+	return (*arr_join);
+}
+void	ft_join_arr(char ***arr_join, char *in)
+{
+	int	len_of_arr;
+
+	len_of_arr = ft_len_arg(*arr_join);
+	if (len_of_arr == 0)
+	{
+		*arr_join = malloc((1 + 1) * sizeof(char *));
+		(*arr_join)[0] = ft_strdup(in);
+		(*arr_join)[1] = NULL;
+	}
+	else
+	{
+		len_of_arr--;
+		(*arr_join)[len_of_arr] = ft_strjoin((*arr_join)[len_of_arr],
+				ft_strdup(in));
+	}
+}
+
+char	**ft_word(t_splitor **tmp_x, t_envarment *my_env, int j,
+		char ***arr_join)
 {
 	char	*s;
 	char	*join;
@@ -71,82 +128,103 @@ char	*ft_word(t_splitor **tmp_x, t_envarment *my_env, int j)
 	while ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type != ' '
 			&& ((*tmp_x)->type == '$' || !ft_condition((*tmp_x)))))
 	{
-		if ((*tmp_x)->type == '$' && j == 1)
+		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-
-			if (s == NULL)
-			{
-				if (join == NULL)
-					join = NULL;
-				else
-					join = ft_strjoin(join, ft_strdup(""));
-			}
-			else
-				join = ft_strjoin(join, s);
+			ft_split_expand(arr_join, s, 1);
+		}
+		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
+		{
+			s = ft_expand((*tmp_x)->in, &my_env);
+			ft_split_expand(arr_join, s, 0);
 		}
 		else
-			join = ft_strjoin(join, (*tmp_x)->in);
+		{
+			ft_join_arr(arr_join, (*tmp_x)->in);
+		}
 		(*tmp_x) = (*tmp_x)->next;
-		ft_join_words(&join, tmp_x, my_env, j);
+		ft_join_words(arr_join, tmp_x, my_env, j);
 	}
-	return (join);
+	return (*arr_join);
 }
 
-void	ft_join_double( char **join, t_splitor **tmp_x,
-		t_envarment *my_env, int j)
+void	ft_join_next(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
+		int j)
 {
 	char	*s;
 
 	s = NULL;
-	if ((*tmp_x) != NULL && ((*tmp_x)->state != S && (*tmp_x)->type == '$') && j == 1)
-	{
-
-		s = ft_expand((*tmp_x)->in, &my_env);
-		*join = ft_strjoin(*join, s);
-		(*tmp_x) = (*tmp_x)->next;
-	}
-	ft_join_words(join, tmp_x, my_env, 1);
 	while ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == -1
 			|| (*tmp_x)->type == '$'))
 	{
-		if ((*tmp_x)->type == '$' && j == 1)
+		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			*join = ft_strjoin(*join, s);
-			(*tmp_x) = (*tmp_x)->next;
+			ft_split_expand(arr_join, s, 1);
 		}
 		else
 		{
-			*join = ft_strjoin_1(*join, (*tmp_x)->in);
+			ft_join_arr(arr_join, (*tmp_x)->in);
 			(*tmp_x) = (*tmp_x)->next;
 		}
+		(*tmp_x) = (*tmp_x)->next;
 	}
 }
-
-char	*ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env, int j)
+void	ft_join_double(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
+		int j)
 {
 	char	*s;
-	char	*join;
 
-	join = NULL;
+	s = NULL;
+	if ((*tmp_x) != NULL && ((*tmp_x)->state != S && (*tmp_x)->type == '$')
+		&& j == 1)
+	{
+		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
+		{
+			s = ft_expand((*tmp_x)->in, &my_env);
+			ft_split_expand(arr_join, s, 1);
+		}
+		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
+		{
+			s = ft_expand((*tmp_x)->in, &my_env);
+			ft_join_arr(arr_join, s);
+		}
+		(*tmp_x) = (*tmp_x)->next;
+	}
+	ft_join_words(arr_join, tmp_x, my_env, 1);
+	ft_join_next(arr_join, tmp_x, my_env, 1);
+}
+
+char	**ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env, int j,
+		char ***arr_join)
+{
+	char	*s;
+
 	s = NULL;
 	while (((*tmp_x) != NULL) && ((*tmp_x)->state == D || (*tmp_x)->state == S
 			|| (*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
 	{
-		if ((*tmp_x) != NULL && ((*tmp_x)->state != S && (*tmp_x)->type == '$') && j == 1)
+		if ((*tmp_x) != NULL)
 		{
-			s = ft_expand((*tmp_x)->in, &my_env);
-			join = ft_strjoin(join, s);
+			if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
+			{
+				s = ft_expand((*tmp_x)->in, &my_env);
+				ft_split_expand(arr_join, s, 1);
+			}
+			else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
+			{
+				s = ft_expand((*tmp_x)->in, &my_env);
+				ft_split_expand(arr_join, s, 0);
+			}
+			else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
+					|| (*tmp_x)->state == S))
+				ft_join_arr(arr_join, (*tmp_x)->in);
+			else if ((*tmp_x) != NULL && (((*tmp_x)->type == '$')
+					|| (*tmp_x)->type == -1))
+				ft_join_arr(arr_join, (*tmp_x)->in);
 		}
-		else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
-				|| (*tmp_x)->state == S))
-			join = ft_strjoin_1(join, (*tmp_x)->in);
-		else if ((*tmp_x) != NULL && (((*tmp_x)->type == '$')
-				|| (*tmp_x)->type == -1))
-			join = ft_strjoin_1(join, (*tmp_x)->in);
 		(*tmp_x) = (*tmp_x)->next;
-		ft_join_double( &join, tmp_x, my_env, j);
+		ft_join_double(arr_join, tmp_x, my_env, j);
 	}
-	return (join);
+	return (*arr_join);
 }

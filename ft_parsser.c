@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/17 13:21:08 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:46:46 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 		printf("\033[0;32m\n\t++++++++++++++   Command   ++++++++++++++++\n\033[0m");
 		if (tmp_cmd->content != NULL)
 		{
-			printf("Content :		[%s] \n", tmp_cmd->content);
+			// printf("Content :		[%s] \n", tmp_cmd->content);
 		}
 		if (tmp_cmd->arg != NULL && tmp_cmd->arg[0] != NULL)
 		{

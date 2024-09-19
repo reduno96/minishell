@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:29:09 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/17 13:09:12 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:47:15 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ void	ft_skip_quote(t_splitor **tmp_x, int *i, t_command **new_node)
 
 void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 {
+	char **str;
+
+	str = malloc(1 * sizeof(char *));
+	str[0] = NULL;
+
+	str = NULL;
 	while ((*tmp_x) != NULL && ((*tmp_x)->type == '<' || (*tmp_x)->type == '>'
 			|| (*tmp_x)->type == DREDIR_OUT || (*tmp_x)->type == HERE_DOC))
 	{
@@ -69,9 +75,9 @@ void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 			(*tmp_x) = (*tmp_x)->next;
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 			&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
-			ft_word(tmp_x, my_env, 0);
+			ft_word(tmp_x, my_env, 0, &str);
 		else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
 				|| (*tmp_x)->state == S))
-			ft_double_and_sigle(tmp_x, my_env, 0);
+			ft_double_and_sigle(tmp_x, my_env, 0, &str);
 	}
 }
