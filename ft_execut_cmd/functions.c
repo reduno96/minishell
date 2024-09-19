@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/16 19:16:43 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/17 12:09:34 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,47 @@ void	free_ft_split(char **list)
 	list = NULL;
 }
 
+char  	*ft_path_cmd(char 	**list, char *ptr , char 	*tmp)
+{
+	char	*tmp2;
+	int 	i;
+	
+	i = 0;
+	while (list[i])
+	{
+		if (ptr[0] == '/')
+			tmp2 = ft_strdup(ptr);
+		else
+		{
+			tmp = ft_join(list[i], "/");
+			tmp2 = ft_join(tmp, ptr);
+			free(tmp);
+		}
+		if (access(tmp2, F_OK) != -1 || access(tmp2, X_OK) != -1)
+		{
+			free_ft_split(list);
+			return (tmp2);
+		}
+		free(tmp2);
+		i++;
+	}
+	if (list != NULL)
+		free_ft_split(list);
+	return (ptr);
+}
+
 char	*path_command(char *ptr, char **env)
 {
 	char	*path;
 	char	**list;
 	int		i;
 	char	*tmp;
-	char	*tmp2;
 	
-
+	tmp = NULL;
 	if (ptr == NULL || *env == NULL || env ==NULL || ptr[0] == '\0')
 		return (NULL);
 	i = 0;
-	if(ptr[0] == '.'  )
+	if(ptr[0] == '.' )
 		return ptr;
 	path = ft_getenv("PATH", env);
 	if (path == NULL)
@@ -114,28 +142,5 @@ char	*path_command(char *ptr, char **env)
 		exit(EXIT_FAILURE);
 	}
 	list = ft_split(path, ':');
-	while (list[i])
-	{
-		if (ptr[0] == '/')
-			tmp2 = ft_strdup(ptr);
-		else
-		{
-			tmp = ft_strjoin_1(list[i], "/");
-			tmp2 = ft_strjoin_1(tmp, ptr);
-			free(tmp);
-		}
-		if (access(tmp2, F_OK) != -1)
-		{
-			free_ft_split(list);
-			return (tmp2);
-		}
-		free(tmp2);
-		i++;
-	}
-	// printf("---------------->>>>>>>>>>>>> %s \n\n", ptr);
-	if (list != NULL)
-		free_ft_split(list);
-
-	
-	return (ptr);
+	return ft_path_cmd(list, ptr, tmp );
 }

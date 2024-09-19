@@ -6,16 +6,16 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 14:45:45 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:55:31 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	ff(void)
-// {
-// 	system("leaks minishell");
-// }
+void	ok(void)
+{
+	system("leaks minishell");
+}
 
 // void	print_envarment(t_envarment *env)
 // {
@@ -96,7 +96,7 @@ int	main(int ac, char **av, char **env)
 	t_envarment	*my_env;
 	t_command	*cmd;
 
-	// atexit(ff);
+	// atexit(ok);
 	signal(SIGINT, handle_sig);
 	signal(SIGQUIT, handle_sig);
 	(void)ac;

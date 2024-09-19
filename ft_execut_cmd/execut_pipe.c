@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:39:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/16 12:39:54 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:15:46 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	ft_func_2(t_pipe *hd_p, int i, t_envarment **var)
 			dup2(hd_p->heredoc_fd, STDIN_FILENO);
 			close(hd_p->heredoc_fd);
 		}
+		// printf_list_ar_env(array_env(var));
+		// printf_list_ar_env(hd_p->tmp_cmd->ar_env);
 		hd_p->ptr = path_command(hd_p->tmp_cmd->content, array_env(var));
 		ft_access(hd_p->ptr, array_env(var));
 		if (execve(hd_p->ptr, hd_p->tmp_cmd->arg, array_env(var)) == -1)
@@ -110,7 +112,6 @@ void	handle_pipe(t_command *list, t_envarment **var)
 	t_pipe	hd_p;
 	int		i;
 
-	// hd_p = NULL;
 	hd_p.num_cmd = num_pipe(list) + 1;
 	hd_p.pipefd = return_pipe(hd_p.num_cmd);
 	hd_p.tmp_cmd = list;
