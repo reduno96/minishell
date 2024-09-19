@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/17 13:16:20 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:49:39 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 {
 	char	*s;
 	char	*final;
-
+	char	**str;
+	str = malloc(sizeof(char *));
+	str[0] = NULL;
 	final = NULL;
 	if (((*tmp_x) != NULL && (*tmp_x)->next != NULL) && (((*tmp_x)->type == '\"'
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
@@ -54,10 +56,14 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 		final = ft_strdup("\0");
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
-		final = ft_double_and_sigle(tmp_x, my_env, her);
+	{
+		ft_double_and_sigle(tmp_x, my_env, her, &str);
+		final = str[0];
+	}
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G)
 	{
-		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == '$' && her == 1)
+		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type == '$'
+			&& her == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
 			if (ft_check_ambiguous(s) == NULL && her == 1)
@@ -66,8 +72,12 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 			return (final);
 		}
 		else if ((*tmp_x) != NULL && (*tmp_x)->state == G)
-			final = ft_word(tmp_x, my_env, her);
+		{
+			ft_word(tmp_x, my_env, her, &str);
+		final = str[0];
+		}
 	}
+
 	return (final);
 }
 void	ft_skip_one_quote(t_splitor **tmp_x)

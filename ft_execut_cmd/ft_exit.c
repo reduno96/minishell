@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 23:39:14 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/15 18:15:31 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 09:48:06 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ int	ft_len_arg(char **arg)
 {
 	int	i;
 
+	if (arg == NULL || arg[0] == NULL)
+		return (0);
 	i = 0;
 	while (arg[i] != NULL)
+	{
 		i++;
+	}
 	return (i);
 }
 

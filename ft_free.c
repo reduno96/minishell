@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/14 16:13:55 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:49:12 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	ft_free_command(t_command **cmd)
 
 	tmp_cmd = *cmd;
 
-	if (tmp_cmd)
+	while (tmp_cmd)
     {
         if (tmp_cmd->arg)
         {
@@ -139,5 +139,6 @@ void	ft_free_command(t_command **cmd)
 		if (tmp_cmd->doc)
 			ft_free_doc(&tmp_cmd->doc);
 		free(tmp_cmd);
+		tmp_cmd = tmp_cmd->next;
     }
 }
