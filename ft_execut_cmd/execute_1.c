@@ -6,16 +6,11 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:21:29 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/16 12:35:20 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/18 22:31:21 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
-
-
-
-
 
 int	is_directory(char *path)
 {
@@ -50,22 +45,28 @@ void	ft_access_2(char *ptr, char **str)
 	}
 }
 
+void	printf_error_exit(char *ptr, char **str, char *s, int exit)
+{
+	ft_putstr_fd(ptr, 2);
+	ft_putchar_fd(':', 2);
+	ft_putstr_fd(s, 2);
+	if (ptr != str[0])
+		free(ptr);
+	g_exit_status = exit;
+}
+
 void	ft_access_1(char *ptr, char **str)
 {
 	if (ptr[ft_strlen(ptr) - 1] == '/')
 	{
 		if (is_directory(ptr))
 		{
-			ft_putstr_fd(ptr, 2);
-			ft_putstr_fd(": is a directory\n", 2);
-			g_exit_status = 126;
+			printf_error_exit(ptr, str, ": is a directory\n", 126);
 			exit(126);
 		}
 		else
 		{
-			ft_putstr_fd(ptr, 2);
-			ft_putstr_fd(": Not a directory\n", 2);
-			g_exit_status = 126;
+			printf_error_exit(ptr, str, ": Not a directory\n", 126);
 			exit(126);
 		}
 	}
@@ -83,27 +84,17 @@ void	ft_access(char *ptr, char **str)
 	{
 		if (access(ptr, F_OK) == -1)
 		{
-			ft_putstr_fd(ptr, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-			if (ptr != str[0])
-				free(ptr);
-			g_exit_status = 127;
+			printf_error_exit(ptr, str, " No such file or directory\n", 127);
 			exit(127);
 		}
 		if (access(ptr, X_OK) == -1)
 		{
-			ft_putstr_fd(ptr, 2);
-			ft_putstr_fd(": Permission denied\n", 2);
-			if (ptr != str[0])
-				free(ptr);
-			g_exit_status = 126;
+			printf_error_exit(ptr, str, ": Permission denied\n", 126);
 			exit(126);
 		}
 		if (is_directory(ptr))
 		{
-			ft_putstr_fd(ptr, 2);
-			ft_putstr_fd(": is a directory\n", 2);
-			g_exit_status = 126;
+			printf_error_exit(ptr, str, ": is a directory\n", 126);
 			exit(126);
 		}
 	}

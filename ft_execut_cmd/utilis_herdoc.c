@@ -12,25 +12,23 @@
 
 #include "../minishell.h"
 
-t_here_doc	*new_node_her(char *file, int fd  , int x, int is_expand)
+t_here_doc	*new_node_her(char *file, int fd, int x, int is_expand)
 {
 	t_here_doc	*elem;
-	char	*tmp_line;
-	char 	*path_file;
+	char		*tmp_line;
+	char		*path_file;
 
 	elem = (t_here_doc *)malloc(sizeof(t_here_doc));
 	if (!elem)
 		return (NULL);
-
 	tmp_line = ft_strjoin_1(file, ft_itoa(x));
 	path_file = ft_strjoin_1("/tmp/herdoc", tmp_line);
 	free(tmp_line);
-
 	elem->store = file;
 	elem->fd = fd;
 	elem->idx = x;
 	elem->expad = is_expand;
-	elem->heredoc_file =  ft_strdup(path_file);
+	elem->heredoc_file = ft_strdup(path_file);
 	elem->next = NULL;
 	return (elem);
 }

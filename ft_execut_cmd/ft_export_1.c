@@ -12,8 +12,6 @@
 
 #include "../minishell.h"
 
-
-
 int	ft_isalnum_exp(int c)
 {
 	return ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a'

@@ -6,12 +6,11 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 15:58:52 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:00:00 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	ft_str_eqal(char *ptr, char c)
 {
@@ -57,6 +56,7 @@ char	**split_line(char *ptr)
 	arg[2] = NULL;
 	return (arg);
 }
+
 int	check_is_valid_1(char *str)
 {
 	int	i;
@@ -85,21 +85,19 @@ int	check_is_valid_1(char *str)
 	return (0);
 }
 
-
-void			export_1(t_envarment **var, t_command *str, int *i)
+void	export_1(t_envarment **var, t_command *str, int *i)
 {
-	char *ptr_1;
-	char *ptr_2;
+	char		*ptr_1;
+	char		*ptr_2;
 	t_envarment	*elem;
 	char		**list;
-	
 
 	list = split_line(str->arg[*i]);
-	ptr_1 = ft_strdup( list[0]);
+	ptr_1 = ft_strdup(list[0]);
 	ptr_2 = ft_strdup(list[1]);
 	if (test_exist(var, list) == 0)
 	{
-		(*i)++;	
+		(*i)++;
 	}
 	else if (test_exist(var, list) == 1)
 	{
@@ -113,7 +111,7 @@ void			export_1(t_envarment **var, t_command *str, int *i)
 
 void	ft_export(t_envarment **var, t_command *str)
 {
-	int			i;
+	int	i;
 
 	i = 1;
 	while (str->arg[i] != NULL)
@@ -124,7 +122,7 @@ void	ft_export(t_envarment **var, t_command *str)
 		{
 			if (check_is_valid_1(str->arg[i]) == 1)
 				return ;
-			export_1(var , str , &i);
+			export_1(var, str, &i);
 		}
 	}
 	affiche_export(str->arg, var);

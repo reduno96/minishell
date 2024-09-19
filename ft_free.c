@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 14:49:12 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:14:41 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+
+
 
 void	ft_free_lexer(t_splitor **x)
 {
@@ -72,6 +76,7 @@ void	ft_free_env(t_envarment **my_env)
     while (*my_env) {
         tmp = *my_env;
         *my_env = (*my_env)->next;
+		// printf("............       %s\n", tmp->var);
         free(tmp->data);
         free(tmp->var);
         free(tmp);
@@ -83,6 +88,7 @@ void free_command(t_command *cmd)
     {
         if (cmd->arg)
         {
+			free(cmd->content);
             for (int i = 0; cmd->arg[i]; i++)
             {
                 free(cmd->arg[i]);
@@ -120,7 +126,7 @@ void	ft_free_command(t_command **cmd)
 
 	tmp_cmd = *cmd;
 
-	while (tmp_cmd)
+	while(tmp_cmd)
     {
         if (tmp_cmd->arg)
         {
@@ -139,6 +145,7 @@ void	ft_free_command(t_command **cmd)
 		if (tmp_cmd->doc)
 			ft_free_doc(&tmp_cmd->doc);
 		free(tmp_cmd);
-		tmp_cmd = tmp_cmd->next;
+		tmp_cmd =tmp_cmd->next;
     }
 }
+

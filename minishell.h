@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 14:55:59 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:17:25 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@
 
 //////////////////////////////  Parsser  /////////////////////////////////
 // ---------
-
 
 // ---function to skip---
 void		ft_skip_spaces(t_splitor **tmp_x);
@@ -154,11 +153,25 @@ void			hundle_redir_in(char *file);
 void			hundle_dredir_out(char *file);
 
 /////////////////////////  her doc  //////////////////////////
+
+
+void			handle_here_doc(t_envarment **var, t_command *cmd);
+void			create_files(t_command *cmd, char 	*itoa);
+int				ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var);
+int				handle_fork(t_here_doc *tmp_her, t_envarment **var);
+void			hundle_chil_pro(t_here_doc *tmp_her, t_envarment **var);
+void			write_in_file(t_here_doc *tmp, char *line, t_envarment **var);
+char			*ft_expand_in_her(char *line, t_envarment *my_env);
+char			*ft_handle_var(char *line, int *i, t_envarment *my_env, char *final);
+void			delet_files(t_command *cmd);
+void			sig_herdoc(int sig);
+int				count_herdoc(t_command *tmp);
 int				herdoc_exist(t_command *list);
-void			handle_here_doc(t_envarment **var,  t_command *tmp);
+char 			*ft_name_file(t_here_doc *tmp);
 t_here_doc		*new_node_her(char *file, int fd, int x, int is_expand);
 void			add_back_node_her(t_here_doc **her, t_here_doc *new_her);
-void			delet_files(t_command *cmd);
+
+
 
 /////////////////////////  function redirections  //////////////////////////
 char			**get_len(char **args, t_redirect *redir);
@@ -182,10 +195,24 @@ void			child_process(int **pipefd, int i, t_command *tmp_cmd, char **env,
 int				hundle_file_herdoc(t_command *list);
 
  // ///////            Commands         //////////////////////////////////
-void            ft_cd( t_envarment **var,t_command *list , char **env);
+
+void			ft_cd(t_envarment **var, t_command *list, char **env);
+void			complete_cd(char *path, char *ptr, char **env);
+void			complete_cd_1(t_envarment **var, char *path, char **env);
+void			ft_setenv_list(t_envarment **var, char *old, char **env);
+t_envarment		*find_env(t_envarment *my_var, char *old);
+void			printf_error_cd(char *s , int exit);
+
+
+void			ft_unset(t_envarment **var, t_command *list);
+t_envarment		*delet_first_node(t_envarment **my_env);
+void			ft_error(char *str, char *ptr);
+void			delet_first(t_envarment **var, char 	*ptr);
+void 			delet_envarment(t_envarment **var, char *str);
+
+
 void            ft_pwd(t_command *list);
 void            ft_env( t_envarment **var);
-void            ft_unset(t_envarment **var , t_command *list);
 void            ft_echo(t_command *list );
 void			ft_exit(t_envarment **var ,t_command *list);
 
@@ -204,18 +231,13 @@ void			free_args(char **args);
 char			*first_word(char *ptr);
 
 
-
-
 char 			**array_env(t_envarment **var);
 char			*ft_strjoin_1(char *s1, char *s2);
 int				len_var(t_envarment *var);
-int				count_herdoc(t_command *tmp);
 
 
 //////////////////////     free      /////////////////////////////////
 void		free_ft_split(char 	**list);
-int			check_is_valid(char 	*str );
-void		ft_error(char 	*str , char *ptr);
 char		*ft_getenv(char *path, char **env);
 void 		free_pid_pipe(int *pids, int **pipefd, int num_cmd);
 char		*ft_join(char  *s1, char  *s2);

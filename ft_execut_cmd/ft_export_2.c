@@ -6,13 +6,11 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:02:41 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 14:03:12 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:01:01 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
-
 
 void	affiche_export(char **str, t_envarment **var)
 {
@@ -37,9 +35,11 @@ void	affiche_export(char **str, t_envarment **var)
 			print_export(var);
 	}
 }
+
 int	ft_is_num(char *str)
 {
 	int	i;
+
 	i = 0;
 	while (str[i])
 	{
@@ -54,8 +54,8 @@ int	ft_is_num(char *str)
 int	test_exist(t_envarment **var, char **list)
 {
 	t_envarment	*ptr;
-	
-	if(var == NULL || *var == NULL)
+
+	if (var == NULL || *var == NULL)
 		return (-1);
 	ptr = *var;
 	while (ptr)
@@ -77,24 +77,25 @@ int	test_exist(t_envarment **var, char **list)
 	}
 	return (1);
 }
+
 void	free_args(char **args)
 {
-	int 	i;
+	int	i;
+
 	if (args == NULL)
 		return ;
-		
-	i = 0;	
+	i = 0;
 	while (args[i] != NULL)
 	{
 		if (args[i] != NULL)
-        {
-            free(args[i]);
-            args[i] = NULL;
-        }
+		{
+			free(args[i]);
+			args[i] = NULL;
+		}
 		i++;
 	}
 	free(args);
-	args =NULL;
+	args = NULL;
 }
 
 char	*first_word(char *ptr)
@@ -117,7 +118,3 @@ char	*first_word(char *ptr)
 	str[i] = '\0';
 	return (str);
 }
-
-
-
-

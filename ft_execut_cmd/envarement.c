@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:55:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/17 11:09:21 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:54:49 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@ int	len_var(t_envarment *var)
 	t_envarment	*tmp;
 	int			size;
 
-	if(var == NULL)
-		return 0;
-
+	if (var == NULL)
+		return (0);
 	tmp = var;
 	size = 0;
 	while (tmp != NULL)
@@ -32,36 +31,31 @@ int	len_var(t_envarment *var)
 
 char	**array_env(t_envarment **var)
 {
-	char	**env_v;
-	int		len;
-	int		i;
-	char *var_1;
-	char *var_2;
-	char *res;
-	t_envarment *tmp_cmd;
+	t_envar		arry;
+	int			i;
+	t_envarment	*tmp_cmd;
 
 	tmp_cmd = *var;
-	len = len_var(*var);
-	env_v = (char **)malloc(sizeof(char *) * (len + 1));
-	if (env_v == NULL)
+	arry.len = len_var(*var);
+	arry.env_v = (char **)malloc(sizeof(char *) * (arry.len + 1));
+	if (arry.env_v == NULL)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i < arry.len)
 	{
-		var_1 = ft_strdup(tmp_cmd->var);
-		var_2 = ft_strdup(tmp_cmd->data);
-		res = ft_strjoin(var_1, "=");
-		env_v[i] = ft_strjoin(res, var_2);
-		free(var_2);
+		arry.var_1 = ft_strdup(tmp_cmd->var);
+		arry.var_2 = ft_strdup(tmp_cmd->data);
+		arry.res = ft_strjoin(arry.var_1, "=");
+		arry.env_v[i] = ft_strjoin(arry.res, arry.var_2);
+		free(arry.var_2);
 		i++;
 		tmp_cmd = tmp_cmd->next;
 	}
-	env_v[i] = NULL;
-	return (env_v);
+	arry.env_v[i] = NULL;
+	return (arry.env_v);
 }
 
-char	*ft_join(char  *s1, char  *s2)
-
+char	*ft_join(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;

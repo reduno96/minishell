@@ -16,16 +16,16 @@ static void	complet_function(t_command *list, int k, bool flag)
 {
 	while (list->arg[k])
 	{
-		ft_putstr_fd(list->arg[k] , 1);
+		ft_putstr_fd(list->arg[k], 1);
 		if (list->arg[k + 1] != NULL)
 			ft_putstr_fd(" ", 1);
 		k++;
 	}
 	if (!flag || k == 1)
-		ft_putstr_fd("\n" ,1);
+		ft_putstr_fd("\n", 1);
 }
 
-void	ft_echo(t_command *list )
+void	ft_echo(t_command *list)
 {
 	int		k;
 	bool	flag;

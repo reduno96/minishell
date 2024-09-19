@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:01 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/15 11:30:04 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/18 22:21:04 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_pwd(t_command *list)
 {
-	int 	i;
+	int		i;
 	char	*path;
 
 	i = 0;
@@ -22,19 +22,62 @@ void	ft_pwd(t_command *list)
 	if (path == NULL)
 	{
 		perror("");
-		g_exit_status =1;
+		g_exit_status = 1;
 		return ;
 	}
-	// printf("---------------------   %s \n", list->arg[i + 1] );
-	if( list->arg[1] != NULL && list->arg[1][0] == '-' && list->arg[1][1] != '\0')
+	if (list->arg[1] != NULL && list->arg[1][0] == '-'
+		&& list->arg[1][1] != '\0')
 	{
 		ft_putstr_fd("pwd", 2);
 		ft_putstr_fd(": invalid option\n", 2);
-		g_exit_status =1;
-		return;
+		g_exit_status = 1;
+		return ;
 	}
 	ft_putstr_fd(path, 1);
 	ft_putchar_fd('\n', 1);
 	free(path);
 	g_exit_status = 0;
+}
+
+t_envarment	*find_env(t_envarment *my_var, char *old)
+{
+	if (my_var == NULL || old == NULL)
+		return (NULL);
+	while (my_var)
+	{
+		if (ft_strcmp(my_var->var, old) == 0)
+			return (my_var);
+		my_var = my_var->next;
+	}
+	return (NULL);
+}
+
+void	printf_error_cd(char *s, int exit)
+{
+	g_exit_status = exit;
+	ft_putstr_fd(s, 2);
+	ft_putchar_fd('\n', 2);
+}
+
+int	herdoc_exist(t_command *list)
+{
+	t_command	*tmp;
+	int			count;
+
+	if (list == NULL)
+		return (0);
+	count = 0;
+	tmp = list;
+	count = count_herdoc(tmp);
+	if (count != 0)
+		return (1);
+	else
+		return (0);
+}
+
+void	sig_herdoc(int sig)
+{
+	(void)sig;
+	printf("\n");
+	exit(1);
 }

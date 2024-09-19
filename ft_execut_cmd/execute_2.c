@@ -6,12 +6,11 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:22:56 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 12:04:16 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:59:32 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 int	built_in_exist(t_command *list)
 {
@@ -33,6 +32,7 @@ int	built_in_exist(t_command *list)
 		return (1);
 	return (0);
 }
+
 void	built_in(t_envarment **var, t_command *list)
 {
 	if (list == NULL)
@@ -40,7 +40,7 @@ void	built_in(t_envarment **var, t_command *list)
 	if (ft_strcmp(list->content, "exit") == 0)
 		(ft_exit(var, list));
 	if (ft_strcmp(list->content, "cd") == 0)
-		(ft_cd(var,list, list->ar_env));
+		(ft_cd(var, list, list->ar_env));
 	if (ft_strcmp(list->content, "pwd") == 0)
 		(ft_pwd(list));
 	if (ft_strcmp(list->content, "export") == 0)
@@ -56,8 +56,6 @@ void	built_in(t_envarment **var, t_command *list)
 		(ft_echo(list));
 	}
 }
-
-
 
 void	execution_cmd(t_command *list, char **new)
 {
@@ -84,8 +82,6 @@ void	execution_cmd(t_command *list, char **new)
 	}
 }
 
-
-
 void	run_simple_cmd(t_command *list, t_envarment **var)
 {
 	if (test_redir_here_doc(list) == 1)
@@ -98,10 +94,6 @@ void	run_simple_cmd(t_command *list, t_envarment **var)
 		execution_cmd(list, list->arg);
 	}
 }
-
-
-
-
 
 int	run_herdoc_built(t_envarment **var, t_command *cmd)
 {
@@ -116,9 +108,9 @@ int	run_herdoc_built(t_envarment **var, t_command *cmd)
 		if (built_in_exist(list) == 1 && pipe_exist(list) == 0)
 		{
 			built_in(var, list);
-			return 1;
+			return (1);
 		}
-		return 0;
+		return (0);
 	}
 	if (built_in_exist(list) == 1 && pipe_exist(list) == 0
 		&& herdoc_exist(list) == 0 && test_redir_here_doc(list) == 0)

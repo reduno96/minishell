@@ -6,200 +6,109 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 15:13:18 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:46:58 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_envarment* 		delet_first_node(t_envarment **my_env)
+t_envarment	*delet_first_node(t_envarment **my_env)
 {
 	t_envarment	*start;
-	t_envarment *end;
+	t_envarment	*end;
 
 	start = *my_env;
 	end = (*my_env)->next;
-
 	free(start->data);
 	start->data = NULL;
-
 	free(start->var);
 	start->var = NULL;
-
 	free(start);
 	*my_env = end;
-
-
 	return (end);
 }
 
-
-void	ft_error(char 	*str , char *ptr)
+int	check_is_valid(char *str)
 {
-	(void) ptr;
-	(void) str;
-	ft_putstr_fd(ptr ,2);
-	ft_putstr_fd(str ,2);
-	ft_putstr_fd("': not a valid identifier\n",2);
-	g_exit_status = 1;
-}
+	int	i;
 
-int		check_is_valid(char 	*str )
-{
-	int i;
-	if(str  == NULL)
-		return 0 ;
-
+	if (str == NULL)
+		return (0);
 	i = 0;
 	while (str[i])
 	{
-
-		if (str[i] < '0' || (str[i] >= ':' && str[i] <= '@') || (str[i] >= '[' && str[i] <= '^') || str[i] >= '{' || str[i] == '`')
+		if (str[i] < '0' || (str[i] >= ':' && str[i] <= '@') || (str[i] >= '['
+				&& str[i] <= '^') || str[i] >= '{' || str[i] == '`')
 		{
 			ft_error(str, "unset :`");
-			return 1;
+			return (1);
 		}
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
-
-
-void ft_unset(t_envarment **var, t_command *list )
+void	delet_first(t_envarment **var, char *ptr)
 {
-    int i;
-    t_envarment *env;
-    t_envarment *env_1;
-    t_envarment *prev;
+	t_envarment	*env;
 
-    if (!var || !*var || !list) return; 
-
-    env = *var;
-
-    i = 1;
-    while (list->arg[i])
-    {
-        if (check_is_valid(list->arg[i]) == 1)
-            return;
-
-        if (env && ft_strcmp(env->var, list->arg[i]) == 0)
-        {
-            env = delet_first_node(var);
-        }
-        else
-            env = *var;
-        prev = NULL;
-        while (env) 
-        {
-            if (ft_strcmp(env->var, list->arg[i]) == 0)
-            {
-                if (prev)
-                    prev->next = env->next;
-                env_1 = env;
-                env = env->next;
-                free(env_1->var);
-                free(env_1->data);
-                free(env_1);
-            }
-            prev = env;
-            if (env) 
-				env = env->next;
-        }
-        env =NULL;
-        env_1 =NULL;
-        i++;
-    }
+	if (var == NULL || *var == NULL || ptr == NULL)
+		return ;
+	env = (*var);
+	if (ft_strncmp(env->var, ptr, ft_strlen(ptr)) == 0)
+	{
+		*var = delet_first_node(var);
+	}
 }
 
-// void ft_unset(t_envarment **var, t_command *list )
-// {
-//     int i;
-//     t_envarment *env;
-//     t_envarment *env_1;
-//     t_envarment *prev;
+void	delet_envarment(t_envarment **var, char *str)
+{
+	t_envarment	*env;
+	t_envarment	*env_1;
+	t_envarment	*prev;
 
-// 	env = *var;
+	env = *var;
+	prev = NULL;
+	while (env)
+	{
+		if (ft_strncmp(env->var, str, ft_strlen(str)) == 0)
+		{
+			if (prev)
+				prev->next = env->next;
+			else
+				*var = env->next;
+			env_1 = env;
+			env = env->next;
+			free(env_1->var);
+			free(env_1->data);
+			free(env_1);
+			return ;
+		}
+		prev = env;
+		if (env)
+			env = env->next;
+	}
+}
 
+void	ft_unset(t_envarment **var, t_command *list)
+{
+	int		i;
+	char	*ptr;
 
-//     i = 1;
-//     while (list->arg[i])
-//     {
-//         if (check_is_valid(list->arg[i]) == 1)
-//             return;
+	if (!var || !*var || !list)
+		return ;
+	// env = *var;
+	i = 1;
+	ptr = (*var)->var;
+	while (list->arg[i])
+	{
+		if (check_is_valid(list->arg[i]) == 1)
+			return ;
+		delet_first(var, ptr);
+		delet_envarment(var, list->arg[i]);
+		i++;
+	}
+}
 
-// 		if (ft_strcmp(env->var, list->arg[i]) == 0)
-// 		{
-// 			env = delet_first_node(var);
-// 			print_export(&env);
-// 		}
-// 		else
-//     		env = *var;
-//         prev = NULL;
-//         while (env)
-//         {
-//             if (ft_strcmp(env->var, list->arg[i]) == 0)
-//             {
-//                 if (prev)
-//                     prev->next = env->next;
-//                 env_1 = env;
-//                 env = env->next;
-//                 free(env_1->var);
-//                 free(env_1->data);
-//                 free(env_1);
-//             }
-//             prev = env;
-//             env = env->next;
-//         }
-// 		env =NULL;
-// 		env_1 =NULL;
-//         i++;
-//     }
-// }
-
-
-// void ft_unset(t_envarment **var, t_command *list )
-// {
-//     int i;
-//     t_envarment *env;
-//     t_envarment *env_1;
-//     t_envarment *prev;
-
-// 	env = *var;
-
-
-//     i = 1;
-//     while (list->arg[i])
-//     {
-//         if (check_is_valid(list->arg[i]) == 1)
-//             return;
-
-// 		if (ft_strcmp(env->var, list->arg[i]) == 0)
-// 		{
-// 			env = delet_first_node(var);
-// 			print_export(&env);
-// 		}
-// 		else
-//     		env = *var;
-//         prev = NULL;
-//         while (env)
-//         {
-//             if (ft_strcmp(env->var, list->arg[i]) == 0)
-//             {
-//                 if (prev)
-//                     prev->next = env->next;
-//                 env_1 = env;
-//                 env = env->next;
-//                 free(env_1->var);
-//                 free(env_1->data);
-//                 free(env_1);
-//             }
-//             prev = env;
-//             env = env->next;
-//         }
-//         i++;
-//     }
-// }
-
-
-
+	// env = NULL;
+	// env_1 = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/15 14:05:12 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:55:07 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,14 @@ typedef struct s_command
 	struct s_command	*next;
 }						t_command;
 
+typedef struct s_array_env
+{
+	char		**env_v;
+	int			len;
+	char		*var_1;
+	char		*var_2;
+	char		*res;
+}						t_envar;
 
 
 typedef struct s_pre

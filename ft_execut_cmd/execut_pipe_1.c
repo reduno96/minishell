@@ -6,10 +6,9 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:38:50 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/17 11:41:42 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:45:34 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../minishell.h"
 
@@ -64,7 +63,7 @@ int	**return_pipe(int num_cmd)
 		if (!pipe[i])
 		{
 			perror("malloc");
-			while (i>=0)
+			while (i >= 0)
 				free(pipe[i--]);
 			g_exit_status = 1;
 			exit(EXIT_FAILURE);
@@ -74,12 +73,12 @@ int	**return_pipe(int num_cmd)
 	return (pipe);
 }
 
-void 	free_pid_pipe(int *pids, int **pipefd, int num_cmd)
+void	free_pid_pipe(int *pids, int **pipefd, int num_cmd)
 {
-	int 	i;
-	
+	int	i;
+
 	i = 0;
-	if( pipefd != NULL)
+	if (pipefd != NULL)
 	{
 		while (i < num_cmd - 1)
 		{
@@ -88,6 +87,6 @@ void 	free_pid_pipe(int *pids, int **pipefd, int num_cmd)
 		}
 		free(pipefd);
 	}
-	if(pids != NULL)
-	free(pids);
+	if (pids != NULL)
+		free(pids);
 }
