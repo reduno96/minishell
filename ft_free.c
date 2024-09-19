@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 15:14:41 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:39:07 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-
-
 
 void	ft_free_lexer(t_splitor **x)
 {
@@ -82,6 +78,7 @@ void	ft_free_env(t_envarment **my_env)
         free(tmp);
     }
 }
+
 void free_command(t_command *cmd)
 {
     if (cmd)
@@ -98,27 +95,6 @@ void free_command(t_command *cmd)
         free(cmd);
     }
 }
-// void	free_command(t_command *cmd)
-// {
-// 	if (cmd)
-// 	{
-// 		if (cmd->arg)
-// 		{
-// 			for (int i = 0; cmd->arg[i]; i++)
-// 				free(cmd->arg[i]);
-// 			free(cmd->arg);
-// 		}
-// 		if (cmd->store_her)
-// 		{
-// 			for (int i = 0; cmd->store_her[i]; i++)
-// 				free(cmd->store_her[i]);
-// 			free(cmd->store_her);
-// 		}
-// 		if (cmd->doc)
-// 			ft_free_doc(&cmd->doc);
-// 		free(cmd);
-// 	}
-// }
 
 void	ft_free_command(t_command **cmd)
 {
@@ -128,24 +104,12 @@ void	ft_free_command(t_command **cmd)
 
 	while(tmp_cmd)
     {
-        if (tmp_cmd->arg)
-        {
-            for (int i = 0; tmp_cmd->arg[i]; i++)
-            {
-                free(tmp_cmd->arg[i]);
-            }
-            free(tmp_cmd->arg);
-        }
-		if (tmp_cmd->store_her)
-		{
-			for (int i = 0; tmp_cmd->store_her[i]; i++)
-				free(tmp_cmd->store_her[i]);
-			free(tmp_cmd->store_her);
-		}
+        ft_free_split(tmp_cmd->arg);
 		if (tmp_cmd->doc)
 			ft_free_doc(&tmp_cmd->doc);
 		free(tmp_cmd);
-		tmp_cmd =tmp_cmd->next;
+		if (tmp_cmd != NULL)
+			tmp_cmd =tmp_cmd->next;
     }
 }
 

@@ -31,8 +31,8 @@ LIBFT = ./includes/libft/libft.a
 FLDLIBFT= ./includes/libft
 
 #include readLine in MacOS
-INRL =# -I/goinfre/rel-mora/homebrew/opt/readline/include
-LNRL= -lreadline #-L/goinfre/rel-mora/homebrew/opt/readline/lib
+INRL =-I/goinfre/rel-mora/homebrew/opt/readline/include
+LNRL= -lreadline -L/goinfre/rel-mora/homebrew/opt/readline/lib
 #include readLine in MacOS
 #  INRL = -I/goinfre/bouhammo/homebrew/opt/readline/include
 #  LNRL=  -L/goinfre/bouhammo/homebrew/opt/readline/lib -lreadline

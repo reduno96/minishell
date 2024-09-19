@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/06 11:51:35 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:43:14 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	ft_check_between(t_splitor **start)
 		if ((*start)->type == '|' || (*start)->type == HERE_DOC
 			|| (ft_condition(*start) && ((*start)->state == G)))
 		{
-			if ((*start) != NULL)
+			printf("1111\n");
 				(*start) = (*start)->next;
 			ft_skip_spaces(&(*start));
-			if ((*start) == NULL || ((*start)->type == '|'
+			if ((*start) == NULL || (((*start)->type == '|'  || (*start)->type == HERE_DOC)
 					&& (ft_condition(*start)) && (*start)->state == G))
 				return (1);
 		}

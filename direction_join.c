@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 14:37:54 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:14:29 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,12 @@ char	**ft_word(t_splitor **tmp_x, t_envarment *my_env, int j,
 	{
 		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
-			// printf("1\n");
+
 			s = ft_expand((*tmp_x)->in, &my_env);
-			// printf("End of 1\n");
 			ft_split_expand(arr_join, s, 1);
 		}
 		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
 		{
-			// printf("2\n");
 			s = ft_expand((*tmp_x)->in, &my_env);
 			ft_split_expand(arr_join, s, 0);
 		}

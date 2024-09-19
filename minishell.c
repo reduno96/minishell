@@ -3,71 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 15:14:18 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:34:01 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
-
-void	ok(void)
+/* void	ok(void)
 {
 	system("leaks minishell");
-}
-
-// void	print_envarment(t_envarment *env)
-// {
-// 	t_envarment	*current;
-
-// 	current = env;
-// 	while (current != NULL)
-// 	{
-// 		// printf("%s=%s\n", (char *)current->var, (char *)current->data);
-// 		current = current->next;
-// 	}
-// }
+} */
 void	handle_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
 }
 
-void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment **my_env,
-		char **env)
+void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment **my_env)
 {
 	if (x != NULL && my_env != NULL)
 	{
 		ft_command(&x, &cmd, *my_env);
 		ft_exute(my_env, cmd);
-		// ft_free_command(&cmd);
 	}
-	(void)env;
-	(void)my_env;
-	(void)cmd;
 	ft_free_lexer(&x);
 }
 
 void	ft_free_when_exit_1(t_splitor *x, t_command *cmd, t_envarment **my_env)
 {
-	// printf("exit\n");
+	printf("exit\n");
 	ft_free_command(&cmd);
 	ft_free_lexer(&x);
 	ft_free_env(my_env);
-	g_exit_status = 0;
-	exit(0);
+	exit(g_exit_status);
 }
 
-void	ft_reader(t_splitor *x, t_command *cmd, t_envarment **my_env, char **env)
+void	ft_reader(t_splitor *x, t_command *cmd, t_envarment **my_env)
 {
 	char	*str_input;
 
@@ -85,7 +64,7 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_envarment **my_env, char **env)
 			ft_free_lexer(&x);
 		}
 		else
-			ft_initialize(x, cmd, my_env, env);
+			ft_initialize(x, cmd, my_env);
 		ft_free_command(&cmd);
 		cmd = NULL;
 		x = NULL;
@@ -99,7 +78,6 @@ int	main(int ac, char **av, char **env)
 	t_envarment	*my_env;
 	t_command	*cmd;
 
-	// atexit(ok);
 	signal(SIGINT, handle_sig);
 	signal(SIGQUIT, handle_sig);
 	(void)ac;
@@ -109,9 +87,7 @@ int	main(int ac, char **av, char **env)
 	using_history();
 	x = NULL;
 	cmd = NULL;
-	ft_reader(x, cmd, &my_env, env);
+	ft_reader(x, cmd, &my_env);
 	ft_free_env(&my_env);
 	return (g_exit_status);
 }
-
-

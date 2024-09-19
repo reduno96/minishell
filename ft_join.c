@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 14:48:40 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:36:24 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 	int		i;
 
 	i = 0;
-	// (void)join;
 	(void)bo;
 	if (s == NULL)
 		return (0);
@@ -95,7 +94,6 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 		ft_join_arr(arr_join, expand_split[0]);
 	else
 		*arr_join = ft_join_arg(*arr_join, expand_split);
-	// printf("_______________in split expand\n");
 	return (*arr_join);
 }
 void	ft_join_arr(char ***arr_join, char *in)
