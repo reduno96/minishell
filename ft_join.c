@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 09:49:52 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:51:02 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	**ft_word(t_splitor **tmp_x, t_envarment *my_env, int j,
 	join = NULL;
 	s = NULL;
 	while ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type != ' '
-			&& ((*tmp_x)->type == '$' || !ft_condition((*tmp_x)))))
+			&&  !redirection(*tmp_x) && !quotes(*tmp_x)) )
 	{
 		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
@@ -200,8 +200,9 @@ char	**ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env, int j,
 	char	*s;
 
 	s = NULL;
-	while (((*tmp_x) != NULL) && ((*tmp_x)->state == D || (*tmp_x)->state == S
-			|| (*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
+
+	while (((*tmp_x) != NULL) && !redirection(*tmp_x) && ((*tmp_x)->state == D || (*tmp_x)->state == S
+			|| (*tmp_x)->type == '\"' || (*tmp_x)->type == '\'') )
 	{
 		if ((*tmp_x) != NULL)
 		{

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 09:44:43 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:43:06 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,17 +104,17 @@ int	ft_fill_redirection(t_splitor **tmp_x, t_command *tmp_cmd,
 
 	final = NULL;
 	is_amb = 0;
-	if (redirection(*tmp_x))
+	while ((*tmp_x) != NULL && ((*tmp_x)->type != HERE_DOC
+			&& redirection(*tmp_x)))
 	{
-		while ((*tmp_x) != NULL && (*tmp_x)->type == '>'
-			&& (*tmp_x)->state == G)
+		if ((*tmp_x) != NULL && (*tmp_x)->type == '>' && (*tmp_x)->state == G)
 		{
 			(*tmp_x) = (*tmp_x)->next;
 			ft_skip_spaces(tmp_x);
 			final = ft_skip_direction(&(*tmp_x), my_env, &is_amb, 0);
 			ft_add_redir((&tmp_cmd->doc), ft_new_redir(final, '>', is_amb));
 		}
-		while ((*tmp_x) != NULL && (*tmp_x)->type == '<'
+		else if ((*tmp_x) != NULL && (*tmp_x)->type == '<'
 			&& (*tmp_x)->state == G)
 		{
 			(*tmp_x) = (*tmp_x)->next;
@@ -122,7 +122,7 @@ int	ft_fill_redirection(t_splitor **tmp_x, t_command *tmp_cmd,
 			final = ft_skip_direction(tmp_x, my_env, &is_amb, 0);
 			ft_add_redir((&tmp_cmd->doc), ft_new_redir(final, '<', is_amb));
 		}
-		while ((*tmp_x) != NULL && (*tmp_x)->type == DREDIR_OUT
+		else if ((*tmp_x) != NULL && (*tmp_x)->type == DREDIR_OUT
 			&& (*tmp_x)->state == G)
 		{
 			(*tmp_x) = (*tmp_x)->next;
@@ -139,22 +139,53 @@ void	ft_check_redirection(t_pre *id, t_envarment *my_env)
 {
 	char	*final;
 
-	if (ft_fill_redirection(&id->tmp_x, id->tmp_cmd, my_env))
-		;
-	else if ((id->tmp_x != NULL && id->tmp_x->type == HERE_DOC
-			&& id->tmp_x->state == G))
+	final = NULL;
+	while ((id->tmp_x) != NULL && redirection(id->tmp_x))
 	{
-		id->tmp_x = id->tmp_x->next;
-		ft_skip_spaces(&id->tmp_x);
-		if (id->tmp_x != NULL && id->tmp_x->state == G
-			&& ((id->tmp_x->next != NULL && id->tmp_x->type == 32)
-				|| id->tmp_x->next == NULL))
-			id->is_expand = 1;
-		final = ft_skip_direction(&id->tmp_x, my_env, 0, 0);
-		ft_add_redir(&(id->tmp_cmd->doc), ft_new_redir(final, HERE_DOC, 0));
-		add_back_node_her(&(id->tmp_cmd->her), new_node_her(final, -1, id->j,
-				0));
-		id->j++;
+		if (id->tmp_x != NULL && id->tmp_x->type == '>' && id->tmp_x->state == G)
+		{
+			id->tmp_x = id->tmp_x->next;
+			ft_skip_spaces(&id->tmp_x);
+			final = ft_skip_direction(&id->tmp_x, my_env, &id->is_amb, 0);
+			ft_add_redir(&(id->tmp_cmd->doc), ft_new_redir(final, '>', id->is_amb));
+		}
+		else if (id->tmp_x != NULL && id->tmp_x->type == '<'
+			&& id->tmp_x->state == G)
+		{
+			id->tmp_x = id->tmp_x->next;
+			ft_skip_spaces(&id->tmp_x);
+			final = ft_skip_direction(&id->tmp_x, my_env, &id->is_amb, 0);
+			ft_add_redir(&(id->tmp_cmd->doc), ft_new_redir(final, '<', id->is_amb));
+		}
+		else if (id->tmp_x != NULL && id->tmp_x->type == DREDIR_OUT
+			&& id->tmp_x->state == G)
+		{
+			id->tmp_x = id->tmp_x->next;
+			ft_skip_spaces(&id->tmp_x);
+			final = ft_skip_direction(&id->tmp_x, my_env, &id->is_amb, 0);
+			ft_add_redir(&(id->tmp_cmd->doc), ft_new_redir(final, DREDIR_OUT,
+					id->is_amb));
+		}
+		else if ((id->tmp_x != NULL && id->tmp_x->type == HERE_DOC
+				&& id->tmp_x->state == G))
+		{
+			while ((id->tmp_x != NULL && id->tmp_x->type == HERE_DOC
+					&& id->tmp_x->state == G))
+			{
+				id->tmp_x = id->tmp_x->next;
+				ft_skip_spaces(&id->tmp_x);
+				if (id->tmp_x != NULL && id->tmp_x->state == G
+					&& ((id->tmp_x->next != NULL && id->tmp_x->type == 32)
+						|| id->tmp_x->next == NULL))
+					id->is_expand = 1;
+				final = ft_skip_direction(&id->tmp_x, my_env, 0, 0);
+				ft_add_redir(&(id->tmp_cmd->doc), ft_new_redir(final, HERE_DOC,
+						0));
+				add_back_node_her(&(id->tmp_cmd->her), new_node_her(final, -1,
+						id->j, 0));
+				id->j++;
+			}
+		}
 	}
 	if (id->tmp_x != NULL)
 		id->tmp_x = id->tmp_x->next;
@@ -164,6 +195,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
 	t_pre	id;
 
 	id.is_expand = 0;
+	id.is_amb = 0;
 	id.j = 0;
 	id.i = 0;
 	id.tmp_cmd = *cmd;

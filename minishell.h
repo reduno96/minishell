@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 09:42:51 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:16:24 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int			ft_check_input(char str_input);
 t_state		ft_get_state(t_idx *var, char str_input);
 int			ft_condition(t_splitor *start);
 int redirection(t_splitor *start);
+int quotes(t_splitor *start);
 int ft_handler_syn_error(t_splitor **x);
 // int			ft_lexer(char *input, t_splitor **x);
 // ---------

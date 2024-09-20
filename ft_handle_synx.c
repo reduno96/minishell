@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 09:45:12 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:16:46 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int redirection (t_splitor *start)
 	return 0;
 }
 
-int quotes (t_splitor **start)
+int quotes (t_splitor *start)
 {
-	if((*start)->type == '\"' ||(*start)->type == '\'' )
+	if((start)->type == '\"' ||(start)->type == '\'' )
 		return 1;
 	return 0;
 }

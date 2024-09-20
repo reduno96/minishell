@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 07:51:55 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:52:14 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node, int *i,
 				&& (*tmp_x)->next->state == G)) && (((*tmp_x)->type == '\"'
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
 				&& (*tmp_x)->next->type == '\''))
-		&& ((*tmp_x)->next->next != NULL && ((*tmp_x)->next->next->type != 32 /*
-				|| (*tmp_x)->next->next->type == '$' */)))
+		&& ((*tmp_x)->next->next != NULL && ((*tmp_x)->next->next->type != 32
+				|| (*tmp_x)->next->next->type == '$')))
 	{
 		(*tmp_x) = (*tmp_x)->next;
 		(*tmp_x) = (*tmp_x)->next;
@@ -40,9 +40,6 @@ int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node, int *i,
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
 				&& (*tmp_x)->next->type == '\'')))
 	{
-
-
-
 		(*tmp_x) = (*tmp_x)->next;
 		(*tmp_x) = (*tmp_x)->next;
 		ft_join_arr(arr_join, ft_strdup(""));
@@ -138,7 +135,6 @@ void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x,
 	char	*join;
 
 	join = NULL;
-	// printf("in neuter|%s|\n", (*tmp_x)->in);
 	if (ft_ckeck_repeate_quote(arr_join, new_node, i, tmp_x))
 		return ;
 	if (ft_check_gene_quote(new_node, i, tmp_x, my_env, arr_join))
