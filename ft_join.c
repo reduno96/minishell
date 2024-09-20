@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 16:36:24 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/20 09:49:52 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,9 @@ char	**ft_word(t_splitor **tmp_x, t_envarment *my_env, int j,
 			s = ft_expand((*tmp_x)->in, &my_env);
 			ft_split_expand(arr_join, s, 0);
 		}
-		else
+		else /* if (!((*tmp_x)->state == G && redirection((tmp_x)))) */
 		{
+			// printf("%s\n", (*tmp_x)->in);
 			ft_join_arr(arr_join, (*tmp_x)->in);
 		}
 		(*tmp_x) = (*tmp_x)->next;

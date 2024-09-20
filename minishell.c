@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 16:34:01 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/20 09:46:33 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	handle_sig(int sig)
 
 void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment **my_env)
 {
+	(void) cmd;
+	(void) x;
 	if (x != NULL && my_env != NULL)
 	{
 		ft_command(&x, &cmd, *my_env);

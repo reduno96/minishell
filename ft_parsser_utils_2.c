@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 12:31:57 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/20 07:51:55 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,29 +159,8 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 	join = malloc(1 * sizeof(char *));
 	join[0] = NULL;
 	s = NULL;
-	while ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1
-				&& (*tmp_x)->type != '$'))
-			ft_skip_not_word(tmp_x, my_env);
 	while ((*tmp_x) != NULL && !((*tmp_x)->type == '|' && (*tmp_x)->state == G))
 	{
-		/* if ((*tmp_x) != NULL && (*tmp_x)->type == '$'
-	&& (*tmp_x)->state != S)
-	{
-		// while ((*tmp_x) != NULL && (*tmp_x)->type == '$')
-		// {
-			s = ft_expand((*tmp_x)->in, &my_env);
-			if (s == NULL)
-				(*tmp_x) = (*tmp_x)->next;
-			else
-			{
-				(*new_node)->arg[*i] = ft_strjoin((*new_node)->arg[*i], s);
-				(*tmp_x) = (*tmp_x)->next;
-			}
-	(*i)++;
-	(*new_node)->arg[*i] = NULL;
-	(*new_node)->next = NULL;
-	} */
-		// printf("in not pipe %s\n", (*tmp_x)->in);
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1
 				&& (*tmp_x)->type != '$'))
 			ft_skip_not_word(tmp_x, my_env);
@@ -189,9 +168,5 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 			ft_neuter_cmd(new_node, i, tmp_x, my_env, &join);
 		if ((*tmp_x) != NULL && ((*tmp_x)->type == ' ' && (*tmp_x)->state == G))
 			ft_skip_spaces(tmp_x);
-		// printf("====>%s\n", *join);
-		// if ((*tmp_x) != NULL)
-		// printf("fianl tmp |%s|\n", (*tmp_x)->in);
-		// printf("fianl|%s|\n", (*new_node)->arg[0]);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 14:49:39 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/20 09:44:43 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 	char	*s;
 	char	*final;
 	char	**str;
+
 	str = malloc(sizeof(char *));
 	str[0] = NULL;
 	final = NULL;
@@ -74,10 +75,9 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 		else if ((*tmp_x) != NULL && (*tmp_x)->state == G)
 		{
 			ft_word(tmp_x, my_env, her, &str);
-		final = str[0];
+			final = str[0];
 		}
 	}
-
 	return (final);
 }
 void	ft_skip_one_quote(t_splitor **tmp_x)
@@ -104,30 +104,33 @@ int	ft_fill_redirection(t_splitor **tmp_x, t_command *tmp_cmd,
 
 	final = NULL;
 	is_amb = 0;
-	if ((*tmp_x) != NULL && (*tmp_x)->type == '>' && (*tmp_x)->state == G)
+	if (redirection(*tmp_x))
 	{
-		(*tmp_x) = (*tmp_x)->next;
-		ft_skip_spaces(tmp_x);
-		final = ft_skip_direction(&(*tmp_x), my_env, &is_amb, 0);
-		ft_add_redir((&tmp_cmd->doc), ft_new_redir(final, '>', is_amb));
-		return (1);
-	}
-	else if ((*tmp_x) != NULL && (*tmp_x)->type == '<' && (*tmp_x)->state == G)
-	{
-		(*tmp_x) = (*tmp_x)->next;
-		ft_skip_spaces(tmp_x);
-		final = ft_skip_direction(tmp_x, my_env, &is_amb, 0);
-		ft_add_redir((&tmp_cmd->doc), ft_new_redir(final, '<', is_amb));
-		return (1);
-	}
-	else if ((*tmp_x) != NULL && (*tmp_x)->type == DREDIR_OUT
-		&& (*tmp_x)->state == G)
-	{
-		(*tmp_x) = (*tmp_x)->next;
-		ft_skip_spaces(tmp_x);
-		final = ft_skip_direction(tmp_x, my_env, &is_amb, 0);
-		ft_add_redir((&tmp_cmd->doc), ft_new_redir(final, DREDIR_OUT, is_amb));
-		return (1);
+		while ((*tmp_x) != NULL && (*tmp_x)->type == '>'
+			&& (*tmp_x)->state == G)
+		{
+			(*tmp_x) = (*tmp_x)->next;
+			ft_skip_spaces(tmp_x);
+			final = ft_skip_direction(&(*tmp_x), my_env, &is_amb, 0);
+			ft_add_redir((&tmp_cmd->doc), ft_new_redir(final, '>', is_amb));
+		}
+		while ((*tmp_x) != NULL && (*tmp_x)->type == '<'
+			&& (*tmp_x)->state == G)
+		{
+			(*tmp_x) = (*tmp_x)->next;
+			ft_skip_spaces(tmp_x);
+			final = ft_skip_direction(tmp_x, my_env, &is_amb, 0);
+			ft_add_redir((&tmp_cmd->doc), ft_new_redir(final, '<', is_amb));
+		}
+		while ((*tmp_x) != NULL && (*tmp_x)->type == DREDIR_OUT
+			&& (*tmp_x)->state == G)
+		{
+			(*tmp_x) = (*tmp_x)->next;
+			ft_skip_spaces(tmp_x);
+			final = ft_skip_direction(tmp_x, my_env, &is_amb, 0);
+			ft_add_redir((&tmp_cmd->doc), ft_new_redir(final, DREDIR_OUT,
+					is_amb));
+		}
 	}
 	return (0);
 }
