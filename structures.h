@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 12:35:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:40:18 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct s_command
 	char				**arg;
 	t_redirect			*doc;
 	t_here_doc			*her;
-	char				**store_her;
 	char				**ar_env;
 	int					is_amb;
 	int					is_exp;
@@ -125,7 +124,7 @@ typedef struct s_pre
 	t_splitor	*tmp_x;
 }						t_pre;
 
-typedef struct pipe
+typedef struct s_pipe
 {
 	int			num_cmd;
 	int			**pipefd;
@@ -135,4 +134,13 @@ typedef struct pipe
 	int			i;
 	char		*ptr;
 }		t_pipe;
+
+typedef struct s_ps
+{
+	int		len_of_arg;
+	int		len_of_join;
+	char	**new_arg;
+	int		idx;
+	int		j;
+}	t_ps;
 #endif

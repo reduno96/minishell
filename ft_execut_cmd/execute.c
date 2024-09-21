@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 17:04:30 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:48:36 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ft_exute(t_envarment **var, t_command *cmd)
 	int			pid;
 
 	list = cmd;
-	list->ar_env = NULL;
+
 	list->ar_env = array_env(var);
 	if (run_herdoc_built(var, cmd) == 1)
 	{

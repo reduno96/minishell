@@ -6,13 +6,15 @@ SRC= minishell.c \
 	ft_nodes_env.c \
 	ft_free.c \
 	ft_parsser.c\
-	ft_count_parameter.c \
 	ft_parsser_utils_2.c \
 	ft_parsser_utils.c \
 	ft_direction.c \
 	ft_direction_utils.c \
+	skip_redirection.c \
 	ft_skip.c \
 	ft_join.c \
+	ft_join_general.c \
+	utils.c \
 	ft_execut_cmd/execute.c ft_execut_cmd/functions.c ft_execut_cmd/ft_cd.c   ft_execut_cmd/ft_pwd.c \
     ft_execut_cmd/ft_export.c ft_execut_cmd/ft_env.c    ft_execut_cmd/ft_unset.c ft_execut_cmd/ft_echo.c  ft_execut_cmd/redirectons.c ft_execut_cmd/execut_pipe.c \
 	ft_execut_cmd/execut_pipe_1.c ft_execut_cmd/funct_redir.c ft_execut_cmd/ft_exit.c   ft_execut_cmd/ft_herdoc.c ft_execut_cmd/utilis_herdoc.c  ft_execut_cmd/envarement.c\
