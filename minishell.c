@@ -6,16 +6,17 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 10:21:29 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:56:25 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* void	ok(void)
+void	ok(void)
 {
 	system("leaks minishell");
-} */
+}
+
 void	handle_sig(int sig)
 {
 	if (sig == SIGINT)
@@ -80,6 +81,7 @@ int	main(int ac, char **av, char **env)
 	t_envarment	*my_env;
 	t_command	*cmd;
 
+	// atexit (ok);
 	signal(SIGINT, handle_sig);
 	signal(SIGQUIT, handle_sig);
 	(void)ac;

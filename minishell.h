@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 12:16:24 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/21 19:55:15 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,12 @@ char		*ft_expand(char *arg, t_envarment **my_env);
 void		ft_count_parameters(t_splitor *tmp_x, int *count);
 void		ft_command(t_splitor **x, t_command **cmd, t_envarment *env);
 void		ft_add_command(t_command **lst, t_command *new);
-t_command	*ft_new_command(int count, t_splitor **tmp_x, t_envarment *env);
+t_command	*ft_new_command( t_splitor **tmp_x, t_envarment *env);
 t_command	*ft_last_command(t_command *lst);
+void ft_free_argment(char **arg);
 char **ft_join_arg(char **arg, char **join);
 // ---------
-void		ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
+void		ft_not_pipe(t_command **new_node, t_splitor **tmp_x,
 				t_envarment *my_env);
 
 void		ft_skip_spaces(t_splitor **tmp_x);
@@ -106,10 +107,10 @@ void		ft_skip_general(t_splitor **tmp_x, int *i, t_command **new_node,
 
 // ---------
 void		ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env);
-void		ft_fill_her(t_command **new_node);
-void		ft_check_doc(t_command **new_node);
 t_redirect	*ft_new_redir(void *content, t_token type, int is_amb);
 void		ft_add_redir(t_redirect **lst, t_redirect *new);
+char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
+		int her);
 t_redirect	*ft_last_redir(t_redirect *lst);
 
 void	ft_join_arr(char ***arr_join, char *in);

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 14:59:02 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/21 13:13:50 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_expand(char *arg, t_envarment **my_env)
 				return (s = ft_strdup("$"), s);
 			if (arg[i] == '\"' || arg[i] == '\'')
 				return (s = ft_strdup("$"), s);
-			if (!ft_isalnum(arg[i]))
+			if (!ft_isalnum(arg[i]) || ft_isdigit(arg[i]))
 				return (s);
 			ft_go_to_env(&s, arg, &i, my_env);
 		}

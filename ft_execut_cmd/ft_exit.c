@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 23:39:14 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 15:24:50 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/21 20:42:14 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-
 #include "../minishell.h"
-
-int	ft_len_arg(char **arg)
-{
-	int	i;
-	if(arg == NULL || arg[0] == NULL)	
-		return 0;
-	i = 0;
-	while (arg[i] != NULL)	
-	{
-		i++;	
-	}
-	return (i);
-}
 
 int	is_number(char *arg)
 {
@@ -57,12 +41,8 @@ int	is_number(char *arg)
 
 void	ft_free_when_exit(t_envarment **var, char *str, int fd, t_command *cmd)
 {
-	(void)cmd;
-	(void)var;
-	(void)str;
-	(void)cmd;
 	ft_putstr_fd(str, fd);
-	ft_free_command(&cmd);
+	// ft_free_command(&cmd);
 	ft_free_env(var);
 }
 
@@ -79,7 +59,7 @@ void	ft_exit_comp(int len, char *ptr)
 		g_exit_status = 156;
 		ft_putstr_fd("exit\n", 1);
 		ft_putstr_fd(" numeric argument required\n", 2);
-		exit(255);
+		exit(156);
 	}
 	else if (len > 2)
 	{
