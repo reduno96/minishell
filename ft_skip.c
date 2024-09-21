@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:29:09 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/19 14:47:15 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:47:14 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,6 @@ void	ft_skip_spaces_in_count(t_splitor **tmp_x)
 	while ((*tmp_x) != NULL && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 		(*tmp_x) = (*tmp_x)->next;
-}
-
-void	ft_skip_quote(t_splitor **tmp_x, int *i, t_command **new_node)
-{
-	(*tmp_x) = (*tmp_x)->next;
-	if (((*tmp_x) != NULL && (*tmp_x)->state == G) && ((*tmp_x)->type == '\"'
-			|| (*tmp_x)->type == '\''))
-	{
-		(*i)++;
-		(*new_node)->arg[*i] = ft_strdup("");
-		(*new_node)->next = NULL;
-	}
 }
 
 void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)

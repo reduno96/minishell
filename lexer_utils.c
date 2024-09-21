@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 13:23:44 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/17 08:02:18 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:53:49 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_isspace(char c)
 
 t_token	ft_get_token(char str_input)
 {
-	if (str_input == ' ')
+	if (str_input == ' ' || str_input == '\t' || str_input == '\n')
 		return (WHITE_SPACE);
 	else if (str_input == '\n')
 		return (NEW_LINE);

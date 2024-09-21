@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 09:48:41 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:26:38 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ t_state	ft_get_state(t_idx *var, char s)
 	else if (var->in_s == -1 && ft_isprint(s) && var->in_d == -1 && s != '\"')
 		return (G);
 	return (3);
+}
+
+void	ft_get_word(char *s, t_idx *var, t_splitor **x)
+{
+	int	i;
+
+	i = 0;
+	while (s[var->i] && !ft_check_input(s[var->i]))
+	{
+		var->state = ft_get_state(var, s[var->i]);
+		var->i++;
+		var->len++;
+		i++;
+	}
+	ft_add(x, ft_lstnew(ft_substr(s, var->start, var->len), var->len, WORD,
+			var->state));
 }
 
 int	ft_lexer(char *s, t_splitor **x)
