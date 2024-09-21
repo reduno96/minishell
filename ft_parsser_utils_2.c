@@ -6,25 +6,15 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/20 14:52:14 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:49:27 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_condition_2(t_splitor *tmp_x)
-{
-	if ((tmp_x->type == ' ' || tmp_x->type == HERE_DOC || tmp_x->type == '<'
-			|| tmp_x->type == '>' || tmp_x->type == DREDIR_OUT
-			|| tmp_x->type == '\'' || tmp_x->type == '\"'))
-		return (1);
-	return (0);
-}
-
-int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node, int *i,
+int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node,
 		t_splitor **tmp_x)
 {
-	(void) (i);
 	while (((*tmp_x) != NULL && (*tmp_x)->next != NULL && ((*tmp_x)->state == G
 				&& (*tmp_x)->next->state == G)) && (((*tmp_x)->type == '\"'
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
@@ -44,73 +34,45 @@ int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node, int *i,
 		(*tmp_x) = (*tmp_x)->next;
 		ft_join_arr(arr_join, ft_strdup(""));
 		if ((*arr_join)[0] != NULL)
-			(*new_node)->arg = ft_join_arg((*new_node)->arg,  (*arr_join));
+			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
 		(*new_node)->next = NULL;
 		return (1);
 	}
 	return (0);
 }
 
-// int	ft_len_arg(char **arg)
-// {
-// 	int	i;
-// 	i = 0;
-// 	while (arg[i] != NULL)
-// 		i++;
-// 	return (i);
-// }
-
-void	ft_free_argment(char **arg)
+char	**ft_join_arg(char **arg, char **join)
 {
-	int	i;
+	t_ps	ps;
 
-	i = 0;
-	while (arg[i] != NULL)
+	ps.idx = 0;
+	ps.j = 0;
+	ps.len_of_arg = ft_len_arg(arg);
+	ps.len_of_join = ft_len_arg(join);
+	ps.new_arg = malloc(((ps.len_of_arg + ps.len_of_join) + 1)
+			* sizeof(char *));
+	while (arg[ps.idx] != NULL)
 	{
-		free(arg[i]);
-		arg[i] = NULL;
-		i++;
+		ps.new_arg[ps.j] = ft_strdup(arg[ps.idx]);
+		ps.j++;
+		ps.idx++;
 	}
-}
-char **	ft_join_arg(char **arg, char **join)
-{
-	int		len_of_arg;
-	int		len_of_join;
-	char	**new_arg;
-	int		idx;
-	int		j;
-
-	idx = 0;
-	j = 0;
-	len_of_arg = ft_len_arg(arg);
-	// printf("%d\n", len_of_arg);
-	len_of_join = ft_len_arg(join);
-	// printf("%d\n", len_of_join);
-	new_arg = malloc(((len_of_arg + len_of_join) + 1) * sizeof(char *));
-	while (arg[idx] != NULL)
+	ps.idx = 0;
+	while (join[ps.idx])
 	{
-	// printf("begin function ft_join_arg\n");
-		new_arg[j] = ft_strdup(arg[idx]);
-		j++;
-		idx++;
+		ps.new_arg[ps.j] = ft_strdup(join[ps.idx]);
+		ps.idx++;
+		ps.j++;
 	}
-	idx = 0;
-	while (join[idx])
-	{
-		new_arg[j] =ft_strdup(join[idx]) ;
-		idx++;
-		j++;
-	}
-	new_arg[j] = NULL;
+	ps.new_arg[ps.j] = NULL;
 	ft_free_argment(arg);
 	ft_free_argment(join);
-	return new_arg;
-
+	return (ps.new_arg);
 }
-int	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
+
+int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 		t_envarment *my_env, char ***arr_join)
 {
-	(void)i;
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 		&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
 	{
@@ -121,32 +83,29 @@ int	ft_check_gene_quote(t_command **new_node, int *i, t_splitor **tmp_x,
 	}
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
 	{
-		 ft_double_and_sigle(tmp_x, my_env, 1, arr_join);
+		ft_double_and_sigle(tmp_x, my_env, 1, arr_join);
 		if ((*arr_join)[0] != NULL)
-			(*new_node)->arg = ft_join_arg((*new_node)->arg,  (*arr_join));
+			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
 		return (1);
 	}
 	return (0);
 }
 
-void	ft_neuter_cmd(t_command **new_node, int *i, t_splitor **tmp_x,
+void	ft_neuter_cmd(t_command **new_node, t_splitor **tmp_x,
 		t_envarment *my_env, char ***arr_join)
 {
 	char	*join;
 
 	join = NULL;
-	if (ft_ckeck_repeate_quote(arr_join, new_node, i, tmp_x))
+	if (ft_ckeck_repeate_quote(arr_join, new_node, tmp_x))
 		return ;
-	if (ft_check_gene_quote(new_node, i, tmp_x, my_env, arr_join))
+	if (ft_check_gene_quote(new_node, tmp_x, my_env, arr_join))
 		return ;
-	if (((*tmp_x) != NULL && (*tmp_x)->state == G) && ((*tmp_x)->type == '\"'
-			|| (*tmp_x)->type == '\''))
-		ft_skip_quote(tmp_x, i, new_node);
 	else if ((*tmp_x) != NULL && (*tmp_x)->type != '|')
 		(*tmp_x) = (*tmp_x)->next;
 }
 
-void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
+void	ft_not_pipe(t_command **new_node, t_splitor **tmp_x,
 		t_envarment *my_env)
 {
 	char	*s;
@@ -161,7 +120,7 @@ void	ft_not_pipe(t_command **new_node, int *i, t_splitor **tmp_x,
 				&& (*tmp_x)->type != '$'))
 			ft_skip_not_word(tmp_x, my_env);
 		if ((*tmp_x) != NULL && !((*tmp_x)->type == 32 && (*tmp_x)->state == G))
-			ft_neuter_cmd(new_node, i, tmp_x, my_env, &join);
+			ft_neuter_cmd(new_node, tmp_x, my_env, &join);
 		if ((*tmp_x) != NULL && ((*tmp_x)->type == ' ' && (*tmp_x)->state == G))
 			ft_skip_spaces(tmp_x);
 	}
