@@ -52,6 +52,8 @@ void	ft_free_argment(char **arg)
 	int	i;
 
 	i = 0;
+	if (arg == NULL)
+	return ;
 	while (arg[i] != NULL)
 	{
 	printf("____i'm here in free arg\n");
@@ -99,17 +101,16 @@ void free_command(t_command *cmd)
 {
     if (cmd)
     {
-		printf("i'm here \n");
         if (cmd->arg)
         {
-			free(cmd->content);
             for (int i = 0; cmd->arg[i]; i++)
             {
                 free(cmd->arg[i]);
+				cmd->arg[i] = NULL;
             }
             free(cmd->arg);
+			cmd->arg = NULL;
         }
-        free(cmd);
     }
 }
 
@@ -123,7 +124,8 @@ void	ft_free_command(t_command **cmd)
 	tmp_cmd = *cmd;
 	while(tmp_cmd)
     {
-        free_command(tmp_cmd);
+		printf("___________\n");
+        free_args(tmp_cmd->arg);
 		if (tmp_cmd->doc)
 			ft_free_doc(&tmp_cmd->doc);
 		free(tmp_cmd);

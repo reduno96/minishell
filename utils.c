@@ -15,9 +15,9 @@
 int	ft_len_arg(char **arg)
 {
 	int	i;
+	i = 0;
 	if(arg == NULL || arg[0] == NULL)
 		return 0;
-	i = 0;
 	while (arg[i] != NULL)
 	{
 		i++;

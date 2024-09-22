@@ -105,7 +105,9 @@ void	ft_neuter_cmd(t_command **new_node, t_splitor **tmp_x,
 	if (ft_ckeck_repeate_quote(arr_join, new_node, tmp_x))
 		return ;
 	if (ft_check_gene_quote(new_node, tmp_x, my_env, arr_join))
-		return ;
+		{
+
+			return ;}
 	else if ((*tmp_x) != NULL && (*tmp_x)->type != '|')
 		(*tmp_x) = (*tmp_x)->next;
 }
@@ -115,8 +117,8 @@ void	ft_not_pipe(t_command **new_node, t_splitor **tmp_x,
 {
 	char	**join;
 
-	join = malloc(1 * sizeof(char *));
-	join[0] = NULL;
+	// join = malloc(sizeof(char *));
+	// join[0] = NULL;
 	while ((*tmp_x) != NULL && !((*tmp_x)->type == '|' && (*tmp_x)->state == G))
 	{
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1
@@ -127,4 +129,5 @@ void	ft_not_pipe(t_command **new_node, t_splitor **tmp_x,
 		if ((*tmp_x) != NULL && ((*tmp_x)->type == ' ' && (*tmp_x)->state == G))
 			ft_skip_spaces(tmp_x);
 	}
+
 }

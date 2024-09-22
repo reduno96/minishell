@@ -75,7 +75,7 @@ void	ft_reader(t_splitor *x, t_command **cmd, t_envarment **my_env)
 		ft_free_command(cmd);
 		cmd = NULL;
 		x = NULL;
-		// free(str_input);
+		free(str_input);
 	// system("leaks minishell");
 
 	}
