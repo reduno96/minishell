@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:53:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 15:12:37 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 18:58:50 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ char	*ft_fill_final(char **s)
 	while (s[i] != NULL)
 	{
 		final = ft_strjoin(final, s[i]);
+		printf("_final_________%p\n", final);
+		printf("s[i]%p\n", s[i]);
+
 		final = ft_strjoin(final, " ");
+		printf("______final____%p\n", final);
 		i++;
 	}
 	ft_free_argment(s);
