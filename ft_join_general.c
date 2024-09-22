@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:16:53 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/21 17:20:14 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 17:41:50 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	ft_join_double_2(char ***arr_join, t_splitor **tmp_x,
 			else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
 			{
 				s = ft_expand((*tmp_x)->in, &my_env);
-				ft_join_arr(arr_join, s);
+				ft_join_arr(arr_join, s, 0);
 			}
 		}
 		else if ((*tmp_x) != NULL)
-			ft_join_arr(arr_join, (*tmp_x)->in);
+			ft_join_arr(arr_join, (*tmp_x)->in, 0);
 		(*tmp_x) = (*tmp_x)->next;
 	}
 }
@@ -57,13 +57,13 @@ void	ft_join_word_2(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			ft_join_arr(arr_join, s);
+			ft_join_arr(arr_join, s, 0);
 		}
 	}
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type == -1))
-		ft_join_arr(arr_join, (*tmp_x)->in);
+		ft_join_arr(arr_join, (*tmp_x)->in, 0);
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
-		ft_join_arr(arr_join, (*tmp_x)->in);
+		ft_join_arr(arr_join, (*tmp_x)->in, 0);
 	if ((*tmp_x) != NULL && (*tmp_x)->type != ' ')
 		(*tmp_x) = (*tmp_x)->next;
 }
@@ -104,7 +104,7 @@ char	**ft_word(t_splitor **tmp_x, t_envarment *my_env, int j,
 			ft_split_expand(arr_join, s, 0);
 		}
 		else
-			ft_join_arr(arr_join, (*tmp_x)->in);
+			ft_join_arr(arr_join, (*tmp_x)->in, 0);
 		(*tmp_x) = (*tmp_x)->next;
 		ft_join_words(arr_join, tmp_x, my_env, j);
 	}

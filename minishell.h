@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/21 19:55:15 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 17:42:26 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 		int her);
 t_redirect	*ft_last_redir(t_redirect *lst);
 
-void	ft_join_arr(char ***arr_join, char *in);
+void	ft_join_arr(char ***arr_join, char *in, int h);
 int	ft_len_arg(char **arg);
 char	**ft_split_expand(char ***join, char *s,  int bo);
 

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 16:47:08 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/21 17:18:29 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 17:47:46 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,20 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 		return (0);
 	expand_split = ft_split(s, ' ');
 	if (ft_len_arg(expand_split) == 1)
-		ft_join_arr(arr_join, expand_split[0]);
+		ft_join_arr(arr_join, expand_split[0], 0);
 	else
 		*arr_join = ft_join_arg(*arr_join, expand_split);
 	return (*arr_join);
 }
 
-void	ft_join_arr(char ***arr_join, char *in)
+void	ft_join_arr(char ***arr_join, char *in, int h)
 {
 	int	len_of_arr;
 
 	len_of_arr = ft_len_arg(*arr_join);
-	if (len_of_arr == 0)
+	if (h == 1)
+		(*arr_join)[0] = ft_strdup(in);
+	else if (len_of_arr == 0)
 	{
 		*arr_join = NULL;
 		*arr_join = malloc((1 + 1) * sizeof(char *));
