@@ -52,23 +52,29 @@ char	**ft_join_arg(char **arg, char **join)
 	ps.len_of_join = ft_len_arg(join);
 	ps.new_arg = malloc(((ps.len_of_arg + ps.len_of_join) + 1)
 			* sizeof(char *));
+	printf("%d\n",(ps.len_of_arg + ps.len_of_join) + 1 );
 	ps.new_arg[0] = NULL;
 	while (arg[ps.idx] != NULL)
 	{
-		ps.new_arg[ps.j] =  arg[ps.idx];
+		ps.new_arg[ps.j] =  ft_strdup(arg[ps.idx]);
 		ps.j++;
 		ps.idx++;
 	}
 	ps.idx = 0;
 	while (join[ps.idx])
 	{
-		ps.new_arg[ps.j] =  join[ps.idx];
+
+		ps.new_arg[ps.j] = ft_strdup(join[ps.idx]);
+
 		ps.idx++;
 		ps.j++;
 	}
 	ps.new_arg[ps.j] = NULL;
 	ft_free_argment(arg);
 	ft_free_argment(join);
+	int i = 0;
+	while(ps.new_arg[i] != NULL)
+		printf("_____%s\n", ps.new_arg[i++]);
 	return (ps.new_arg);
 }
 
