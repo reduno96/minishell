@@ -55,14 +55,14 @@ char	**ft_join_arg(char **arg, char **join)
 	ps.new_arg[0] = NULL;
 	while (arg[ps.idx] != NULL)
 	{
-		ps.new_arg[ps.j] =ft_strjoin(ps.new_arg[ps.j], arg[ps.idx]);
+		ps.new_arg[ps.j] =  arg[ps.idx];
 		ps.j++;
 		ps.idx++;
 	}
 	ps.idx = 0;
 	while (join[ps.idx])
 	{
-		ps.new_arg[ps.j] = ft_strjoin(ps.new_arg[ps.j], join[ps.idx]);
+		ps.new_arg[ps.j] =  join[ps.idx];
 		ps.idx++;
 		ps.j++;
 	}

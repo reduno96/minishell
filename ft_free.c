@@ -54,6 +54,7 @@ void	ft_free_argment(char **arg)
 	i = 0;
 	while (arg[i] != NULL)
 	{
+	printf("____i'm here in free arg\n");
 		free(arg[i]);
 		arg[i] = NULL;
 		i++;
