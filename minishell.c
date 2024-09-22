@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/21 13:56:25 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 12:36:30 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,32 @@ void	handle_sig(int sig)
 	}
 }
 
-void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment **my_env)
+void	ft_initialize(t_splitor *x, t_command **cmd, t_envarment **my_env)
 {
 	(void) cmd;
 	(void) x;
 	if (x != NULL && my_env != NULL)
 	{
-		ft_command(&x, &cmd, *my_env);
+		ft_command(&x, cmd, *my_env);
+
 		// ft_exute(my_env, cmd);
 	}
 	ft_free_lexer(&x);
+
 }
 
-void	ft_free_when_exit_1(t_splitor *x, t_command *cmd, t_envarment **my_env)
+void	ft_free_when_exit_1(t_splitor *x, t_command **cmd, t_envarment **my_env)
 {
 	printf("exit\n");
 	printf("i'm in function free when exit\n");
-	ft_free_command(&cmd);
+
+	ft_free_command(cmd);
 	ft_free_lexer(&x);
 	ft_free_env(my_env);
 	exit(g_exit_status);
 }
 
-void	ft_reader(t_splitor *x, t_command *cmd, t_envarment **my_env)
+void	ft_reader(t_splitor *x, t_command **cmd, t_envarment **my_env)
 {
 	char	*str_input;
 
@@ -69,10 +72,12 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_envarment **my_env)
 		}
 		else
 			ft_initialize(x, cmd, my_env);
-		ft_free_command(&cmd);
+		ft_free_command(cmd);
 		cmd = NULL;
 		x = NULL;
-		free(str_input);
+		// free(str_input);
+	// system("leaks minishell");
+
 	}
 }
 
@@ -82,7 +87,7 @@ int	main(int ac, char **av, char **env)
 	t_envarment	*my_env;
 	t_command	*cmd;
 
-	// atexit (ok);
+	atexit (ok);
 	signal(SIGINT, handle_sig);
 	signal(SIGQUIT, handle_sig);
 	(void)ac;
@@ -92,7 +97,7 @@ int	main(int ac, char **av, char **env)
 	using_history();
 	x = NULL;
 	cmd = NULL;
-	ft_reader(x, cmd, &my_env);
+	ft_reader(x, &cmd, &my_env);
 	ft_free_env(&my_env);
 	return (g_exit_status);
 }

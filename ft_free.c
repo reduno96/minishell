@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/21 15:42:45 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 12:37:56 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ void	ft_free_command(t_command **cmd)
 	t_command *tmp_cmd;
 
 	printf("i'm here in ft_free_cmd\n");
+	if (cmd == NULL || *cmd == NULL)
+		return ;
 	tmp_cmd = *cmd;
 	while(tmp_cmd)
     {
