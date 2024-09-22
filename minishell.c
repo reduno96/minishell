@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 12:36:30 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:34:49 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_reader(t_splitor *x, t_command **cmd, t_envarment **my_env)
 		cmd = NULL;
 		x = NULL;
 		free(str_input);
-	system("leaks minishell");
+	// system("leaks minishell");
 
 	}
 }
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **env)
 	t_envarment	*my_env;
 	t_command	*cmd;
 
-	// atexit (ok);
+	atexit (ok);
 	signal(SIGINT, handle_sig);
 	signal(SIGQUIT, handle_sig);
 	(void)ac;

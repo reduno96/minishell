@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 15:24:03 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:32:52 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_free_lexer(t_splitor **x)
 			free(tmp->in);
 			tmp->in = NULL;
 		}
-
 		free(tmp);
 		tmp = NULL;
 	}
@@ -53,7 +52,7 @@ void	ft_free_argment(char **arg)
 
 	i = 0;
 	if (arg == NULL)
-	return ;
+		return ;
 	while (arg[i] != NULL)
 	{
 		free(arg[i]);
@@ -107,56 +106,56 @@ void	ft_free_her(t_here_doc **her)
 
 void	ft_free_env(t_envarment **my_env)
 {
-    t_envarment	*tmp;
+	t_envarment	*tmp;
 
-    while (*my_env) {
-        tmp = *my_env;
-        *my_env = (*my_env)->next;
-        free(tmp->data);
+	while (*my_env)
+	{
+		tmp = *my_env;
+		*my_env = (*my_env)->next;
+		free(tmp->data);
 		tmp->data = NULL;
-        free(tmp->var);
+		free(tmp->var);
 		tmp->var = NULL;
-        free(tmp);
-    }
+		free(tmp);
+	}
 }
 
-void free_command(t_command *cmd)
+void	free_command(t_command *cmd)
 {
-    if (cmd)
-    {
-        if (cmd->arg)
-        {
-            for (int i = 0; cmd->arg[i]; i++)
-            {
-                free(cmd->arg[i]);
+	if (cmd)
+	{
+		if (cmd->arg)
+		{
+			for (int i = 0; cmd->arg[i]; i++)
+			{
+				free(cmd->arg[i]);
 				cmd->arg[i] = NULL;
-            }
-            free(cmd->arg);
+			}
+			free(cmd->arg);
 			cmd->arg = NULL;
-        }
-    }
+		}
+	}
 }
 
 void	ft_free_command(t_command **cmd)
 {
-	t_command *tmp_cmd;
+	t_command	*tmp_cmd;
+	t_command	*next_cmd;
 
 	printf("i'm here in ft_free_cmd\n");
 	if (cmd == NULL || *cmd == NULL)
 		return ;
 	tmp_cmd = *cmd;
-	while(tmp_cmd)
-    {
+	while (tmp_cmd)
+	{
 		printf("___________\n");
-        free_args(tmp_cmd->arg);
+		free_args(tmp_cmd->arg);
 		if (tmp_cmd->doc)
 			ft_free_doc(&tmp_cmd->doc);
 		if (tmp_cmd->her)
 			ft_free_her(&tmp_cmd->her);
+		next_cmd = tmp_cmd->next;
 		free(tmp_cmd);
-		tmp_cmd = NULL;
-		if (tmp_cmd != NULL)
-			tmp_cmd =tmp_cmd->next;
-    }
+		tmp_cmd = next_cmd;
+	}
 }
-
