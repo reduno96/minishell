@@ -47,6 +47,7 @@ void	ft_join_arr(char ***arr_join, char *in)
 	len_of_arr = ft_len_arg(*arr_join);
 	if (len_of_arr == 0)
 	{
+		*arr_join = NULL;
 		*arr_join = malloc((1 + 1) * sizeof(char *));
 		(*arr_join)[0] = ft_strdup(in);
 		(*arr_join)[1] = NULL;

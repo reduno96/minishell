@@ -45,7 +45,6 @@ char	**ft_join_arg(char **arg, char **join)
 {
 	t_ps	ps;
 
-
 	ps.idx = 0;
 	ps.j = 0;
 	ps.len_of_arg = ft_len_arg(arg);
@@ -72,9 +71,6 @@ char	**ft_join_arg(char **arg, char **join)
 	ps.new_arg[ps.j] = NULL;
 	ft_free_argment(arg);
 	ft_free_argment(join);
-	int i = 0;
-	while(ps.new_arg[i] != NULL)
-		printf("_____%s\n", ps.new_arg[i++]);
 	return (ps.new_arg);
 }
 

@@ -76,7 +76,7 @@ void	ft_reader(t_splitor *x, t_command **cmd, t_envarment **my_env)
 		cmd = NULL;
 		x = NULL;
 		free(str_input);
-	// system("leaks minishell");
+	system("leaks minishell");
 
 	}
 }
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **env)
 	t_envarment	*my_env;
 	t_command	*cmd;
 
-	atexit (ok);
+	// atexit (ok);
 	signal(SIGINT, handle_sig);
 	signal(SIGQUIT, handle_sig);
 	(void)ac;

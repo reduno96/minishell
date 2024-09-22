@@ -15,9 +15,9 @@
 void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 {
 	t_splitor	*tmp_x;
-	t_command **tmp_cmd;
+	// t_command **tmp_cmd;
 
-	tmp_cmd = cmd;
+	// tmp_cmd = cmd;
 
 	tmp_x = *x;
 	while (tmp_x != NULL)

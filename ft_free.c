@@ -56,7 +56,6 @@ void	ft_free_argment(char **arg)
 	return ;
 	while (arg[i] != NULL)
 	{
-	printf("____i'm here in free arg\n");
 		free(arg[i]);
 		arg[i] = NULL;
 		i++;
@@ -113,9 +112,10 @@ void	ft_free_env(t_envarment **my_env)
     while (*my_env) {
         tmp = *my_env;
         *my_env = (*my_env)->next;
-		// printf("............       %s\n", tmp->var);
         free(tmp->data);
+		tmp->data = NULL;
         free(tmp->var);
+		tmp->var = NULL;
         free(tmp);
     }
 }
