@@ -34,7 +34,11 @@ int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node,
 		(*tmp_x) = (*tmp_x)->next;
 		ft_join_arr(arr_join, "");
 		if ((*arr_join)[0] != NULL)
-			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
+			{
+				(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
+				ft_free_argment(*arr_join);
+				}
+
 		(*new_node)->next = NULL;
 		return (1);
 	}
@@ -70,7 +74,7 @@ char	**ft_join_arg(char **arg, char **join)
 	}
 	ps.new_arg[ps.j] = NULL;
 	ft_free_argment(arg);
-	ft_free_argment(join);
+	// ft_free_argment(join);
 	return (ps.new_arg);
 }
 
@@ -82,14 +86,20 @@ int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 	{
 		ft_word(tmp_x, my_env, 1, arr_join);
 		if ((*arr_join)[0] != NULL)
+		{
 			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
+			ft_free_argment(*arr_join);
+		}
 		return (1);
 	}
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
 	{
 		ft_double_and_sigle(tmp_x, my_env, 1, arr_join);
 		if ((*arr_join)[0] != NULL)
+		{
 			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
+			ft_free_argment(*arr_join);
+		}
 		return (1);
 	}
 	return (0);
