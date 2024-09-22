@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:53:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/21 20:29:15 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 15:12:37 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	*ft_fill_final(char **s)
 		final = ft_strjoin(final, " ");
 		i++;
 	}
+	ft_free_argment(s);
 	return (final);
 }
 
@@ -37,7 +38,7 @@ int	ft_check_ambiguous(t_splitor *tmp_x, t_envarment *my_env)
 	while ((tmp_x) != NULL && (tmp_x)->state == G && !redirection(tmp_x)
 		&& tmp_x->type != ' ')
 	{
-		if (tmp_x->type == '$' && tmp_x->state == G)
+		if ((tmp_x) != NULL && tmp_x->type == '$' && tmp_x->state == G)
 		{
 			s = ft_expand(tmp_x->in, &my_env);
 			if (s == NULL)
@@ -46,8 +47,10 @@ int	ft_check_ambiguous(t_splitor *tmp_x, t_envarment *my_env)
 			if (ft_len_arg(str) > 1)
 				return (1);
 		}
-		tmp_x = tmp_x->next;
+		if ((tmp_x) != NULL)
+			tmp_x = tmp_x->next;
 	}
+
 	return (0);
 }
 

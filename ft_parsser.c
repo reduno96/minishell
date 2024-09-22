@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 12:18:30 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 15:15:24 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 
 	tmp_x = *x;
 	while (tmp_x != NULL)
-		ft_add_command(tmp_cmd, ft_new_command( &tmp_x, my_env));
-	ft_fill_red(tmp_cmd, x, my_env);
-	if (*cmd == NULL)
-		while(1);
+		ft_add_command(cmd, ft_new_command( &tmp_x, my_env));
+
+	ft_fill_red(cmd, x, my_env);
 	// ft_fill_her(cmd);
 	/* 	int			i;
 	t_command	*tmp_cmd;

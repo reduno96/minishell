@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 12:09:23 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 13:52:31 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,7 @@ void	ft_neuter_cmd(t_command **new_node, t_splitor **tmp_x,
 	if (ft_ckeck_repeate_quote(arr_join, new_node, tmp_x))
 		return ;
 	if (ft_check_gene_quote(new_node, tmp_x, my_env, arr_join))
-		{
-
-			return ;}
+			return ;
 	else if ((*tmp_x) != NULL && (*tmp_x)->type != '|')
 		(*tmp_x) = (*tmp_x)->next;
 }
@@ -117,8 +115,8 @@ void	ft_not_pipe(t_command **new_node, t_splitor **tmp_x,
 {
 	char	**join;
 
-	// join = malloc(sizeof(char *));
-	// join[0] = NULL;
+	join = NULL;
+
 	while ((*tmp_x) != NULL && !((*tmp_x)->type == '|' && (*tmp_x)->state == G))
 	{
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1
