@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 21:25:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 17:42:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:18:06 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ t_command	*ft_new_command( t_splitor **tmp_x, t_envarment *my_env)
 	}
 	else if ((*tmp_x) != NULL)
 		ft_not_pipe(&new_node,  tmp_x, my_env);
-
 	new_node->content = new_node->arg[0];
 	new_node->next = NULL;
-	if(new_node == NULL)
-		while(1) ;
 	return (new_node);
 }

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 16:34:57 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:17:48 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 {
 	t_splitor	*tmp_x;
-	// t_command **tmp_cmd;
-
-	// tmp_cmd = cmd;
 
 	tmp_x = *x;
 	while (tmp_x != NULL)

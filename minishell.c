@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 16:34:49 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:15:40 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	ft_initialize(t_splitor *x, t_command **cmd, t_envarment **my_env)
 void	ft_free_when_exit_1(t_splitor *x, t_command **cmd, t_envarment **my_env)
 {
 	printf("exit\n");
-	printf("i'm in function free when exit\n");
 
 	ft_free_command(cmd);
 	ft_free_lexer(&x);
