@@ -89,6 +89,7 @@ void	free_args(char **args)
 	{
 		if (args[i] != NULL)
 		{
+			printf("%s\n", args[i]);
 			free(args[i]);
 			args[i] = NULL;
 		}

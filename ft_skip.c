@@ -49,8 +49,7 @@ void	ft_skip_not_word(t_splitor **tmp_x, t_envarment *my_env)
 {
 	char **str;
 
-	str = malloc(1 * sizeof(char *));
-	str[0] = NULL;
+	str = NULL;
 
 	while ((*tmp_x) != NULL && ((*tmp_x)->type == '<' || (*tmp_x)->type == '>'
 			|| (*tmp_x)->type == DREDIR_OUT || (*tmp_x)->type == HERE_DOC))

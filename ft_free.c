@@ -142,13 +142,11 @@ void	ft_free_command(t_command **cmd)
 	t_command	*tmp_cmd;
 	t_command	*next_cmd;
 
-	printf("i'm here in ft_free_cmd\n");
 	if (cmd == NULL || *cmd == NULL)
 		return ;
 	tmp_cmd = *cmd;
 	while (tmp_cmd)
 	{
-		printf("___________\n");
 		free_args(tmp_cmd->arg);
 		if (tmp_cmd->doc)
 			ft_free_doc(&tmp_cmd->doc);

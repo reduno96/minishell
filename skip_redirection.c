@@ -22,14 +22,10 @@ char	*ft_fill_final(char **s)
 	while (s[i] != NULL)
 	{
 		final = ft_strjoin(final, s[i]);
-		printf("_final_________%p\n", final);
-		printf("s[i]%p\n", s[i]);
 
 		final = ft_strjoin(final, " ");
-		printf("______final____%p\n", final);
 		i++;
 	}
-	ft_free_argment(s);
 	return (final);
 }
 
@@ -76,8 +72,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 	char	*final;
 	char	**str;
 
-	str = malloc(sizeof(char *));
-	str[0] = NULL;
+	str = NULL;
 	final = NULL;
 	ft_check_quote(tmp_x, &final);
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
@@ -94,5 +89,6 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 		ft_word(tmp_x, my_env, her, &str);
 		final = ft_fill_final(str);
 	}
+	free_args(str);
 	return (final);
 }

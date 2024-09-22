@@ -22,7 +22,7 @@ SRC= minishell.c \
 
 OBJ = ${SRC:.c=.o}
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address -g
 
 CC = cc
 

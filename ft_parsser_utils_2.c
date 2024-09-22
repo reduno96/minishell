@@ -55,7 +55,6 @@ char	**ft_join_arg(char **arg, char **join)
 	ps.len_of_join = ft_len_arg(join);
 	ps.new_arg = malloc(((ps.len_of_arg + ps.len_of_join) + 1)
 			* sizeof(char *));
-	printf("%d\n",(ps.len_of_arg + ps.len_of_join) + 1 );
 	ps.new_arg[0] = NULL;
 	while (arg[ps.idx] != NULL)
 	{
