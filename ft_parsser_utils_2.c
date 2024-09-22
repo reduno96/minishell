@@ -32,7 +32,7 @@ int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node,
 	{
 		(*tmp_x) = (*tmp_x)->next;
 		(*tmp_x) = (*tmp_x)->next;
-		ft_join_arr(arr_join, ft_strdup(""));
+		ft_join_arr(arr_join, "");
 		if ((*arr_join)[0] != NULL)
 			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
 		(*new_node)->next = NULL;
@@ -45,22 +45,24 @@ char	**ft_join_arg(char **arg, char **join)
 {
 	t_ps	ps;
 
+
 	ps.idx = 0;
 	ps.j = 0;
 	ps.len_of_arg = ft_len_arg(arg);
 	ps.len_of_join = ft_len_arg(join);
 	ps.new_arg = malloc(((ps.len_of_arg + ps.len_of_join) + 1)
 			* sizeof(char *));
+	ps.new_arg[0] = NULL;
 	while (arg[ps.idx] != NULL)
 	{
-		ps.new_arg[ps.j] = ft_strdup(arg[ps.idx]);
+		ps.new_arg[ps.j] =ft_strjoin(ps.new_arg[ps.j], arg[ps.idx]);
 		ps.j++;
 		ps.idx++;
 	}
 	ps.idx = 0;
 	while (join[ps.idx])
 	{
-		ps.new_arg[ps.j] = ft_strdup(join[ps.idx]);
+		ps.new_arg[ps.j] = ft_strjoin(ps.new_arg[ps.j], join[ps.idx]);
 		ps.idx++;
 		ps.j++;
 	}
@@ -94,9 +96,6 @@ int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 void	ft_neuter_cmd(t_command **new_node, t_splitor **tmp_x,
 		t_envarment *my_env, char ***arr_join)
 {
-	char	*join;
-
-	join = NULL;
 	if (ft_ckeck_repeate_quote(arr_join, new_node, tmp_x))
 		return ;
 	if (ft_check_gene_quote(new_node, tmp_x, my_env, arr_join))
@@ -108,12 +107,10 @@ void	ft_neuter_cmd(t_command **new_node, t_splitor **tmp_x,
 void	ft_not_pipe(t_command **new_node, t_splitor **tmp_x,
 		t_envarment *my_env)
 {
-	char	*s;
 	char	**join;
 
 	join = malloc(1 * sizeof(char *));
 	join[0] = NULL;
-	s = NULL;
 	while ((*tmp_x) != NULL && !((*tmp_x)->type == '|' && (*tmp_x)->state == G))
 	{
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type != -1

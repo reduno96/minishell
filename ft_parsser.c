@@ -20,6 +20,8 @@ void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 	while (tmp_x != NULL)
 		ft_add_command(cmd, ft_new_command( &tmp_x, my_env));
 	ft_fill_red(cmd, x, my_env);
+	if (*cmd == NULL)
+		while(1);
 	// ft_fill_her(cmd);
 	/* 	int			i;
 	t_command	*tmp_cmd;

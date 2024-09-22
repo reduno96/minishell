@@ -41,6 +41,7 @@ int	is_number(char *arg)
 
 void	ft_free_when_exit(t_envarment **var, char *str, int fd, t_command *cmd)
 {
+	(void) cmd;
 	ft_putstr_fd(str, fd);
 	// ft_free_command(&cmd);
 	ft_free_env(var);

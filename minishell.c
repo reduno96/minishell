@@ -35,7 +35,7 @@ void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment **my_env)
 	if (x != NULL && my_env != NULL)
 	{
 		ft_command(&x, &cmd, *my_env);
-		ft_exute(my_env, cmd);
+		// ft_exute(my_env, cmd);
 	}
 	ft_free_lexer(&x);
 }
@@ -43,6 +43,7 @@ void	ft_initialize(t_splitor *x, t_command *cmd, t_envarment **my_env)
 void	ft_free_when_exit_1(t_splitor *x, t_command *cmd, t_envarment **my_env)
 {
 	printf("exit\n");
+	printf("i'm in function free when exit\n");
 	ft_free_command(&cmd);
 	ft_free_lexer(&x);
 	ft_free_env(my_env);

@@ -28,9 +28,7 @@ int	ft_len_arg(char **arg)
 char	**ft_split_expand(char ***arr_join, char *s, int bo)
 {
 	char	**expand_split;
-	int		i;
 
-	i = 0;
 	(void)bo;
 	if (s == NULL)
 		return (0);

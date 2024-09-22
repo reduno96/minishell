@@ -71,9 +71,7 @@ void	ft_join_word_2(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 void	ft_join_words(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		int j)
 {
-	char	*s;
 
-	s = NULL;
 	while ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 	{

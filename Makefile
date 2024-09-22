@@ -22,7 +22,7 @@ SRC= minishell.c \
 
 OBJ = ${SRC:.c=.o}
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address -g
 
 CC = cc
 
@@ -47,7 +47,7 @@ all : ${LIBFT} ${NAME}
 	${CC} ${CFLAGS} $(INRL) -c  $< -o $@
 
 ${NAME} : minishell.h structures.h ${OBJ}
-		${CC} ${CFLAGS} ${LIBFT}  ${INRL} ${LNRL} ${SRC}  -o ${NAME}
+		${CC} ${CFLAGS} ${OBJ} ${LIBFT}  ${INRL} ${LNRL}   -o ${NAME}
 
 ${LIBFT}:
 	make -C ${FLDLIBFT}

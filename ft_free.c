@@ -58,6 +58,8 @@ void	ft_free_argment(char **arg)
 		arg[i] = NULL;
 		i++;
 	}
+	free(arg);
+	arg = NULL;
 }
 
 void	ft_free_doc(t_redirect **doc)
@@ -70,8 +72,8 @@ void	ft_free_doc(t_redirect **doc)
 		*doc = (*doc)->next;
 		if (tmp->store != NULL)
 		{
-			// free(tmp->store);
-			// tmp->store = NULL;
+			free(tmp->store);
+			tmp->store = NULL;
 		}
 		free(tmp);
 		tmp = NULL;
@@ -96,6 +98,7 @@ void free_command(t_command *cmd)
 {
     if (cmd)
     {
+		printf("i'm here \n");
         if (cmd->arg)
         {
 			free(cmd->content);
@@ -113,8 +116,8 @@ void	ft_free_command(t_command **cmd)
 {
 	t_command *tmp_cmd;
 
+	printf("i'm here in ft_free_cmd\n");
 	tmp_cmd = *cmd;
-
 	while(tmp_cmd)
     {
         free_command(tmp_cmd);
