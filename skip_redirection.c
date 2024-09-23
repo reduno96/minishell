@@ -45,7 +45,13 @@ int	ft_check_ambiguous(t_splitor *tmp_x, t_envarment *my_env)
 				return (0);
 			str = ft_split(s, ' ');
 			if (ft_len_arg(str) > 1)
-				return (1);
+				{
+					free(s);
+					ft_free_argment(str);
+					return (1);
+					}
+					free(s);
+			ft_free_argment(str);
 		}
 		if ((tmp_x) != NULL)
 			tmp_x = tmp_x->next;

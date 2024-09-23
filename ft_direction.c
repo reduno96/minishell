@@ -62,7 +62,6 @@ void	ft_fill_her(t_pre *id, t_envarment *my_env, char *final)
 				|| id->tmp_x->next == NULL))
 			id->is_expand = 1;
 		final = ft_skip_direction(&id->tmp_x, my_env, &id->is_amb, 0);
-		// ft_add_redir(&(id->tmp_cmd->doc), ft_new_redir(final, HERE_DOC, 0));
 		add_back_node_her(&(id->tmp_cmd->her), new_node_her(final, -1, id->j,
 				0));
 		id->j++;

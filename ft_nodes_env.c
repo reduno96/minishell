@@ -38,7 +38,7 @@ char	*ft_expand(char *arg, t_envarment **my_env)
 	char *num;
 
 	i = 0;
-	s = NULL;
+	// s = NULL;
 	while (arg[i])
 	{
 		if (arg[i + 1] == '?')
