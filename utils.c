@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 16:47:08 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 17:47:46 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:20:50 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 int	ft_len_arg(char **arg)
 {
 	int	i;
+
 	i = 0;
-	if(arg == NULL || arg[0] == NULL)
-		return 0;
+	if (arg == NULL || arg[0] == NULL)
+		return (0);
 	while (arg[i] != NULL)
 	{
 		i++;
@@ -30,9 +31,10 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 	char	**expand_split;
 
 	(void)bo;
-	if (s == NULL)
-		return (0);
-	expand_split = ft_split(s, ' ');
+	if (s != NULL)
+		expand_split = ft_split(s, ' ');
+	else
+		return (NULL);
 	if (ft_len_arg(expand_split) == 1)
 		ft_join_arr(arr_join, expand_split[0]);
 	else
@@ -43,9 +45,9 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 void	ft_join_arr(char ***arr_join, char *in)
 {
 	int	len_of_arr;
-	len_of_arr = ft_len_arg(*arr_join);
 
-	 if (len_of_arr == 0)
+	len_of_arr = ft_len_arg(*arr_join);
+	if (len_of_arr == 0)
 	{
 		*arr_join = NULL;
 		*arr_join = malloc((1 + 1) * sizeof(char *));
@@ -59,4 +61,3 @@ void	ft_join_arr(char ***arr_join, char *in)
 				ft_strdup(in));
 	}
 }
-

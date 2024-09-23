@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 23:39:14 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/21 20:42:14 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:02:39 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ void	ft_exit_comp(int len, char *ptr)
 {
 	if (len == 2 && is_number(ptr) && ptr[0] == '-')
 	{
-		g_exit_status = 156;
+		g_exit_status = 255;
 		ft_putstr_fd("exit\n", 1);
-		exit(156);
+		exit(255);
 	}
 	else if (len == 2 && !is_number(ptr))
 	{
-		g_exit_status = 156;
+		g_exit_status = 255;
 		ft_putstr_fd("exit\n", 1);
 		ft_putstr_fd(" numeric argument required\n", 2);
-		exit(156);
+		exit(255);
 	}
 	else if (len > 2)
 	{

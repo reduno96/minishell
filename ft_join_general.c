@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:16:53 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 17:41:50 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:22:13 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ char	**ft_word(t_splitor **tmp_x, t_envarment *my_env, int j,
 		(*tmp_x) = (*tmp_x)->next;
 		ft_join_words(arr_join, tmp_x, my_env, j);
 	}
+
 	return (*arr_join);
 }

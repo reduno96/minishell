@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 21:25:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 19:18:06 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:27:02 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_command	*ft_new_command( t_splitor **tmp_x, t_envarment *my_env)
 	new_node->doc = NULL;
 	new_node->her = NULL;
 	new_node->ar_env = NULL;
-	printf("|%s|\n", (*tmp_x)->in);
+	// printf("|%s|\n", (*tmp_x)->in);
 	if (((*tmp_x) != NULL && ((*tmp_x)->type == '|' && (*tmp_x)->state == G)))
 	{
 		ft_join_arr(&(new_node->arg), (*tmp_x)->in);
@@ -64,6 +64,7 @@ t_command	*ft_new_command( t_splitor **tmp_x, t_envarment *my_env)
 	}
 	else if ((*tmp_x) != NULL)
 		ft_not_pipe(&new_node,  tmp_x, my_env);
+	if (new_node->arg != NULL && new_node->arg[0] != NULL)
 	new_node->content = new_node->arg[0];
 	new_node->next = NULL;
 	return (new_node);
