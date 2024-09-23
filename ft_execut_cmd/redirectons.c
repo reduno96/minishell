@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:33:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/19 13:06:49 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/21 19:18:00 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ int	hundle_file_herdoc(t_command *list)
 	return (fd);
 }
 
-void	hundle_redir_out(char *file)
+void	hundle_redir_out(char *file, int amb)
 {
 	int	fd;
 
-	if (file == NULL)
+	if (amb == 1)
 	{
 		ft_putstr_fd("ambiguous redirect\n", 2);
 		g_exit_status = 1;
@@ -66,11 +66,11 @@ void	hundle_redir_out(char *file)
 	close(fd);
 }
 
-void	hundle_redir_in(char *file)
+void	hundle_redir_in(char *file, int amb)
 {
 	int	fd;
 
-	if (file == NULL)
+	if (amb == 1)
 	{
 		ft_putstr_fd("ambiguous redirect\n", 2);
 		g_exit_status = 1;
@@ -92,11 +92,11 @@ void	hundle_redir_in(char *file)
 	close(fd);
 }
 
-void	hundle_dredir_out(char *file)
+void	hundle_dredir_out(char *file, int amb)
 {
 	int	fd;
 
-	if (file == NULL)
+	if (amb == 1)
 	{
 		ft_putstr_fd("ambiguous redirect\n", 2);
 		g_exit_status = 1;

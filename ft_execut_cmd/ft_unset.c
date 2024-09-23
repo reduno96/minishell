@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/19 12:46:58 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:06:09 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,5 @@ void	ft_unset(t_envarment **var, t_command *list)
 	}
 }
 
-	// env = NULL;
-	// env_1 = NULL;
+// env = NULL;
+// env_1 = NULL;

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/19 13:13:36 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:03:09 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	hundle_chil_pro(t_here_doc *tmp_her, t_envarment **var)
 {
 	char	*line;
 
-	signal(SIGINT, sig_herdoc);
+	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
@@ -32,29 +32,29 @@ void	hundle_chil_pro(t_here_doc *tmp_her, t_envarment **var)
 
 int	handle_fork(t_here_doc *tmp_her, t_envarment **var)
 {
-	int		pid;
-	int		status;
-	void	(*old_sigint_handler)(int);
+	int	pid;
+	int	status;
 
 	status = -1;
-	old_sigint_handler = signal(SIGINT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)
 	{
 		perror("fork");
-		signal(SIGINT, old_sigint_handler);
+		g_exit_status = 1;
 		return (0);
 	}
 	if (pid == 0)
-	{
 		hundle_chil_pro(tmp_her, var);
-	}
 	else
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 			g_exit_status = status;
+		else if (WIFSIGNALED(status))
+			g_exit_status = 128 + WTERMSIG(status);
 	}
+	signal(SIGINT, hhandle_sig);
 	return (status);
 }
 
@@ -68,8 +68,10 @@ int	ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var)
 	while (tmp_cmd != NULL && tmp_her != NULL)
 	{
 		status = handle_fork(tmp_her, var);
-		if (status == 256)
+		if (WTERMSIG(status) == SIGINT)
+		{
 			return (status);
+		}
 		tmp_her = tmp_her->next;
 	}
 	return (status);
@@ -104,22 +106,28 @@ void	create_files(t_command *cmd, char *itoa)
 	}
 }
 
-void	handle_here_doc(t_envarment **var, t_command *cmd)
+bool	handle_here_doc(t_envarment **var, t_command *cmd)
 {
 	t_command	*tmp_cmd;
 	int			status;
 	char		*itoa;
+	bool		flag;
 
 	itoa = NULL;
+	flag = false;
 	tmp_cmd = cmd;
 	if (cmd == NULL || tmp_cmd == NULL)
-		return ;
+		return (-1);
 	create_files(tmp_cmd, itoa);
 	while (tmp_cmd != NULL)
 	{
 		status = ft_cmp_delimeter(tmp_cmd, var);
-		if (status == 256)
+		if (WTERMSIG(status) == SIGINT)
+		{
+			flag = true;
 			break ;
+		}
 		tmp_cmd = tmp_cmd->next;
 	}
+	return (flag);
 }

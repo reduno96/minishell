@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:22:56 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/20 10:24:56 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 13:48:28 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ int	run_herdoc_built(t_envarment **var, t_command *cmd)
 		return (0);
 	if (herdoc_exist(list) == 1)
 	{
-		handle_here_doc(var, list);
+		if (handle_here_doc(var, list) == true)
+			return (-1);
 		if (built_in_exist(list) == 1 && pipe_exist(list) == 0)
 		{
 			built_in(var, list);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 17:42:26 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:40:35 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ char	**ft_split_expand(char ***join, char *s,  int bo);
 //////////////////////  Execution  ////////////////////////
 
 void			ft_exute(t_envarment **var, t_command *list);
-void			ft_free_leaks(t_command *list, t_envarment **var);
+void			ft_free_leaks(t_command *list);
 void			parent_proc(int pid);
 void			hundle_redirections(t_command *list);
 void			run_command(t_command *list, t_envarment **var);
@@ -147,18 +147,19 @@ char			**split_var(char *ptr);
 
 
 void			hundle_command(t_command *list, char **env);
-void			handle_pipe(t_command *list, t_envarment **var);
+void				handle_pipe(t_command *list, t_envarment **var);
+
 
 
 ///////////////////////// Redirections  //////////////////////////
-void			hundle_redir_out(char *file);
-void			hundle_redir_in(char *file);
-void			hundle_dredir_out(char *file);
+void			hundle_redir_out(char *file , int amb);
+void			hundle_redir_in(char *file , int amb);
+void			hundle_dredir_out(char *file , int amb);
 
 /////////////////////////  her doc  //////////////////////////
 
 
-void			handle_here_doc(t_envarment **var, t_command *cmd);
+bool			handle_here_doc(t_envarment **var, t_command *cmd);
 void			create_files(t_command *cmd, char 	*itoa);
 int				ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var);
 int				handle_fork(t_here_doc *tmp_her, t_envarment **var);
@@ -196,6 +197,10 @@ void			child_process(int **pipefd, int i, t_command *tmp_cmd, char **env,
 /////////////////////////  signal  //////////////////////////
 
 int				hundle_file_herdoc(t_command *list);
+void 			handl_sig_exec(int sig);
+void 			handle_sig(int sig);
+void 			hhandle_sig(int sig);
+int 			chech_fork( int pid );
 
  // ///////            Commands         //////////////////////////////////
 
@@ -245,4 +250,135 @@ char		*ft_getenv(char *path, char **env);
 void 		free_pid_pipe(int *pids, int **pipefd, int num_cmd);
 char		*ft_join(char  *s1, char  *s2);
 
+
 #endif
+
+// //////////////////////  Execution  ////////////////////////
+
+// void			ft_exute(t_envarment **var, t_command *list);
+// void			ft_free_leaks(t_command *list, t_envarment **var);
+// void			parent_proc(int pid);
+// void			hundle_redirections(t_command *list);
+// void			run_command(t_command *list, t_envarment **var);
+// int				is_directory(char *path);
+// void			ft_access_2(char *ptr, char **str);
+// void			ft_access_1(char *ptr, char **str);
+// void			ft_access(char 	*ptr ,char  **str );
+// int 			built_in_exist( t_command *list) ;
+// void			built_in(t_envarment **var ,t_command *list );
+// void			execution_cmd(t_command *list, char **new);
+// int				run_herdoc_built(t_envarment **var, t_command *cmd);
+
+
+
+// int				ft_strcmp(char *s1, char *s2);
+// char			**create_argv(t_splitor *elem);
+// char			*path_command(char *ptr, char **env);
+// t_envarment		*ft_stock_envarment(char **env);
+// int				test_exist(t_envarment **var, char **list);
+// void			run_simple_cmd(t_command *list, t_envarment **var);
+// void			free_args(char **args);
+// char			**split_line(char *ptr);
+// char			**split_var(char *ptr);
+
+
+// void			hundle_command(t_command *list, char **env);
+// void			handle_pipe(t_command *list, t_envarment **var);
+
+
+// ///////////////////////// Redirections  //////////////////////////
+// void			hundle_redir_out(char *file);
+// void			hundle_redir_in(char *file);
+// void			hundle_dredir_out(char *file);
+
+// /////////////////////////  her doc  //////////////////////////
+
+
+// void			handle_here_doc(t_envarment **var, t_command *cmd);
+// void			create_files(t_command *cmd, char 	*itoa);
+// int				ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var);
+// int				handle_fork(t_here_doc *tmp_her, t_envarment **var);
+// void			hundle_chil_pro(t_here_doc *tmp_her, t_envarment **var);
+// void			write_in_file(t_here_doc *tmp, char *line, t_envarment **var);
+// char			*ft_expand_in_her(char *line, t_envarment *my_env);
+// char			*ft_handle_var(char *line, int *i, t_envarment *my_env, char *final);
+// void			delet_files(t_command *cmd);
+// void			sig_herdoc(int sig);
+// int				count_herdoc(t_command *tmp);
+// int				herdoc_exist(t_command *list);
+// char 			*ft_name_file(t_here_doc *tmp);
+// t_here_doc		*new_node_her(char *file, int fd, int x, int is_expand);
+// void			add_back_node_her(t_here_doc **her, t_here_doc *new_her);
+
+
+
+// /////////////////////////  function redirections  //////////////////////////
+// char			**get_len(char **args, t_redirect *redir);
+// char			*git_type_redir(t_redirect *redir);
+// char			**ft_new_args(char **args, t_redirect *redir);
+// int				test_redir_here_doc(t_command *list);
+
+
+// /////////////////////////  execut_cmd  //////////////////////////
+// int				pipe_exist(t_command *list);
+// int				num_pipe(t_command *list);
+// char			*command_execut(t_command *list);
+// int				**return_pipe(int num_cmd);
+// t_command		*get_list_command(t_command *list);
+// void			close_free_wait(int *pids, int **pipefd, int num_cmd);
+// void			child_process(int **pipefd, int i, t_command *tmp_cmd, char **env,
+// 					int num_cmd); //, int *red);
+
+// /////////////////////////  signal  //////////////////////////
+
+// int				hundle_file_herdoc(t_command *list);
+
+//  // ///////            Commands         //////////////////////////////////
+
+// void			ft_cd(t_envarment **var, t_command *list, char **env);
+// void			complete_cd(char *path, char *ptr, char **env);
+// void			complete_cd_1(t_envarment **var, char *path, char **env);
+// void			ft_setenv_list(t_envarment **var, char *old, char **env);
+// t_envarment		*find_env(t_envarment *my_var, char *old);
+// void			printf_error_cd(char *s , int exit);
+
+
+// void			ft_unset(t_envarment **var, t_command *list);
+// t_envarment		*delet_first_node(t_envarment **my_env);
+// void			ft_error(char *str, char *ptr);
+// void			delet_first(t_envarment **var, char 	*ptr);
+// void 			delet_envarment(t_envarment **var, char *str);
+
+
+// void            ft_pwd(t_command *list);
+// void            ft_env( t_envarment **var);
+// void            ft_echo(t_command *list );
+// void			ft_exit(t_envarment **var ,t_command *list);
+
+// void			ft_export(t_envarment **var, t_command *str);
+// int				ft_str_eqal(char *ptr, char c);
+// char			**split_line(char *ptr);
+// int				check_is_valid_1(char *str);
+// void			export_1(t_envarment **var, t_command *str, int *i);
+// int				ft_isalnum_exp(int c);
+// void			print_export(t_envarment **var);
+// void			check_dolar_is(char *str, t_envarment *var, t_command *s);
+// int				exist_redir(char *ptr);
+// void			affiche_export(char **str, t_envarment **var);
+// int				ft_is_num(char *str);
+// void			free_args(char **args);
+// char			*first_word(char *ptr);
+
+
+// char 			**array_env(t_envarment **var);
+// char			*ft_strjoin_1(char *s1, char *s2);
+// int				len_var(t_envarment *var);
+
+
+// //////////////////////     free      /////////////////////////////////
+// void		free_ft_split(char 	**list);
+// char		*ft_getenv(char *path, char **env);
+// void 		free_pid_pipe(int *pids, int **pipefd, int num_cmd);
+// char		*ft_join(char  *s1, char  *s2);
+
+// #endif

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/19 13:00:00 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:05:17 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ char	**split_line(char *ptr)
 	char	**arg;
 
 	arg = (char **)malloc(sizeof(char *) * 3);
-	if (arg == NULL)
-		return (NULL);
 	if (ft_str_eqal(ptr, '=') == 1)
 	{
 		arg[0] = first_word(ptr);

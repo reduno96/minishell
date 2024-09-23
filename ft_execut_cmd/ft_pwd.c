@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:01 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 22:21:04 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/20 10:41:53 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	ft_pwd(t_command *list)
 {
+	int		i;
 	char	*path;
 
+	i = 0;
 	path = getcwd(NULL, 0);
 	if (path == NULL)
 	{
