@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/23 10:32:28 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:39:08 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ bool	execut_her_built(t_envarment **var, t_command *cmd)
 	if (her == 1)
 	{
 		delet_files(cmd);
-		ft_free_leaks(list);
+		// ft_free_leaks(list);
 		return (true);
 	}
 	return (false);
@@ -133,5 +133,4 @@ void	ft_exute(t_envarment **var, t_command *cmd)
 		signal(SIGINT, hhandle_sig);
 	}
 	delet_files(cmd);
-	ft_free_leaks(list);
 }

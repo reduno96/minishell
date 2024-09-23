@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:04:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/22 19:41:29 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:44:50 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	delet_files(t_command *cmd)
 	t_here_doc	*her;
 	char		*ptr;
 	char		*file;
+	char *lll;
 
 	tmp = cmd;
 	while (tmp != NULL)
@@ -25,7 +26,8 @@ void	delet_files(t_command *cmd)
 		her = tmp->her;
 		while (her != NULL)
 		{
-			ptr = ft_strjoin(her->store, ft_itoa(her->idx));
+			lll = ft_itoa(her->idx);
+			ptr = ft_strjoin_1(her->store, lll );
 			free(ft_itoa(her->idx));
 			file = ft_join("/tmp/herdoc", ptr);
 			free(ptr);
@@ -36,6 +38,7 @@ void	delet_files(t_command *cmd)
 			}
 			free(file);
 			her = her->next;
+			free(lll);
 		}
 		tmp = tmp->next;
 	}

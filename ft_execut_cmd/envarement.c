@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envarement.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:55:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/21 12:00:19 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:38:59 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,3 @@ char	*ft_join(char *s1, char *s2)
 	return (ptr);
 }
 
-void	ft_free_leaks(t_command *list)
-{
-	int	i;
-
-	i = 0;
-	while (list->ar_env[i])
-	{
-		free(list->ar_env[i]);
-		i++;
-	}
-	free(list->ar_env);
-}

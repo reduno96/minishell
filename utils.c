@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 16:47:08 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 13:20:50 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:49:56 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 
 	(void)bo;
 	if (s != NULL)
-		{
-			free(s);
-			expand_split = ft_split(s, ' ');
-			}
+	{
+		expand_split = ft_split(s, ' ');
+		free(s);
+	}
 	else
 		return (NULL);
 	if (ft_len_arg(expand_split) == 1)
@@ -48,8 +48,8 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 
 void	ft_join_arr(char ***arr_join, char *in)
 {
-	int	len_of_arr;
-	char *str;
+	int		len_of_arr;
+	char	*str;
 
 	len_of_arr = ft_len_arg(*arr_join);
 	if (len_of_arr == 0)
@@ -63,8 +63,7 @@ void	ft_join_arr(char ***arr_join, char *in)
 	{
 		str = ft_strdup(in);
 		len_of_arr--;
-		(*arr_join)[len_of_arr] = ft_strjoin((*arr_join)[len_of_arr],
-				str);
+		(*arr_join)[len_of_arr] = ft_strjoin((*arr_join)[len_of_arr], str);
 		free(str);
 	}
 }

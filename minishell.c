@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 13:53:25 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:46:38 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	ft_initialize(t_splitor *x, t_command **cmd, t_envarment **my_env)
 	if (x != NULL && my_env != NULL)
 	{
 		ft_command(&x, cmd, *my_env);
-
-		ft_exute(my_env, *cmd);
+		// ft_exute(my_env, *cmd);
 	}
 	ft_free_command(cmd);
 	ft_free_lexer(&x);
