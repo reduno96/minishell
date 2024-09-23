@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 13:28:14 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:13:29 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 			ft_free_argment(*arr_join);
 				*arr_join = NULL;
 		}
+		system("leaks minishell");
 		return (1);
 	}
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
