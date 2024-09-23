@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 17:42:07 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:58:15 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_join_next(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		else
 		{
 			ft_join_arr(arr_join, (*tmp_x)->in);
-			(*tmp_x) = (*tmp_x)->next;
 		}
 		(*tmp_x) = (*tmp_x)->next;
 	}

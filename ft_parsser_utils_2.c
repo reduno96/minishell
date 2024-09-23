@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 16:23:54 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:20:17 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node,
 		{
 			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
 			ft_free_argment(*arr_join);
+			*arr_join = NULL;
 		}
 		(*new_node)->next = NULL;
 		return (1);
