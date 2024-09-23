@@ -154,6 +154,7 @@ void	ft_free_command(t_command **cmd)
 			ft_free_her(&tmp_cmd->her);
 		next_cmd = tmp_cmd->next;
 		free(tmp_cmd);
+		tmp_cmd = NULL;
 		tmp_cmd = next_cmd;
 	}
 }

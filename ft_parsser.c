@@ -15,12 +15,14 @@
 void	ft_command(t_splitor **x, t_command **cmd, t_envarment *my_env)
 {
 	t_splitor	*tmp_x;
+	t_command **tmp_cmd;
 
+	tmp_cmd = cmd;
 	tmp_x = *x;
 	while (tmp_x != NULL)
-		ft_add_command(cmd, ft_new_command( &tmp_x, my_env));
+		ft_add_command(tmp_cmd, ft_new_command( &tmp_x, my_env));
 
-	ft_fill_red(cmd, x, my_env);
+	ft_fill_red(tmp_cmd, x, my_env);
 	// system("leaks minishell");
 	// ft_fill_her(cmd);
 	/* 	int			i;

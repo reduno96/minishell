@@ -36,8 +36,9 @@ void	ft_initialize(t_splitor *x, t_command **cmd, t_envarment **my_env)
 	{
 		ft_command(&x, cmd, *my_env);
 
-		// ft_exute(my_env, cmd);
+		ft_exute(my_env, *cmd);
 	}
+	ft_free_command(cmd);
 	ft_free_lexer(&x);
 
 }
@@ -52,7 +53,7 @@ void	ft_free_when_exit_1(t_splitor *x, t_command **cmd, t_envarment **my_env)
 	exit(g_exit_status);
 }
 
-void	ft_reader(t_splitor *x, t_command **cmd, t_envarment **my_env)
+void	ft_reader(t_splitor *x, t_command *cmd, t_envarment **my_env)
 {
 	char	*str_input;
 
@@ -60,7 +61,7 @@ void	ft_reader(t_splitor *x, t_command **cmd, t_envarment **my_env)
 	{
 		str_input = readline("\033[36m➨ minishell $:\033[0m  ");
 		if (!str_input)
-			ft_free_when_exit_1(x, cmd, my_env);
+			ft_free_when_exit_1(x, &cmd, my_env);
 		if (ft_strlen(str_input) > 0)
 			add_history(str_input);
 		if (ft_lexer(str_input, &x))
@@ -70,8 +71,7 @@ void	ft_reader(t_splitor *x, t_command **cmd, t_envarment **my_env)
 			ft_free_lexer(&x);
 		}
 		else
-			ft_initialize(x, cmd, my_env);
-		ft_free_command(cmd);
+			ft_initialize(x, &cmd, my_env);
 		cmd = NULL;
 		x = NULL;
 		free(str_input);
@@ -96,7 +96,7 @@ int	main(int ac, char **av, char **env)
 	using_history();
 	x = NULL;
 	cmd = NULL;
-	ft_reader(x, &cmd, &my_env);
+	ft_reader(x, cmd, &my_env);
 	ft_free_env(&my_env);
 	return (g_exit_status);
 }

@@ -88,6 +88,7 @@ int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 		{
 			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
 			ft_free_argment(*arr_join);
+				*arr_join = NULL;
 		}
 		return (1);
 	}
@@ -98,6 +99,7 @@ int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 		{
 			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
 			ft_free_argment(*arr_join);
+				*arr_join = NULL;
 		}
 		return (1);
 	}
