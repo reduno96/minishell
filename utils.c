@@ -32,19 +32,24 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 
 	(void)bo;
 	if (s != NULL)
-		expand_split = ft_split(s, ' ');
+		{
+			free(s);
+			expand_split = ft_split(s, ' ');
+			}
 	else
 		return (NULL);
 	if (ft_len_arg(expand_split) == 1)
 		ft_join_arr(arr_join, expand_split[0]);
 	else
 		*arr_join = ft_join_arg(*arr_join, expand_split);
+	ft_free_argment(expand_split);
 	return (*arr_join);
 }
 
 void	ft_join_arr(char ***arr_join, char *in)
 {
 	int	len_of_arr;
+	char *str;
 
 	len_of_arr = ft_len_arg(*arr_join);
 	if (len_of_arr == 0)
@@ -56,8 +61,10 @@ void	ft_join_arr(char ***arr_join, char *in)
 	}
 	else
 	{
+		str = ft_strdup(in);
 		len_of_arr--;
 		(*arr_join)[len_of_arr] = ft_strjoin((*arr_join)[len_of_arr],
-				ft_strdup(in));
+				str);
+		free(str);
 	}
 }

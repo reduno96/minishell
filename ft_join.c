@@ -53,6 +53,7 @@ void	ft_join_double(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
 			ft_join_arr(arr_join, s);
+			free(s);
 		}
 		(*tmp_x) = (*tmp_x)->next;
 	}

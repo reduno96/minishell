@@ -35,13 +35,18 @@ char	*ft_expand(char *arg, t_envarment **my_env)
 {
 	int		i;
 	char	*s;
+	char *num;
 
 	i = 0;
 	s = NULL;
 	while (arg[i])
 	{
 		if (arg[i + 1] == '?')
-			return (s = ft_itoa(g_exit_status), s);
+			{
+			num = ft_itoa(g_exit_status);
+
+				return (free(num), s = ft_strdup(num), s);
+				}
 		else if (ft_search("$\"\"", arg))
 			return (s = ft_strdup(""), s);
 		else if (arg[i] == '$')

@@ -92,7 +92,7 @@ int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 			ft_free_argment(*arr_join);
 				*arr_join = NULL;
 		}
-		system("leaks minishell");
+		// system("leaks minishell");
 		return (1);
 	}
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))

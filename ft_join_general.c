@@ -32,6 +32,7 @@ void	ft_join_double_2(char ***arr_join, t_splitor **tmp_x,
 			{
 				s = ft_expand((*tmp_x)->in, &my_env);
 				ft_join_arr(arr_join, s);
+				free(s);
 			}
 		}
 		else if ((*tmp_x) != NULL)
@@ -58,6 +59,7 @@ void	ft_join_word_2(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
 			ft_join_arr(arr_join, s);
+			free(s);
 		}
 	}
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type == -1))
