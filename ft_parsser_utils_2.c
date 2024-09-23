@@ -32,7 +32,7 @@ int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node,
 	{
 		(*tmp_x) = (*tmp_x)->next;
 		(*tmp_x) = (*tmp_x)->next;
-		ft_join_arr(arr_join, "", 0);
+		ft_join_arr(arr_join, "");
 		if ((*arr_join)[0] != NULL)
 			{
 				(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
@@ -56,12 +56,13 @@ char	**ft_join_arg(char **arg, char **join)
 	ps.new_arg = malloc(((ps.len_of_arg + ps.len_of_join) + 1)
 			* sizeof(char *));
 	ps.new_arg[0] = NULL;
-	while (arg[ps.idx] != NULL)
+	if (arg != NULL)
+	{while (arg[ps.idx] != NULL)
 	{
 		ps.new_arg[ps.j] =  ft_strdup(arg[ps.idx]);
 		ps.j++;
 		ps.idx++;
-	}
+	}}
 	ps.idx = 0;
 	while (join[ps.idx])
 	{

@@ -28,7 +28,7 @@ void	ft_join_next(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		}
 		else
 		{
-			ft_join_arr(arr_join, (*tmp_x)->in, 0);
+			ft_join_arr(arr_join, (*tmp_x)->in);
 			(*tmp_x) = (*tmp_x)->next;
 		}
 		(*tmp_x) = (*tmp_x)->next;
@@ -52,7 +52,7 @@ void	ft_join_double(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			ft_join_arr(arr_join, s, 0);
+			ft_join_arr(arr_join, s);
 		}
 		(*tmp_x) = (*tmp_x)->next;
 	}
@@ -78,10 +78,10 @@ char	**ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env, int j,
 		}
 		else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
 				|| (*tmp_x)->state == S))
-			ft_join_arr(arr_join, (*tmp_x)->in, 0);
+			ft_join_arr(arr_join, (*tmp_x)->in);
 		else if ((*tmp_x) != NULL && (((*tmp_x)->type == '$')
 				|| (*tmp_x)->type == -1))
-			ft_join_arr(arr_join, (*tmp_x)->in, 0);
+			ft_join_arr(arr_join, (*tmp_x)->in);
 		(*tmp_x) = (*tmp_x)->next;
 		ft_join_double(arr_join, tmp_x, my_env, j);
 	}

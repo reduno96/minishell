@@ -88,13 +88,11 @@ char	*path_command(char *ptr, char **env)
 {
 	char	*path;
 	char	**list;
-	int		i;
 	char	*tmp;
 
 	tmp = NULL;
 	if (ptr == NULL || *env == NULL || env == NULL || ptr[0] == '\0')
 		return (NULL);
-	i = 0;
 	if (ptr[0] == '.')
 		return (ptr);
 	path = ft_getenv("PATH", env);

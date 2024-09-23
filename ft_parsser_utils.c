@@ -46,17 +46,19 @@ t_command	*ft_new_command( t_splitor **tmp_x, t_envarment *my_env)
 	t_command	*new_node;
 
 	new_node = malloc(sizeof(t_command));
-	new_node->arg = malloc(sizeof(char *));
-	new_node->arg[0] = NULL;
+	// new_node->arg = malloc(sizeof(char *));
+	// new_node->arg[0] = NULL;
+	new_node->arg = NULL;
 	new_node->content = NULL;
 	new_node->len = 0;
 	new_node->is_pipe = 0;
 	new_node->doc = NULL;
 	new_node->her = NULL;
 	new_node->ar_env = NULL;
+	printf("|%s|\n", (*tmp_x)->in);
 	if (((*tmp_x) != NULL && ((*tmp_x)->type == '|' && (*tmp_x)->state == G)))
 	{
-		ft_join_arr(&(new_node->arg), (*tmp_x)->in, 1);
+		ft_join_arr(&(new_node->arg), (*tmp_x)->in);
 		new_node->is_pipe = 1;
 		(*tmp_x) = (*tmp_x)->next;
 	}

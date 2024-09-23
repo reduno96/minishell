@@ -114,7 +114,7 @@ void	ft_exute(t_envarment **var, t_command *cmd)
 	list = cmd;
 	if (execut_her_built(var, list) == true)
 	{
-		ft_free_leaks(list);
+		// ft_free_leaks(list);
 		return ;
 	}
 	pid = fork();

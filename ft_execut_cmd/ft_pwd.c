@@ -14,10 +14,8 @@
 
 void	ft_pwd(t_command *list)
 {
-	int		i;
 	char	*path;
 
-	i = 0;
 	path = getcwd(NULL, 0);
 	if (path == NULL)
 	{

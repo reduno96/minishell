@@ -113,7 +113,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
 		int her);
 t_redirect	*ft_last_redir(t_redirect *lst);
 
-void	ft_join_arr(char ***arr_join, char *in, int h);
+void	ft_join_arr(char ***arr_join, char *in);
 int	ft_len_arg(char **arg);
 char	**ft_split_expand(char ***join, char *s,  int bo);
 
