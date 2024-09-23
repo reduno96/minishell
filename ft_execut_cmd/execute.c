@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/22 19:42:49 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:32:28 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ void	ft_exute(t_envarment **var, t_command *cmd)
 
 	list = cmd;
 	if (execut_her_built(var, list) == true)
+	{
+		ft_free_leaks(list);
 		return ;
+	}
 	pid = fork();
 	if (chech_fork(pid) == 1)
 		return ;
