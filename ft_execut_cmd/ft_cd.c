@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 15:13:57 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 20:21:45 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ void	ft_setenv_list(t_environment **var, char *old, char **env)
 	if (my_var != NULL)
 	{
 		free(my_var->data);
-		my_var->data = ft_strdup(ft_getenv("PWD", env));
+		my_var->data =NULL;
+		if(ft_getenv("PWD",env) != NULL)
+			my_var->data = ft_strdup(ft_getenv("PWD", env));
 	}
 	my_var_1 = find_env(*var, "PWD");
 	if (my_var_1 != NULL)
 	{
 		free(my_var_1->data);
+			my_var_1->data =NULL;
 		path = getcwd(NULL, 0);
 		if (path != NULL)
 		{
