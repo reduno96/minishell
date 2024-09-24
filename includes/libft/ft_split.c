@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:26:57 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/01/11 15:05:51 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:05:56 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**ft_split(char const *s, char c)
 	int		count;
 	char	**str;
 
-	if (!s)
+	if (s == NULL)
 		return (NULL);
 	count = count_word(s, c);
 	str = malloc((count + 1) * sizeof(char *));

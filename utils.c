@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 16:47:08 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 15:49:56 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:42:03 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	ft_join_arr(char ***arr_join, char *in)
 	char	*str;
 
 	len_of_arr = ft_len_arg(*arr_join);
+	if (in == NULL)
+		return ;
 	if (len_of_arr == 0)
 	{
 		*arr_join = NULL;
