@@ -6,13 +6,13 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 19:58:15 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:35:17 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_join_next(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
+void	ft_join_next(char ***arr_join, t_splitor **tmp_x, t_environment *my_env,
 		int j)
 {
 	char	*s;
@@ -34,8 +34,8 @@ void	ft_join_next(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 	}
 }
 
-void	ft_join_double(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
-		int j)
+void	ft_join_double(char ***arr_join, t_splitor **tmp_x,
+		t_environment *my_env, int j)
 {
 	char	*s;
 
@@ -60,7 +60,7 @@ void	ft_join_double(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 	ft_join_next(arr_join, tmp_x, my_env, 1);
 }
 
-char	**ft_double_and_sigle(t_splitor **tmp_x, t_envarment *my_env, int j,
+char	**ft_double_and_sigle(t_splitor **tmp_x, t_environment *my_env, int j,
 		char ***arr_join)
 {
 	char	*s;

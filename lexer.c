@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/21 15:26:38 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:49:58 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	ft_lexer(char *s, t_splitor **x)
 		else if (s[var.i] && ft_check_input(s[var.i]))
 			ft_get_char(s, &var, x);
 	}
-	// print_t_command(*x);
 	if (var.in_d == 1 || var.in_s == 1 || ft_handler_syn_error(x))
 		return (1);
 	return (0);

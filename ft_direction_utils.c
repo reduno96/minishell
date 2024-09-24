@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:58:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/11 12:25:39 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:38:07 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_redirect	*ft_new_redir(void *content, t_token type, int is_amb)
 	t_redirect	*new_node;
 
 	new_node = NULL;
-
 	new_node = malloc(sizeof(t_redirect));
 	if (!new_node)
 		return (NULL);

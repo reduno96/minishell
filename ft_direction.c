@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 15:23:28 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:03:09 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_next(t_splitor **tmp_x, t_command **tmp_cmd)
 		(*tmp_cmd) = (*tmp_cmd)->next;
 }
 
-void	ft_fill_redirection(t_pre *id, t_envarment *my_env, char *final)
+void	ft_fill_redirection(t_pre *id, t_environment *my_env, char *final)
 {
 	if (id->tmp_x != NULL && id->tmp_x->type == '>' && id->tmp_x->state == G)
 	{
@@ -50,7 +50,7 @@ void	ft_fill_redirection(t_pre *id, t_envarment *my_env, char *final)
 	}
 }
 
-void	ft_fill_her(t_pre *id, t_envarment *my_env, char *final)
+void	ft_fill_her(t_pre *id, t_environment *my_env, char *final)
 {
 	while ((id->tmp_x != NULL && id->tmp_x->type == HERE_DOC
 			&& id->tmp_x->state == G))
@@ -68,7 +68,7 @@ void	ft_fill_her(t_pre *id, t_envarment *my_env, char *final)
 	}
 }
 
-void	ft_check_redirection(t_pre *id, t_envarment *my_env)
+void	ft_check_redirection(t_pre *id, t_environment *my_env)
 {
 	char	*final;
 
@@ -87,7 +87,7 @@ void	ft_check_redirection(t_pre *id, t_envarment *my_env)
 		id->tmp_x = id->tmp_x->next;
 }
 
-void	ft_fill_red(t_command **cmd, t_splitor **x, t_envarment *my_env)
+void	ft_fill_red(t_command **cmd, t_splitor **x, t_environment *my_env)
 {
 	t_pre	id;
 

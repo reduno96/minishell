@@ -6,14 +6,14 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:16:53 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 13:22:13 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:35:36 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	ft_join_double_2(char ***arr_join, t_splitor **tmp_x,
-		t_envarment *my_env, int j)
+		t_environment *my_env, int j)
 {
 	char	*s;
 
@@ -41,8 +41,8 @@ void	ft_join_double_2(char ***arr_join, t_splitor **tmp_x,
 	}
 }
 
-void	ft_join_word_2(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
-		int j)
+void	ft_join_word_2(char ***arr_join, t_splitor **tmp_x,
+		t_environment *my_env, int j)
 {
 	char	*s;
 
@@ -70,10 +70,9 @@ void	ft_join_word_2(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 		(*tmp_x) = (*tmp_x)->next;
 }
 
-void	ft_join_words(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
-		int j)
+void	ft_join_words(char ***arr_join, t_splitor **tmp_x,
+		t_environment *my_env, int j)
 {
-
 	while ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 	{
@@ -85,7 +84,7 @@ void	ft_join_words(char ***arr_join, t_splitor **tmp_x, t_envarment *my_env,
 	}
 }
 
-char	**ft_word(t_splitor **tmp_x, t_envarment *my_env, int j,
+char	**ft_word(t_splitor **tmp_x, t_environment *my_env, int j,
 		char ***arr_join)
 {
 	char	*s;
@@ -110,6 +109,5 @@ char	**ft_word(t_splitor **tmp_x, t_envarment *my_env, int j,
 		(*tmp_x) = (*tmp_x)->next;
 		ft_join_words(arr_join, tmp_x, my_env, j);
 	}
-
 	return (*arr_join);
 }

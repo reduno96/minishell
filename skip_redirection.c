@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skip_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:53:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 10:58:21 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:17:22 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ char	*ft_fill_final(char **s)
 	while (s[i] != NULL)
 	{
 		final = ft_strjoin(final, s[i]);
-		if (s[i+1] != NULL)
+		if (s[i + 1] != NULL)
 			final = ft_strjoin(final, " ");
 		i++;
 	}
 	return (final);
 }
 
-int	ft_check_ambiguous(t_splitor *tmp_x, t_envarment *my_env)
+int	ft_check_ambiguous(t_splitor *tmp_x, t_environment *my_env)
 {
 	char	*s;
 	char	**str;
@@ -45,42 +45,36 @@ int	ft_check_ambiguous(t_splitor *tmp_x, t_envarment *my_env)
 				return (0);
 			str = ft_split(s, ' ');
 			if (ft_len_arg(str) > 1)
-				{
-					free(s);
-					ft_free_argment(str);
-					return (1);
-					}
-					free(s);
+				return (free(s), ft_free_argment(str), 1);
+			free(s);
 			ft_free_argment(str);
 		}
 		if ((tmp_x) != NULL)
 			tmp_x = tmp_x->next;
 	}
-
 	return (0);
 }
 
-void	ft_check_quote(t_splitor **tmp_x, char **final)
+void	ft_check_quote(t_splitor **tmp_x)
 {
-	if (((*tmp_x) != NULL && (*tmp_x)->next != NULL) && (((*tmp_x)->type == '\"'
-				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
-				&& (*tmp_x)->next->type == '\'')))
+	while (((*tmp_x) != NULL && (*tmp_x)->next != NULL)
+		&& (((*tmp_x)->type == '\"' && (*tmp_x)->next->type == '\"')
+			|| ((*tmp_x)->type == '\'' && (*tmp_x)->next->type == '\'')))
 	{
-		*final = ft_strdup("\0");
 		(*tmp_x) = (*tmp_x)->next;
 		(*tmp_x) = (*tmp_x)->next;
 	}
 }
 
-char	*ft_skip_direction(t_splitor **tmp_x, t_envarment *my_env, int *is_amb,
-		int her)
+char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
+		int *is_amb, int her)
 {
 	char	*final;
 	char	**str;
 
 	str = NULL;
 	final = NULL;
-	ft_check_quote(tmp_x, &final);
+	ft_check_quote(tmp_x);
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
 	{

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:05:17 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 18:38:53 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:09:57 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,39 +28,6 @@ void	ft_free_lexer(t_splitor **x)
 		free(tmp);
 		tmp = NULL;
 	}
-}
-
-void	ft_free_split(char **list)
-{
-	int	j;
-
-	if (list == NULL)
-		return ;
-	j = 0;
-	while (list[j] != NULL)
-	{
-		free(list[j]);
-		j++;
-	}
-	free(list);
-	list = NULL;
-}
-
-void	ft_free_argment(char **arg)
-{
-	int	i;
-
-	i = 0;
-	if (arg == NULL)
-		return ;
-	while (arg[i] != NULL)
-	{
-		free(arg[i]);
-		arg[i] = NULL;
-		i++;
-	}
-	free(arg);
-	arg = NULL;
 }
 
 void	ft_free_doc(t_redirect **doc)
@@ -104,9 +71,9 @@ void	ft_free_her(t_here_doc **her)
 	}
 }
 
-void	ft_free_env(t_envarment **my_env)
+void	ft_free_env(t_environment **my_env)
 {
-	t_envarment	*tmp;
+	t_environment	*tmp;
 
 	while (*my_env)
 	{
@@ -120,31 +87,11 @@ void	ft_free_env(t_envarment **my_env)
 	}
 }
 
-
-
-void	free_command(t_command *cmd)
-{
-	if (cmd)
-	{
-		if (cmd->arg)
-		{
-			for (int i = 0; cmd->arg[i]; i++)
-			{
-				free(cmd->arg[i]);
-				cmd->arg[i] = NULL;
-			}
-			free(cmd->arg);
-			cmd->arg = NULL;
-		}
-	}
-}
-
 void	ft_free_command(t_command **cmd)
 {
 	t_command	*tmp_cmd;
 	t_command	*next_cmd;
 
-	// printf("___free__________\n");
 	if (cmd == NULL || *cmd == NULL)
 		return ;
 	tmp_cmd = *cmd;

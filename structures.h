@@ -6,16 +6,14 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/21 17:40:18 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:04:41 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
-# include <stdbool.h>
 
 int						g_exit_status;
-
 
 typedef struct s_idx
 {
@@ -27,7 +25,6 @@ typedef struct s_idx
 	int					in_s;
 	int					in_d;
 }						t_idx;
-
 
 typedef enum e_token
 {
@@ -77,7 +74,7 @@ typedef struct s_envarment
 	char				*var;
 	char				*data;
 	struct s_envarment	*next;
-}						t_envarment;
+}						t_environment;
 
 typedef struct s_here_doc
 {
@@ -105,13 +102,12 @@ typedef struct s_command
 
 typedef struct s_array_env
 {
-	char		**env_v;
-	int			len;
-	char		*var_1;
-	char		*var_2;
-	char		*res;
+	char				**env_v;
+	int					len;
+	char				*var_1;
+	char				*var_2;
+	char				*res;
 }						t_envar;
-
 
 typedef struct s_pre
 {
@@ -119,28 +115,28 @@ typedef struct s_pre
 	int					i;
 	int					j;
 	int					is_expand;
-	int is_amb;
-		t_command	*tmp_cmd;
-	t_splitor	*tmp_x;
+	int					is_amb;
+	t_command			*tmp_cmd;
+	t_splitor			*tmp_x;
 }						t_pre;
 
 typedef struct s_pipe
 {
-	int			num_cmd;
-	int			**pipefd;
-	t_command	*tmp_cmd;
-	int		*pids;
-	int			heredoc_fd;
-	int			i;
-	char		*ptr;
-}		t_pipe;
+	int					num_cmd;
+	int					**pipefd;
+	t_command			*tmp_cmd;
+	int					*pids;
+	int					heredoc_fd;
+	int					i;
+	char				*ptr;
+}						t_pipe;
 
 typedef struct s_ps
 {
-	int		len_of_arg;
-	int		len_of_join;
-	char	**new_arg;
-	int		idx;
-	int		j;
-}	t_ps;
+	int					len_of_arg;
+	int					len_of_join;
+	char				**new_arg;
+	int					idx;
+	int					j;
+}						t_ps;
 #endif

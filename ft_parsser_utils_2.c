@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 19:20:17 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:54:34 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,14 @@ char	**ft_join_arg(char **arg, char **join)
 	}
 	ps.idx = 0;
 	while (join[ps.idx])
-	{
-		ps.new_arg[ps.j] = ft_strdup(join[ps.idx]);
-		ps.idx++;
-		ps.j++;
-	}
+		ps.new_arg[ps.j++] = ft_strdup(join[ps.idx++]);
 	ps.new_arg[ps.j] = NULL;
 	ft_free_argment(arg);
-	// ft_free_argment(join);
 	return (ps.new_arg);
 }
 
 int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
-		t_envarment *my_env, char ***arr_join)
+		t_environment *my_env, char ***arr_join)
 {
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 		&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
@@ -108,7 +103,7 @@ int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 }
 
 void	ft_neuter_cmd(t_command **new_node, t_splitor **tmp_x,
-		t_envarment *my_env, char ***arr_join)
+		t_environment *my_env, char ***arr_join)
 {
 	if (ft_ckeck_repeate_quote(arr_join, new_node, tmp_x))
 		return ;
@@ -119,7 +114,7 @@ void	ft_neuter_cmd(t_command **new_node, t_splitor **tmp_x,
 }
 
 void	ft_not_pipe(t_command **new_node, t_splitor **tmp_x,
-		t_envarment *my_env)
+		t_environment *my_env)
 {
 	char	**join;
 
