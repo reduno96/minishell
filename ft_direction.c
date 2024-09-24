@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 17:32:06 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:03:57 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_fill_red(t_command **cmd, t_splitor **x, t_environment *my_env)
 {
 	t_pre	id;
 
-	if (cmd == NULL || x == NULL || my_env == NULL)
+	if (cmd == NULL || x == NULL )
 		return ;
 	id.is_expand = 0;
 	id.is_amb = 0;

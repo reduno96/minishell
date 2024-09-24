@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 13:54:34 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:41:15 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 		&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')
 	{
+		printf("!!!\n");
 		ft_word(tmp_x, my_env, 1, arr_join);
 		if ((*arr_join) != NULL && (*arr_join)[0] != NULL)
 		{

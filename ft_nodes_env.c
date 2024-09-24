@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 13:55:32 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:41:30 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*ft_expand(char *arg, t_environment **my_env)
 
 	i = 0;
 	s = NULL;
+	if (my_env == NULL)
+		return NULL;
 	while (arg[i])
 	{
 		if (arg[i + 1] == '?')

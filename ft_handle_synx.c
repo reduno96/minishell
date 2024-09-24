@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 14:37:04 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:29:29 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,9 @@ int	quotes(t_splitor *start)
 	return (0);
 }
 
-int	ft_check_between(t_splitor **start)
+void ft_next_check(t_splitor **start)
 {
-	while ((*start) != NULL)
-	{
-		if (redirection((*start)) && ((*start)->state == G))
-		{
-			if ((*start) != NULL)
-				(*start) = (*start)->next;
-			ft_skip_spaces(&(*start));
-			if ((*start) == NULL || ((redirection(*start)
-						|| (*start)->type == '|') && (*start)->state == G))
-				return (1);
-		}
-		else if (ft_condition(*start) && (*start)->state != G)
+	if (ft_condition(*start) && (*start)->state != G)
 			while (((*start) != NULL) && (ft_condition(*start)
 					&& (*start)->state != G))
 				(*start) = (*start)->next;
@@ -59,6 +48,32 @@ int	ft_check_between(t_splitor **start)
 				(*start) = (*start)->next;
 		else if (((*start) != NULL) && (*start)->state == G)
 			(*start) = (*start)->next;
+}
+
+int	ft_check_between(t_splitor **start)
+{
+	while ((*start) != NULL)
+	{
+		if ((redirection((*start)) || (*start)->type == '|')
+			&& (*start)->state == G)
+		{
+			(*start) = (*start)->next;
+			ft_skip_spaces(&(*start));
+			if (redirection((*start)) && ((*start)->state == G))
+			{
+				if ((*start) == NULL || ((redirection(*start)
+							|| (*start)->type == '|') && (*start)->state == G))
+					return (1);
+			}
+			else if ((*start)->type == '|' && ((*start)->state == G))
+			{
+				if ((*start) == NULL || ((redirection(*start)
+							|| (*start)->type == '|') && (*start)->state == G))
+					return (1);
+			}
+		}
+		else
+			ft_next_check(start);
 	}
 	return (0);
 }
@@ -74,7 +89,7 @@ int	ft_handler_syn_error(t_splitor **x)
 	if (start->type == '|' || ((start->type != ' ' && start->type != -1
 				&& start->type != '$') && start->next == NULL)
 		|| ((start->type == '\'' || start->type == '\"')
-			&& start->next == NULL))
+				&& start->next == NULL))
 		return (1);
 	if (ft_check_between(&start))
 		return (1);
