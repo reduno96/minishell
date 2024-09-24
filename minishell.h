@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/22 19:40:35 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/23 22:10:20 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,9 @@ void		free_ft_split(char 	**list);
 char		*ft_getenv(char *path, char **env);
 void 		free_pid_pipe(int *pids, int **pipefd, int num_cmd);
 char		*ft_join(char  *s1, char  *s2);
+int			ft_check_built(char 	*s);
+
+
 
 
 #endif

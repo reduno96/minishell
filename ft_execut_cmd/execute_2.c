@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:22:56 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/22 13:48:28 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:30:38 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	execution_cmd(t_command *list, char **new)
 
 void	run_simple_cmd(t_command *list, t_envarment **var)
 {
+	(void)var;
 	if (test_redir_here_doc(list) == 1)
 	{
 		hundle_redirections(list);
@@ -94,6 +95,9 @@ void	run_simple_cmd(t_command *list, t_envarment **var)
 		execution_cmd(list, list->arg);
 	}
 }
+
+
+
 
 int	run_herdoc_built(t_envarment **var, t_command *cmd)
 {
@@ -116,10 +120,15 @@ int	run_herdoc_built(t_envarment **var, t_command *cmd)
 	if (built_in_exist(list) == 1 && pipe_exist(list) == 0
 		&& herdoc_exist(list) == 0 && test_redir_here_doc(list) == 0)
 	{
-		if (test_redir_here_doc(list) == 1)
-			hundle_redirections(list);
 		built_in(var, list);
 		return (1);
+	}
+	else if (built_in_exist(list) == 1 && pipe_exist(list) == 0
+		&& herdoc_exist(list) == 0 && ft_check_built(list->content) == 1)
+	{
+			if(list->arg[1] != NULL)
+				built_in(var, list);
+			return (0);
 	}
 	return (0);
 }
