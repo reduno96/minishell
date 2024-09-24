@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 23:39:14 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/23 13:02:39 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:17:04 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	is_number(char *arg)
 	return (1);
 }
 
-void	ft_free_when_exit(t_envarment **var, char *str, int fd, t_command *cmd)
+void	ft_free_when_exit(t_environment **var, char *str, int fd, t_command *cmd)
 {
 	(void) cmd;
 	ft_putstr_fd(str, fd);
@@ -64,12 +64,14 @@ void	ft_exit_comp(int len, char *ptr)
 	}
 	else if (len > 2)
 	{
-		g_exit_status = 1;
+		ft_putstr_fd("exit\n", 1);
+		g_exit_status = 255;
 		ft_putstr_fd(" too many arguments\n", 2);
+		exit(255);
 	}
 }
 
-void	ft_exit(t_envarment **var, t_command *cmd)
+void	ft_exit(t_environment **var, t_command *cmd)
 {
 	int	len;
 

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:01 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/20 10:41:53 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:14:13 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_pwd(t_command *list)
 	g_exit_status = 0;
 }
 
-t_envarment	*find_env(t_envarment *my_var, char *old)
+t_environment	*find_env(t_environment *my_var, char *old)
 {
 	if (my_var == NULL || old == NULL)
 		return (NULL);

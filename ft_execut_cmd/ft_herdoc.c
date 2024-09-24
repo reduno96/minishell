@@ -6,13 +6,13 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/22 16:03:09 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:15:39 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	hundle_chil_pro(t_here_doc *tmp_her, t_envarment **var)
+void	hundle_chil_pro(t_here_doc *tmp_her, t_environment **var)
 {
 	char	*line;
 
@@ -30,7 +30,7 @@ void	hundle_chil_pro(t_here_doc *tmp_her, t_envarment **var)
 	}
 }
 
-int	handle_fork(t_here_doc *tmp_her, t_envarment **var)
+int	handle_fork(t_here_doc *tmp_her, t_environment **var)
 {
 	int	pid;
 	int	status;
@@ -58,7 +58,7 @@ int	handle_fork(t_here_doc *tmp_her, t_envarment **var)
 	return (status);
 }
 
-int	ft_cmp_delimeter(t_command *tmp_cmd, t_envarment **var)
+int	ft_cmp_delimeter(t_command *tmp_cmd, t_environment **var)
 {
 	t_here_doc	*tmp_her;
 	int			status;
@@ -106,7 +106,7 @@ void	create_files(t_command *cmd, char *itoa)
 	}
 }
 
-bool	handle_here_doc(t_envarment **var, t_command *cmd)
+bool	handle_here_doc(t_environment **var, t_command *cmd)
 {
 	t_command	*tmp_cmd;
 	int			status;

@@ -6,16 +6,16 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 17:24:30 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:13:57 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_setenv_list(t_envarment **var, char *old, char **env)
+void	ft_setenv_list(t_environment **var, char *old, char **env)
 {
-	t_envarment	*my_var;
-	t_envarment	*my_var_1;
+	t_environment	*my_var;
+	t_environment	*my_var_1;
 	char		*path;
 
 	my_var = *var;
@@ -39,7 +39,7 @@ void	ft_setenv_list(t_envarment **var, char *old, char **env)
 	}
 }
 
-void	complete_cd_1(t_envarment **var, char *path, char **env)
+void	complete_cd_1(t_environment **var, char *path, char **env)
 {
 	(void)var;
 	if (ft_strcmp(path, "--") == 0)
@@ -80,7 +80,7 @@ void	complete_cd(char *path, char *ptr, char **env)
 	}
 }
 
-void	ft_cd(t_envarment **var, t_command *list, char **env)
+void	ft_cd(t_environment **var, t_command *list, char **env)
 {
 	char	*path;
 

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:49:01 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 14:03:08 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:48:06 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	ft_isalnum_exp(int c)
 			&& c <= 'z') || (c == '_') || c == '<' || c == '>');
 }
 
-void	print_export(t_envarment **var)
+void	print_export(t_environment **var)
 {
-	t_envarment	*ptr;
+	t_environment	*ptr;
 
 	if (*var == NULL || var == NULL)
 		return ;
@@ -40,31 +40,31 @@ void	print_export(t_envarment **var)
 	return ;
 }
 
-void	check_dolar_is(char *str, t_envarment *var, t_command *s)
-{
-	char	*ptr;
-	int		i;
+// void	check_dolar_is(char *str, t_environment *var, t_command *s)
+// {
+// 	char	*ptr;
+// 	int		i;
 
-	i = 1;
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if (ptr == NULL)
-		return ;
-	if (str[0] == '$')
-	{
-		while (str[i])
-		{
-			if (!ft_isalnum_exp(str[i]))
-			{
-				ft_putstr_fd("not a valid identifier\n", 2);
-				return ;
-			}
-			i++;
-		}
-	}
-	if (s->arg[2] == NULL || s->arg[2][0] == '\0')
-		print_export(&var);
-	free(ptr);
-}
+// 	i = 1;
+// 	ptr = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+// 	if (ptr == NULL)
+// 		return ;
+// 	if (str[0] == '$')
+// 	{
+// 		while (str[i])
+// 		{
+// 			if (!ft_isalnum_exp(str[i]))
+// 			{
+// 				ft_putstr_fd("not a valid identifier\n", 2);
+// 				return ;
+// 			}
+// 			i++;
+// 		}
+// 	}
+// 	if (s->arg[2] == NULL || s->arg[2][0] == '\0')
+// 		print_export(&var);
+// 	free(ptr);
+// }
 
 int	exist_redir(char *ptr)
 {

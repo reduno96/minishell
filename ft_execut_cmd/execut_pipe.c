@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:39:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/21 11:53:02 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:14:53 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_write_in_pipe(t_pipe *hd_p, int i)
 	}
 }
 
-void	ft_func_2(t_pipe *hd_p, int i, t_envarment **var)
+void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
 {
 	if (hd_p->pids[i] == 0)
 	{
@@ -82,7 +82,7 @@ void	ft_func_2(t_pipe *hd_p, int i, t_envarment **var)
 	}
 }
 
-void	ft_func(t_pipe *hd_p, int i, t_envarment **var)
+void	ft_func(t_pipe *hd_p, int i, t_environment **var)
 {
 	if (hd_p->tmp_cmd->is_pipe == 1)
 		hd_p->tmp_cmd = hd_p->tmp_cmd->next;
@@ -108,7 +108,7 @@ void	ft_func(t_pipe *hd_p, int i, t_envarment **var)
 	hd_p->tmp_cmd = hd_p->tmp_cmd->next;
 }
 
-void	handle_pipe(t_command *list, t_envarment **var)
+void	handle_pipe(t_command *list, t_environment **var)
 {
 	t_pipe	hd_p;
 	int		i;

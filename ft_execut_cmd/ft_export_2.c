@@ -6,13 +6,13 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:02:41 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 17:01:01 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:17:44 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	affiche_export(char **str, t_envarment **var)
+void	affiche_export(char **str, t_environment **var)
 {
 	int		i;
 	int		count;
@@ -51,9 +51,9 @@ int	ft_is_num(char *str)
 	return (1);
 }
 
-int	test_exist(t_envarment **var, char **list)
+int	test_exist(t_environment **var, char **list)
 {
-	t_envarment	*ptr;
+	t_environment	*ptr;
 
 	if (var == NULL || *var == NULL)
 		return (-1);

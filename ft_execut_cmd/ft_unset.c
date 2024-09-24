@@ -6,16 +6,16 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/22 19:06:09 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:13:20 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_envarment	*delet_first_node(t_envarment **my_env)
+t_environment	*delet_first_node(t_environment **my_env)
 {
-	t_envarment	*start;
-	t_envarment	*end;
+	t_environment	*start;
+	t_environment	*end;
 
 	start = *my_env;
 	end = (*my_env)->next;
@@ -48,9 +48,9 @@ int	check_is_valid(char *str)
 	return (0);
 }
 
-void	delet_first(t_envarment **var, char *ptr)
+void	delet_first(t_environment **var, char *ptr)
 {
-	t_envarment	*env;
+	t_environment	*env;
 
 	if (var == NULL || *var == NULL || ptr == NULL)
 		return ;
@@ -61,11 +61,11 @@ void	delet_first(t_envarment **var, char *ptr)
 	}
 }
 
-void	delet_envarment(t_envarment **var, char *str)
+void	delet_environment(t_environment **var, char *str)
 {
-	t_envarment	*env;
-	t_envarment	*env_1;
-	t_envarment	*prev;
+	t_environment	*env;
+	t_environment	*env_1;
+	t_environment	*prev;
 
 	env = *var;
 	prev = NULL;
@@ -90,7 +90,7 @@ void	delet_envarment(t_envarment **var, char *str)
 	}
 }
 
-void	ft_unset(t_envarment **var, t_command *list)
+void	ft_unset(t_environment **var, t_command *list)
 {
 	int		i;
 	char	*ptr;
@@ -102,10 +102,16 @@ void	ft_unset(t_envarment **var, t_command *list)
 	ptr = (*var)->var;
 	while (list->arg[i])
 	{
+		if (list->arg[1][0]  == '-')
+		{
+			ft_putstr_fd("invalid option\n", 2);
+			g_exit_status = 2;
+			return ;
+		}
 		if (check_is_valid(list->arg[i]) == 1)
 			return ;
 		delet_first(var, ptr);
-		delet_envarment(var, list->arg[i]);
+		delet_environment(var, list->arg[i]);
 		i++;
 	}
 }

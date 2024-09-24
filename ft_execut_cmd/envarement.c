@@ -6,15 +6,15 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:55:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/23 22:09:47 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:17:44 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	len_var(t_envarment *var)
+int	len_var(t_environment *var)
 {
-	t_envarment	*tmp;
+	t_environment	*tmp;
 	int			size;
 
 	if (var == NULL)
@@ -29,11 +29,11 @@ int	len_var(t_envarment *var)
 	return (size);
 }
 
-char	**array_env(t_envarment **var)
+char	**array_env(t_environment **var)
 {
 	t_envar		arry;
 	int			i;
-	t_envarment	*tmp_cmd;
+	t_environment	*tmp_cmd;
 
 	tmp_cmd = *var;
 	arry.len = len_var(*var);
@@ -82,11 +82,16 @@ char	*ft_join(char *s1, char *s2)
 	ptr[i] = '\0';
 	return (ptr);
 }
-int	ft_check_built(char 	*s)
+int	ft_check_built(t_command *list)
 {
-	if( ft_strcmp(s, "export") == 0)
+	 t_command *tmp;
+	 
+	tmp = list;
+	if( ft_strcmp(tmp->content, "export") == 0 && tmp->arg[1] != NULL )
 		return 1;
-	if( ft_strcmp(s, "unset") == 0)
+	if( ft_strcmp(tmp->content, "unset") == 0 && tmp->arg[1] != NULL )
+		return 1;
+	if( ft_strcmp(tmp->content, "cd") == 0)
 		return 1;
 	return 0;	
 }

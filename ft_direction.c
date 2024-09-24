@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_direction.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 13:03:09 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:32:06 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_fill_her(t_pre *id, t_environment *my_env, char *final)
 			id->is_expand = 1;
 		final = ft_skip_direction(&id->tmp_x, my_env, &id->is_amb, 0);
 		add_back_node_her(&(id->tmp_cmd->her), new_node_her(final, -1, id->j,
-				0));
+				id->is_expand));
 		id->j++;
 	}
 }

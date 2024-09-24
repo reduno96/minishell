@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 13:49:32 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:28:30 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ok(void)
 {
-	system("leaks minishell");
+	// system("leaks minishell");
 }
 
 void	handle_sig(int sig)
@@ -22,7 +22,7 @@ void	handle_sig(int sig)
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -73,7 +73,7 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_environment **my_env)
 		cmd = NULL;
 		x = NULL;
 		free(str_input);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 }
 

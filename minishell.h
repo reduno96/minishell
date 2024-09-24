@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 13:06:11 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:20:47 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ void		ft_unset(t_environment **var, t_command *list);
 t_environment	*delet_first_node(t_environment **my_env);
 void		ft_error(char *str, char *ptr);
 void		delet_first(t_environment **var, char *ptr);
-void		delet_envarment(t_environment **var, char *str);
+void		delet_environment(t_environment **var, char *str);
 
 void		ft_pwd(t_command *list);
 void		ft_env(t_environment **var);
@@ -228,11 +228,11 @@ char		**array_env(t_environment **var);
 char		*ft_strjoin_1(char *s1, char *s2);
 int			len_var(t_environment *var);
 
+
 //////////////////////     free      /////////////////////////////////
 void		free_ft_split(char **list);
 char		*ft_getenv(char *path, char **env);
 void		free_pid_pipe(int *pids, int **pipefd, int num_cmd);
 char		*ft_join(char *s1, char *s2);
-int			ft_check_built(char *s);
-
+int	ft_check_built(t_command *list);
 #endif

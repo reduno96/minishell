@@ -6,15 +6,15 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 22:21:40 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:14:29 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_env(t_envarment **var)
+void	ft_env(t_environment **var)
 {
-	t_envarment	*ptr;
+	t_environment	*ptr;
 
 	ptr = *var;
 	while (ptr != NULL)

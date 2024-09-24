@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:04:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/23 18:44:50 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:40:47 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	delet_files(t_command *cmd)
 	}
 }
 
-char	*ft_handle_var(char *line, int *i, t_envarment *my_env, char *final)
+char	*ft_handle_var(char *line, int *i, t_environment *my_env, char *final)
 {
 	int		len;
 	int		j;
@@ -67,34 +67,31 @@ char	*ft_handle_var(char *line, int *i, t_envarment *my_env, char *final)
 	return (final);
 }
 
-char	*ft_expand_in_her(char *line, t_envarment *my_env)
+char	*ft_expand_in_her(char *line, t_environment *my_env)
 {
-	int		i;
-	int		j;
-	int		len;
-	char	*final;
-
-	i = 0;
-	final = NULL;
-	while (line[i])
+	t_expand_her idx;
+	
+	idx.i = 0;
+	idx.final = NULL;
+	while (line[idx.i])
 	{
-		len = 0;
-		if (line[i] == '$')
-			final = ft_handle_var(line, &i, my_env, final);
+		idx.len = 0;
+		if (line[idx.i] == '$')
+			idx.final = ft_handle_var(line, &idx.i, my_env, idx.final);
 		else
 		{
-			j = i;
-			while (line[i] && line[i] != '$')
+			idx.j = idx.i;
+			while (line[idx.i] && line[idx.i] != '$')
 			{
-				i++;
-				len++;
+				idx.i++;
+				idx.len++;
 			}
-			final = ft_strjoin_1(final, ft_substr(line, j, len));
-			i--;
+			idx.final = ft_strjoin_1(idx.final, ft_substr(line, idx.j, idx.len));
+			idx.i--;
 		}
-		i++;
+		idx.i++;
 	}
-	return (final);
+	return (idx.final);
 }
 
 char	*ft_name_file(t_here_doc *tmp)
@@ -111,9 +108,9 @@ char	*ft_name_file(t_here_doc *tmp)
 	return (path_file);
 }
 
-void	write_in_file(t_here_doc *tmp, char *line, t_envarment **var)
+void	write_in_file(t_here_doc *tmp, char *line, t_environment **var)
 {
-	t_envarment	*my_env;
+	t_environment	*my_env;
 	char		*path_file;
 	char		*final;
 

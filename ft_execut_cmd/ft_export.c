@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/22 19:05:17 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:03:14 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_is_valid_1(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '=')
+	if ( str[i] == '=' )
 	{
 		ft_error(str, "export :`");
 		return (1);
@@ -70,11 +70,13 @@ int	check_is_valid_1(char *str)
 		ft_error(str, "export :`");
 		return (1);
 	}
-	while (str[i] && str[i] != '=')
+	while (str[i] && (str[i] != '+' && str[i] != '='))
 	{
+
 		if (str[i] < '0' || (str[i] >= ':' && str[i] <= '@') || (str[i] >= '['
-				&& str[i] <= '^') || str[i] >= '{' || str[i] == '`')
+				&& str[i] <= '^') || str[i] >= '{' || str[i] == '`'  )
 		{
+
 			ft_error(str, "export :`");
 			return (1);
 		}
@@ -83,11 +85,11 @@ int	check_is_valid_1(char *str)
 	return (0);
 }
 
-void	export_1(t_envarment **var, t_command *str, int *i)
+void	export_1(t_environment **var, t_command *str, int *i)
 {
 	char		*ptr_1;
 	char		*ptr_2;
-	t_envarment	*elem;
+	t_environment	*elem;
 	char		**list;
 
 	list = split_line(str->arg[*i]);
@@ -107,7 +109,7 @@ void	export_1(t_envarment **var, t_command *str, int *i)
 	return ;
 }
 
-void	ft_export(t_envarment **var, t_command *str)
+void	ft_export(t_environment **var, t_command *str)
 {
 	int	i;
 
@@ -118,6 +120,12 @@ void	ft_export(t_envarment **var, t_command *str)
 			i++;
 		else
 		{
+			if (str->arg[1][0]  == '-')
+			{
+				ft_putstr_fd("invalid option\n", 2);
+				g_exit_status = 2;
+				return ;
+			}
 			if (check_is_valid_1(str->arg[i]) == 1)
 				return ;
 			export_1(var, str, &i);

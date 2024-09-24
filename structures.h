@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 13:04:41 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:39:20 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ typedef struct s_idx
 	int					in_d;
 }						t_idx;
 
+
+typedef struct s_expand_her
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*final;
+} t_expand_her;
 typedef enum e_token
 {
 	nothing = 0,
