@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/25 10:24:35 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:18:07 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,41 +36,42 @@ int	quotes(t_splitor *start)
 	return (0);
 }
 
-void ft_next_check(t_splitor **start)
+void	ft_next_check(t_splitor **start)
 {
 	if (ft_condition(*start) && (*start)->state != G)
-			while (((*start) != NULL) && (ft_condition(*start)
-					&& (*start)->state != G))
-				(*start) = (*start)->next;
-		else if (!ft_condition(*start) && (*start)->state != G)
-			while (((*start) != NULL) && !ft_condition(*start)
-				&& (*start)->state != G)
-				(*start) = (*start)->next;
-		else if (((*start) != NULL) && (*start)->state == G)
+		while (((*start) != NULL) && (ft_condition(*start)
+				&& (*start)->state != G))
 			(*start) = (*start)->next;
+	else if (!ft_condition(*start) && (*start)->state != G)
+		while (((*start) != NULL) && !ft_condition(*start)
+			&& (*start)->state != G)
+			(*start) = (*start)->next;
+	else if (((*start) != NULL) && (*start)->state == G)
+		(*start) = (*start)->next;
 }
 
 int	ft_check_between(t_splitor **start)
 {
 	while ((*start) != NULL)
 	{
-		if ((redirection((*start)) || (*start)->type == '|')
-			&& (*start)->state == G)
+		if (redirection((*start)) && ((*start)->state == G))
 		{
 			(*start) = (*start)->next;
 			ft_skip_spaces(&(*start));
-			if (redirection((*start)) && ((*start)->state == G))
+			if ((*start) == NULL || ((redirection(*start)
+						|| (*start)->type == '|') && (*start)->state == G))
 			{
-				if ((*start) == NULL || /* ((redirection(*start)
-							|| */ ((*start)->type == '|' && (*start)->state == G))
-					return (1);
+				return (1);
+				printf("1\n");
 			}
-			else if ((*start)->type == '|' && ((*start)->state == G))
-			{
-				if ((*start) == NULL || ((redirection(*start)
-							|| (*start)->type == '|') && (*start)->state == G))
-					return (1);
-			}
+		}
+		else if ((*start)->type == '|' && ((*start)->state == G))
+		{
+			(*start) = (*start)->next;
+			ft_skip_spaces(&(*start));
+			if ((*start) == NULL || (((*start)->type == '|')
+					&& (*start)->state == G))
+				return (1);
 		}
 		else
 			ft_next_check(start);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_nodes_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 18:41:30 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:01:52 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ char	*ft_expand(char *arg, t_environment **my_env)
 			return (s = ft_strdup(num), free(num), s);
 		}
 		else if (ft_search("$\"\"", arg))
-			return (s = ft_strdup(""), s);
+{
+			return (s = ft_strdup(""), s);}
 		else if (arg[i] == '$')
 		{
 			i++;

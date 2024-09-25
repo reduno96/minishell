@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:43:45 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 13:51:04 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:02:12 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	ft_check_env(char *s, t_idx *var)
 	else
 		var->state = ft_get_state(var, s[var->i]);
 }
+
+
 
 void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 {

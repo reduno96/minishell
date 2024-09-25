@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 21:54:22 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:04:51 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	check_is_valid(char *str)
 
 	if (str == NULL)
 		return (0);
-	if (ft_isdigit(str[0]))
+	if (ft_isdigit(str[0]) || str[0] == '\0')
 	{
 		ft_error(str, "unset :`");
 		return (1);
@@ -102,7 +102,6 @@ void	ft_unset(t_environment **var, t_command *list)
 
 	if (!var || !*var || !list)
 		return ;
-	// env = *var;
 	i = 1;
 	ptr = (*var)->var;
 	while (list->arg[i])

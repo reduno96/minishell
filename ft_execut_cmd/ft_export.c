@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 20:08:55 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:56:39 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	check_is_valid_1(char *str)
 		ft_error(str, "export :`");
 		return (1);
 	}
-	while (str[i] && (str[i] != '+' && str[i] != '='))
+	// while (str[i] && (str[i] != '+' && str[i] != '='))
+	while (str[i] && str[i] != '=')
 	{
 		if (str[i] < '0' || (str[i] >= ':' && str[i] <= '@') || (str[i] >= '['
 				&& str[i] <= '^') || str[i] >= '{' || str[i] == '`')
