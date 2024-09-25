@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:04:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 12:35:24 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:54:46 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	write_in_file(t_here_doc *tmp, char *line, t_environment **var)
 	{
 		final = ft_expand_in_her(line, my_env);
 		ft_putstr_fd(final, tmp->fd);
+		free(final);
 	}
 	else
 		ft_putstr_fd(line, tmp->fd);
