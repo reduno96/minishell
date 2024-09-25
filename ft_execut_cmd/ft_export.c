@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 13:56:39 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 20:45:43 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,29 @@ int	ft_str_eqal(char *ptr, char c)
 	}
 	return (0);
 }
+char 	*ft_data(char *ptr)
+{
+	int 	i;
+	char 	*s;
+
+	// if(ptr == NULL)
+	// 	return NULL;
+	i = 0;
+	while (ptr[i + 1] != '\0')
+	{
+		if(ptr[i] == '=' && ptr[i + 1] ==  '=' )
+		{
+			s = ft_strdup(ptr + i + 1 );
+			// printf("ptr ++++++++++  [%s]  \n", s);
+			return s;
+		}
+		i++;
+	}
+	s =  ft_strdup(ft_strchr(ptr, '='));
+	if(s[0] == '=' && s[1] == '\0')
+		s = ft_strdup("");
+	return s;
+}
 
 char	**split_line(char *ptr)
 {
@@ -34,11 +57,13 @@ char	**split_line(char *ptr)
 	if (ft_str_eqal(ptr, '=') == 1)
 	{
 		arg[0] = first_word(ptr);
-		arg[1] = ft_strdup(ft_strchr(ptr, '=') + 1);
+		arg[1]  = ft_strdup(ft_strchr(ptr , '=' + 1));
+		// arg[1] = ft_data(ptr);
+		// printf(".............  %s \n", arg[1]);
 		if (arg[1][0] == '\0')
 		{
 			free(arg[1]);
-			arg[1] = ft_strdup("=");
+			arg[1] = ft_strdup("+");
 		}
 	}
 	else
@@ -62,12 +87,12 @@ int	check_is_valid_1(char *str)
 	i = 0;
 	if (str[i] == '=')
 	{
-		ft_error(str, "export :`");
+		ft_error(str, "minishell:`");
 		return (1);
 	}
 	if (ft_isdigit(str[0]))
 	{
-		ft_error(str, "export :`");
+		ft_error(str, "minishell:`");
 		return (1);
 	}
 	// while (str[i] && (str[i] != '+' && str[i] != '='))
@@ -76,7 +101,7 @@ int	check_is_valid_1(char *str)
 		if (str[i] < '0' || (str[i] >= ':' && str[i] <= '@') || (str[i] >= '['
 				&& str[i] <= '^') || str[i] >= '{' || str[i] == '`')
 		{
-			ft_error(str, "export :`");
+			ft_error(str, "minishell:`");
 			return (1);
 		}
 		i++;
@@ -94,6 +119,9 @@ void	export_1(t_environment **var, t_command *str, int *i)
 	list = split_line(str->arg[*i]);
 	ptr_1 = ft_strdup(list[0]);
 	ptr_2 = ft_strdup(list[1]);
+
+	// printf("***************  [%s]\n", ptr_1);
+	// printf("***************  [%s]\n", ptr_2);
 	if (test_exist(var, list) == 0)
 	{
 		(*i)++;

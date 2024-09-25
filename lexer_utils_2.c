@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:43:45 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/25 15:02:12 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:21:54 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_her_dir(t_splitor **x, t_idx *var, char *s)
 
 void	ft_else(char *s, t_idx *var)
 {
+	// printf("1\n");
 	var->state = ft_get_state(var, s[var->i]);
 	var->i++;
 	var->len++;
@@ -33,39 +34,54 @@ void	ft_else(char *s, t_idx *var)
 
 void	ft_check_env(char *s, t_idx *var)
 {
-	if (s[var->i] && s[var->i] == '$' && ft_isalpha(s[var->i + 1])
+	if (s[var->i] && s[var->i] == '$' && ft_isalnum(s[var->i + 1])
 		&& !ft_check_input(s[var->i + 1]))
 	{
-		while (s[var->i] && !ft_check_input(s[var->i + 1])
-			&& ft_isalpha(s[var->i + 1]))
+		// printf("2\n");
+		if (s[var->i] && ft_isdigit(s[var->i + 1]))
 		{
-			var->state = ft_get_state(var, s[var->i++]);
-			var->len++;
+			if (s[var->i] && ft_isdigit(s[var->i + 1]))
+			{
+				var->state = ft_get_state(var, s[var->i++]);
+				var->len++;
+			}
+		}
+		else
+		{
+			while (s[var->i] && !ft_check_input(s[var->i + 1])
+				&& ft_isalnum(s[var->i + 1]))
+			{
+				var->state = ft_get_state(var, s[var->i++]);
+				var->len++;
+			}
 		}
 	}
 	else if (s[var->i] && s[var->i] == '$' && s[var->i + 1] == '?')
 		ft_else(s, var);
-	else if (s[var->i] && s[var->i] == '$' && !ft_isalpha(s[var->i + 1])
+	else if (s[var->i] && s[var->i] == '$' && !ft_isalnum(s[var->i + 1])
 		&& !ft_check_input(s[var->i + 1]))
 	{
-		while (s[var->i] && s[var->i] == '$' && !ft_isalpha(s[var->i + 1])
+		// printf("3\n");
+		while (s[var->i] && s[var->i] == '$' && !ft_isalnum(s[var->i + 1])
 			&& !ft_check_input(s[var->i + 1]))
 		{
+			// printf("1\n");
 			var->state = ft_get_state(var, s[var->i++]);
 			var->len++;
 		}
 	}
 	else
+	{
+		// printf("4\n");
 		var->state = ft_get_state(var, s[var->i]);
+	}
 }
-
-
 
 void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 {
 	if ((s[var->i] && s[var->i + 1] && s[var->i + 2] && s[var->i] == '$')
 		&& ((s[var->i + 1] == '\"' && s[var->i + 2] == '\"') || (s[var->i
-					+ 1] == '\'' && s[var->i + 2] == '\'')))
+				+ 1] == '\'' && s[var->i + 2] == '\'')))
 	{
 		var->state = G;
 		var->i++;

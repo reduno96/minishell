@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:21:29 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 10:55:38 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:28:11 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_access_2(char *ptr, char **str)
 {
 	if (access(ptr, F_OK) == -1 || access(ptr, X_OK) == -1 || ptr[0] == '\0')
 	{
-		ft_putstr_fd(ptr, 2);
+		ft_putstr_fd("minishell:", 2);
 		ft_putstr_fd(": command not found\n", 2);
 		if (ptr != str[0])
 			free(ptr);
@@ -36,7 +36,7 @@ void	ft_access_2(char *ptr, char **str)
 	}
 	else if (is_directory(ptr))
 	{
-		ft_putstr_fd(ptr, 2);
+		ft_putstr_fd("minishell:", 2);
 		ft_putstr_fd(": command not found\n", 2);
 		if (ptr != str[0])
 			free(ptr);
@@ -62,12 +62,12 @@ void	ft_access_1(char *ptr, char **str)
 	{
 		if (is_directory(ptr))
 		{
-			printf_error_exit(ptr, str, ": is a directory\n", 126);
+			printf_error_exit("minishell:", str, ": is a directory\n", 126);
 			exit(126);
 		}
 		else
 		{
-			printf_error_exit(ptr, str, ": Not a directory\n", 126);
+			printf_error_exit("minishell:", str, ": Not a directory\n", 126);
 			exit(126);
 		}
 	}
@@ -86,17 +86,17 @@ void	ft_access(char *ptr, char **str)
 	{
 		if (access(ptr, F_OK) == -1)
 		{
-			printf_error_exit(ptr, str, " No such file or directory\n", 127);
+			printf_error_exit("minishell:", str, " No such file or directory\n", 127);
 			exit(127);
 		}
 		if (access(ptr, X_OK) == -1)
 		{
-			printf_error_exit(ptr, str, ": Permission denied\n", 126);
+			printf_error_exit("minishell:", str, ": Permission denied\n", 126);
 			exit(126);
 		}
 		if (is_directory(ptr))
 		{
-			printf_error_exit(ptr, str, ": is a directory\n", 126);
+			printf_error_exit("minishell:", str, ": is a directory\n", 126);
 			exit(126);
 		}
 	}

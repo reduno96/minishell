@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skip_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:53:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 13:17:22 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:43:01 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_check_ambiguous(t_splitor *tmp_x, t_environment *my_env)
 		{
 			s = ft_expand(tmp_x->in, &my_env);
 			if (s == NULL)
-				return (0);
+				return (1);
 			str = ft_split(s, ' ');
 			if (ft_len_arg(str) > 1)
 				return (free(s), ft_free_argment(str), 1);
@@ -79,15 +79,16 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
 			|| (*tmp_x)->type == '\''))
 	{
 		ft_double_and_sigle(tmp_x, my_env, her, &str);
-		final = ft_fill_final(str);
-	}
+if (str != NULL)
+			final = ft_fill_final(str);	}
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G)
 	{
 		*is_amb = ft_check_ambiguous((*tmp_x), my_env);
 		if (*is_amb == 1)
 			return (NULL);
 		ft_word(tmp_x, my_env, her, &str);
-		final = ft_fill_final(str);
+		if (str != NULL)
+			final = ft_fill_final(str);
 	}
 	free_args(str);
 	return (final);

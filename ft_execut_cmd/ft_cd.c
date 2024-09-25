@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 20:21:45 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:00:04 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	complete_cd_1(t_environment **var, char *path, char **env)
 	else if (chdir(path) == -1)
 	{
 		g_exit_status = 1;
-		perror("cd");
+		printf_error_cd("minishell: No such file or directory", 1);
 	}
 }
 
@@ -85,6 +85,7 @@ void	complete_cd(char *path, char *ptr, char **env)
 
 void	ft_cd(t_environment **var, t_command *list, char **env)
 {
+	env = array_env(var);
 	char	*path;
 
 	if (list->arg[1] == NULL || list->arg[1][0] == '\0')

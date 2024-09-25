@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/25 15:01:34 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 19:24:00 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	print_redirect_list(t_redirect *head)
 	{
 	printf("2\n");
 		 printf("type : %d | %s\n", current->type, current->store);
+		 printf("type : %d \n", current->is_amb);
 		current = current->next;
 	}
 }

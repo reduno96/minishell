@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 15:14:29 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:26:14 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_env(t_environment **var)
 {
+	if(var == NULL || *var == NULL)
+		return ;
+
 	t_environment	*ptr;
 
 	ptr = *var;

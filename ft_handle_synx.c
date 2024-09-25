@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/25 13:18:07 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:58:23 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	quotes(t_splitor *start)
 
 void	ft_next_check(t_splitor **start)
 {
-	if (ft_condition(*start) && (*start)->state != G)
+	if (((*start) != NULL) && ft_condition(*start) && (*start)->state != G)
 		while (((*start) != NULL) && (ft_condition(*start)
 				&& (*start)->state != G))
 			(*start) = (*start)->next;
-	else if (!ft_condition(*start) && (*start)->state != G)
+	else if (((*start) != NULL) && !ft_condition(*start) && (*start)->state != G)
 		while (((*start) != NULL) && !ft_condition(*start)
 			&& (*start)->state != G)
 			(*start) = (*start)->next;
@@ -54,7 +54,8 @@ int	ft_check_between(t_splitor **start)
 {
 	while ((*start) != NULL)
 	{
-		if (redirection((*start)) && ((*start)->state == G))
+		ft_skip_spaces(&(*start));
+		if (((*start) != NULL) && redirection((*start)) && ((*start)->state == G))
 		{
 			(*start) = (*start)->next;
 			ft_skip_spaces(&(*start));
@@ -65,7 +66,7 @@ int	ft_check_between(t_splitor **start)
 				printf("1\n");
 			}
 		}
-		else if ((*start)->type == '|' && ((*start)->state == G))
+		else if (((*start) != NULL) && (*start)->type == '|' && ((*start)->state == G))
 		{
 			(*start) = (*start)->next;
 			ft_skip_spaces(&(*start));
@@ -87,10 +88,11 @@ int	ft_handler_syn_error(t_splitor **x)
 	if (!(*x))
 		return (0);
 	start = *x;
-	if (start->type == '|' || ((start->type != ' ' && start->type != -1
+	ft_skip_spaces(&start);
+	if (start != NULL &&  ( start->type == '|' || ((start->type != ' ' && start->type != -1
 				&& start->type != '$') && start->next == NULL)
 		|| ((start->type == '\'' || start->type == '\"')
-				&& start->next == NULL))
+				&& start->next == NULL)))
 		return (1);
 	if (ft_check_between(&start))
 		return (1);

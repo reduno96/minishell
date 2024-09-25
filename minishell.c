@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 19:04:43 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:54:08 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_initialize(t_splitor *x, t_command **cmd, t_environment **my_env)
 void	ft_free_when_exit_1(t_splitor *x, t_command **cmd,
 		t_environment **my_env)
 {
-	printf("exit\n");
+	// printf("exit\n");
 	ft_free_command(cmd);
 	ft_free_lexer(&x);
 	ft_free_env(my_env);
@@ -57,7 +57,7 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_environment **my_env)
 
 	while (1)
 	{
-		str_input = readline("\033[36m➨ minishell $:\033[0m  ");
+		str_input = readline("minishell ");
 		if (!str_input)
 			ft_free_when_exit_1(x, &cmd, my_env);
 		if (ft_strlen(str_input) > 0)

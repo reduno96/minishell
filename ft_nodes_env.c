@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/25 15:01:52 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 20:46:30 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_environment	*new_node(void *var, void *data)
 		return (NULL);
 	elem->var = var;
 	elem->data = data;
+	// printf("+++++++++++         [%s]\n", elem->data);
 	elem->next = NULL;
 	return (elem);
 }
