@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_synx.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 07:47:51 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 18:29:29 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:24:35 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	ft_check_between(t_splitor **start)
 			ft_skip_spaces(&(*start));
 			if (redirection((*start)) && ((*start)->state == G))
 			{
-				if ((*start) == NULL || ((redirection(*start)
-							|| (*start)->type == '|') && (*start)->state == G))
+				if ((*start) == NULL || /* ((redirection(*start)
+							|| */ ((*start)->type == '|' && (*start)->state == G))
 					return (1);
 			}
 			else if ((*start)->type == '|' && ((*start)->state == G))

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 16:13:20 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/24 21:54:22 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ int	check_is_valid(char *str)
 
 	if (str == NULL)
 		return (0);
+	if (ft_isdigit(str[0]))
+	{
+		ft_error(str, "unset :`");
+		return (1);
+	}
 	i = 0;
 	while (str[i])
 	{

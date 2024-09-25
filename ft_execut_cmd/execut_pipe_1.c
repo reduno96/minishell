@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:38:50 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 17:45:34 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:18:41 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int	**return_pipe(int num_cmd)
 {
 	int	**pipe;
 	int	i;
-
-	pipe = (int **)malloc(sizeof(int *) * num_cmd);
+	pipe = (int **)malloc(sizeof(int *) * num_cmd );
 	if (!pipe)
 	{
 		perror("malloc");
@@ -57,14 +56,15 @@ int	**return_pipe(int num_cmd)
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
-	while (i < num_cmd)
+	while (i < num_cmd ) 
 	{
 		pipe[i] = (int *)malloc(sizeof(int) * 2);
 		if (!pipe[i])
 		{
 			perror("malloc");
-			while (i >= 0)
+			while (i > 0)
 				free(pipe[i--]);
+			free(pipe);
 			g_exit_status = 1;
 			exit(EXIT_FAILURE);
 		}
@@ -80,13 +80,19 @@ void	free_pid_pipe(int *pids, int **pipefd, int num_cmd)
 	i = 0;
 	if (pipefd != NULL)
 	{
-		while (i < num_cmd - 1)
+		while (i < num_cmd )
 		{
 			free(pipefd[i]);
+			pipefd[i] = NULL;
 			i++;
 		}
 		free(pipefd);
+		pipefd = NULL;
 	}
 	if (pids != NULL)
+	{
 		free(pids);
+		pids = NULL;
+	}
+
 }

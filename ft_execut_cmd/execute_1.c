@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:21:29 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 22:31:21 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:55:38 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_directory(char *path)
 
 void	ft_access_2(char *ptr, char **str)
 {
-	if (access(ptr, F_OK) == -1 || access(ptr, X_OK) == -1)
+	if (access(ptr, F_OK) == -1 || access(ptr, X_OK) == -1 || ptr[0] == '\0')
 	{
 		ft_putstr_fd(ptr, 2);
 		ft_putstr_fd(": command not found\n", 2);
@@ -57,6 +57,7 @@ void	printf_error_exit(char *ptr, char **str, char *s, int exit)
 
 void	ft_access_1(char *ptr, char **str)
 {
+	
 	if (ptr[ft_strlen(ptr) - 1] == '/')
 	{
 		if (is_directory(ptr))
@@ -78,7 +79,8 @@ void	ft_access_1(char *ptr, char **str)
 
 void	ft_access(char *ptr, char **str)
 {
-	if (ptr == NULL || str == NULL || *str == NULL)
+
+	if (ptr == NULL || str == NULL || *str == NULL )
 		return ;
 	if (ft_strncmp(ptr, "./", 2) == 0 || ptr[0] == '/')
 	{

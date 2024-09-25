@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 15:15:39 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:33:04 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ void	hundle_chil_pro(t_here_doc *tmp_her, t_environment **var)
 		if (line == NULL)
 			exit(EXIT_SUCCESS);
 		if (ft_strcmp(line, tmp_her->store) == 0)
+		{
+		free(line);
 			exit(EXIT_SUCCESS);
+		}
 		else
 			write_in_file(tmp_her, line, var);
+		free(line);
 	}
 }
 

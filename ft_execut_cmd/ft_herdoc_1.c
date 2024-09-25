@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:04:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 17:40:47 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:35:24 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ char	*ft_handle_var(char *line, int *i, t_environment *my_env, char *final)
 char	*ft_expand_in_her(char *line, t_environment *my_env)
 {
 	t_expand_her idx;
-	
+	char *sub;
+	sub = NULL;
 	idx.i = 0;
 	idx.final = NULL;
 	while (line[idx.i])
@@ -86,7 +87,9 @@ char	*ft_expand_in_her(char *line, t_environment *my_env)
 				idx.i++;
 				idx.len++;
 			}
-			idx.final = ft_strjoin_1(idx.final, ft_substr(line, idx.j, idx.len));
+			sub = ft_substr(line, idx.j, idx.len);
+			idx.final = ft_strjoin(idx.final, sub );
+			free(sub);
 			idx.i--;
 		}
 		idx.i++;
@@ -130,7 +133,6 @@ void	write_in_file(t_here_doc *tmp, char *line, t_environment **var)
 	}
 	else
 		ft_putstr_fd(line, tmp->fd);
-	free(line);
 	free(path_file);
 	write(tmp->fd, "\n", 1);
 	close(tmp->fd);
