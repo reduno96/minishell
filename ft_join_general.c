@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:16:53 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 11:22:11 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:01:26 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	ft_join_word_2(char ***arr_join, t_splitor **tmp_x,
 		ft_join_arr(arr_join, (*tmp_x)->in);
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
 		ft_join_arr(arr_join, (*tmp_x)->in);
-	if ((*tmp_x) != NULL && (*tmp_x)->type != ' '&&  !(redirection(*tmp_x) && (*tmp_x)->state == G))
+	if ((*tmp_x) != NULL && (*tmp_x)->type != ' ' && !(redirection(*tmp_x)
+			&& (*tmp_x)->state == G))
 		(*tmp_x) = (*tmp_x)->next;
 }
 
@@ -90,6 +91,7 @@ char	**ft_word(t_splitor **tmp_x, t_environment *my_env, int j,
 	char	*s;
 
 	s = NULL;
+	printf("==>%s\n", (*tmp_x)->in);
 	while ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type != ' '
 			&& (*tmp_x)->type != '|' && (!redirection(*tmp_x)
 				&& (*tmp_x)->state == G) && !quotes(*tmp_x)))
@@ -97,7 +99,6 @@ char	**ft_word(t_splitor **tmp_x, t_environment *my_env, int j,
 		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			printf("1\n");
 			ft_split_expand(arr_join, s, 1);
 		}
 		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_skip.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:29:09 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 18:02:43 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:15:21 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	ft_skip_not_word(t_splitor **tmp_x, t_environment *my_env)
 	{
 		(*tmp_x) = (*tmp_x)->next;
 		ft_skip_spaces(tmp_x);
-		while ((*tmp_x) != NULL &&(*tmp_x)->state == G && ((*tmp_x)->type == '\"'
-				|| (*tmp_x)->type == '\''))
+		while ((*tmp_x) != NULL && (*tmp_x)->state == G
+			&& ((*tmp_x)->type == '\"' || (*tmp_x)->type == '\''))
 			(*tmp_x) = (*tmp_x)->next;
 		if ((*tmp_x) != NULL && (*tmp_x)->state == G && (*tmp_x)->type != '\"'
 			&& (*tmp_x)->type != '\'' && (*tmp_x)->type != '|')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 11:48:57 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:55:04 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_environment **my_env)
 		if (ft_lexer(str_input, &x))
 		{
 			g_exit_status = 258;
-			ft_putstr_fd("Syntax Error:\n", 2);
+			ft_putstr_fd("minishell: Syntax Error\n", 2);
 			ft_free_lexer(&x);
 		}
 		else

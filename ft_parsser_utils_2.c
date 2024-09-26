@@ -3,28 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser_utils_2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 19:08:41 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:07:20 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node,
-		t_splitor **tmp_x)
+int	ft_check_null(char ***arr_join, t_command **new_node, t_splitor **tmp_x)
 {
-	while (((*tmp_x) != NULL && (*tmp_x)->next != NULL && ((*tmp_x)->state == G
-				&& (*tmp_x)->next->state == G)) && (((*tmp_x)->type == '\"'
-				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
-				&& (*tmp_x)->next->type == '\''))
-		&& ((*tmp_x)->next->next != NULL && ((*tmp_x)->next->next->type != 32
-				|| (*tmp_x)->next->next->type == '$')))
-	{
-		(*tmp_x) = (*tmp_x)->next;
-		(*tmp_x) = (*tmp_x)->next;
-	}
 	if (((*tmp_x) != NULL && (*tmp_x)->next != NULL && ((*tmp_x)->state == G
 				&& (*tmp_x)->next->state == G)) && (((*tmp_x)->type == '\"'
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
@@ -45,32 +34,22 @@ int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node,
 	return (0);
 }
 
-char	**ft_join_arg(char **arg, char **join)
+int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node,
+		t_splitor **tmp_x)
 {
-	t_ps	ps;
-
-	ps.idx = 0;
-	ps.j = 0;
-	ps.len_of_arg = ft_len_arg(arg);
-	ps.len_of_join = ft_len_arg(join);
-	ps.new_arg = malloc(((ps.len_of_arg + ps.len_of_join) + 1)
-			* sizeof(char *));
-	ps.new_arg[0] = NULL;
-	if (arg != NULL)
+	while (((*tmp_x) != NULL && (*tmp_x)->next != NULL && ((*tmp_x)->state == G
+				&& (*tmp_x)->next->state == G)) && (((*tmp_x)->type == '\"'
+				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
+				&& (*tmp_x)->next->type == '\''))
+		&& ((*tmp_x)->next->next != NULL && ((*tmp_x)->next->next->type != 32
+				|| (*tmp_x)->next->next->type == '$')))
 	{
-		while (arg[ps.idx] != NULL)
-		{
-			ps.new_arg[ps.j] = ft_strdup(arg[ps.idx]);
-			ps.j++;
-			ps.idx++;
-		}
+		(*tmp_x) = (*tmp_x)->next;
+		(*tmp_x) = (*tmp_x)->next;
 	}
-	ps.idx = 0;
-	while (join[ps.idx])
-		ps.new_arg[ps.j++] = ft_strdup(join[ps.idx++]);
-	ps.new_arg[ps.j] = NULL;
-	ft_free_argment(arg);
-	return (ps.new_arg);
+	if (ft_check_null(arr_join, new_node, tmp_x))
+		return (1);
+	return (0);
 }
 
 int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,

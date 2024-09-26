@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/25 14:38:08 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:10:06 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,23 @@ void	ft_get_word(char *s, t_idx *var, t_splitor **x)
 	}
 	ft_add(x, ft_lstnew(ft_substr(s, var->start, var->len), var->len, WORD,
 			var->state));
+}
+
+void	ft_get_char(char *s, t_idx *var, t_splitor **x)
+{
+	var->len++;
+	if (s[var->i] && s[var->i] == '$')
+		ft_get_env(s, var, x);
+	else
+	{
+		if (s[var->i] && ((s[var->i] == '>' && s[var->i + 1] == '>')
+				|| (s[var->i] == '<' && s[var->i + 1] == '<')))
+			ft_her_dir(x, var, s);
+		else
+			ft_add(x, ft_lstnew(ft_substr(s, var->start, var->len), var->len,
+					ft_get_token(s[var->i]), ft_get_state(var, s[var->i])));
+	}
+	var->i++;
 }
 
 int	ft_lexer(char *s, t_splitor **x)

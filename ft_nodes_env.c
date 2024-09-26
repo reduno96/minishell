@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_nodes_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/25 20:46:30 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:59:26 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,38 +33,31 @@ void	ft_go_to_env(char **s, char *arg, int *i, t_environment **my_env)
 
 char	*ft_expand(char *arg, t_environment **my_env)
 {
-	int		i;
-	char	*s;
-	char	*num;
+	t_expand_her	id;
 
-	i = 0;
-	s = NULL;
-	if (my_env == NULL)
-		return NULL;
-	while (arg[i])
+	id.i = 0;
+	id.s = NULL;
+	while (my_env != NULL && arg[id.i])
 	{
-		if (arg[i + 1] == '?')
+		if (ft_search("$\"\"", arg))
+			return (id.s = ft_strdup(""), id.s);
+		else if (arg[id.i] == '$')
 		{
-			num = ft_itoa(g_exit_status);
-			return (s = ft_strdup(num), free(num), s);
+			if (arg[id.i + 1] == '?')
+				return (id.final = ft_itoa(g_exit_status),
+					id.s = ft_strdup(id.final), free(id.final), id.s);
+			id.i++;
+			if (arg[id.i] == '\0')
+				return (id.s = ft_strdup("$"), id.s);
+			if (arg[id.i] == '\"' || arg[id.i] == '\'')
+				return (id.s = ft_strdup("$"), id.s);
+			if (!ft_isalnum(arg[id.i]) || ft_isdigit(arg[id.i]))
+				return (id.s);
+			ft_go_to_env(&id.s, arg, &id.i, my_env);
 		}
-		else if (ft_search("$\"\"", arg))
-{
-			return (s = ft_strdup(""), s);}
-		else if (arg[i] == '$')
-		{
-			i++;
-			if (arg[i] == '\0')
-				return (s = ft_strdup("$"), s);
-			if (arg[i] == '\"' || arg[i] == '\'')
-				return (s = ft_strdup("$"), s);
-			if (!ft_isalnum(arg[i]) || ft_isdigit(arg[i]))
-				return (s);
-			ft_go_to_env(&s, arg, &i, my_env);
-		}
-		i++;
+		id.i++;
 	}
-	return (s);
+	return (id.s);
 }
 
 t_environment	*new_node(void *var, void *data)
@@ -76,7 +69,6 @@ t_environment	*new_node(void *var, void *data)
 		return (NULL);
 	elem->var = var;
 	elem->data = data;
-	// printf("+++++++++++         [%s]\n", elem->data);
 	elem->next = NULL;
 	return (elem);
 }
