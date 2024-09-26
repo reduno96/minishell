@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 15:04:55 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:49:57 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void			hundle_chil_pro(t_here_doc *tmp_her, t_environment **var);
 void			write_in_file(t_here_doc *tmp, char *line, t_environment **var);
 char			*ft_expand_in_her(char *line, t_environment *my_env);
 char			*ft_handle_var(char *line, int *i, t_environment *my_env,
-					char *final);
+					char **final);
 void			delet_files(t_command *cmd);
 void			sig_herdoc(int sig);
 int				count_herdoc(t_command *tmp);
