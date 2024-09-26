@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 11:24:00 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/03 10:43:07 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:11:47 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
-	if (str == NULL)
-		return 0;
 
+	if (str == NULL)
+		return (0);
 	i = 0;
 	while (str[i])
 		i++;

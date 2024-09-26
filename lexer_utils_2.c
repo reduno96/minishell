@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:43:45 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/25 18:21:54 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:54:08 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_her_dir(t_splitor **x, t_idx *var, char *s)
 
 void	ft_else(char *s, t_idx *var)
 {
-	// printf("1\n");
 	var->state = ft_get_state(var, s[var->i]);
 	var->i++;
 	var->len++;
@@ -37,7 +36,6 @@ void	ft_check_env(char *s, t_idx *var)
 	if (s[var->i] && s[var->i] == '$' && ft_isalnum(s[var->i + 1])
 		&& !ft_check_input(s[var->i + 1]))
 	{
-		// printf("2\n");
 		if (s[var->i] && ft_isdigit(s[var->i + 1]))
 		{
 			if (s[var->i] && ft_isdigit(s[var->i + 1]))
@@ -61,18 +59,15 @@ void	ft_check_env(char *s, t_idx *var)
 	else if (s[var->i] && s[var->i] == '$' && !ft_isalnum(s[var->i + 1])
 		&& !ft_check_input(s[var->i + 1]))
 	{
-		// printf("3\n");
 		while (s[var->i] && s[var->i] == '$' && !ft_isalnum(s[var->i + 1])
 			&& !ft_check_input(s[var->i + 1]))
 		{
-			// printf("1\n");
 			var->state = ft_get_state(var, s[var->i++]);
 			var->len++;
 		}
 	}
 	else
 	{
-		// printf("4\n");
 		var->state = ft_get_state(var, s[var->i]);
 	}
 }

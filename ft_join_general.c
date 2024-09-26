@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_join_general.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:16:53 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 16:59:32 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:22:11 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ char	**ft_word(t_splitor **tmp_x, t_environment *my_env, int j,
 		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
+			printf("1\n");
 			ft_split_expand(arr_join, s, 1);
 		}
 		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)

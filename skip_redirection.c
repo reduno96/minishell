@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skip_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:53:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/25 16:43:01 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:58:02 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	ft_check_ambiguous(t_splitor *tmp_x, t_environment *my_env)
 {
 	char	*s;
 	char	**str;
-
+	int i = 0;
 	s = NULL;
 	while ((tmp_x) != NULL && (tmp_x)->state == G && !redirection(tmp_x)
-		&& tmp_x->type != ' ')
+		&& tmp_x->type != ' ' && tmp_x->type != '|')
 	{
 		if ((tmp_x) != NULL && tmp_x->type == '$' && tmp_x->state == G)
 		{
