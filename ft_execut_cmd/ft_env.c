@@ -14,15 +14,14 @@
 
 void	ft_env(t_environment **var)
 {
-	if(var == NULL || *var == NULL)
-		return ;
-
 	t_environment	*ptr;
 
+	if (var == NULL || *var == NULL)
+		return ;
 	ptr = *var;
 	while (ptr != NULL)
 	{
-		if (ptr->data == NULL )
+		if (ptr->data == NULL)
 		{
 			ptr = ptr->next;
 		}

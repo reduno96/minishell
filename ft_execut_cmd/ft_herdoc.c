@@ -25,7 +25,7 @@ void	hundle_chil_pro(t_here_doc *tmp_her, t_environment **var)
 			exit(EXIT_SUCCESS);
 		if (ft_strcmp(line, tmp_her->store) == 0)
 		{
-		free(line);
+			free(line);
 			exit(EXIT_SUCCESS);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:39:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/26 11:53:47 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:57:06 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,11 @@ void	ft_write_in_pipe(t_pipe *hd_p, int i)
 
 void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
 {
-
 	if (hd_p->pids[i] == 0)
 	{
 		ft_write_in_pipe(hd_p, i);
-		if (test_redir_here_doc(hd_p->tmp_cmd))
+		if (test_redir(hd_p->tmp_cmd))
 			hundle_redirections(hd_p->tmp_cmd);
-
 		if (built_in_exist(hd_p->tmp_cmd) == 1)
 		{
 			built_in(var, hd_p->tmp_cmd);
@@ -115,7 +113,7 @@ void	handle_pipe(t_command *list, t_environment **var)
 	t_pipe	hd_p;
 	int		i;
 
-	hd_p.num_cmd = num_pipe(list) +1;
+	hd_p.num_cmd = num_pipe(list) + 1;
 	hd_p.pipefd = return_pipe(hd_p.num_cmd);
 	hd_p.tmp_cmd = list;
 	hd_p.pids = (pid_t *)malloc(sizeof(pid_t) * hd_p.num_cmd);

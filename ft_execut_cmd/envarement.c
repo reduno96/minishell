@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:55:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 20:26:28 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:43:46 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	len_var(t_environment *var)
 {
 	t_environment	*tmp;
-	int			size;
+	int				size;
 
 	if (var == NULL)
 		return (0);
@@ -31,8 +31,8 @@ int	len_var(t_environment *var)
 
 char	**array_env(t_environment **var)
 {
-	t_envar		arry;
-	int			i;
+	t_envar			arry;
+	int				i;
 	t_environment	*tmp_cmd;
 
 	tmp_cmd = *var;
@@ -82,17 +82,17 @@ char	*ft_join(char *s1, char *s2)
 	ptr[i] = '\0';
 	return (ptr);
 }
+
 int	ft_check_built(t_command *list)
 {
-	 t_command *tmp;
-	 
-	tmp = list;
-	if( ft_strcmp(tmp->content, "export") == 0 && tmp->arg[1] != NULL )
-		return 1;
-	if( ft_strcmp(tmp->content, "unset") == 0 && tmp->arg[1] != NULL )
-		return 1;
-	if( ft_strcmp(tmp->content, "cd") == 0)
-		return 1;
-	return 0;	
-}
+	t_command	*tmp;
 
+	tmp = list;
+	if (ft_strcmp(tmp->content, "export") == 0 && tmp->arg[1] != NULL)
+		return (1);
+	if (ft_strcmp(tmp->content, "unset") == 0 && tmp->arg[1] != NULL)
+		return (1);
+	if (ft_strcmp(tmp->content, "cd") == 0)
+		return (1);
+	return (0);
+}

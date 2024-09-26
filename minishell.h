@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 18:49:57 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:32:18 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void			add_back_node_her(t_here_doc **her, t_here_doc *new_her);
 char			**get_len(char **args, t_redirect *redir);
 char			*git_type_redir(t_redirect *redir);
 char			**ft_new_args(char **args, t_redirect *redir);
-int				test_redir_here_doc(t_command *list);
+int				test_redir(t_command *list);
 
 /////////////////////////  execut_cmd  //////////////////////////
 int				pipe_exist(t_command *list);
@@ -204,7 +204,7 @@ int				chech_fork(int pid);
 void			ft_cd(t_environment **var, t_command *list, char **env);
 void			complete_cd(char *path, char *ptr, char **env);
 void			complete_cd_1(t_environment **var, char *path, char **env);
-void			ft_setenv_list(t_environment **var, char *old, char **env);
+void			ft_setenv_list(t_environment **var, char *old, char **env, char *path);
 t_environment	*find_env(t_environment *my_var, char *old);
 void			printf_error_cd(char *s, int exit);
 
@@ -243,4 +243,5 @@ char			*ft_getenv(char *path, char **env);
 void			free_pid_pipe(int *pids, int **pipefd, int num_cmd);
 char			*ft_join(char *s1, char *s2);
 int				ft_check_built(t_command *list);
+void			print_error_amb( int ext);
 #endif

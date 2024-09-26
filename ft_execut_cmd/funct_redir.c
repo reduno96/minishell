@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:33:07 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/18 21:35:36 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:58:02 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*git_type_redir(t_redirect *redir)
 // 	return (new);
 // }
 
-int	test_redir_here_doc(t_command *list)
+int	test_redir(t_command *list)
 {
 	t_redirect	*tmp;
 

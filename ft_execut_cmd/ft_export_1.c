@@ -27,7 +27,7 @@ void	print_export(t_environment **var)
 	ptr = *var;
 	while (ptr != NULL)
 	{
-		if (ptr->data == NULL )
+		if (ptr->data == NULL)
 			printf("declare -x %s\n", (char *)ptr->var);
 		else if (ptr->data != NULL && ptr->data[0] == '='
 			&& ptr->data[1] == '\0')

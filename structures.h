@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 15:00:42 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:39:54 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ typedef struct s_expand_her
 	char				*final;
 	char				*s;
 }						t_expand_her;
+
+typedef struct path_cmd
+{
+	char	*path;
+	char	**list;
+	char	*tmp;
+}						t_path_cmd;
+
+
 
 typedef enum e_token
 {

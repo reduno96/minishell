@@ -17,9 +17,9 @@ t_here_doc	*new_node_her(char *file, int fd, int x, int is_expand)
 	t_here_doc	*elem;
 	char		*tmp_line;
 	char		*path_file;
-	char *it;
+	char		*it;
 
- 	it = ft_itoa(x);
+	it = ft_itoa(x);
 	elem = (t_here_doc *)malloc(sizeof(t_here_doc));
 	if (!elem)
 		return (NULL);

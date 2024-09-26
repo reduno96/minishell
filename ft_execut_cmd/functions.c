@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/26 12:12:13 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:40:42 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,32 +86,30 @@ char	*ft_path_cmd(char **list, char *ptr, char *tmp)
 
 char	*path_command(char *ptr, char **env)
 {
-	char	*path;
-	char	**list;
-	char	*tmp;
+	t_path_cmd	path_cmd;
 
-	tmp = NULL;
-	if(ptr[0] == '\0' )
+	path_cmd.tmp = NULL;
+	if (ptr[0] == '\0')
 	{
 		ft_putstr_fd("minishell: command not found\n", 2);
 		g_exit_status = 127;
 		exit(127);
 	}
-	if (ptr == NULL || *env == NULL || env == NULL )
+	if (ptr == NULL || *env == NULL || env == NULL)
 		return (NULL);
 	if (ptr[0] == '.')
 		return (ptr);
-	path = ft_getenv("PATH", env);
-	if (path == NULL)
-		path = getcwd(NULL, 0);
-	if (!path)
+	path_cmd.path = ft_getenv("PATH", env);
+	if (path_cmd.path == NULL)
+		path_cmd.path = getcwd(NULL, 0);
+	if (!path_cmd.path)
 	{
 		ft_putstr_fd("No such file or directory\n", 2);
 		g_exit_status = 127;
 		exit(EXIT_FAILURE);
 	}
-	list = ft_split(path, ':');
-	return (ft_path_cmd(list, ptr, tmp));
+	path_cmd.list = ft_split(path_cmd.path, ':');
+	return (ft_path_cmd(path_cmd.list, ptr, path_cmd.tmp));
 }
 
 void	ft_error(char *str, char *ptr)
@@ -119,9 +117,6 @@ void	ft_error(char *str, char *ptr)
 	(void)ptr;
 	(void)str;
 	ft_putstr_fd(ptr, 2);
-	// ft_putstr_fd(str, 2);
 	ft_putstr_fd(" not a valid identifier\n", 2);
-
-	// ft_putstr_fd("': not a valid identifier\n", 2);
 	g_exit_status = 1;
 }

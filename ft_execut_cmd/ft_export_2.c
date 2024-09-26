@@ -60,7 +60,7 @@ int	test_exist(t_environment **var, char **list)
 	ptr = *var;
 	while (ptr)
 	{
-		if ( list[0] != NULL && ft_strcmp(ptr->var, list[0]) == 0)
+		if (list[0] != NULL && ft_strcmp(ptr->var, list[0]) == 0)
 		{
 			if (list[1] != NULL && ft_strcmp(ptr->data, list[1]) == 0)
 				return (0);

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 14:04:51 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:19:26 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_is_valid(char *str)
 		return (0);
 	if (ft_isdigit(str[0]) || str[0] == '\0')
 	{
-		ft_error(str, "unset :`");
+		ft_error(str, "minishell :");
 		return (1);
 	}
 	i = 0;
@@ -45,7 +45,7 @@ int	check_is_valid(char *str)
 		if (str[i] < '0' || (str[i] >= ':' && str[i] <= '@') || (str[i] >= '['
 				&& str[i] <= '^') || str[i] >= '{' || str[i] == '`')
 		{
-			ft_error(str, "unset :`");
+			ft_error(str, "minishell :");
 			return (1);
 		}
 		i++;
@@ -106,17 +106,20 @@ void	ft_unset(t_environment **var, t_command *list)
 	ptr = (*var)->var;
 	while (list->arg[i])
 	{
-		if (list->arg[1][0]  == '-')
+		if (list->arg[1][0] == '-')
 		{
 			ft_putstr_fd("invalid option\n", 2);
 			g_exit_status = 2;
 			return ;
 		}
 		if (check_is_valid(list->arg[i]) == 1)
-			return ;
-		delet_first(var, ptr);
-		delet_environment(var, list->arg[i]);
-		i++;
+			i++;
+		else
+		{
+			delet_first(var, ptr);
+			delet_environment(var, list->arg[i]);
+			i++;
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 16:42:08 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:59:39 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	hundle_redirections(t_command *list)
 
 void	run_command(t_command *list, t_environment **var)
 {
-	int	heredoc_fd;
+	int			heredoc_fd;
 
 	heredoc_fd = -1;
-	if (herdoc_exist(list) == 1 && pipe_exist(list) == 0 && test_redir_here_doc(list) == 0)
+	if (herdoc_exist(list) == 1 && !pipe_exist(list) && !test_redir(list))
 	{
 		heredoc_fd = hundle_file_herdoc(list);
 		if (heredoc_fd != -1)
@@ -111,7 +111,6 @@ void	ft_exute(t_environment **var, t_command *cmd)
 	int			pid;
 
 	list = cmd;
-
 	if (execut_her_built(var, list) == true)
 	{
 		return ;
@@ -133,8 +132,3 @@ void	ft_exute(t_environment **var, t_command *cmd)
 	}
 	delet_files(cmd);
 }
-
-
-
-
-

@@ -6,17 +6,16 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 18:00:04 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:08:27 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_setenv_list(t_environment **var, char *old, char **env)
+void	ft_setenv_list(t_environment **var, char *old, char **env, char *path)
 {
 	t_environment	*my_var;
 	t_environment	*my_var_1;
-	char		*path;
 
 	my_var = *var;
 	my_var_1 = *var;
@@ -24,15 +23,15 @@ void	ft_setenv_list(t_environment **var, char *old, char **env)
 	if (my_var != NULL)
 	{
 		free(my_var->data);
-		my_var->data =NULL;
-		if(ft_getenv("PWD",env) != NULL)
+		my_var->data = NULL;
+		if (ft_getenv("PWD", env) != NULL)
 			my_var->data = ft_strdup(ft_getenv("PWD", env));
 	}
 	my_var_1 = find_env(*var, "PWD");
 	if (my_var_1 != NULL)
 	{
 		free(my_var_1->data);
-			my_var_1->data =NULL;
+		my_var_1->data = NULL;
 		path = getcwd(NULL, 0);
 		if (path != NULL)
 		{
@@ -85,9 +84,11 @@ void	complete_cd(char *path, char *ptr, char **env)
 
 void	ft_cd(t_environment **var, t_command *list, char **env)
 {
-	env = array_env(var);
 	char	*path;
+	char	*ptr;
 
+	ptr = NULL;
+	env = array_env(var);
 	if (list->arg[1] == NULL || list->arg[1][0] == '\0')
 	{
 		path = ft_getenv("HOME", env);
@@ -107,5 +108,5 @@ void	ft_cd(t_environment **var, t_command *list, char **env)
 		else
 			complete_cd_1(var, path, env);
 	}
-	ft_setenv_list(var, "OLDPWD", env);
+	ft_setenv_list(var, "OLDPWD", env, ptr);
 }
