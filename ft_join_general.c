@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:16:53 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 15:01:26 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:32:44 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,9 @@ char	**ft_word(t_splitor **tmp_x, t_environment *my_env, int j,
 	char	*s;
 
 	s = NULL;
-	printf("==>%s\n", (*tmp_x)->in);
 	while ((*tmp_x) != NULL && ((*tmp_x)->state == G && (*tmp_x)->type != ' '
-			&& (*tmp_x)->type != '|' && (!redirection(*tmp_x)
-				&& (*tmp_x)->state == G) && !quotes(*tmp_x)))
+			&& (*tmp_x)->type != '|' && (!redirection(*tmp_x) && !quotes(*tmp_x)
+				&& (*tmp_x)->state == G)))
 	{
 		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
