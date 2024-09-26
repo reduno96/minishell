@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:22:56 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 10:51:57 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:51:31 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ void	execution_cmd(t_command *list, char **new)
 		ptr = path_command(new[0], list->ar_env);
 	if (!ptr )
 	{
-		ft_putstr_fd("command not found\n", 2);
+		ft_putstr_fd("minishell: command not found\n", 2);
 		g_exit_status = 127;
 		exit(127);
 	}
-	ft_access(ptr, new);
+	ft_access(ptr, new , list->ar_env);
 	if (execve(ptr, new, list->ar_env) == -1)
 	{
 		free(ptr);

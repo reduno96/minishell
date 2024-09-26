@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:33:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 16:44:52 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:48:25 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void	hundle_redir_out(char *file, int amb)
 	}
 	if (file == NULL || file[0]== '\0')
 	{
-		ft_putstr_fd(" No such file or directory\n", 2);
+		ft_putstr_fd("minishell: No such file or directory\n", 2);
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
-		perror("open");
+		ft_putstr_fd("minishell: No such file or directory\n", 2);
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
@@ -82,7 +82,7 @@ void	hundle_redir_in(char *file, int amb)
 	}
 	if (file == NULL || file[0]== '\0')
 	{
-		ft_putstr_fd(" No such file or directory\n", 2);
+		ft_putstr_fd("minishell: No such file or directory\n", 2);
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
@@ -108,13 +108,13 @@ void	hundle_dredir_out(char *file, int amb)
 
 	if (amb == 1)
 	{
-		ft_putstr_fd(" No such file or directory\n", 2);
+		ft_putstr_fd("minishell: No such file or directory\n", 2);
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	if (file == NULL || file[0]== '\0')
 	{
-		ft_putstr_fd(" No such file or directory\n", 2);
+		ft_putstr_fd("minishell: No such file or directory\n", 2);
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
@@ -122,7 +122,7 @@ void	hundle_dredir_out(char *file, int amb)
 	fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		perror("open");
+		ft_putstr_fd("minishell: No such file or directory\n", 2);
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}

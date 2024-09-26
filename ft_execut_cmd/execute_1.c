@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:21:29 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 18:28:11 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:52:48 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,28 @@ int	is_directory(char *path)
 	return (0);
 }
 
-void	ft_access_2(char *ptr, char **str)
+void	ft_access_2(char *ptr, char **str , char **env_v)
 {
-	if (access(ptr, F_OK) == -1 || access(ptr, X_OK) == -1 || ptr[0] == '\0')
+	if (access(ptr, F_OK) == -1 )
 	{
-		ft_putstr_fd("minishell:", 2);
-		ft_putstr_fd(": command not found\n", 2);
-		if (ptr != str[0])
-			free(ptr);
-		g_exit_status = 127;
-		exit(127);
+		if(ft_getenv("PATH" , env_v) == NULL)
+		{
+			ft_putstr_fd("minishell:", 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			if (ptr != str[0])
+				free(ptr);
+			g_exit_status = 127;
+			exit(127);
+		}
+		if(access(ptr, X_OK) == -1 )
+		{
+			ft_putstr_fd("minishell:", 2);
+			ft_putstr_fd(": command not found\n", 2);
+			if (ptr != str[0])
+				free(ptr);
+			g_exit_status = 127;
+			exit(127);
+		}
 	}
 	else if (is_directory(ptr))
 	{
@@ -47,15 +59,16 @@ void	ft_access_2(char *ptr, char **str)
 
 void	printf_error_exit(char *ptr, char **str, char *s, int exit)
 {
+	(void)str;
 	ft_putstr_fd(ptr, 2);
 	ft_putchar_fd(':', 2);
 	ft_putstr_fd(s, 2);
-	if (ptr != str[0])
-		free(ptr);
+	// if (ptr != str[0])
+	// 	free(ptr);
 	g_exit_status = exit;
 }
 
-void	ft_access_1(char *ptr, char **str)
+void	ft_access_1(char *ptr, char **str , char **env_v)
 {
 	
 	if (ptr[ft_strlen(ptr) - 1] == '/')
@@ -73,11 +86,11 @@ void	ft_access_1(char *ptr, char **str)
 	}
 	else
 	{
-		ft_access_2(ptr, str);
+		ft_access_2(ptr, str, env_v);
 	}
 }
 
-void	ft_access(char *ptr, char **str)
+void	ft_access(char *ptr, char **str , char 	**env_v)
 {
 
 	if (ptr == NULL || str == NULL || *str == NULL )
@@ -100,5 +113,5 @@ void	ft_access(char *ptr, char **str)
 			exit(126);
 		}
 	}
-	ft_access_1(ptr, str);
+	ft_access_1(ptr, str , env_v);
 }

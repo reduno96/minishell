@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 15:20:47 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:53:26 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ void		parent_proc(int pid);
 void		hundle_redirections(t_command *list);
 void		run_command(t_command *list, t_environment **var);
 int			is_directory(char *path);
-void		ft_access_2(char *ptr, char **str);
-void		ft_access_1(char *ptr, char **str);
-void		ft_access(char *ptr, char **str);
+void		ft_access_2(char *ptr, char **str,  char **env_v);
+void		ft_access_1(char *ptr, char **str,  char **env_v);
+void		ft_access(char *ptr, char **str,  char **env_v);
 int			built_in_exist(t_command *list);
 void		built_in(t_environment **var, t_command *list);
 void		execution_cmd(t_command *list, char **new);

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:39:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 19:07:00 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:53:47 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
 			close(hd_p->heredoc_fd);
 		}
 		hd_p->ptr = path_command(hd_p->tmp_cmd->content, array_env(var));
-		ft_access(hd_p->ptr, array_env(var));
+		ft_access(hd_p->ptr, array_env(var), array_env(var));
 		if (execve(hd_p->ptr, hd_p->tmp_cmd->arg, array_env(var)) == -1)
 			exit(1);
 	}

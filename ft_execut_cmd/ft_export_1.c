@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:49:01 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 20:42:24 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:08:56 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	print_export(t_environment **var)
 	ptr = *var;
 	while (ptr != NULL)
 	{
-		if (ptr->data != NULL && ptr->data[0] == '\0')
-			printf("Declare -x %s\n", (char *)ptr->var);
+		if (ptr->data == NULL )
+			printf("declare -x %s\n", (char *)ptr->var);
 		else if (ptr->data != NULL && ptr->data[0] == '='
 			&& ptr->data[1] == '\0')
-			printf("Declare -x %s=\"\"\n", (char *)ptr->var);
+			printf("declare -x %s=\"\"\n", (char *)ptr->var);
 		else
-			printf("Declare -x %s=\"%s\"\n", (char *)ptr->var,
+			printf("declare -x %s=\"%s\"\n", (char *)ptr->var,
 				(char *)ptr->data);
 		ptr = ptr->next;
 	}

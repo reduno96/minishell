@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 19:19:28 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:12:13 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,9 @@ void	ft_error(char *str, char *ptr)
 	(void)ptr;
 	(void)str;
 	ft_putstr_fd(ptr, 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
+	// ft_putstr_fd(str, 2);
+	ft_putstr_fd(" not a valid identifier\n", 2);
+
+	// ft_putstr_fd("': not a valid identifier\n", 2);
 	g_exit_status = 1;
 }

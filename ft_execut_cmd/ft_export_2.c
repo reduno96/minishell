@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:02:41 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/24 15:17:44 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:21:53 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ int	test_exist(t_environment **var, char **list)
 	ptr = *var;
 	while (ptr)
 	{
-		if (ft_strcmp(ptr->var, list[0]) == 0)
+		if ( list[0] != NULL && ft_strcmp(ptr->var, list[0]) == 0)
 		{
-			if (ft_strcmp(ptr->data, list[1]) == 0)
+			if (list[1] != NULL && ft_strcmp(ptr->data, list[1]) == 0)
 				return (0);
 			else
 			{
-				if (list[1][0] == '\0')
+				if (list[1] == NULL)
 					return (0);
 				free(ptr->data);
 				ptr->data = ft_strdup(list[1]);

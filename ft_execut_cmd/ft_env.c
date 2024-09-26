@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 16:26:14 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/26 10:23:56 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_env(t_environment **var)
 	ptr = *var;
 	while (ptr != NULL)
 	{
-		if (ptr->data == NULL || ptr->data[0] == '\0')
+		if (ptr->data == NULL )
 		{
 			ptr = ptr->next;
 		}
