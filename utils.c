@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 16:47:08 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 12:58:38 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:28:59 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ int	ft_len_arg(char **arg)
 char	**ft_split_expand(char ***arr_join, char *s, int bo)
 {
 	char	**expand_split;
-	char *tre;
+	char	*tre;
+	int		i;
+
 	(void)bo;
-	int i = 0;
-	while(s[i] && s[i] == ' ')
+	i = 0;
+	while (s != NULL && s[i] && s[i] == ' ')
 		i++;
 	tre = malloc(i + 1);
 	if (s != NULL)
@@ -40,7 +42,7 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 	else
 		return (NULL);
 	i = 0;
-	while(s[i] && s[i] == ' ')
+	while (s != NULL && s[i] && s[i] == ' ')
 	{
 		tre[i] = s[i];
 		i++;
@@ -48,19 +50,16 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 	tre[i] = '\0';
 	i = 0;
 
-	if (tre != NULL && tre[i] == ' ')
+	if (s != NULL && s[0] == ' ')
 	{
-		tre = ft_strjoin(tre, expand_split[0]);
-		free(expand_split[0]);
-		expand_split[0] = ft_strdup(tre);
-		free(tre);
+		ft_join_arr(arr_join, tre);
 	}
 	if (ft_len_arg(expand_split) == 1)
 		ft_join_arr(arr_join, expand_split[0]);
 	else
 		*arr_join = ft_join_arg(*arr_join, expand_split);
 	ft_free_argment(expand_split);
-		free(s);
+	free(s);
 	return (*arr_join);
 }
 
