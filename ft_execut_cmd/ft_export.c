@@ -66,18 +66,21 @@ void	export_1(t_environment **var, t_command *str, int *i)
 {
 	char			*ptr_1;
 	char			*ptr_2;
+
+	ptr_2 = NULL;
 	t_environment	*elem;
 	char			**list;
 
 	list = split_line(str->arg[*i]);
-	ptr_1 = ft_strdup(list[0]);
-	ptr_2 = ft_strdup(list[1]);
 	if (test_exist(var, list) == 0)
 	{
 		(*i)++;
 	}
 	else if (test_exist(var, list) == 1)
 	{
+		ptr_1 = ft_strdup(list[0]);
+		if (list[1] != NULL)
+			ptr_2 = ft_strdup(list[1]);
 		elem = new_node(ptr_1, ptr_2);
 		add_back_node(var, elem);
 		(*i)++;
