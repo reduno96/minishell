@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 16:47:08 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/27 15:17:30 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:58:23 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 
 	expand_split = NULL;
 	(void)bo;
-	if (s != NULL && s[0] != '\0')
+	if (s != NULL /* && s[0] == '\0' */)
 	{
 		expand_split = ft_split(s, ' ');
 		if (ft_len_arg(expand_split) > 0)
@@ -70,7 +70,8 @@ char	**ft_split_expand(char ***arr_join, char *s, int bo)
 				*arr_join = ft_join_arg(*arr_join, expand_split);
 			else
 			{
-				ft_join_arr(arr_join, s);
+				ft_join_arr(arr_join, expand_split[0]);
+				*arr_join = ft_join_arg(*arr_join, expand_split + 1);
 			}
 		}
 		free(s);

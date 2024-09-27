@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/27 15:40:21 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/27 17:07:20 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	complete_cd(char *path, char *ptr, char **env)
 	if (ptr[1] == '/')
 		path = ft_strjoin_1(path, ft_strchr(ptr, '/'));
 	if (path == NULL)
-		printf_error_cd("cd: HOME not set", 1);
+		printf_error_cd("minishell: cd: HOME not set", 1);
 	else if (chdir(path) == -1)
 	{
 		g_exit_status = 1;

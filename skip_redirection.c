@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:53:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/27 12:46:16 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:16:27 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
 			|| (*tmp_x)->type == '\''))
 	{
 		*is_amb = ft_check_ambiguous((*tmp_x), my_env);
-		if (*is_amb == 1)
+		if (*is_amb == 1 && her == 1)
 			return (NULL);
 		ft_double_and_sigle(tmp_x, my_env, her, &str);
 		if (str != NULL)
@@ -90,7 +90,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G)
 	{
 		*is_amb = ft_check_ambiguous((*tmp_x), my_env);
-		if (*is_amb == 1)
+		if (*is_amb == 1 && her == 1)
 			return (NULL);
 		ft_word(tmp_x, my_env, her, &str);
 		if (str != NULL)
