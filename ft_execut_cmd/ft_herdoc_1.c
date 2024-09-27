@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:04:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/26 19:16:22 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:00:02 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,29 @@
 
 void	delet_files(t_command *cmd)
 {
-	t_command	*tmp;
-	t_here_doc	*her;
-	char		*ptr;
-	char		*file;
-	char		*lll;
+	t_delet	del;
 
-	tmp = cmd;
-	while (tmp != NULL)
+	del.tmp = cmd;
+	while (del.tmp != NULL)
 	{
-		her = tmp->her;
-		while (her != NULL)
+		del.her = del.tmp->her;
+		while (del.her != NULL)
 		{
-			lll = ft_itoa(her->idx);
-			ptr = ft_strjoin_1(her->store, lll);
-			free(ft_itoa(her->idx));
-			file = ft_join("/tmp/herdoc", ptr);
-			free(ptr);
-			if (unlink(file) != 0)
+			del.itoa = ft_itoa(del.her->idx);
+			del.ptr = ft_strjoin_1(del.her->store, del.itoa);
+			free(ft_itoa(del.her->idx));
+			del.file = ft_join("/tmp/herdoc", del.ptr);
+			free(del.ptr);
+			if (unlink(del.file) != 0)
 			{
 				g_exit_status = 1;
 				perror("");
 			}
-			free(file);
-			her = her->next;
-			free(lll);
+			free(del.file);
+			del.her = del.her->next;
+			free(del.itoa);
 		}
-		tmp = tmp->next;
+		del.tmp = del.tmp->next;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:21:29 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/26 19:36:10 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:18:06 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ int	is_directory(char *path)
 	return (0);
 }
 
-void	printf_error_exit(char *ptr, char **str, char *s, int exit)
+void	printf_error_exit(char *ptr, char **str, char *s, int ext)
 {
 	(void)str;
 	ft_putstr_fd(ptr, 2);
 	ft_putchar_fd(':', 2);
 	ft_putstr_fd(s, 2);
-	g_exit_status = exit;
+	g_exit_status = ext;
+	exit(ext);
 }
 
 void	ft_access_2(char *ptr, char **str, char **env_v)

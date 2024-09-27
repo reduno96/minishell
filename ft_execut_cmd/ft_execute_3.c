@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:02:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/26 18:46:17 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:34:27 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	built_in(t_environment **var, t_command *list)
 	if (ft_strcmp(list->content, "exit") == 0)
 		(ft_exit(var, list));
 	if (ft_strcmp(list->content, "cd") == 0)
-		(ft_cd(var, list, list->ar_env));
+		(ft_cd(var, list));
 	if (ft_strcmp(list->content, "pwd") == 0)
 		(ft_pwd(list));
 	if (ft_strcmp(list->content, "export") == 0)

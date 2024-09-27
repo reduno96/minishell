@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 19:32:18 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:34:15 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int				chech_fork(int pid);
 
 // ///////            Commands         //////////////////////////////////
 
-void			ft_cd(t_environment **var, t_command *list, char **env);
+void			ft_cd(t_environment **var, t_command *list);
 void			complete_cd(char *path, char *ptr, char **env);
 void			complete_cd_1(t_environment **var, char *path, char **env);
 void			ft_setenv_list(t_environment **var, char *old, char **env, char *path);

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 15:56:24 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/27 15:43:34 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ok(void)
 {
-	system("leaks minishell");
+	system("leaks -q minishell");
 }
 
 void	handle_sig(int sig)
@@ -83,7 +83,7 @@ int	main(int ac, char **av, char **env)
 	t_environment	*my_env;
 	t_command		*cmd;
 
-	// atexit(ok);
+	atexit(ok);
 	signal(SIGINT, handle_sig);
 	signal(SIGQUIT, SIG_IGN);
 	(void)ac;

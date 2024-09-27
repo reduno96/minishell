@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 18:39:54 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:33:50 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef struct s_idx
 	int					in_d;
 }						t_idx;
 
+typedef struct ft_cd
+{
+	char	*path;
+	char	*ptr;
+	char **env;
+} 				t_cd;
 typedef struct s_expand_her
 {
 	int					i;
@@ -157,4 +163,15 @@ typedef struct s_ps
 	int					idx;
 	int					j;
 }						t_ps;
+
+typedef struct  delet_file
+{
+	t_command	*tmp;
+	t_here_doc	*her;
+	char		*ptr;
+	char		*file;
+	char		*itoa;
+}						t_delet;
+
+
 #endif
