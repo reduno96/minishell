@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:02:41 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/26 12:21:53 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:07:34 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,22 @@ int	test_exist(t_environment **var, char **list)
 	return (1);
 }
 
+void	free_args_1(char **args)
+{
+	int	i;
+
+	if (args == NULL)
+		return ;
+	i = 0;
+	while (args[i] != NULL)
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
+	args = NULL;
+}
+
 void	free_args(char **args)
 {
 	int	i;
@@ -96,25 +112,4 @@ void	free_args(char **args)
 	}
 	free(args);
 	args = NULL;
-}
-
-char	*first_word(char *ptr)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	while (ptr[i] && ptr[i] != '=')
-		i++;
-	str = (char *)malloc(sizeof(char) * (i + 1));
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (ptr[i] && ptr[i] != '=')
-	{
-		str[i] = ptr[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
 }

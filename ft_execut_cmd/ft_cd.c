@@ -84,7 +84,7 @@ void	complete_cd(char *path, char *ptr, char **env)
 
 void	ft_cd(t_environment **var, t_command *list)
 {
-	t_cd  t;
+	t_cd	t;
 
 	t.ptr = NULL;
 	t.env = array_env(var);

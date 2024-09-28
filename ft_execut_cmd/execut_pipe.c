@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:39:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/26 17:57:06 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/27 21:49:57 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
 	}
 }
 
-void	ft_func(t_pipe *hd_p, int i, t_environment **var)
+void	ft_run_pipes(t_pipe *hd_p, int i, t_environment **var)
 {
 	if (hd_p->tmp_cmd->is_pipe == 1)
 		hd_p->tmp_cmd = hd_p->tmp_cmd->next;
@@ -128,7 +128,7 @@ void	handle_pipe(t_command *list, t_environment **var)
 	while (i < hd_p.num_cmd)
 	{
 		signal(SIGINT, sig_herdoc);
-		ft_func(&hd_p, i, var);
+		ft_run_pipes(&hd_p, i, var);
 		i++;
 	}
 	close_free_wait(hd_p.pids, hd_p.pipefd, hd_p.num_cmd);

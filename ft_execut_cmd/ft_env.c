@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/26 10:23:56 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 10:51:09 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,17 @@ void	ft_env(t_environment **var)
 	ptr = *var;
 	while (ptr != NULL)
 	{
-		if (ptr->data == NULL)
-		{
-			ptr = ptr->next;
-		}
-		else if (ptr->data[0] == '=' && ptr->data[1] == '\0')
+		if (ptr->data != NULL && ptr->data[0] == '\0')
 		{
 			printf("%s=\n", ptr->var);
-			ptr = ptr->next;
 		}
-		else
+		else if (ptr->data != NULL)
 		{
 			printf("%s=%s\n", ptr->var, ptr->data);
-			ptr = ptr->next;
 		}
+		ptr = ptr->next;
 	}
+	return ;
 }
 
 int	count_herdoc(t_command *tmp)

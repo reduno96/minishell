@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:02:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/27 10:34:27 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:13:45 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,32 @@ int	ft_str_eqal(char *ptr, char c)
 		i++;
 	}
 	return (0);
+}
+
+void	delet_files(t_command *cmd)
+{
+	t_delet	del;
+
+	del.tmp = cmd;
+	while (del.tmp != NULL)
+	{
+		del.her = del.tmp->her;
+		while (del.her != NULL)
+		{
+			del.itoa = ft_itoa(del.her->idx);
+			del.ptr = ft_strjoin_1(del.her->store, del.itoa);
+			free(ft_itoa(del.her->idx));
+			del.file = ft_join("/tmp/herdoc", del.ptr);
+			free(del.ptr);
+			if (unlink(del.file) != 0)
+			{
+				g_exit_status = 1;
+				perror("");
+			}
+			free(del.file);
+			del.her = del.her->next;
+			free(del.itoa);
+		}
+		del.tmp = del.tmp->next;
+	}
 }

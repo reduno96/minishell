@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 08:32:43 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/24 16:59:45 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:53:05 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_join_next(char ***arr_join, t_splitor **tmp_x, t_environment *my_env,
 		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			ft_split_expand(arr_join, s, 1);
+			ft_split_expand(arr_join, s);
 		}
 		else
 		{
@@ -46,7 +46,7 @@ void	ft_join_double(char ***arr_join, t_splitor **tmp_x,
 		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			ft_split_expand(arr_join, s, 1);
+			ft_split_expand(arr_join, s);
 		}
 		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
 		{
@@ -74,7 +74,7 @@ char	**ft_double_and_sigle(t_splitor **tmp_x, t_environment *my_env, int j,
 			&& j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			ft_split_expand(arr_join, s, 0);
+			ft_split_expand(arr_join, s);
 		}
 		else if ((*tmp_x) != NULL && ((*tmp_x)->state == D
 				|| (*tmp_x)->state == S))

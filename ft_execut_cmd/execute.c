@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:46:31 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/27 11:24:41 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:34:29 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	hundle_redirections(t_command *list)
 
 void	run_command(t_command *list, t_environment **var)
 {
-	int			heredoc_fd;
+	int	heredoc_fd;
 
 	heredoc_fd = -1;
 	if (herdoc_exist(list) == 1 && !pipe_exist(list) && !test_redir(list))
@@ -67,7 +67,7 @@ void	run_command(t_command *list, t_environment **var)
 			close(heredoc_fd);
 		}
 		hundle_redirections(list);
-		execution_cmd(list, list->arg);
+		execution_cmd(var, list, list->arg);
 		exit(g_exit_status);
 	}
 	else if (pipe_exist(list) == 1)
@@ -88,18 +88,16 @@ bool	execut_her_built(t_environment **var, t_command *cmd)
 	int			her;
 
 	list = cmd;
-	list->ar_env = NULL;
-	list->ar_env = array_env(var);
 	her = run_herdoc_built(var, cmd);
 	if (her == -1)
 	{
-		delet_files(cmd);
+		delet_files(list);
 		g_exit_status = 1;
 		return (true);
 	}
 	if (her == 1)
 	{
-		delet_files(cmd);
+		delet_files(list);
 		return (true);
 	}
 	return (false);
@@ -112,9 +110,7 @@ void	ft_exute(t_environment **var, t_command *cmd)
 
 	list = cmd;
 	if (execut_her_built(var, list) == true)
-	{
 		return ;
-	}
 	pid = fork();
 	if (chech_fork(pid) == 1)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/27 10:33:50 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:01:08 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef struct s_idx
 
 typedef struct ft_cd
 {
-	char	*path;
-	char	*ptr;
-	char **env;
-} 				t_cd;
+	char				*path;
+	char				*ptr;
+	char				**env;
+}						t_cd;
 typedef struct s_expand_her
 {
 	int					i;
@@ -43,12 +43,10 @@ typedef struct s_expand_her
 
 typedef struct path_cmd
 {
-	char	*path;
-	char	**list;
-	char	*tmp;
+	char				*path;
+	char				**list;
+	char				*tmp;
 }						t_path_cmd;
-
-
 
 typedef enum e_token
 {
@@ -164,14 +162,27 @@ typedef struct s_ps
 	int					j;
 }						t_ps;
 
-typedef struct  delet_file
+typedef struct delet_file
 {
-	t_command	*tmp;
-	t_here_doc	*her;
-	char		*ptr;
-	char		*file;
-	char		*itoa;
+	t_command			*tmp;
+	t_here_doc			*her;
+	char				*ptr;
+	char				*file;
+	char				*itoa;
 }						t_delet;
 
+typedef struct check_var
+{
+	char				*ptr_1;
+	char				*ptr_2;
+	t_environment		*elem;
+	char				**list;
+}						t_check_var;
+
+typedef struct s_dir
+{
+	char				*final;
+	char				**str;
+}						t_dir;
 
 #endif

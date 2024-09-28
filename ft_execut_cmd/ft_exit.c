@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 23:39:14 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/27 15:12:17 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:14:10 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,13 @@ void	ft_exit_comp(int len, char **ptr)
 		&& !is_number(ptr[2]))
 	{
 		g_exit_status = 255;
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(" numeric argument required\n", 2);
+		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 		exit(255);
 	}
 	else if (len > 2)
 	{
 		g_exit_status = 1;
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(" too many arguments\n", 2);
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 	}
 }
 

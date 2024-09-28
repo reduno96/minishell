@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/27 10:34:15 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:53:10 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_redirect		*ft_last_redir(t_redirect *lst);
 
 void			ft_join_arr(char ***arr_join, char *in);
 int				ft_len_arg(char **arg);
-char			**ft_split_expand(char ***join, char *s, int bo);
+char			**ft_split_expand(char ***join, char *s);
 
 //////////////////////  Execution  ////////////////////////
 
@@ -135,7 +135,7 @@ void			ft_access_1(char *ptr, char **str, char **env_v);
 void			ft_access(char *ptr, char **str, char **env_v);
 int				built_in_exist(t_command *list);
 void			built_in(t_environment **var, t_command *list);
-void			execution_cmd(t_command *list, char **new);
+void			execution_cmd(t_environment **var, t_command *list, char **new);
 int				run_herdoc_built(t_environment **var, t_command *cmd);
 
 int				ft_strcmp(char *s1, char *s2);
@@ -182,14 +182,13 @@ char			**ft_new_args(char **args, t_redirect *redir);
 int				test_redir(t_command *list);
 
 /////////////////////////  execut_cmd  //////////////////////////
+void			ft_run_pipes(t_pipe *hd_p, int i, t_environment **var);
 int				pipe_exist(t_command *list);
 int				num_pipe(t_command *list);
 char			*command_execut(t_command *list);
 int				**return_pipe(int num_cmd);
 t_command		*get_list_command(t_command *list);
 void			close_free_wait(int *pids, int **pipefd, int num_cmd);
-void			child_process(int **pipefd, int i, t_command *tmp_cmd,
-					char **env, int num_cmd);
 
 /////////////////////////  signal  //////////////////////////
 
@@ -204,7 +203,8 @@ int				chech_fork(int pid);
 void			ft_cd(t_environment **var, t_command *list);
 void			complete_cd(char *path, char *ptr, char **env);
 void			complete_cd_1(t_environment **var, char *path, char **env);
-void			ft_setenv_list(t_environment **var, char *old, char **env, char *path);
+void			ft_setenv_list(t_environment **var, char *old, char **env,
+					char *path);
 t_environment	*find_env(t_environment *my_var, char *old);
 void			printf_error_cd(char *s, int exit);
 
@@ -231,6 +231,7 @@ int				exist_redir(char *ptr);
 void			affiche_export(char **str, t_environment **var);
 int				ft_is_num(char *str);
 void			free_args(char **args);
+void			free_args_1(char **args);
 char			*first_word(char *ptr);
 
 char			**array_env(t_environment **var);
@@ -243,5 +244,5 @@ char			*ft_getenv(char *path, char **env);
 void			free_pid_pipe(int *pids, int **pipefd, int num_cmd);
 char			*ft_join(char *s1, char *s2);
 int				ft_check_built(t_command *list);
-void			print_error_amb( int ext);
+void			print_error_amb(int ext);
 #endif

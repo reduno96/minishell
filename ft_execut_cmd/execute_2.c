@@ -6,30 +6,32 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:22:56 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/26 18:05:52 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:16:12 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	execution_cmd(t_command *list, char **new)
+void	execution_cmd(t_environment **var, t_command *list, char **new)
 {
 	char	*ptr;
+	char	**array;
 
-	if (list == NULL || new == NULL || new[0] == NULL || list->ar_env == NULL)
+	array = array_env(var);
+	if (list == NULL || new == NULL || new[0] == NULL || array == NULL)
 		return ;
 	if (new[0][0] == '/')
 		ptr = new[0];
 	else
-		ptr = path_command(new[0], list->ar_env);
+		ptr = path_command(new[0], array);
 	if (!ptr)
 	{
 		ft_putstr_fd("minishell: command not found\n", 2);
 		g_exit_status = 127;
 		exit(127);
 	}
-	ft_access(ptr, new, list->ar_env);
-	if (execve(ptr, new, list->ar_env) == -1)
+	ft_access(ptr, new, array);
+	if (execve(ptr, new, array) == -1)
 	{
 		free(ptr);
 		g_exit_status = 127;
@@ -46,7 +48,7 @@ void	run_simple_cmd(t_command *list, t_environment **var)
 	}
 	if (built_in_exist(list) == 0)
 	{
-		execution_cmd(list, list->arg);
+		execution_cmd(var, list, list->arg);
 	}
 }
 

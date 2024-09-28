@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/27 15:31:27 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/27 19:38:29 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	**split_line(char *ptr)
 	char	**arg;
 
 	arg = (char **)malloc(sizeof(char *) * 3);
-	if(arg == NULL )
-		return NULL;
+	if (arg == NULL)
+		return (NULL);
 	if (ft_str_eqal(ptr, '=') == 1)
 	{
 		arg[0] = first_word(ptr);
@@ -60,17 +60,15 @@ int	check_is_valid_1(char *str)
 	}
 	return (0);
 }
-// export FOO$
-// env | grep FOO$
+
 void	export_1(t_environment **var, t_command *str, int *i)
 {
 	char			*ptr_1;
 	char			*ptr_2;
-
-	ptr_2 = NULL;
 	t_environment	*elem;
 	char			**list;
 
+	ptr_2 = NULL;
 	list = split_line(str->arg[*i]);
 	if (test_exist(var, list) == 0)
 	{
@@ -85,18 +83,15 @@ void	export_1(t_environment **var, t_command *str, int *i)
 		add_back_node(var, elem);
 		(*i)++;
 	}
-
 	free_args(list);
 	return ;
 }
 
 int	ft_check_var(t_environment **var, t_command *str)
 {
-	char			*ptr_1;
-	char			*ptr_2;
-	t_environment	*elem;
-	char			**list;
+	t_check_var	check;
 
+	check.ptr_2 = NULL;
 	if (*var == NULL)
 	{
 		if (str->arg[1] == NULL)
@@ -109,11 +104,13 @@ int	ft_check_var(t_environment **var, t_command *str)
 		}
 		if (check_is_valid_1(str->arg[1]) == 1)
 			return (1);
-		list = split_line(str->arg[1]);
-		ptr_1 = ft_strdup(list[0]);
-		ptr_2 = ft_strdup(list[1]);
-		elem = new_node(ptr_1, ptr_2);
-		add_back_node(var, elem);
+		check.list = split_line(str->arg[1]);
+		check.ptr_1 = ft_strdup(check.list[0]);
+		if (check.list[1] != NULL)
+			check.ptr_2 = ft_strdup(check.list[1]);
+		check.elem = new_node(check.ptr_1, check.ptr_2);
+		add_back_node(var, check.elem);
+		free_args(check.list);
 		return (1);
 	}
 	return (0);

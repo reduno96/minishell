@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 19:32:43 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:19:02 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void	print_redirect_list(t_redirect *head)
 	current = head;
 	while (current != NULL)
 	{
-	printf("2\n");
-		 printf("type : %d | %s\n", current->type, current->store);
-		 printf("type : %d \n", current->is_amb);
+		printf("2\n");
+		printf("type : %d | %s\n", current->type, current->store);
+		printf("type : %d \n", current->is_amb);
 		current = current->next;
 	}
 }
 
 void	ft_command(t_splitor **x, t_command **cmd, t_environment *my_env)
 {
-	t_splitor	*tmp_x;
+	t_splitor *tmp_x;
 	t_command **tmp_cmd;
 
 	tmp_cmd = cmd;
@@ -37,42 +37,4 @@ void	ft_command(t_splitor **x, t_command **cmd, t_environment *my_env)
 	while (tmp_x != NULL)
 		ft_add_command(cmd, ft_new_command(&tmp_x, my_env));
 	ft_fill_red(tmp_cmd, x, my_env);
-
-// int			i;
-// 	t_command	*j;
-// 	i = 0;
-// 	j = *cmd;
-// 	while (j != NULL)
-// 	{
-// 		printf("\033[0;32m\n\t++++++++++++++   Command   ++++++++++++++++\n\033[0m");
-// 		if (j->content != NULL)
-// 		{
-// 			printf("Content :		[%s] \n", j->content);
-// 		}
-// 		if (j->arg != NULL && j->arg[0] != NULL)
-// 		{
-// 			printf("Argument :	");
-// 			i = 0; // Initialize i before using it
-// 			while (j->arg[i] != NULL)
-// 			{
-// 				printf(" [%s] ", j->arg[i]);
-// 				i++;
-// 			}
-// 		}
-// 		printf("\n");
-// 		printf("doc :		\n");
-// 		print_redirect_list(j->doc);
-// 		// printf("\n");
-// 		i = 0;
-// 		// printf("HerDoc :		\n");
-// 		// if (j->store_her != NULL && j->store_her[0] != NULL)
-// 		// 	while (j->store_her[i] != NULL)
-// 		// 	{
-// 		// 		if (j->store_her[i] == '\0')
-// 		// 			printf("____in herdoc print_________\n");
-// 		// 		printf("HerDoc ==>> %s \n\n", j->store_her[i]);
-// 		// 		i++;
-// 		// 	}
-// 		j = j->next;
-// 	}
 }

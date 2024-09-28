@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skip_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:53:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/27 18:16:27 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:01:29 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	ft_check_ambiguous(t_splitor *tmp_x, t_environment *my_env)
 	while ((tmp_x) != NULL)
 	{
 		if ((tmp_x)->state == G && (redirection(tmp_x) || tmp_x->type == '|'
-			|| tmp_x->type == ' '))
-			break;
+				|| tmp_x->type == ' '))
+			break ;
 		if ((tmp_x) != NULL && tmp_x->type == '$' && tmp_x->state == G)
 		{
 			s = ft_expand(tmp_x->in, &my_env);
@@ -71,11 +71,10 @@ void	ft_check_quote(t_splitor **tmp_x)
 char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
 		int *is_amb, int her)
 {
-	char	*final;
-	char	**str;
+	t_dir	id;
 
-	str = NULL;
-	final = NULL;
+	id.str = NULL;
+	id.final = NULL;
 	ft_check_quote(tmp_x);
 	if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
 			|| (*tmp_x)->type == '\''))
@@ -83,19 +82,18 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
 		*is_amb = ft_check_ambiguous((*tmp_x), my_env);
 		if (*is_amb == 1 && her == 1)
 			return (NULL);
-		ft_double_and_sigle(tmp_x, my_env, her, &str);
-		if (str != NULL)
-			final = ft_fill_final(str);
+		ft_double_and_sigle(tmp_x, my_env, her, &id.str);
+		if (id.str != NULL)
+			id.final = ft_fill_final(id.str);
 	}
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G)
 	{
 		*is_amb = ft_check_ambiguous((*tmp_x), my_env);
 		if (*is_amb == 1 && her == 1)
 			return (NULL);
-		ft_word(tmp_x, my_env, her, &str);
-		if (str != NULL)
-			final = ft_fill_final(str);
+		ft_word(tmp_x, my_env, her, &id.str);
+		if (id.str != NULL)
+			id.final = ft_fill_final(id.str);
 	}
-	free_args(str);
-	return (final);
+	return (free_args(id.str), id.final);
 }
