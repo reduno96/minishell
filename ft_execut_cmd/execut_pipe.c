@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:39:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/27 21:49:57 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 17:31:21 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,12 @@ void	ft_write_in_pipe(t_pipe *hd_p, int i)
 
 void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
 {
+	char 	**arry;
+
 	if (hd_p->pids[i] == 0)
 	{
 		ft_write_in_pipe(hd_p, i);
+		arry = array_env(var);
 		if (test_redir(hd_p->tmp_cmd))
 			hundle_redirections(hd_p->tmp_cmd);
 		if (built_in_exist(hd_p->tmp_cmd) == 1)
@@ -75,8 +78,9 @@ void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
 			dup2(hd_p->heredoc_fd, STDIN_FILENO);
 			close(hd_p->heredoc_fd);
 		}
-		hd_p->ptr = path_command(hd_p->tmp_cmd->content, array_env(var));
-		ft_access(hd_p->ptr, array_env(var), array_env(var));
+		hd_p->ptr = path_command(hd_p->tmp_cmd->content, arry);
+		free_args(arry);
+		ft_access(hd_p->ptr, array_env(var), hd_p->tmp_cmd->arg);
 		if (execve(hd_p->ptr, hd_p->tmp_cmd->arg, array_env(var)) == -1)
 			exit(1);
 	}

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:04:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 13:12:12 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:56:17 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,31 @@
 
 char	*ft_handle_var(char *line, int *i, t_environment *my_env, char **final)
 {
-	int		len;
-	int		j;
-	char	*s;
+	t_had_var  hand;
 
-	len = 0;
+	hand.len = 0;
 	(*i)++;
-	j = *i;
+	hand.j = *i;
 	if (line[*i] == '?')
 	{
 		(*i)++;
-		len++;
+		hand.len++;
 	}
 	else
 	{
 		while (line[*i] && (ft_isalnum(line[*i])))
 		{
 			(*i)++;
-			len++;
+			hand.len++;
 		}
 	}
 	(*i)--;
-	j--;
-	s = ft_expand(ft_substr(line, j, ++len), &my_env);
-	*final = ft_strjoin(*final, s);
-	return (free(s), *final);
+	hand.j--;
+	hand.sub = ft_substr(line, hand.j, ++hand.len);
+	hand.s = ft_expand(hand.sub , &my_env);
+	*final = ft_strjoin(*final, hand.s);
+	free(hand.sub);
+	return (free(hand.s), *final);
 }
 
 void	hundl_her_expand(t_expand_her *idx, char *line)

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:58:38 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/28 14:01:08 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:55:52 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,5 +184,13 @@ typedef struct s_dir
 	char				*final;
 	char				**str;
 }						t_dir;
+typedef struct had_var
+{
+	int		len;
+	int		j;
+	char	*s;
+	char *sub;
+
+}		t_had_var;
 
 #endif

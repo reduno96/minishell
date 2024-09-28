@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:21:29 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 13:01:18 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:43:58 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	printf_error_exit(char *ptr, char **str, char *s, int ext)
 {
 	(void)str;
 	ft_putstr_fd(ptr, 2);
-	ft_putchar_fd(':', 2);
 	ft_putstr_fd(s, 2);
 	g_exit_status = ext;
 	exit(ext);
