@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 17:16:53 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/28 13:52:49 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:04:37 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	**ft_word(t_splitor **tmp_x, t_environment *my_env, int j,
 		if ((*tmp_x)->type == '$' && (*tmp_x)->state == G && j == 1)
 		{
 			s = ft_expand((*tmp_x)->in, &my_env);
-			ft_split_expand(arr_join);
+			ft_split_expand(arr_join, s);
 		}
 		else if ((*tmp_x)->type == '$' && (*tmp_x)->state == D && j == 1)
 		{
