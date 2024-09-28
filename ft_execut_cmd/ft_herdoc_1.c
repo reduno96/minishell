@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:04:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/27 10:00:02 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/27 19:54:37 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,18 @@ char	*ft_handle_var(char *line, int *i, t_environment *my_env, char **final)
 	len = 0;
 	(*i)++;
 	j = *i;
-	while (line[*i] && (ft_isalnum(line[*i]) || line[*i] == '?'))
+	if (line[*i] == '?')
 	{
 		(*i)++;
 		len++;
+	}
+	else
+	{
+		while (line[*i] && (ft_isalnum(line[*i])))
+		{
+			(*i)++;
+			len++;
+		}
 	}
 	(*i)--;
 	j--;
