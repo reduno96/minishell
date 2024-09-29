@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:39:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 17:31:21 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/28 20:55:51 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_write_in_pipe(t_pipe *hd_p, int i)
 
 void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
 {
-	char 	**arry;
+	char	**arry;
 
 	if (hd_p->pids[i] == 0)
 	{
@@ -80,7 +80,7 @@ void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
 		}
 		hd_p->ptr = path_command(hd_p->tmp_cmd->content, arry);
 		free_args(arry);
-		ft_access(hd_p->ptr, array_env(var), hd_p->tmp_cmd->arg);
+		ft_access(hd_p->ptr, hd_p->tmp_cmd->arg, array_env(var));
 		if (execve(hd_p->ptr, hd_p->tmp_cmd->arg, array_env(var)) == -1)
 			exit(1);
 	}

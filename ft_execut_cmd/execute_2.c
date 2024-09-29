@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:22:56 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 12:16:12 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:14:06 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	execution_cmd(t_environment **var, t_command *list, char **new)
 	char	*ptr;
 	char	**array;
 
-	array = array_env(var);
-	if (list == NULL || new == NULL || new[0] == NULL || array == NULL)
+	if (list == NULL || new == NULL || new[0] == NULL)
 		return ;
+	array = array_env(var);
 	if (new[0][0] == '/')
 		ptr = new[0];
 	else
@@ -31,7 +31,8 @@ void	execution_cmd(t_environment **var, t_command *list, char **new)
 		exit(127);
 	}
 	ft_access(ptr, new, array);
-	if (execve(ptr, new, array) == -1)
+	free_args(array);
+	if (execve(ptr, new, array_env(var)) == -1)
 	{
 		free(ptr);
 		g_exit_status = 127;

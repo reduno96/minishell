@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/29 10:55:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/09/29 12:14:26 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	main(int ac, char **av, char **env)
 	t_environment	*my_env;
 	t_command		*cmd;
 
-	atexit(ok);
 	signal(SIGINT, handle_sig);
 	signal(SIGQUIT, SIG_IGN);
 	(void)ac;
