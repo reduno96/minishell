@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:47 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/28 13:19:02 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:54:40 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	print_redirect_list(t_redirect *head)
 
 void	ft_command(t_splitor **x, t_command **cmd, t_environment *my_env)
 {
-	t_splitor *tmp_x;
-	t_command **tmp_cmd;
+	t_splitor	*tmp_x;
+	t_command	**tmp_cmd;
 
 	tmp_cmd = cmd;
 	tmp_x = *x;

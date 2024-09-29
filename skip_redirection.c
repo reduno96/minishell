@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skip_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:53:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/28 14:01:29 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:06:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_check_ambiguous(t_splitor *tmp_x, t_environment *my_env)
 		{
 			s = ft_expand(tmp_x->in, &my_env);
 			if (s == NULL || (s != NULL && (s[0] == ' ' || s[0] == '\0')))
-				return (1);
+				return (free(s), 1);
 			str = ft_split(s, ' ');
 			if (ft_len_arg(str) > 1)
 				return (free(s), ft_free_argment(str), 1);

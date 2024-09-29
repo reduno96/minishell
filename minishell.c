@@ -3,26 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:08:06 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/28 14:04:26 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:55:19 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ok(void)
-{
-	system("leaks -q minishell");
-}
 
 void	handle_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
 		printf("\n");
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
@@ -50,7 +45,7 @@ void	ft_reader(t_splitor *x, t_command *cmd, t_environment **my_env)
 		str_input = readline("minishell ");
 		if (!str_input)
 		{
-			// printf("exit\n");
+			printf("exit\n");
 			exit(g_exit_status);
 		}
 		if (ft_strlen(str_input) > 0)
@@ -75,7 +70,7 @@ int	main(int ac, char **av, char **env)
 	t_environment	*my_env;
 	t_command		*cmd;
 
-	// atexit(ok);
+	atexit(ok);
 	signal(SIGINT, handle_sig);
 	signal(SIGQUIT, SIG_IGN);
 	(void)ac;

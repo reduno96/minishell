@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 21:04:16 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 16:56:17 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:52:47 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_handle_var(char *line, int *i, t_environment *my_env, char **final)
 {
-	t_had_var  hand;
+	t_had_var	hand;
 
 	hand.len = 0;
 	(*i)++;
@@ -35,7 +35,7 @@ char	*ft_handle_var(char *line, int *i, t_environment *my_env, char **final)
 	(*i)--;
 	hand.j--;
 	hand.sub = ft_substr(line, hand.j, ++hand.len);
-	hand.s = ft_expand(hand.sub , &my_env);
+	hand.s = ft_expand(hand.sub, &my_env);
 	*final = ft_strjoin(*final, hand.s);
 	free(hand.sub);
 	return (free(hand.s), *final);

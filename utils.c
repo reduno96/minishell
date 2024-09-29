@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 16:47:08 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/28 13:52:24 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/29 10:54:01 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**ft_split_expand(char ***arr_join, char *s)
 	char	**expand_split;
 
 	expand_split = NULL;
-	if (s != NULL )
+	if (s != NULL)
 	{
 		expand_split = ft_split(s, ' ');
 		if (ft_len_arg(expand_split) > 0)
@@ -44,7 +44,6 @@ char	**ft_split_expand(char ***arr_join, char *s)
 				*arr_join = ft_join_arg(*arr_join, expand_split + 1);
 			}
 		}
-		free(s);
 	}
 	else
 	{
@@ -53,7 +52,7 @@ char	**ft_split_expand(char ***arr_join, char *s)
 		else if (s[0] == '\0')
 			return (ft_join_arr(arr_join, s), *arr_join);
 	}
-	return (ft_free_argment(expand_split), *arr_join);
+	return (free(s), ft_free_argment(expand_split), *arr_join);
 }
 
 char	**ft_join_arg(char **arg, char **join)
