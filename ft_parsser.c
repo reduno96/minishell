@@ -12,21 +12,6 @@
 
 #include "minishell.h"
 
-void	print_redirect_list(t_redirect *head)
-{
-	t_redirect	*current;
-
-	(void)head;
-	current = head;
-	while (current != NULL)
-	{
-		printf("2\n");
-		printf("type : %d | %s\n", current->type, current->store);
-		printf("type : %d \n", current->is_amb);
-		current = current->next;
-	}
-}
-
 void	ft_command(t_splitor **x, t_command **cmd, t_environment *my_env)
 {
 	t_splitor	*tmp_x;
