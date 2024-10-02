@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:39:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 20:55:51 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/02 13:52:43 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	close_free_wait(int *pids, int **pipefd, int num_cmd)
 	{
 		if (waitpid(pids[j], &status, 0) == -1)
 		{
-			perror("waitpid");
 			g_exit_status = status;
 			exit(status);
 		}
@@ -57,14 +56,12 @@ void	ft_write_in_pipe(t_pipe *hd_p, int i)
 	}
 }
 
-void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
+void	ft_pipes_cmd(t_pipe *hd_p, int i, t_environment **var)
 {
-	char	**arry;
-
 	if (hd_p->pids[i] == 0)
 	{
 		ft_write_in_pipe(hd_p, i);
-		arry = array_env(var);
+		hd_p->arry = array_env(var);
 		if (test_redir(hd_p->tmp_cmd))
 			hundle_redirections(hd_p->tmp_cmd);
 		if (built_in_exist(hd_p->tmp_cmd) == 1)
@@ -78,11 +75,13 @@ void	ft_func_2(t_pipe *hd_p, int i, t_environment **var)
 			dup2(hd_p->heredoc_fd, STDIN_FILENO);
 			close(hd_p->heredoc_fd);
 		}
-		hd_p->ptr = path_command(hd_p->tmp_cmd->content, arry);
-		free_args(arry);
-		ft_access(hd_p->ptr, hd_p->tmp_cmd->arg, array_env(var));
-		if (execve(hd_p->ptr, hd_p->tmp_cmd->arg, array_env(var)) == -1)
-			exit(1);
+		hd_p->ptr = path_command(hd_p->tmp_cmd->content, hd_p->arry);
+		ft_access(hd_p->ptr, hd_p->tmp_cmd->arg, hd_p->arry);
+		if (execve(hd_p->ptr, hd_p->tmp_cmd->arg, hd_p->arry) == -1)
+		{
+			free_args(hd_p->arry);
+			exit(0);
+		}
 	}
 }
 
@@ -103,7 +102,7 @@ void	ft_run_pipes(t_pipe *hd_p, int i, t_environment **var)
 		g_exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
-	ft_func_2(hd_p, i, var);
+	ft_pipes_cmd(hd_p, i, var);
 	if (i > 0)
 	{
 		close(hd_p->pipefd[i - 1][0]);

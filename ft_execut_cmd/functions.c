@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 17:25:00 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:31:54 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*path_command(char *ptr, char **env)
 	t_path_cmd	path_cmd;
 
 	path_cmd.tmp = NULL;
-	if (ptr[0] == '\0')
+	if (ptr != NULL && ptr[0] == '\0')
 	{
 		ft_putstr_fd("minishell: command not found\n", 2);
 		g_exit_status = 127;

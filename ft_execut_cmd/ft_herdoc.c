@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 20:55:15 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/25 12:33:04 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:28:18 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ void	hundle_chil_pro(t_here_doc *tmp_her, t_environment **var)
 	{
 		line = readline("> ");
 		if (line == NULL)
+		{
+			g_exit_status = 0;
 			exit(EXIT_SUCCESS);
+		}
 		if (ft_strcmp(line, tmp_her->store) == 0)
 		{
 			free(line);
+			g_exit_status = 0;
 			exit(EXIT_SUCCESS);
 		}
 		else
