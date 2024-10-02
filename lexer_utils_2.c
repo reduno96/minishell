@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:43:45 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 14:12:51 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:50:22 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 	{
 		var->i++;
 		var->state = ft_get_state(var, s[var->i]);
+		var->i++;
 		var->len++;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 08:13:33 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 14:59:26 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:49:32 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_expand(char *arg, t_environment **my_env)
 			if (arg[id.i] == '\0')
 				return (id.s = ft_strdup("$"), id.s);
 			if (arg[id.i] == '\"' || arg[id.i] == '\'')
-				return (id.s = ft_strdup("$"), id.s);
+				return (id.s = ft_strdup(""), id.s);
 			if (!ft_isalnum(arg[id.i]) || ft_isdigit(arg[id.i]))
 				return (id.s);
 			ft_go_to_env(&id.s, arg, &id.i, my_env);
