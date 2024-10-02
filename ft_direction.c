@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:24:52 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/10/02 10:45:59 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:46:10 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_check_redirection(t_pre *id, t_environment *my_env)
 				&& id->tmp_x->state == G))
 			ft_fill_her(id, my_env, final);
 	}
-	if (id->tmp_x != NULL && id->tmp_x->type != '|')
+	if (id->tmp_x != NULL && !(id->tmp_x->type == '|' && id->tmp_x->state == G))
 		id->tmp_x = id->tmp_x->next;
 }
 
