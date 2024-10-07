@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/10/07 11:16:05 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:39:14 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ int	ft_check_null(char ***arr_join, t_command **new_node, t_splitor **tmp_x)
 int	ft_ckeck_repeate_quote(char ***arr_join, t_command **new_node,
 		t_splitor **tmp_x)
 {
-		while (((*tmp_x) != NULL && (*tmp_x)->next != NULL && ((*tmp_x)->state == G
+	while (((*tmp_x) != NULL && (*tmp_x)->next != NULL && ((*tmp_x)->state == G
 				&& (*tmp_x)->next->state == G)) && (((*tmp_x)->type == '\"'
 				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
 				&& (*tmp_x)->next->type == '\''))
-		&& ((*tmp_x)->next->next != NULL && (redirection((*tmp_x)->next->next) != 1 || (*tmp_x)->next->next->type == 32
-				|| (*tmp_x)->next->next->type == '$')))
+		&& ((*tmp_x)->next->next != NULL
+			&& (redirection((*tmp_x)->next->next) != 1
+				&& (*tmp_x)->next->next->type != 32)))
 	{
 		(*tmp_x) = (*tmp_x)->next;
 		(*tmp_x) = (*tmp_x)->next;
