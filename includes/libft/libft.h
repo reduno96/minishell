@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 22:48:56 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/05 18:11:22 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/04 23:26:36 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../../minishell.h"
 # include "../../structures.h"
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 
 size_t		ft_strlen(const char *s);

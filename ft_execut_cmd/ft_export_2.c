@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:02:41 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 12:07:34 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/05 19:11:02 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,8 @@ void	affiche_export(char **str, t_environment **var)
 	i = 0;
 	while (str[i] != NULL)
 	{
-		if (str[i][0] != '\0')
-		{
-			ptr = str[i];
-			count++;
-		}
+		ptr = str[i];
+		count++;
 		i++;
 	}
 	if (count == 1)

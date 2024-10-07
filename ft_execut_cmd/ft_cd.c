@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:45 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/27 17:07:20 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:19:20 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	complete_cd_1(t_environment **var, char *path, char **env)
 		g_exit_status = 1;
 		printf_error_cd("minishell: No such file or directory", 1);
 	}
+	else
+		g_exit_status = 0;
 }
 
 void	complete_cd(char *path, char *ptr, char **env)
@@ -74,7 +76,9 @@ void	complete_cd(char *path, char *ptr, char **env)
 	if (ptr[1] == '/')
 		path = ft_strjoin_1(path, ft_strchr(ptr, '/'));
 	if (path == NULL)
+	{
 		printf_error_cd("minishell: cd: HOME not set", 1);
+	}
 	else if (chdir(path) == -1)
 	{
 		g_exit_status = 1;
@@ -92,7 +96,7 @@ void	ft_cd(t_environment **var, t_command *list)
 	{
 		t.path = ft_getenv("HOME", t.env);
 		if (t.path == NULL)
-			printf_error_cd("cd: HOME not set", 1);
+			printf_error_cd("minishell: cd: HOME not set", 1);
 		else if (chdir(t.path) == -1)
 		{
 			g_exit_status = 1;
@@ -108,5 +112,5 @@ void	ft_cd(t_environment **var, t_command *list)
 			complete_cd_1(var, t.path, t.env);
 	}
 	ft_setenv_list(var, "OLDPWD", t.env, t.ptr);
-	ft_free_argment(t.env);
+	free_args(t.env);
 }

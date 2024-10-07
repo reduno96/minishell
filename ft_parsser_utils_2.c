@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsser_utils_2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:00:12 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/26 14:07:20 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:37:37 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_check_gene_quote(t_command **new_node, t_splitor **tmp_x,
 	else if ((*tmp_x) != NULL && ((*tmp_x)->state == D || (*tmp_x)->state == S))
 	{
 		ft_double_and_sigle(tmp_x, my_env, 1, arr_join);
-		if ((*arr_join)[0] != NULL)
+		if ((*arr_join) != NULL && (*arr_join)[0] != NULL)
 		{
 			(*new_node)->arg = ft_join_arg((*new_node)->arg, (*arr_join));
 			ft_free_argment(*arr_join);

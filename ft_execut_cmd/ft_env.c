@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:49 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 10:51:09 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/04 23:18:37 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ char	*ft_getenv(char *path, char **env)
 		return (NULL);
 	while (env[i] != NULL)
 	{
-		if (ft_strncmp(env[i], path, ft_strlen(path)) == 0)
+		if (ft_strncmp(env[i], path, ft_strlen(path)) == 0
+			&& path[ft_strlen(path)] == '\0')
 		{
 			return (ft_strchr(env[i], '=') + 1);
 		}

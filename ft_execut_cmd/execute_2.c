@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:22:56 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/01 15:43:30 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/04 23:20:02 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	ft_built_in(t_environment **var, t_command *list)
 	if (list->arg[1] != NULL)
 		built_in(var, list);
 	if (ft_strcmp("cd", list->content) == 0 && list->arg[1] == NULL)
+		built_in(var, list);
+	if (ft_strcmp("exit", list->content) == 0 && list->arg[1] == NULL)
 		built_in(var, list);
 	return ;
 }

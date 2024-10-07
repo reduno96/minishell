@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:01 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 13:13:34 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/04 23:11:53 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ t_environment	*find_env(t_environment *my_var, char *old)
 
 void	printf_error_cd(char *s, int exit)
 {
-	g_exit_status = exit;
 	ft_putstr_fd(s, 2);
 	ft_putchar_fd('\n', 2);
+	g_exit_status = exit;
 }
 
 int	herdoc_exist(t_command *list)

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:09 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/29 14:31:54 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/05 12:33:17 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*path_command(char *ptr, char **env)
 		g_exit_status = 127;
 		exit(127);
 	}
-	if (ptr == NULL || *env == NULL || env == NULL)
+	if (ptr == NULL)
 		return (NULL);
 	if (ptr[0] == '.')
 		return (ptr);
@@ -114,7 +114,6 @@ char	*path_command(char *ptr, char **env)
 
 void	ft_error(char *str, char *ptr)
 {
-	(void)ptr;
 	(void)str;
 	ft_putstr_fd(ptr, 2);
 	ft_putstr_fd(" not a valid identifier\n", 2);

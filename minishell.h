@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:49:25 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/29 10:47:53 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/04 23:26:32 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <sys/types.h>

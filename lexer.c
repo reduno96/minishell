@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:25:28 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/29 10:47:37 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/04 23:27:29 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_lexer(char *s, t_splitor **x)
 	t_idx	var;
 	int		str_input_len;
 
-	str_input_len = strlen(s);
+	str_input_len = ft_strlen(s);
 	var.i = 0;
 	var.in_d = -1;
 	var.in_s = -1;

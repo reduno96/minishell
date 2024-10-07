@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/27 19:38:45 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/05 10:57:33 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	delet_first(t_environment **var, char *ptr)
 	if (var == NULL || *var == NULL || ptr == NULL)
 		return ;
 	env = (*var);
-	if (ft_strncmp(env->var, ptr, ft_strlen(ptr)) == 0)
+	if (ft_strcmp(env->var, ptr) == 0)
 	{
 		*var = delet_first_node(var);
 	}
@@ -76,7 +76,7 @@ void	delet_environment(t_environment **var, char *str)
 	prev = NULL;
 	while (env)
 	{
-		if (ft_strncmp(env->var, str, ft_strlen(str)) == 0)
+		if (ft_strcmp(env->var, str) == 0)
 		{
 			if (prev)
 				prev->next = env->next;
@@ -104,19 +104,15 @@ void	ft_unset(t_environment **var, t_command *list)
 		return ;
 	i = 1;
 	ptr = (*var)->var;
+	g_exit_status = 0;
 	while (list->arg[i])
 	{
-		if (list->arg[1][0] == '-')
-		{
-			ft_putstr_fd("invalid option\n", 2);
-			g_exit_status = 2;
-			return ;
-		}
 		if (check_is_valid(list->arg[i]) == 1)
 			i++;
 		else
 		{
-			delet_first(var, ptr);
+			if (ft_strcmp(ptr, list->arg[1]) == 0)
+				delet_first(var, ptr);
 			delet_environment(var, list->arg[i]);
 			i++;
 		}

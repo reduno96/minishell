@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:43:45 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/10/02 14:45:43 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:35:53 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_get_env(char *s, t_idx *var, t_splitor **x)
 {
 	if ((s[var->i] && s[var->i + 1] && s[var->i + 2] && s[var->i] == '$')
 		&& ((s[var->i + 1] == '\"' && s[var->i + 2] == '\"') || (s[var->i
-				+ 1] == '\'' && s[var->i + 2] == '\'')))
+					+ 1] == '\'' && s[var->i + 2] == '\'')))
 	{
 		var->state = G;
 		var->i++;

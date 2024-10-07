@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:19:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/27 19:38:29 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/05 19:11:15 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_is_valid_1(char *str)
 		ft_error(str, "minishell:");
 		return (1);
 	}
-	if (ft_isdigit(str[0]))
+	if (ft_isdigit(str[0]) || str[i] == '\0')
 	{
 		ft_error(str, "minishell:");
 		return (1);
@@ -96,10 +96,9 @@ int	ft_check_var(t_environment **var, t_command *str)
 	{
 		if (str->arg[1] == NULL)
 			return (1);
-		if (str->arg[1][0] == '-')
+		if (str->arg[1] != NULL && str->arg[1][0] == '\0')
 		{
-			ft_putstr_fd("invalid option\n", 2);
-			g_exit_status = 2;
+			ft_error(str->arg[1], "minishell:");
 			return (1);
 		}
 		if (check_is_valid_1(str->arg[1]) == 1)
@@ -111,7 +110,6 @@ int	ft_check_var(t_environment **var, t_command *str)
 		check.elem = new_node(check.ptr_1, check.ptr_2);
 		add_back_node(var, check.elem);
 		free_args(check.list);
-		return (1);
 	}
 	return (0);
 }
@@ -121,24 +119,17 @@ void	ft_export(t_environment **var, t_command *str)
 	int	i;
 
 	i = 1;
-	if (ft_check_var(var, str))
+	g_exit_status = 0;
+	if (ft_check_var(var, str) == 1)
 		return ;
 	while (str->arg[i] != NULL)
 	{
-		if (str->arg[i][0] == '\0')
-			i++;
-		else
+		if (check_is_valid_1(str->arg[i]) == 1)
 		{
-			if (str->arg[1][0] == '-')
-			{
-				ft_putstr_fd("invalid option\n", 2);
-				g_exit_status = 2;
-				return ;
-			}
-			if (check_is_valid_1(str->arg[i]) == 1)
-				return ;
-			export_1(var, str, &i);
+			i++;
 		}
+		else
+			export_1(var, str, &i);
 	}
 	affiche_export(str->arg, var);
 }
