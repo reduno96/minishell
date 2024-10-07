@@ -6,7 +6,7 @@
 /*   By: rel-mora <rel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 19:53:40 by rel-mora          #+#    #+#             */
-/*   Updated: 2024/09/29 10:06:19 by rel-mora         ###   ########.fr       */
+/*   Updated: 2024/10/07 10:44:32 by rel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,32 @@ int	ft_check_ambiguous(t_splitor *tmp_x, t_environment *my_env)
 	return (0);
 }
 
-void	ft_check_quote(t_splitor **tmp_x)
+int	ft_check_quote(t_splitor **tmp_x, char **final)
 {
-	while (((*tmp_x) != NULL && (*tmp_x)->next != NULL)
-		&& (((*tmp_x)->type == '\"' && (*tmp_x)->next->type == '\"')
-			|| ((*tmp_x)->type == '\'' && (*tmp_x)->next->type == '\'')))
+	while (((*tmp_x) != NULL && (*tmp_x)->next != NULL && ((*tmp_x)->state == G
+				&& (*tmp_x)->next->state == G)) && (((*tmp_x)->type == '\"'
+				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
+				&& (*tmp_x)->next->type == '\''))
+		&& ((*tmp_x)->next->next != NULL
+			&& (redirection((*tmp_x)->next->next) != 1
+				&& (*tmp_x)->next->next->type != 32
+				&& (*tmp_x)->next->next->type == '$')))
 	{
 		(*tmp_x) = (*tmp_x)->next;
 		(*tmp_x) = (*tmp_x)->next;
+		return (1);
 	}
+	if (((*tmp_x) != NULL && (*tmp_x)->next != NULL && ((*tmp_x)->state == G
+				&& (*tmp_x)->next->state == G)) && (((*tmp_x)->type == '\"'
+				&& (*tmp_x)->next->type == '\"') || ((*tmp_x)->type == '\''
+				&& (*tmp_x)->next->type == '\'')))
+	{
+		(*tmp_x) = (*tmp_x)->next;
+		(*tmp_x) = (*tmp_x)->next;
+		*final = ft_strdup("");
+		return (1);
+	}
+	return (0);
 }
 
 char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
@@ -75,16 +92,15 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
 
 	id.str = NULL;
 	id.final = NULL;
-	ft_check_quote(tmp_x);
-	if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
-			|| (*tmp_x)->type == '\''))
+	if (ft_check_quote(tmp_x, &id.final))
+		;
+	else if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
+				|| (*tmp_x)->type == '\''))
 	{
 		*is_amb = ft_check_ambiguous((*tmp_x), my_env);
 		if (*is_amb == 1 && her == 1)
 			return (NULL);
 		ft_double_and_sigle(tmp_x, my_env, her, &id.str);
-		if (id.str != NULL)
-			id.final = ft_fill_final(id.str);
 	}
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G)
 	{
@@ -92,8 +108,8 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
 		if (*is_amb == 1 && her == 1)
 			return (NULL);
 		ft_word(tmp_x, my_env, her, &id.str);
-		if (id.str != NULL)
-			id.final = ft_fill_final(id.str);
 	}
+	if (id.str != NULL)
+		id.final = ft_fill_final(id.str);
 	return (free_args(id.str), id.final);
 }
