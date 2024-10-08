@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:20:01 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/04 23:11:53 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/06 14:09:04 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void	sig_herdoc(int sig)
 {
 	(void)sig;
 	printf("\n");
-	exit(1);
+	exit(130);
 }

@@ -95,7 +95,7 @@ char	*ft_skip_direction(t_splitor **tmp_x, t_environment *my_env,
 	if (ft_check_quote(tmp_x, &id.final))
 		;
 	else if ((*tmp_x) != NULL && (*tmp_x)->state == G && ((*tmp_x)->type == '\"'
-				|| (*tmp_x)->type == '\''))
+			|| (*tmp_x)->type == '\''))
 	{
 		*is_amb = ft_check_ambiguous((*tmp_x), my_env);
 		if (*is_amb == 1 && her == 1)

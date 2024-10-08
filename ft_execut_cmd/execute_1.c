@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:21:29 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/09/28 15:43:58 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/06 12:49:14 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_access_1(char *ptr, char **str, char **env_v)
 void	ft_access(char *ptr, char **str, char **env_v)
 {
 	if (ptr == NULL || str == NULL || *str == NULL)
-		return ;
+		exit(0);
 	if (ft_strncmp(ptr, "./", 2) == 0 || ptr[0] == '/')
 	{
 		if (access(ptr, F_OK) == -1)

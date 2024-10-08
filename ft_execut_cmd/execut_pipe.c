@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:39:52 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/02 13:52:43 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/06 12:58:03 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_pipes_cmd(t_pipe *hd_p, int i, t_environment **var)
 		if (execve(hd_p->ptr, hd_p->tmp_cmd->arg, hd_p->arry) == -1)
 		{
 			free_args(hd_p->arry);
-			exit(0);
+			print_error_exit("minishell: command not found\n", 127);
 		}
 	}
 }

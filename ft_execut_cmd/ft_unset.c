@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 19:06:34 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/05 10:57:33 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:09:22 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	ft_unset(t_environment **var, t_command *list)
 			i++;
 		else
 		{
-			if (ft_strcmp(ptr, list->arg[1]) == 0)
+			if (ft_strncmp(ptr, list->arg[1], ft_strlen(ptr)) == 0)
 				delet_first(var, ptr);
 			delet_environment(var, list->arg[i]);
 			i++;
